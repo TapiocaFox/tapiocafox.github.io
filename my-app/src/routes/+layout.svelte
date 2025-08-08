@@ -43,6 +43,14 @@
 			border-bottom: 0px;
 		}
 
+		a {
+			color: inherit;
+		}
+
+		/* a:visited, a:hover, a:active {
+			color: rgb(0, 0, 0);
+		} */
+
 		/* h1, h2, h3, h4, h5 {
 			margin-block-start: 0.67em;
 			margin-block-end: 0.67em;
@@ -55,6 +63,7 @@
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
 	<a href="/components">[Components]</a>
 	<a href="/glsl">[GLSL]</a>
+	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
 	<a href="https://github.com/TapiocaFox">[GitHub]</a>
 </nav>
