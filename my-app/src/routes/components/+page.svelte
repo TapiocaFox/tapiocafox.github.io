@@ -7,4 +7,13 @@
 <hr class="dashed">
 <hr class="dotted">
 <hr class="solid">
-<hr class="rounded">
+<ul>
+  <li>Item A</li>
+  <li>Item B</li>
+  <li>Item C</li>
+</ul>
+<ol>
+  <li>Item 1</li>
+  <li>Item 2</li>
+  <li>Item 3</li>
+</ol>
