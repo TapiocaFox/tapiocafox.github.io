@@ -1,0 +1,88 @@
+:global {
+    /* html, body {
+        height: 100vh;
+    } */
+
+    .align-with-nav {
+        padding: 0 8px;	
+    }
+    /* Grid */
+    div.grid {
+        display: grid;
+        grid-template-columns: auto auto auto;
+        justify-items: center;
+        gap: 4px;
+    }
+    div.grid > div.item {
+        background-color: white;
+        border: 1px solid black;
+        text-align: center;
+    }
+    /* Flex grid */
+    div.flex_grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-items: center;
+        gap: 4px;
+    }
+    div.flex_grid > div.item {
+        background-color: white;
+        border: 1px solid black;
+        text-align: center;
+    }
+
+    /* Header/Content Format */
+    div.header_content_format {
+        display: flex;
+        flex-flow: column;
+        height: 100vh;
+    }
+    div.header_content_format > div.header {
+        flex: 0 1 auto;
+        /* background-color: blue; */
+    }
+    div.header_content_format > div.content {
+        flex: 1 1 auto;
+        /* background-color: red; */
+    }
+    /* Dashed border */
+    hr.dashed {
+        border-top: 1px dashed black;
+        border-bottom: 0px;
+    }
+
+    /* Full height with nav offset */
+    .full_height_with_nav_offset {
+        height: calc(100vh - 8px - 1rem) !important;
+    }
+
+    /* Dotted border */
+    hr.dotted {
+        border-top: 1px dotted black;
+        border-bottom: 0px;
+    }
+
+    /* Solid border */
+    hr.solid {
+        border-top: 1px solid black;
+        border-bottom: 0px;
+    }
+
+    a {
+        color: inherit;
+    }
+
+    p.annotation {
+        color: grey;
+        font-size: small;
+    }
+
+    /* a:visited, a:hover, a:active {
+        color: rgb(0, 0, 0);
+    } */
+
+    /* h1, h2, h3, h4, h5 {
+        margin-block-start: 0.67em;
+        margin-block-end: 0.67em;
+    } */
+}

@@ -5,8 +5,25 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<link rel="icon" href="" />
+	<link rel="stylesheet" href="" />
 </svelte:head>
+
+<style>
+  @import 'main.css';
+  #main-nav {
+		/* background-color: rgb(72, 72, 72); */
+		background-color: grey;
+		color: white;
+		padding: 4px 8px;
+		font-family: 'Courier New', Courier, monospace;
+	}
+	
+	#main-nav > a {
+		color: white;
+		text-decoration: none;
+		margin: 0 0px;
+	}
+</style>
 
 <nav id="main-nav">
 	<a href="/">TapiocaFox</a>

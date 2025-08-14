@@ -1,4 +1,5 @@
 <script lang="ts">
+  import BackButton from '$lib/components/BackButton.svelte';
 	let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
@@ -39,12 +40,12 @@
 </ol>
 <div>
   <p style:display="inline">Items count: </p>
-  <input style:width="32px" bind:value={grid_item_num}/>
+  <input style:width="48px" type="number" bind:value={grid_item_num}/>
 </div>
 <div>
   <p style:display="inline">Random item width from to: </p>
-  From <input style:width="32px" type="number" bind:value={item_min_width}/> to
-  <input style:width="32px" type="number" bind:value={item_max_width}/>
+  From <input style:width="48px" type="number" bind:value={item_min_width}/> to
+  <input style:width="48px" type="number" bind:value={item_max_width}/>
 </div>
 <hr class="dashed">
 <div class="grid" style:margin="8px 0" style:width="360px">
@@ -58,3 +59,5 @@
     <div class="item" style:width={getRandomPx(item_min_width, item_max_width)} style:height="64px"><p>{num+1}</p></div>
   {/each}
 </div>
+<hr class="dashed">
+<BackButton text="A back button"/>
