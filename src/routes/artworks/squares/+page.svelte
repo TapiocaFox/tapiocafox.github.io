@@ -1,15 +1,76 @@
 <script lang="ts">
 	import BackButton from '$lib/components/BackButton.svelte';
     import amc_2018 from '$lib/assets/squares/amc_2018.png';
-    let square_list = [amc_2018];
+    import amc_2020 from '$lib/assets/squares/amc_2020.png';
+    import spooky from '$lib/assets/squares/spooky.png';
+    import dukk from '$lib/assets/squares/dukk.png';
+    import nooxy_art from '$lib/assets/squares/nooxy_art.png';
+    import faucet from '$lib/assets/squares/faucet.png';
+    import lunar_new_year from '$lib/assets/squares/lunar_new_year.png';
+    import tna from '$lib/assets/squares/tna.png';
+    import chihuahua from '$lib/assets/squares/chihuahua.png';
+    import crow from '$lib/assets/squares/crow.png';
+    import old_man from '$lib/assets/squares/old_man.png';
+    import shell_with_eye from '$lib/assets/squares/shell_with_eye.png';
+    import eye_with_uuid from '$lib/assets/squares/eye_with_uuid.png';
+    import brain from '$lib/assets/squares/brain.jpg';
+    import games from '$lib/assets/squares/games.png';
+    import rag from '$lib/assets/squares/rag.jpg';
+    import demon from '$lib/assets/squares/demon.jpg';
+    import nsf from '$lib/assets/squares/nsf.png';
+    import wasp from '$lib/assets/squares/wasp.jpg';
+    import mosquito from '$lib/assets/squares/mosquito.jpg';
+    import indigenous from '$lib/assets/squares/indigenous.jpg';
+    import mushroom from '$lib/assets/squares/mushroom.png';
+    import chill_cat from '$lib/assets/squares/chill_cat.jpg';
+    import nooxy from '$lib/assets/squares/nooxy.jpg';
+    import spiral_1 from '$lib/assets/squares/spiral_1.png';
+    import spiral_2 from '$lib/assets/squares/spiral_2.png';
+    import magic_mountain from '$lib/assets/squares/magic_mountain.png';
+    import mini_disc from '$lib/assets/squares/mini_disc.png';
+    import nara_cat from '$lib/assets/squares/nara_cat.png';
+    
+    function shuffle(array: Array<any>) {
+        let currentIndex = array.length;
+
+        // While there remain elements to shuffle...
+        while (currentIndex != 0) {
+
+            // Pick a remaining element...
+            let randomIndex = Math.floor(Math.random() * currentIndex);
+            currentIndex--;
+
+            // And swap it with the current element.
+            [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+    }
+
+    let squares = [amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, rag, demon, nsf, wasp, mosquito, indigenous, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nara_cat];
+    shuffle(squares);
 </script>
+<style>
+    .sqaure_item {
+        width: 220px;
+        height: 220px;
+        transition: transform .1s
+    }
+    .sqaure_item:hover {
+        transform: scale(1.2);
+        z-index: 99;
+    }
+</style>
 <BackButton/>
 <h1>Squares</h1>
-<p>Blocky things align in grid are captivating.</p>
+<p>Blocky things align with grid are captivating.</p>
 <div class="flex_grid" 
+    style:align-items="center"
+    style:justify-content="center"
     style:width="100%"
     style:margin="8px 0">
-    {#each { length: 20 }, num}
-        <div class="item" style:width="200px" style:height="200px"><p>{num+1}</p></div>
+    {#each squares as square}
+        <div class="item sqaure_item">
+            <img style:width="100%" src={square}/>
+        </div>
     {/each}
 </div>

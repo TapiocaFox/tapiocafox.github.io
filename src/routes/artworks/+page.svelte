@@ -1,13 +1,27 @@
 <h1>Artworks</h1>
 <h2>Comics</h2>
 <ul>
-  <li><a href="/artworks/comics/two_blocks">Two Blocks</a></li>
-  <li>Four Blocks (None for now.)</li>
+  <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
+  <li>Four Blocks 📦 x 4 (None for now.)</li>
 </ul>
-<h2><a href="/artworks/portraits">Portraits</a></h2>
+<h2><a href="/artworks/">Portraits</a></h2>
 <p>Including some notable people in my life.</p>
 <h2><a href="/artworks/squares">Squares</a></h2>
-<p>Blocky things.</p>
+<p>Flashy digestable blocks.</p>
+<pre>
+================================================.
+     .-.   .-.     .--.                         |
+    | OO| | OO|   / _.-' .-.   .-.  .-.   .''.  |
+    |   | |   |   \  '-. '-'   '-'  '-'   '..'  |
+    '^^^' '^^^'    '--'                         |
+===============.  .-.  .================.  .-.  |
+               | |   | |                |  '-'  |
+               | |   | |                |       |
+               | ':-:' |                |  .-.  |
+l42            |  '-'  |                |  '-'  |
+==============='       '================'       |
+</pre>
+<p class="annotation">* This ascii art is originated from <a href="https://www.asciiart.eu/video-games/pacman" target="_blank">here</a>.</p>
 <h2>Design/Blueprints</h2>
 <p>Blueprints for UI, engineering and stuffs.</p>
 <h2>Sketchings</h2>

@@ -13,5 +13,5 @@
 <p>This type of format inspired me to focus on the transitions and motions.</p>
 <img class="two_block" alt="Cosmos" src={two_blocks_cosmos}/>
 <hr class="dashed"/>
-<img class="two_block" alt="Cosmos" src={two_blocks_fox}/>
+<img class="two_block" alt="Fox" src={two_blocks_fox}/>
 <hr class="dashed"/>
