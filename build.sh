@@ -1,2 +1,2 @@
 npm run build
-touch ./build/.nojekyll
+touch ./docs/.nojekyll
