@@ -25,8 +25,9 @@
     }
     img.design_in_row {
         display: inline-block;
-        width: 100%;
-        max-width: 320px;
+        width: auto;
+        max-width: 100%;
+        max-height: 320px;
         margin-right: 0.5rem;
         border: 1px dashed black;
     }
