@@ -28,7 +28,7 @@
     import spiral_2 from '$lib/assets/squares/spiral_2.png';
     import magic_mountain from '$lib/assets/squares/magic_mountain.png';
     import mini_disc from '$lib/assets/squares/mini_disc.png';
-    import nara_cat from '$lib/assets/squares/nara_cat.png';
+    import nala_cat from '$lib/assets/squares/nala_cat.png';
     import ping_pong from '$lib/assets/squares/ping_pong.png';
     import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
     import border_collie from '$lib/assets/squares/border_collie.jpg';
@@ -49,7 +49,7 @@
         }
     }
 
-    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nara_cat, ping_pong, mosquito_zoomed, border_collie]);
+    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie]);
     shuffle(squares);
 </script>
 <style>

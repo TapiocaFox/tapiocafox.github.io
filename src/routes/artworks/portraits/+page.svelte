@@ -24,4 +24,4 @@
 <img class="portrait" alt="jyneda" src={jyneda}/>
 <p class="annotation">Prof. Jyneda (Yun-Wei Lin), he was a very talkative and engaging person. He introduced me many concepts like micro-service and other internet paradigms. He was a very pragmatic, humble, and patient person. He also wrote me a recommandation letter that get me into NYU.</p>
 <img class="portrait" alt="stubbs" src={stubbs}/>
-<p class="annotation">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". We chatted on Discord, he is very good at communicating and connecting people and developers from different backgrounds. He has a very sweet family in the woods? He ALSO wrote me a recommandation letter.</p>
+<p class="annotation">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". We chatted on Discord, he is very good at communicating and connecting people and developers from different backgrounds. He has a very sweet family and seems to live in the woods? He ALSO wrote me a recommandation letter.</p>

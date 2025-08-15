@@ -7,7 +7,7 @@
 <h2><a href="/artworks/portraits">Portraits</a></h2>
 <p>Pretty people and some significant individuals in my life.</p>
 <h2><a href="/artworks/squares">Squares</a></h2>
-<p>Flashy digestable blocks.</p>
+<p>Flashy and cartoonish blocks.</p>
 <pre>
 ================================================.
      .-.   .-.     .--.                         |
@@ -22,8 +22,8 @@ l42            |  '-'  |                |  '-'  |
 ==============='       '================'       |
 </pre>
 <p class="annotation">* This ascii art is originated from <a href="https://www.asciiart.eu/video-games/pacman" target="_blank">here</a>.</p>
-<h2><a href="/artworks/design">Design/Blueprints</a></h2>
-<p>Blueprints for UI, engineering design and stuffs.</p>
+<h2><a href="/artworks/design">Design/Blueprints/Posters</a></h2>
+<p>Posters, Blueprints for UI, engineering design and stuffs.</p>
 <h2><a href="/artworks/sketchings">Sketchings</a></h2>
 <p>Things in real life, or inside of my brain.</p>
 <!-- <h2>Meta</h2> -->

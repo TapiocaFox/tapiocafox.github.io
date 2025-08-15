@@ -49,11 +49,11 @@
 <img class="sketching" alt="Canids" src={canids}/>
 <p class="annotation">And practice always makes things better.</p>
 <img class="sketching" alt="Fox girl" src={fox_girl}/>
-<p class="annotation">I am not into furry or anything.</p>
+<p class="annotation">I am not into furry. But one day I woke up with this idea.</p>
 <img class="sketching" alt="The vampire" src={vampire}/>
 <p class="annotation">It is techniquely not a sketch, but I don't know where to put it.</p>
 <img class="sketching" alt="Demon in suit" src={demon_in_suit}/>
-<p class="annotation">Something evil but civilised.</p>
+<p class="annotation">Something evil but also civilised.</p>
 <img class="sketching" alt="Birdes" src={birdies}/>
 <p class="annotation">Some cute birdies :3.</p>
 <img class="sketching" alt="Ping Pong" src={ping_pong}/>
@@ -61,4 +61,4 @@
 <img class="sketching_in_row" alt="Miku" src={miku}/><img class="sketching_in_row" alt="Miku Reference" src={miku_reference}/>
 <p class="annotation">Hatsune Miku.</p>
 <img class="sketching_in_row" alt="Airplane 1" src={airplane_1}/><img class="sketching_in_row" alt="Airplane 2" src={airplane_2}/>
-<p class="annotation">Fighter jets. I definitely know nothing about aero dynamic.</p>
+<p class="annotation">Fighter jets. I definitely know nothing about aero dynamic. But I like the precisional feeling of the fighter jet. I am amazed to think about the components of a jet require constant renewal and maintenance until it is no longer the same one. One exterme example is the F-16V model in Taiwan. Despite it's old inheriting design, and relatively long service period, the constant update of avionics make the F-16s still very competitive with mordern combat. While keeping the cost efficiency reasonable. (Taiwanese defense budget is relatively small compare to its hostile neighbor. And the American worries about Taiwan leaking intel to China with newer fighter models, due to low linguistic and cultural barrier.)</p>
