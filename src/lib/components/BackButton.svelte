@@ -6,5 +6,5 @@
     style:width="fit-content"
     style:padding="0 0.5em"
     style:border="1px solid black">
-<a href="#" style:text-decoration="none" onclick={()=>{window.history.back();}}>« {text}</a>
+<a href="#" style:text-decoration="none" onclick={()=>{window.history.back(); return false;}}>« {text}</a>
 </p>
