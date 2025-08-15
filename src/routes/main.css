@@ -3,6 +3,12 @@
         height: 100vh;
     } */
 
+    body {
+        margin: 0px;
+        font-family: Arial, sans-serif;
+        background-color: white;
+    }
+
     .align-with-nav {
         padding: 0 12px;	
     }
@@ -75,6 +81,7 @@
     p.annotation {
         color: grey;
         font-size: small;
+        max-width: 640px;
     }
 
     /* a:visited, a:hover, a:active {

@@ -4,8 +4,8 @@
   <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
   <li>Four Blocks 📦 x 4 (None for now.)</li>
 </ul>
-<h2><a href="/artworks/">Portraits</a></h2>
-<p>Pretty and some significant people in my life.</p>
+<h2><a href="/artworks/portraits">Portraits</a></h2>
+<p>Pretty people and some significant individuals in my life.</p>
 <h2><a href="/artworks/squares">Squares</a></h2>
 <p>Flashy digestable blocks.</p>
 <pre>
@@ -22,9 +22,9 @@ l42            |  '-'  |                |  '-'  |
 ==============='       '================'       |
 </pre>
 <p class="annotation">* This ascii art is originated from <a href="https://www.asciiart.eu/video-games/pacman" target="_blank">here</a>.</p>
-<h2>Design/Blueprints</h2>
-<p>Blueprints for UI, engineering and stuffs.</p>
-<h2>Sketchings</h2>
+<h2><a href="/artworks/design">Design/Blueprints</a></h2>
+<p>Blueprints for UI, engineering design and stuffs.</p>
+<h2><a href="/artworks/sketchings">Sketchings</a></h2>
 <p>Things in real life, or inside of my brain.</p>
 <!-- <h2>Meta</h2> -->
 <h2>Handbooks</h2>
