@@ -28,10 +28,10 @@
 <nav id="main-nav">
 	<a href="/">TapiocaFox</a>
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
-	<a href="/components">[Components]</a>
-	<a href="/glsl">[GLSL]</a>
+	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
+	<a href="/glsl">[GLSL]</a>
 	<a href="https://github.com/TapiocaFox">[GitHub]</a>
 </nav>
 

@@ -62,6 +62,12 @@
         transform: scale(1.25);
         z-index: 99;
     }
+    @media (max-width: 768px) {
+        .sqaure_item {
+            width: 150px;
+            height: 150px;
+        }
+    }
 </style>
 <BackButton/>
 <h1>Squares</h1>
