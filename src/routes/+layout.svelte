@@ -9,8 +9,8 @@
 </svelte:head>
 
 <style>
-  @import 'main.css';
-  #main-nav {
+  	@import 'main.css';
+  	#main-nav {
 		/* background-color: rgb(72, 72, 72); */
 		background-color: grey;
 		color: white;
@@ -32,7 +32,7 @@
 	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
 	<a href="/glsl">[GLSL]</a>
-	<a href="https://github.com/TapiocaFox">[GitHub]</a>
+	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
 </nav>
 
 {@render children?.()}

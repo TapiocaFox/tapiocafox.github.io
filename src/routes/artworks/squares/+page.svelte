@@ -76,6 +76,7 @@
     style:align-items="center"
     style:justify-content="center"
     style:width="100%"
+    style:gap="12px"
     style:margin="8px 0">
     {#each squares as square}
         <div class="item sqaure_item">
