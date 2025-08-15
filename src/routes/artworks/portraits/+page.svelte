@@ -16,7 +16,7 @@
 </style>
 <BackButton/>
 <h1>Portraits</h1>
-<p>Pretty people and some significant individuals in my life. (Does not include every one of them due to many reasons.)</p>
+<p>People and some significant individuals in my life. (Does not include every one of them due to many reasons.)</p>
 <img class="portrait" alt="Snake" src={snake}/>
 <p class="annotation">A woman with a snake wrapped around her neck. There was a reference picture on Pinterest, but I've lost it.</p>
 <img class="portrait" alt="jyneda" src={jyneda}/>

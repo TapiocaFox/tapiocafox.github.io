@@ -5,7 +5,7 @@
   <li>Four Blocks 📦 x 4 (None for now.)</li>
 </ul>
 <h2><a href="/artworks/portraits">Portraits</a></h2>
-<p>Pretty people and some significant individuals in my life.</p>
+<p>People and some significant individuals in my life.</p>
 <h2><a href="/artworks/squares">Squares</a></h2>
 <p>Flashy and cartoonish blocks.</p>
 <!-- <pre>
