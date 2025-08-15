@@ -45,7 +45,7 @@
 <img class="design" alt="Nara Cat" src={nala_cat}/>
 <p class="annotation">This is <a href="https://www.facebook.com/nalacatshow" target="_blank">nala cat</a>. I used this color palette without knowing transgenderism. The palette just comes out naturally.</p>
 <img class="design" alt="TNA Wallpaper" src={tna_wallpaper}/>
-<p class="annotation">Nationalism has its utility purpose in Taiwanese geopolitics in my opinion. Because we constantly in threat, very diverse and easliy influenced due to a rather weak cultural rooting.</p>
+<p class="annotation">Nationalism has its utility purpose in Taiwanese geopolitics. Because we are constantly in threat, very diverse and easliy influenced due to a rather weak cultural rooting.</p>
 <img class="design" alt="Daijishō" src={daijishou}/>
 <p class="annotation">Poster art for <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a>.</p>
 <img class="design" alt="RA" src={retro_achievements}/>

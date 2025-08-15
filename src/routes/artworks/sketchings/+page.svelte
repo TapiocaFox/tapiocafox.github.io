@@ -53,7 +53,7 @@
 <img class="sketching" alt="The vampire" src={vampire}/>
 <p class="annotation">It is techniquely not a sketch, but I don't know where to put it. I feel high while drawing this.</p>
 <img class="sketching" alt="Demon in suit" src={demon_in_suit}/>
-<p class="annotation">Try draw something evil but also civilised thing.</p>
+<p class="annotation">Try to draw something evil but also civilised.</p>
 <img class="sketching" alt="Birdes" src={birdies}/>
 <p class="annotation">Some cute birdies chatting :3.</p>
 <img class="sketching" alt="Ping Pong" src={ping_pong}/>
