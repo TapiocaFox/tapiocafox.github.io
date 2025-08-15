@@ -19,8 +19,8 @@
     import demon from '$lib/assets/squares/demon.jpg';
     import nsf from '$lib/assets/squares/nsf.png';
     import wasp from '$lib/assets/squares/wasp.jpg';
-    import mosquito from '$lib/assets/squares/mosquito.jpg';
-    import indigenous from '$lib/assets/squares/indigenous.jpg';
+    // import mosquito from '$lib/assets/squares/mosquito.jpg';
+    // import indigenous from '$lib/assets/squares/indigenous.jpg';
     import mushroom from '$lib/assets/squares/mushroom.png';
     import chill_cat from '$lib/assets/squares/chill_cat.jpg';
     import nooxy from '$lib/assets/squares/nooxy.jpg';
@@ -29,6 +29,9 @@
     import magic_mountain from '$lib/assets/squares/magic_mountain.png';
     import mini_disc from '$lib/assets/squares/mini_disc.png';
     import nara_cat from '$lib/assets/squares/nara_cat.png';
+    import ping_pong from '$lib/assets/squares/ping_pong.png';
+    import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
+    import border_collie from '$lib/assets/squares/border_collie.jpg';
     
     function shuffle(array: Array<any>) {
         let currentIndex = array.length;
@@ -46,23 +49,23 @@
         }
     }
 
-    let squares = [amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, rag, demon, nsf, wasp, mosquito, indigenous, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nara_cat];
+    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nara_cat, ping_pong, mosquito_zoomed, border_collie]);
     shuffle(squares);
 </script>
 <style>
     .sqaure_item {
-        width: 220px;
-        height: 220px;
+        width: 250px;
+        height: 250px;
         transition: transform .1s
     }
     .sqaure_item:hover {
-        transform: scale(1.2);
+        transform: scale(1.25);
         z-index: 99;
     }
 </style>
 <BackButton/>
 <h1>Squares</h1>
-<p>Blocky things align with grid are captivating.</p>
+<p>Blocky things align with grid are captivating. <a href="#" onclick={()=>{shuffle(squares);}}>Randomize</a>.</p>
 <div class="flex_grid" 
     style:align-items="center"
     style:justify-content="center"

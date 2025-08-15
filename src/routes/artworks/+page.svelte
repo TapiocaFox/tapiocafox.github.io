@@ -5,7 +5,7 @@
   <li>Four Blocks 📦 x 4 (None for now.)</li>
 </ul>
 <h2><a href="/artworks/">Portraits</a></h2>
-<p>Including some notable people in my life.</p>
+<p>Pretty and some significant people in my life.</p>
 <h2><a href="/artworks/squares">Squares</a></h2>
 <p>Flashy digestable blocks.</p>
 <pre>
@@ -25,14 +25,14 @@ l42            |  '-'  |                |  '-'  |
 <h2>Design/Blueprints</h2>
 <p>Blueprints for UI, engineering and stuffs.</p>
 <h2>Sketchings</h2>
-<p>Things in real life, or inside my brain.</p>
+<p>Things in real life, or inside of my brain.</p>
 <!-- <h2>Meta</h2> -->
 <h2>Handbooks</h2>
 <ul>
   <li><a href="/artworks/handbooks/amc2018">NCTU AMC 2018</a></li>
 </ul>
-<h2>Game Cards</h2>
+<!-- <h2>Game Cards</h2>
 <ul>
   <li><a href="/artworks/game_cards/amc2018">NCTU AMC 2018</a></li>
-</ul>
+</ul> -->
 <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
