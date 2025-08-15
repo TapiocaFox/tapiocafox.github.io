@@ -25,7 +25,7 @@ l42            |  '-'  |                |  '-'  |
 <h2><a href="/artworks/design">Design</a></h2>
 <p>Posters, Blueprints, UI and stuffs.</p>
 <h2><a href="/artworks/sketchings">Sketchings</a></h2>
-<p>Things in real life, or inside of my brain.</p>
+<p>Mostly things in real life, or quirky ideas inside of my head.</p>
 <!-- <h2>Meta</h2> -->
 <h2>Handbooks</h2>
 <ul>

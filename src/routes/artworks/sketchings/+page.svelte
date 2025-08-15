@@ -35,7 +35,7 @@
 </style>
 <BackButton/>
 <h1>Sketchings</h1>
-<p>Mostly things in real life.</p>
+<p>Mostly things in real life, or quirky ideas inside of my head.</p>
 <img class="sketching" alt="Skyline" src={skyline}/>
 <p class="annotation">A skyline view from Brooklyn promenade. It was very tedious to delineate every details of the buildings. So I only drew the parts that I think matters for the holism.</p>
 <img class="sketching" alt="Indigenous" src={indigenous}/>
