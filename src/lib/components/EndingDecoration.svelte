@@ -7,7 +7,7 @@
         <div class="grid" 
             style:display="inline-grid"
             style:margin="8px 0">
-            {#each { length: 8 }, num}
+            {#each { length: 9 }, num}
                 {#if num == 0}
                     <div class="item" 
                         style:border-radius="6px"
@@ -16,6 +16,15 @@
                         style:width="8px"
                         style:height="8px">
                     </div>
+                {:else if num == 8}
+                    <div class="item" 
+                        style:background-color="none"
+                        style:border="none"
+                        style:width="10px"
+                        style:height="10px">
+                        <!-- &gt; -->
+                    </div>
+
                 {:else}
                     <div class="item" 
                         style:background-color="dimgrey"
@@ -24,7 +33,6 @@
                         style:height="10px">
                     </div>
                 {/if}
-   
             {/each}
         </div>
     </div>

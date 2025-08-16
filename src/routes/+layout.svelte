@@ -14,7 +14,7 @@
 		/* background-color: rgb(72, 72, 72); */
 		background-color: dimgrey;
 		color: white;
-		padding: 4px 12px 4px 12px;
+		padding: 4px 1em 4px 0px;
 		font-family: 'Courier New', Courier, monospace;
 	}
 	
@@ -26,7 +26,7 @@
 </style>
 
 <nav id="main-nav">
-	<a href="/"><span style:font-weight="bold">Tapioca</span><span style:font-weight="bold" style:color="darkorange">Fox</span></a>
+	<a href="/">&gt; <span style:font-weight="bold">Tapioca</span><span style:font-weight="bold" style:color="darkorange">Fox</span></a>
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
