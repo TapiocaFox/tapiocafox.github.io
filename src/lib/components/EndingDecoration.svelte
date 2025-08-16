@@ -53,7 +53,7 @@
                     document.body.scrollTop = 0; // For Safari
                     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
                 }}>
-                TapiocaFox.com
+                <span>TapiocaFox.com</span>
             </button>
             <p style:margin="4px 0 0 0 "
             style:font-size="x-small">©2025 TapiocaFox. End of the page.</p>

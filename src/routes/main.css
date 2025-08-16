@@ -83,7 +83,11 @@
         font-size: small;
         max-width: 640px;
     }
-    
+
+    p.compact {
+        max-width: 640px;
+    }
+
     span.annotation {
         color: grey;
         font-size: small;

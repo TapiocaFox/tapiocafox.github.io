@@ -44,7 +44,7 @@
             <div>
                 <h3>Yves Chen</h3>
                 <p>
-                    GitHub: <a href="https://github.com/TapiocaFox">TapiocaFox</a><br>
+                    GitHub: <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     Email: <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     Resume: click me<br>
                 </p>
