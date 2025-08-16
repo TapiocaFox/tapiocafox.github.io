@@ -10,6 +10,7 @@
             {#each { length: 8 }, num}
                 {#if num == 0}
                     <div class="item" 
+                        style:border-radius="6px"
                         style:background-color="darkorange"
                         style:border="2px solid darkorange"
                         style:width="8px"
