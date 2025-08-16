@@ -16,6 +16,8 @@
 		color: white;
 		padding: 4px 1em 4px 0px;
 		font-family: 'Courier New', Courier, monospace;
+		white-space: nowrap;
+		overflow-x: auto;
 	}
 	
 	#main-nav > a {
