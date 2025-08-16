@@ -1,1 +1,0 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/Rjjy8mmM.js";import{n as r,o as t}from"../chunks/vPgObAUJ.js";var i=r('<div class="align-with-nav"><h1>Projects</h1></div>');function s(o){var a=i();t(o,a)}export{s as component};

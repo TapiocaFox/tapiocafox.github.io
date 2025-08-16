@@ -1,4 +1,4 @@
-<h1>Artworks</h1>
+<h1>Artworks 🎨</h1>
 <h2>Comics</h2>
 <ul>
   <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
