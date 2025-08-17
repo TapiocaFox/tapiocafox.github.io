@@ -20,7 +20,7 @@
     img.design {
         display: block;
         width: 100%;
-        max-width: 640px;
+        max-width: 660px;
         border: 1px dashed black;
     }
     img.design_in_row {

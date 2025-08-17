@@ -6,7 +6,7 @@
     img.two_block {
         display: block;
         width: 100%;
-        max-width: 640px;
+        max-width: 660px;
     }
 </style>
 <h1>Comics: Two blocks</h1>

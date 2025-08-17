@@ -22,7 +22,7 @@
     img.sketching {
         display: block;
         width: 100%;
-        max-width: 640px;
+        max-width: 660px;
         border: 1px dashed black;
     }
     img.sketching_in_row {
@@ -34,6 +34,7 @@
         border: 1px dashed black;
     }
 </style>
+
 <BackButton/>
 <h1>Sketchings</h1>
 <p>Mostly things in real life, or quirky ideas inside of my head.</p>

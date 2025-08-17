@@ -19,6 +19,11 @@
 		white-space: nowrap;
 		overflow-x: auto;
 	}
+
+	#main-nav::-webkit-scrollbar {
+		background: transparent; /* Chrome/Safari/Webkit */
+		width: 0px;
+	}
 	
 	#main-nav > a {
 		color: white;

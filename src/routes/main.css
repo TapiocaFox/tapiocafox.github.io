@@ -56,16 +56,15 @@
         border-top: 1px dashed black;
         border-bottom: 0px;
     }
-
-    /* Full height with nav offset */
-    .full_height_with_nav_offset {
-        height: calc(100vh - 8px - 1rem) !important;
-    }
-
     /* Dotted border */
     hr.dotted {
         border-top: 1px dotted black;
         border-bottom: 0px;
+    }
+
+    /* Full height with nav offset */
+    .full_height_with_nav_offset {
+        height: calc(100vh - 8px - 1rem) !important;
     }
 
     /* Solid border */
@@ -81,11 +80,11 @@
     p.annotation {
         color: grey;
         font-size: small;
-        max-width: 640px;
+        max-width: 660px;
     }
 
     p.compact {
-        max-width: 640px;
+        max-width: 660px;
     }
 
     span.annotation {

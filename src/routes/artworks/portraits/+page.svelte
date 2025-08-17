@@ -10,7 +10,7 @@
     img.portrait {
         display: block;
         width: 100%;
-        max-width: 640px;
+        max-width: 660px;
         border: 1px dashed black;
     }
 </style>

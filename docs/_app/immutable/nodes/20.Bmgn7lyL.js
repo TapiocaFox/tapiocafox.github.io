@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import"../chunks/C_6TihrX.js";import{n as o,o as e,T as i}from"../chunks/Brhsj3lA.js";var r=o('<h1>Projects 💻</h1> <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox">GitHub</a> instead.)</p>',1);function m(t){var a=r();i(2),e(t,a)}export{m as component};
