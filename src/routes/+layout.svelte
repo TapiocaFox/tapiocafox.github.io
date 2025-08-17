@@ -29,6 +29,8 @@
 		color: white;
 		text-decoration: none;
 		margin: 0 0px;
+		border-bottom-style: none;
+        border-bottom-width: 0;
 	}
 </style>
 

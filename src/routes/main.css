@@ -75,6 +75,10 @@
 
     a {
         color: inherit;
+        border-bottom: 1px dotted dimgray;
+        border-bottom-width: 1px;
+        text-decoration: none;
+        text-decoration-line: none;
     }
 
     p.annotation {

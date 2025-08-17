@@ -25,9 +25,9 @@
 <h4>Header 4</h4>
 <h5>Header 5</h5>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
+<hr class="solid">
 <hr class="dashed">
 <hr class="dotted">
-<hr class="solid">
 <ul>
   <li>Item A</li>
   <li>Item B</li>
