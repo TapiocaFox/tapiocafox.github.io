@@ -32,6 +32,7 @@
     import ping_pong from '$lib/assets/squares/ping_pong.png';
     import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
     import border_collie from '$lib/assets/squares/border_collie.jpg';
+    import hut from '$lib/assets/squares/hut.jpg';
     
     function shuffle(array: Array<any>) {
         let currentIndex = array.length;
@@ -49,7 +50,7 @@
         }
     }
 
-    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie]);
+    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, spiral_2, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie, hut]);
     shuffle(squares);
 </script>
 <style>
