@@ -81,6 +81,10 @@
         text-decoration-line: none;
     }
 
+    a[target="_blank"]::after {
+        content: "⬀";
+    }
+
     p.annotation {
         color: grey;
         font-size: small;
