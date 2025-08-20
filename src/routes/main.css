@@ -82,7 +82,7 @@
     }
 
     a[target="_blank"]::after {
-        content: "⬀";
+        /* content: "⬀"; */
     }
 
     p.annotation {

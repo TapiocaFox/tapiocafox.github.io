@@ -1,0 +1,1 @@
+import"./DsnmJJEf.js";import"./BCeJNiom.js";import{n as r,a9 as a,o as e}from"./CiJwHFGm.js";import{s}from"./DtP0WYN_.js";/* empty css        */const i=""+new URL("../assets/cacba.q95nluzs.png",import.meta.url).href;var m=r('<img class="decoration svelte-1iqrfjo"/>');function u(o){var t=m();a(()=>s(t,"src",i)),e(o,t)}export{u as A};

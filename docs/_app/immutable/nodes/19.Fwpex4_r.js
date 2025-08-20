@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import"../chunks/BCeJNiom.js";import{n as a,w as m,o as n,J as p}from"../chunks/CiJwHFGm.js";import{B as e}from"../chunks/SZaYxINC.js";var i=a("<!> <h1>GLSL 🖼️</h1>",1);function d(r){var o=i(),t=m(o);e(t,{}),p(2),n(r,o)}export{d as component};

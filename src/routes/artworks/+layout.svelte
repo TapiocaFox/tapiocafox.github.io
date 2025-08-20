@@ -1,5 +1,4 @@
 <script lang="ts">
-	import favicon from '$lib/assets/favicon.svg';
 	let { children } = $props();
 	import EndingDecoration from '$lib/components/EndingDecoration.svelte';
 </script>
