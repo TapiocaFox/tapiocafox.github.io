@@ -1,3 +1,6 @@
+<script>
+  import ArtDecoration from "$lib/components/ArtDecoration.svelte";
+</script>
 <h1>Artworks 🎨</h1>
 <h2>Comics</h2>
 <ul>
@@ -36,3 +39,4 @@ l42            |  '-'  |                |  '-'  |
   <li><a href="/artworks/game_cards/amc2018">NCTU AMC 2018</a></li>
 </ul> -->
 <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
+<ArtDecoration/>

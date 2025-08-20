@@ -1,4 +1,5 @@
 <script lang="ts">
+	import ArtDecoration from '$lib/components/ArtDecoration.svelte';
 	import BackButton from '$lib/components/BackButton.svelte';
 	import phone_1 from '$lib/assets/design/phone_1.png';
 	import phone_2 from '$lib/assets/design/phone_2.jpg';
@@ -63,5 +64,5 @@
 <p class="annotation">My dad asked me to design the pedestal for our new home projector. While I also tried to draw something with complicated shapes. It ended up being a monolithic hardass slab of polished Hinoki. Because we figured out simple things with good texture tend to be more visually sustainable. And we don't want the thing distracts, while watching TV.</p>
 <img class="design" alt="Projector 2" src={projector_2}/>
 <p class="annotation">It ended up in a pile of everything. (Listened to KMFDM, but I am not a serial killer or anything. It was purely musical and aesthetic.)</p>
-
+<!-- <ArtDecoration/> -->
 

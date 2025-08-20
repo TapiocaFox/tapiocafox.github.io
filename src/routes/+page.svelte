@@ -2,6 +2,7 @@
 	import two_blocks_fox from '$lib/assets/comics/two_blocks_fox.png';
     import profile from '$lib/assets/profile.png';
     import EndingDecoration from '$lib/components/EndingDecoration.svelte';
+    import ArtDecoration from '$lib/components/ArtDecoration.svelte';
 </script>
 <style>
     img.two_block {
@@ -60,4 +61,4 @@
     <p class="annotation">The music I vibe with recently.</p>
     <EndingDecoration/>
 </div>
-
+<ArtDecoration/>

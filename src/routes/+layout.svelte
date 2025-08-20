@@ -40,8 +40,10 @@
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
-	<a href="/glsl">[GLSL]</a>
+	<!-- <a href="/glsl">[GLSL]</a> -->
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
 </nav>
 
 {@render children?.()}
+
+
