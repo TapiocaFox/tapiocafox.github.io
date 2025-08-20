@@ -60,4 +60,4 @@
     <p class="annotation">The music I vibe with recently.</p>
     <EndingDecoration/>
 </div>
-<ArtDecoration/>
+<!-- <ArtDecoration/> -->
