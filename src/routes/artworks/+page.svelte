@@ -30,6 +30,7 @@
   <h2><a href="/artworks/portraits">Portraits</a></h2>
   <p>People and some significant individuals in my life.</p>
   <img class="preview outlined" src={snake}/>
+  <img class="preview outlined" src={jyneda}/>
 </div>
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
