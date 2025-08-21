@@ -1,6 +1,7 @@
 :root {
     --compact-width: 660px;
     --normal-radius: 10px;
+    --normal-transition: transform .1s;
 }
 :global {
     /* html, body {
@@ -22,10 +23,14 @@
         width: auto;
         max-width: var(--compact-width);
         /* background-color: whitesmoke; */
+        transition: var(--normal-transition);
         border-radius: var(--normal-radius);
         padding: 1em 1em;
         border: 1px dotted dimgrey;
         margin: 1em 0;
+    }
+    div.card:hover {
+        background-color: whitesmoke;
     }
     div.card > :first-child {
         margin-top: 0;
@@ -103,7 +108,9 @@
     }
 
     a[target="_blank"]::after {
-        /* content: "⬀"; */
+        content: " ⧉";
+        font-size: small;
+        color: grey;
     }
 
     p.annotation {

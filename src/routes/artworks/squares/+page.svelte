@@ -58,7 +58,7 @@
     .sqaure_item {
         width: 250px;
         height: 250px;
-        transition: transform .1s
+        transition: var(--normal-transition);
     }
     .sqaure_item:hover {
         transform: scale(1.25);
