@@ -1,3 +1,7 @@
+:root {
+    --compact-width: 660px;
+    --normal-radius: 10px;
+}
 :global {
     /* html, body {
         height: 100vh;
@@ -11,6 +15,23 @@
 
     .align-with-nav {
         padding: 0 12px;	
+    }
+    /* Card */
+    div.card {
+        display: block;
+        width: auto;
+        max-width: var(--compact-width);
+        /* background-color: whitesmoke; */
+        border-radius: var(--normal-radius);
+        padding: 1em 1em;
+        border: 1px dotted dimgrey;
+        margin: 1em 0;
+    }
+    div.card > :first-child {
+        margin-top: 0;
+    }
+    div.card > :last-child {
+        margin-bottom: 0;
     }
     /* Grid */
     div.grid {
@@ -88,11 +109,11 @@
     p.annotation {
         color: grey;
         font-size: small;
-        max-width: 660px;
+        max-width: var(--compact-width);
     }
 
     p.compact {
-        max-width: 660px;
+        max-width: var(--compact-width);
     }
 
     span.annotation {

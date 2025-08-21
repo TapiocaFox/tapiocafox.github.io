@@ -21,7 +21,7 @@
     img.design {
         display: block;
         width: 100%;
-        max-width: 660px;
+        max-width: var(--compact-width);
         border: 1px dashed black;
     }
     img.design_in_row {
