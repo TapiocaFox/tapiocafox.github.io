@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BackButton from '$lib/components/BackButton.svelte';
+	import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import skyline from '$lib/assets/sketchings/skyline.png';
 	import indigenous from '$lib/assets/sketchings/indigenous.jpg';
 	import garden_urn from '$lib/assets/sketchings/garden_urn.png';
@@ -35,8 +35,7 @@
     }
 </style>
 
-<BackButton/>
-<h1>Sketchings</h1>
+<HeaderWithBackButton text="Sketchings"/>
 <p>Mostly things in real life, or quirky ideas inside of my head.</p>
 <img class="sketching" alt="Skyline" src={skyline}/>
 <p class="annotation">A skyline view from Brooklyn promenade. It was very tedious to delineate every details of the buildings. So I only drew the parts that I think matters for the holism.</p>

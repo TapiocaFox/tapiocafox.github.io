@@ -1,5 +1,4 @@
 <script>
-    import BackButton from '$lib/components/BackButton.svelte';
+    import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 </script>
-<BackButton/>
-<h1>GLSL 🖼️</h1>
+<HeaderWithBackButton text="GLSL"/>

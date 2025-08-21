@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BackButton from '$lib/components/BackButton.svelte';
+    import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import amc_2018 from '$lib/assets/squares/amc_2018.png';
     import amc_2020 from '$lib/assets/squares/amc_2020.png';
     import spooky from '$lib/assets/squares/spooky.png';
@@ -71,8 +71,7 @@
         }
     }
 </style>
-<BackButton/>
-<h1>Squares</h1>
+<HeaderWithBackButton text="Squares"/>
 <p>Blocky things align with grid are captivating. <a href="#" onclick={()=>{shuffle(squares);}}>Randomize</a>.</p>
 <div class="flex_grid" 
     style:align-items="center"

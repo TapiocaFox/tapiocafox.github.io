@@ -1,6 +1,7 @@
 :root {
     --compact-width: 660px;
     --normal-radius: 10px;
+    --sharper-radius: 5px;
     --normal-transition: transform .1s;
 }
 :global {
@@ -47,6 +48,7 @@
     }
     div.grid > div.item {
         background-color: white;
+        /* border-radius: var(--sharper-radius); */
         border: 1px solid black;
         text-align: center;
     }
@@ -59,6 +61,7 @@
     }
     div.flex_grid > div.item {
         background-color: white;
+        /* border-radius: var(--sharper-radius); */
         border: 1px solid black;
         text-align: center;
     }

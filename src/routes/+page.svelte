@@ -5,12 +5,6 @@
     import ArtDecoration from '$lib/components/ArtDecoration.svelte';
 </script>
 <style>
-    img.two_block {
-        display: block;
-        width: 100%;
-        max-width: var(--compact-width);
-    }
-
     div.profile_row {
         display: flex;
         gap: 12px;
@@ -38,6 +32,7 @@
         <div class="profile">
             <img src={profile} 
             alt="Profile"
+            style:border-radius="var(--sharper-radius)"
             style:width="125px"
             style:height="125px"/>
         </div>

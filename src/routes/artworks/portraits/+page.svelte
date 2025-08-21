@@ -1,5 +1,5 @@
 <script lang="ts">
-	import BackButton from '$lib/components/BackButton.svelte';
+    import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import snake from '$lib/assets/portraits/snake.png';
 	import lin_yi_bing from '$lib/assets/portraits/lin_yi_bing.png';
 	import jyneda from '$lib/assets/portraits/jyneda.png';
@@ -10,12 +10,12 @@
     img.portrait {
         display: block;
         width: 100%;
+        border-radius: var(--sharper-radius);
         max-width: var(--compact-width);
         border: 1px dashed black;
     }
 </style>
-<BackButton/>
-<h1>Portraits</h1>
+<HeaderWithBackButton text="Portraits"/>
 <p>People and some significant individuals in my life. (Does not include every one of them due to many reasons.)</p>
 <img class="portrait" alt="Snake" src={snake}/>
 <p class="annotation">A woman with a snake wrapped around her neck. There was a reference picture on Pinterest, but I've lost it.</p>

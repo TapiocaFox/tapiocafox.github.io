@@ -1,6 +1,5 @@
 <script lang="ts">
-	import ArtDecoration from '$lib/components/ArtDecoration.svelte';
-	import BackButton from '$lib/components/BackButton.svelte';
+	import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import phone_1 from '$lib/assets/design/phone_1.png';
 	import phone_2 from '$lib/assets/design/phone_2.jpg';
 	import handheld_1 from '$lib/assets/design/handheld_1.png';
@@ -33,8 +32,7 @@
         border: 1px dashed black;
     }
 </style>
-<BackButton/>
-<h1>Design</h1>
+<HeaderWithBackButton text="Design"/>
 <p>Posters, Blueprints, UI and stuffs.</p>
 <img class="design_in_row" alt="Phone 1" src={phone_1}/><img class="design_in_row" alt="Phone 2" src={phone_2}/>
 <p class="annotation">A phone I drew in 2013. It was inspired by the design of iPod nano 6th gen.</p>
