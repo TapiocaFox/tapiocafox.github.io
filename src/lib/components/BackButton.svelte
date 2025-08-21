@@ -22,9 +22,12 @@
     vertical-align: middle;
     margin: auto 1em;
   }
+  button span.text {
+    color: royalblue;
+  }
 </style>
 {#if inline}
-  <button class="back_button back_button_inlined" onclick={()=>{window.history.back(); return false;}}>« {text}</button>
+  <button class="back_button back_button_inlined" onclick={()=>{window.history.back(); return false;}}><span class="text">« {text}</span></button>
 {:else}
-  <button class="back_button" onclick={()=>{window.history.back(); return false;}}>« {text}</button>
+  <button class="back_button" onclick={()=>{window.history.back(); return false;}}><span class="text">« {text}</span></button>
 {/if}
