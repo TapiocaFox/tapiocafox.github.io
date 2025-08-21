@@ -11,8 +11,8 @@
 <style>
   	@import 'main.css';
   	#main-nav {
-		/* background-color: rgb(72, 72, 72); */
-		background-color: dimgrey;
+		background-color: rgb(32, 32, 32);
+		/* background-color: black; */
 		color: white;
 		padding: 4px 1em 4px 0px;
 		font-family: 'Courier New', Courier, monospace;
