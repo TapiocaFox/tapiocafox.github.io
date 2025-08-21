@@ -13,6 +13,7 @@
 	import phone_1 from '$lib/assets/design/phone_1.png';
 	import daijishou_widget_ui from '$lib/assets/design/daijishou_widget_ui.png';
 
+	import amc2018_cover from '$lib/assets/design/amc2018_cover.png';
 </script>
 <h1>Artworks</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
@@ -72,6 +73,7 @@
     <li><a href="/artworks/handbooks/amc2018">NCTU AMC 2018</a></li>
   </ul>
   <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
+  <img class="preview" src={amc2018_cover}/>
 </div>
 <!-- <h2>Game Cards</h2>
 <ul>

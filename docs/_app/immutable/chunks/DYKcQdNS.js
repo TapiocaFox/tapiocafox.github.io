@@ -1,0 +1,1 @@
+const e=""+new URL("../assets/phone_1.BskUsmyy.png",import.meta.url).href,s=""+new URL("../assets/daijishou_widget_ui.v-4-WmmH.png",import.meta.url).href,t=""+new URL("../assets/amc2018_cover.ny3ivONZ.png",import.meta.url).href;export{t as a,s as d,e as p};
