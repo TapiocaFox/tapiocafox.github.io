@@ -3,6 +3,7 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
     <p>Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ downloads and 1.4k stars on GitHub.</p>
+    <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
 </div>
 <div class="card">
     <h2><a href="/glsl">GLSL</a></h2>
@@ -10,5 +11,5 @@
 </div>
 <div class="card">
     <h2><a href="/components">tapiocafox.com</a></h2>
-    <p>A page for debugging the components of this website. </p>
+    <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. Styling to be as content focus as possible.</p>
 </div>
