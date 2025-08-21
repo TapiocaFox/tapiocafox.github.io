@@ -44,6 +44,7 @@
         margin-bottom: 0;
     }
     div.card img {
+        width: 100%;
         max-width: var(--compact-width);
         border-radius: var(--sharper-radius);
         /* border: 1px dashed black; */
@@ -60,6 +61,7 @@
     }
     div.card img.preview {
         max-height: calc(var(--compact-width) * 0.25);
+        width: auto;
         margin-right: 8px;
     }
     div.card img.outlined {
