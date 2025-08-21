@@ -1,5 +1,5 @@
 <script>
-    import icon_black from '$lib/assets/icon_black.png';
+    import icon from '$lib/assets/icon.png';
 </script>
 <h1>Projects 💻</h1>
 <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
@@ -14,7 +14,13 @@
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
 <div class="card">
-    <h2><a href="/components">tapiocafox.com</a></h2>
-    <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. Styling to be as content focus.</p>
-    <img class="x-small" alt="Icon" src={icon_black}/>
+    <h2><a href="/components">Components</a></h2>
+    <div class="icon_description_layout">
+        <div class="icon">
+            <img class="icon" alt="Icon" src={icon}/>
+        </div>
+        <div class="description">
+            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+        </div>
+    </div>
 </div>

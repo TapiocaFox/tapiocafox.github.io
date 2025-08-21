@@ -39,16 +39,20 @@
     div.card > :last-child {
         margin-bottom: 0;
     }
-    div.card > img {
+    div.card img {
         max-width: var(--compact-width);
         border-radius: var(--sharper-radius);
         /* border: 1px dashed black; */
     }
-    div.card > img.small {
+    div.card img.small {
         max-width: calc(var(--compact-width) / 2);
     }
-    div.card > img.x-small {
+    div.card img.x-small {
         max-width: calc(var(--compact-width) / 4);
+    }
+    div.card img.icon {
+        max-width: 72px;
+        max-height: 72px;
     }
     /* Grid */
     div.grid {
@@ -142,6 +146,28 @@
     span.annotation {
         color: grey;
         font-size: small;
+    }
+
+
+    div.icon_description_layout {
+        display: flex;
+        gap: 12px;
+    }
+
+    div.icon_description_layout > div.icon {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: auto;
+    }
+    
+    div.icon_description_layout > div.description {
+        display: flex;
+        justify-content: center;
+        align-content: center;
+        flex-direction: column;
+        /* flex-wrap: nowrap; */
+        flex-grow: 1;
     }
 
     /* a:visited, a:hover, a:active {

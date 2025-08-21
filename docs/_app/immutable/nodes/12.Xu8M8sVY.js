@@ -1,1 +1,0 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/Dw57yZ4k.js";import{n as p,o as r,J as t}from"../chunks/CUr-9tK7.js";var e=p("<h1>AMC 2018</h1> <p>This are the gamecards for Applied Math Camp in 2018.</p>",1);function h(a){var o=e();t(2),r(a,o)}export{h as component};

@@ -5,31 +5,11 @@
     import ArtDecoration from '$lib/components/ArtDecoration.svelte';
 </script>
 <style>
-    div.profile_row {
-        display: flex;
-        gap: 12px;
-    }
-
-    div.profile_row > div.profile {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: auto;
-    }
-    
-    div.profile_row > div.description {
-        display: flex;
-        justify-content: center;
-        align-content: center;
-        flex-direction: column;
-        /* flex-wrap: nowrap; */
-        flex-grow: 1;
-    }
 </style>
 <div class="align-with-nav">
     <h1>TapiocaFox 🦊</h1>
-    <div class="profile_row">
-        <div class="profile">
+    <div class="icon_description_layout">
+        <div class="icon">
             <img src={profile} 
             alt="Profile"
             style:border-radius="var(--sharper-radius)"
