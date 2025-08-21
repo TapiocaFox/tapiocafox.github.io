@@ -3,7 +3,7 @@
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import snake from '$lib/assets/portraits/snake.png';
 	import lena from '$lib/assets/misc/lenna.png'
-  import icon from '$lib/assets/icon_black.png';
+  import icon from '$lib/assets/icon_dark.png';
 
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);

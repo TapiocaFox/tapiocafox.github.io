@@ -16,16 +16,16 @@
         <div>
             <button
                 style:border="none"
+                style:color="inherit"
                 style:background-color="unset"
                 style:font-family="'Courier New', Courier, monospace"
                 style:font-size="medium"
-                style:color="inherit"
                 style:padding="0 0"
                 onclick={()=>{
                     document.body.scrollTop = 0; // For Safari
                     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
                 }}>
-                <span>tapiocafox.com</span>
+                tapiocafox.com
             </button>
             <p style:margin="4px 0 0 0 "
             style:font-family="'Courier New', Courier, monospace"

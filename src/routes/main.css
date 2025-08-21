@@ -27,7 +27,7 @@
         display: block;
         width: auto;
         max-width: var(--compact-width);
-        /* background-color: whitesmoke; */
+        background-color: whitesmoke;
         transition: var(--normal-transition);
         border-radius: var(--normal-radius);
         padding: 1em 1em;
