@@ -21,7 +21,7 @@
 <style>
 </style>
 <HeaderWithBackButton text="Site components"/>
-<p class="annotation">An &lt;p&gt; under annotation class. The components are styled to be as content focus.</p>
+<p class="annotation">An &lt;p&gt; under annotation class. The components are styled to be content focus and for micro-blogging.</p>
 <h1>Header 1</h1>
 <h2>Header 2</h2>
 <h3>Header 3</h3>
