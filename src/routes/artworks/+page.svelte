@@ -1,11 +1,16 @@
 <script>
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
   import icon from '$lib/assets/icon_black.png';
+  import amc_2020 from '$lib/assets/squares/amc_2020.png';
+  import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
+  import crow from '$lib/assets/squares/crow.png';
+  import hut from '$lib/assets/squares/hut.jpg';
 </script>
 <h1>Artworks 🎨</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
 <div class="card">
   <h2>Comics</h2>
+  <p>Surrealism is what I am looking for right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
@@ -18,6 +23,7 @@
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
   <p>Flashy and cartoonish blocks.</p>
+  <img class="x-small" src={amc_2020}/><img class="x-small" src={mosquito_zoomed}/><img class="x-small" src={crow}/>
   <!-- <pre>
   ================================================.
       .-.   .-.     .--.                         |
@@ -41,7 +47,8 @@
 
 <div class="card">
   <h2><a href="/artworks/sketchings">Sketchings</a></h2>
-<p>Mostly things in real life, or quirky ideas inside of my head.</p>
+  <p>Mostly things in real life, or quirky ideas inside of my head.</p>
+  <img class="x-small" src={hut}/>
 </div>
 <!-- <h2>Meta</h2> -->
 <div class="card">

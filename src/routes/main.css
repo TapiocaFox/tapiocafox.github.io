@@ -49,6 +49,7 @@
     }
     div.card img.x-small {
         max-width: calc(var(--compact-width) / 4);
+        margin-right: 8px;
     }
     div.card img.icon {
         max-width: 72px;
