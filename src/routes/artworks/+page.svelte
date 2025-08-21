@@ -1,5 +1,6 @@
 <script>
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
+  import icon from '$lib/assets/icon.png';
 </script>
 <h1>Artworks 🎨</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
@@ -50,7 +51,17 @@
   </ul>
   <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
 </div>
-
+<div class="card">
+    <h2><a href="/components">Components</a></h2>
+    <div class="icon_description_layout">
+        <div class="icon">
+            <img class="icon" alt="Icon" src={icon}/>
+        </div>
+        <div class="description">
+            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+        </div>
+    </div>
+</div>
 <!-- <h2>Game Cards</h2>
 <ul>
   <li><a href="/artworks/game_cards/amc2018">NCTU AMC 2018</a></li>

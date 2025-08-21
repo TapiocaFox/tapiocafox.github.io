@@ -13,14 +13,3 @@
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
-<div class="card">
-    <h2><a href="/components">Components</a></h2>
-    <div class="icon_description_layout">
-        <div class="icon">
-            <img class="icon" alt="Icon" src={icon}/>
-        </div>
-        <div class="description">
-            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
-        </div>
-    </div>
-</div>
