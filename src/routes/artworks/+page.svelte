@@ -5,6 +5,8 @@
   import crow from '$lib/assets/squares/crow.png';
   import hut from '$lib/assets/squares/hut.jpg';
   import snake from '$lib/assets/portraits/snake.png';
+	import jyneda from '$lib/assets/portraits/jyneda.png';
+
 	import two_blocks_cosmos from '$lib/assets/comics/two_blocks_cosmos.png';
 	import border_collie from '$lib/assets/sketchings/border_collie.png';
 
@@ -27,7 +29,7 @@
   
   <h2><a href="/artworks/portraits">Portraits</a></h2>
   <p>People and some significant individuals in my life.</p>
-  <img class="preview" src={snake}/>
+  <img class="preview outlined" src={snake}/>
 </div>
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
@@ -53,14 +55,14 @@
   <h2><a href="/artworks/design">Design</a></h2>
   <p>Posters, Blueprints, UI and stuffs.</p>
   <img class="preview" src={daijishou_widget_ui}/>
-  <img class="preview" src={phone_1}/>
+  <img class="preview outlined" src={phone_1}/>
 </div>
 
 <div class="card">
   <h2><a href="/artworks/sketchings">Sketchings</a></h2>
   <p>Mostly things in real life, or quirky ideas inside of my head.</p>
-  <img class="preview" src={hut}/>
-  <img class="preview" src={border_collie}/>
+  <img class="preview outlined" src={hut}/>
+  <img class="preview outlined" src={border_collie}/>
 </div>
 <!-- <h2>Meta</h2> -->
 <div class="card">

@@ -58,6 +58,9 @@
         max-height: calc(var(--compact-width) * 0.25);
         margin-right: 8px;
     }
+    div.card img.outlined {
+        border: 1px dashed black;
+    }
     div.card img.icon {
         max-width: 72px;
         max-height: 72px;
