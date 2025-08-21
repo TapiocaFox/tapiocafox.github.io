@@ -11,7 +11,7 @@
 <style>
   	@import 'main.css';
   	#main-nav {
-		background-color: rgb(32, 32, 32);
+		background-color: var(--fox-background-color);
 		/* background-color: black; */
 		color: white;
 		padding: 4px 1em 4px 0px;
@@ -35,7 +35,7 @@
 </style>
 
 <nav id="main-nav">
-	<a href="/">&gt; <span style:font-weight="bold">Tapioca</span><span style:font-weight="bold" style:color="darkorange">Fox</span></a>
+	<a href="/">&gt; <span style:font-weight="bold" style:color="var(--fox-secondary-color)">Tapioca</span><span style:font-weight="bold" style:color="var(--fox-primary-color)">Fox</span></a>
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>

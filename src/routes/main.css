@@ -3,6 +3,10 @@
     --normal-radius: 10px;
     --sharper-radius: 5px;
     --normal-transition: transform .1s;
+
+    --fox-background-color: rgb(32, 32, 32);
+    --fox-primary-color: darkorange;
+    --fox-secondary-color: white;
 }
 :global {
     /* html, body {
@@ -27,7 +31,7 @@
         transition: var(--normal-transition);
         border-radius: var(--normal-radius);
         padding: 1em 1em;
-        border: 1px dotted dimgrey;
+        border: 1px dotted var(--fox-background-color);
         margin: 1em 0;
     }
     /* div.card:hover {
@@ -145,7 +149,7 @@
 
 
     p.annotation {
-        color: grey;
+        color: dimgrey;
         font-size: small;
         max-width: var(--compact-width);
     }
@@ -155,7 +159,7 @@
     }
 
     span.annotation {
-        color: grey;
+        color: dimgrey;
         font-size: small;
     }
 
