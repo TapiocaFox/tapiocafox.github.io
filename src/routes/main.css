@@ -39,6 +39,11 @@
     div.card > :last-child {
         margin-bottom: 0;
     }
+    div.card > img {
+        max-width: var(--compact-width);
+        border-radius: var(--sharper-radius);
+        border: 1px dashed black;
+    }
     /* Grid */
     div.grid {
         display: grid;
@@ -115,6 +120,8 @@
         font-size: small;
         color: grey;
     }
+
+
 
     p.annotation {
         color: grey;

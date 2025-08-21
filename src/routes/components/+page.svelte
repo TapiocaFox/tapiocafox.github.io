@@ -1,7 +1,8 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-	let grid_item_num = $state(12);
+	import lena from '$lib/assets/misc/lenna.png'
+  let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
 
@@ -19,18 +20,20 @@
 
 <style>
 </style>
-
+<HeaderWithBackButton text="Site components"/>
+<p class="annotation">An &lt;p&gt; under annotation class.</p>
 <h1>Header 1</h1>
 <h2>Header 2</h2>
 <h3>Header 3</h3>
 <h4>Header 4</h4>
 <h5>Header 5</h5>
-<HeaderWithBackButton text="Header"/>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
 <div class="card">
   <h2>Lorem Ipsum</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+  <img alt="Lena" src={lena}/>
+  <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>
 
 <hr class="solid">

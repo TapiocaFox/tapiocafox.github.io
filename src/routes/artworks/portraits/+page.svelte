@@ -10,7 +10,6 @@
     img.portrait {
         display: block;
         width: 100%;
-        border-radius: var(--sharper-radius);
         max-width: var(--compact-width);
         border: 1px dashed black;
     }

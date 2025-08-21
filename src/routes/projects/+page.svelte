@@ -2,9 +2,13 @@
 <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
-    <p class="compact">Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ downloads and 1.4k stars on GitHub.</p>
+    <p>Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ downloads and 1.4k stars on GitHub.</p>
 </div>
 <div class="card">
     <h2><a href="/glsl">GLSL</a></h2>
-    <p class="compact">Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
+    <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
+</div>
+<div class="card">
+    <h2><a href="/components">tapiocafox.com</a></h2>
+    <p>A page for debugging the components of this website. </p>
 </div>

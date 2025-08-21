@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import{n,o as s,p as t,q as p,v as e}from"../chunks/D-1HjRRU.js";import{s as m}from"../chunks/BkSClH_o.js";var v=n('<div class="align-with-nav"><!></div>');function f(a,r){var o=v(),i=t(o);m(i,()=>r.children??p),e(o),s(a,o)}export{f as component};
