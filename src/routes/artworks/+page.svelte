@@ -14,7 +14,7 @@
 	import daijishou_widget_ui from '$lib/assets/design/daijishou_widget_ui.png';
 
 </script>
-<h1>Artworks 🎨</h1>
+<h1>Artworks</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
 <div class="card">
   <h2>Comics</h2>

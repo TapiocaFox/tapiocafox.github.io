@@ -1,7 +1,7 @@
 <script>
     import icon from '$lib/assets/icon.png';
 </script>
-<h1>Projects 💻</h1>
+<h1>Projects</h1>
 <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
 <div class="card">
     <h2><a href="/glsl">GLSL</a></h2>
