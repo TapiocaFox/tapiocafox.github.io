@@ -9,7 +9,7 @@
 		max-height: 40vh;
 		max-width: 30vw;
 		aspect-ratio: 1;
-		opacity: 90%;
+		/* opacity: 90%; */
 		z-index: -99;
 	}
 	@media (max-width: 768px) {
