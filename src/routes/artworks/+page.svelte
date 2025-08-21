@@ -1,6 +1,6 @@
 <script>
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
-  import icon from '$lib/assets/icon.png';
+  import icon from '$lib/assets/icon_black.png';
 </script>
 <h1>Artworks 🎨</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
