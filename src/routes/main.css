@@ -30,9 +30,9 @@
         border: 1px dotted dimgrey;
         margin: 1em 0;
     }
-    div.card:hover {
+    /* div.card:hover {
         background-color: whitesmoke;
-    }
+    } */
     div.card > :first-child {
         margin-top: 0;
     }
@@ -44,11 +44,18 @@
         border-radius: var(--sharper-radius);
         /* border: 1px dashed black; */
     }
+    div.card img.medium {
+        max-width: calc(var(--compact-width) * 0.65);
+    }
     div.card img.small {
-        max-width: calc(var(--compact-width) / 2);
+        max-width: calc(var(--compact-width) * 0.5);
     }
     div.card img.x-small {
-        max-width: calc(var(--compact-width) / 4);
+        max-width: calc(var(--compact-width) * 0.25);
+        margin-right: 8px;
+    }
+    div.card img.preview {
+        max-height: calc(var(--compact-width) * 0.25);
         margin-right: 8px;
     }
     div.card img.icon {

@@ -1,7 +1,10 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
+	import snake from '$lib/assets/portraits/snake.png';
 	import lena from '$lib/assets/misc/lenna.png'
+  import icon from '$lib/assets/icon_black.png';
+
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
@@ -30,11 +33,24 @@
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
 <div class="card">
+    <h2><a href="/components">Components</a></h2>
+    <div class="icon_description_layout">
+        <div class="icon">
+            <img class="icon" alt="Icon" src={icon}/>
+        </div>
+        <div class="description">
+            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+        </div>
+    </div>
+</div>
+
+<div class="card">
   <h2>Lorem Ipsum</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <img alt="Lena" class="x-small" src={lena}/>
   <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>
+
 
 <hr class="solid">
 <hr class="dashed">

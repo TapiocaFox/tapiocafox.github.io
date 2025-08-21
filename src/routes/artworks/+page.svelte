@@ -1,10 +1,16 @@
 <script>
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
-  import icon from '$lib/assets/icon_black.png';
   import amc_2020 from '$lib/assets/squares/amc_2020.png';
   import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
   import crow from '$lib/assets/squares/crow.png';
   import hut from '$lib/assets/squares/hut.jpg';
+  import snake from '$lib/assets/portraits/snake.png';
+	import two_blocks_cosmos from '$lib/assets/comics/two_blocks_cosmos.png';
+	import border_collie from '$lib/assets/sketchings/border_collie.png';
+
+	import phone_1 from '$lib/assets/design/phone_1.png';
+	import daijishou_widget_ui from '$lib/assets/design/daijishou_widget_ui.png';
+
 </script>
 <h1>Artworks 🎨</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
@@ -15,15 +21,18 @@
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
   </ul>
+  <img class="preview" src={two_blocks_cosmos}/>
 </div>
 <div class="card">
+  
   <h2><a href="/artworks/portraits">Portraits</a></h2>
   <p>People and some significant individuals in my life.</p>
+  <img class="preview" src={snake}/>
 </div>
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
   <p>Flashy and cartoonish blocks.</p>
-  <img class="x-small" src={amc_2020}/><img class="x-small" src={mosquito_zoomed}/><img class="x-small" src={crow}/>
+  <img class="preview" src={amc_2020}/><img class="x-small" src={mosquito_zoomed}/><img class="x-small" src={crow}/>
   <!-- <pre>
   ================================================.
       .-.   .-.     .--.                         |
@@ -43,12 +52,15 @@
 <div class="card">
   <h2><a href="/artworks/design">Design</a></h2>
   <p>Posters, Blueprints, UI and stuffs.</p>
+  <img class="preview" src={daijishou_widget_ui}/>
+  <img class="preview" src={phone_1}/>
 </div>
 
 <div class="card">
   <h2><a href="/artworks/sketchings">Sketchings</a></h2>
   <p>Mostly things in real life, or quirky ideas inside of my head.</p>
-  <img class="x-small" src={hut}/>
+  <img class="preview" src={hut}/>
+  <img class="preview" src={border_collie}/>
 </div>
 <!-- <h2>Meta</h2> -->
 <div class="card">
@@ -57,17 +69,6 @@
     <li><a href="/artworks/handbooks/amc2018">NCTU AMC 2018</a></li>
   </ul>
   <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
-</div>
-<div class="card">
-    <h2><a href="/components">Components</a></h2>
-    <div class="icon_description_layout">
-        <div class="icon">
-            <img class="icon" alt="Icon" src={icon}/>
-        </div>
-        <div class="description">
-            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
-        </div>
-    </div>
 </div>
 <!-- <h2>Game Cards</h2>
 <ul>
