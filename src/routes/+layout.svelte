@@ -18,6 +18,9 @@
 		font-family: 'Courier New', Courier, monospace;
 		white-space: nowrap;
 		overflow-x: auto;
+		white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
 	}
 
 	#main-nav::-webkit-scrollbar {

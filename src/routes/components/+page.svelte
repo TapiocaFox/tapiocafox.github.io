@@ -4,7 +4,9 @@
 	import snake from '$lib/assets/portraits/snake.png';
 	import lena from '$lib/assets/misc/lenna.png'
   import icon from '$lib/assets/icon_dark.png';
+  import Chips from '$lib/components/Chips.svelte';
 
+  let chip_selected_value = $state(-1);
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
@@ -19,6 +21,8 @@
       return result;
       // return getRandomInteger(min, max) + "px";
   }
+
+
 </script>
 
 <style>
@@ -30,6 +34,14 @@
 <h3>Header 3</h3>
 <h4>Header 4</h4>
 <h5>Header 5</h5>
+<Chips 
+  names={['Option 1', 'Option 2', 'Option 3', 'Option 4', 'Option 5']} 
+  values={[1, 2, 3, 4, 5, 6]}
+  callback={(value: number) => {
+    chip_selected_value = value;
+  }}
+/>
+<p>"Option {chip_selected_value}" is selected.</p>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
 <div class="card">

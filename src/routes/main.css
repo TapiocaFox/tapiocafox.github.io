@@ -7,6 +7,11 @@
     --fox-background-color: rgb(32, 32, 32);
     --fox-primary-color: darkorange;
     --fox-secondary-color: white;
+
+    --primary-functional-color: royalblue;
+    --primary-functional-text-color: white;
+    --secondary-functional-color: mediumvioletred;
+    --secondary-functional-text-color: white;
 }
 :global {
     /* html, body {

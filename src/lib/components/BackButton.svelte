@@ -23,7 +23,7 @@
     margin: auto 1em;
   }
   button span.text {
-    color: royalblue;
+    color: var(--primary-functional-color);
   }
 </style>
 {#if inline}

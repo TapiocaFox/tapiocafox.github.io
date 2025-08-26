@@ -1,0 +1,8 @@
+    canvas.glsl {
+        width: 256px;
+        height: 256px;
+        margin: auto;
+        /* padding: 0; */
+        border: 1px dotted var(--fox-background-color);
+        background-color: white;
+    }
