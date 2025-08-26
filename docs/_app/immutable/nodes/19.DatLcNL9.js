@@ -1,1 +1,0 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/4pYYAZ2Q.js";import{f as r,b as s,a as e,J as n}from"../chunks/BRH0BiRP.js";import{H as p}from"../chunks/D4kam2BR.js";var m=r('<!> <canvas class="glsl svelte-1ewpbli">Your browser does not seem to support HTML canvas.</canvas>',1);function v(o){var a=m(),t=s(a);p(t,{text:"GLSL Editor"}),n(2),e(o,a)}export{v as component};

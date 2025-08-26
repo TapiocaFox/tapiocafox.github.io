@@ -1,15 +1,73 @@
 <script>
+    import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
     import icon from '$lib/assets/icon.png';
+    import Chips from "$lib/components/Chips.svelte";
+
+    let supposed_selected_category = 'all';
+    if (typeof window !== "undefined") {
+        const selected_category_in_url = $page.url.hash;
+        if(selected_category_in_url !== null && selected_category_in_url !== '') {
+            if(selected_category_in_url.startsWith('#')) {
+            supposed_selected_category = selected_category_in_url.substring(1);;
+            }
+            else {
+            supposed_selected_category = selected_category_in_url;
+            }
+        }
+    }
+    let selected_category = $state(supposed_selected_category);
+
 </script>
 <h1>Projects</h1>
 <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
+<Chips 
+  names={['All', 'Highlight', 'Other']} 
+  values={['all', 'highlight', 'other']}
+  selected_value={selected_category}
+  callback={(value) => {
+    selected_category = value;
+    if (typeof window !== "undefined") {
+      // $page.url.hash = selected_category;
+      // window.location.hash = selected_category;
+      goto($page.url.pathname+`#${selected_category}`);
+    }
+  }}
+/>
+
+{#if selected_category=="all"}
 <div class="card">
     <h2><a href="/glsl">GLSL</a></h2>
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
 </div>
+{/if}
+
+{#if selected_category=="all" || selected_category=='highlight'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
-    <p>Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ accumalated downloads on Google Play Store.</p>
+    <p>Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ accumalated downloads on <a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>.</p>
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
+{/if}
+
+{#if selected_category=="all" || selected_category=='characters'}
+<div class="card">
+    <h2><a href="/glsl">GLSL</a></h2>
+    <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
+</div>
+{/if}
+
+{#if selected_category=='other'}
+<div class="card">
+    <h2><a href="/components">Components</a></h2>
+    <div class="icon_description_layout">
+        <div class="icon">
+            <img class="icon" alt="Icon" src={icon}/>
+        </div>
+        <div class="description">
+            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+        </div>
+    </div>
+</div>
+{/if}
