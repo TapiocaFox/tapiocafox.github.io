@@ -1,8 +1,5 @@
 <script>
-  import { goto } from '$app/navigation';
-  import { page } from '$app/stores';
-
-  import Chips from "$lib/components/Chips.svelte";
+  import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
   import amc_2020 from '$lib/assets/squares/amc_2020.png';
   import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
@@ -19,34 +16,16 @@
 
 	import amc2018_cover from '$lib/assets/design/amc2018_cover.png';
 
-  let supposed_selected_category = 'all';
-  if (typeof window !== "undefined") {
-      const selected_category_in_url = $page.url.hash;
-      if(selected_category_in_url !== null && selected_category_in_url !== '') {
-        if(selected_category_in_url.startsWith('#')) {
-          supposed_selected_category = selected_category_in_url.substring(1);;
-        }
-        else {
-          supposed_selected_category = selected_category_in_url;
-        }
-      }
-  }
-  let selected_category = $state(supposed_selected_category);
-
+  let selected_category = $state('all');
 </script>
 <h1>Artworks</h1>
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
-<Chips 
-  names={['All', 'Colored', 'Animals', 'Characters']} 
+<ChipsWithUrlHash 
+  names={['All categories', 'Colored', 'Animals', 'Characters']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}
   callback={(value) => {
     selected_category = value;
-    if (typeof window !== "undefined") {
-      // $page.url.hash = selected_category;
-      // window.location.hash = selected_category;
-      goto($page.url.pathname+`#${selected_category}`);
-    }
   }}
 />
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}

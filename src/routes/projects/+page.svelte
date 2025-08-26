@@ -1,37 +1,17 @@
 <script>
-    import { goto } from '$app/navigation';
-    import { page } from '$app/stores';
     import icon from '$lib/assets/icon.png';
-    import Chips from "$lib/components/Chips.svelte";
 
-    let supposed_selected_category = 'all';
-    if (typeof window !== "undefined") {
-        const selected_category_in_url = $page.url.hash;
-        if(selected_category_in_url !== null && selected_category_in_url !== '') {
-            if(selected_category_in_url.startsWith('#')) {
-            supposed_selected_category = selected_category_in_url.substring(1);;
-            }
-            else {
-            supposed_selected_category = selected_category_in_url;
-            }
-        }
-    }
-    let selected_category = $state(supposed_selected_category);
-
+    import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+    let selected_category = $state('all');
 </script>
 <h1>Projects</h1>
-<p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
-<Chips 
-  names={['All', 'Highlights', 'Other']} 
+<p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
+<ChipsWithUrlHash 
+  names={['All categories', 'Highlights', 'Other']} 
   values={['all', 'highlights', 'other']}
   selected_value={selected_category}
   callback={(value) => {
     selected_category = value;
-    if (typeof window !== "undefined") {
-      // $page.url.hash = selected_category;
-      // window.location.hash = selected_category;
-      goto($page.url.pathname+`#${selected_category}`);
-    }
   }}
 />
 

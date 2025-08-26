@@ -192,6 +192,12 @@
         flex-grow: 1;
     }
 
+    iframe.youtube {
+        width: 100%;
+        max-width: var(--compact-width);
+        aspect-ratio: 16 / 9;
+    }
+
     /* a:visited, a:hover, a:active {
         color: rgb(0, 0, 0);
     } */
