@@ -9,7 +9,7 @@
     .sqaure_item {
         width: 125px;
         height: 125px;
-        transition: var(--normal-transition);
+        margin-bottom: 0.5rem;
     }
     @media (max-width: 768px) {
         .sqaure_item {
