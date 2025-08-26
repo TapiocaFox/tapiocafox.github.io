@@ -19,7 +19,6 @@
   let selected_category = $state('all');
 </script>
 <h1>Artworks</h1>
-<p class="annotation">Collection of my artworks. Some with tidbits.</p>
 <ChipsWithUrlHash 
   names={['All categories', 'Colored', 'Animals', 'Characters']} 
   values={['all', 'colored', 'animals', 'characters']}
@@ -28,6 +27,8 @@
     selected_category = value;
   }}
 />
+<p class="annotation">Collection of my artworks. Some with tidbits.</p>
+
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
   <h2>Comics</h2>

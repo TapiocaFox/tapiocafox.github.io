@@ -5,7 +5,6 @@
     let selected_category = $state('all');
 </script>
 <h1>Projects</h1>
-<p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
 <ChipsWithUrlHash 
   names={['All categories', 'Highlights', 'Other']} 
   values={['all', 'highlights', 'other']}
@@ -14,6 +13,7 @@
     selected_category = value;
   }}
 />
+<p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
 
 {#if selected_category=="all"}
 <div class="card">
