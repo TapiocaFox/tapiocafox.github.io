@@ -22,8 +22,8 @@
 <h1>Projects</h1>
 <p class="annotation">(The website is still very barebone; Please visit my <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a> instead.)</p>
 <Chips 
-  names={['All', 'Highlight', 'Other']} 
-  values={['all', 'highlight', 'other']}
+  names={['All', 'Highlights', 'Other']} 
+  values={['all', 'highlights', 'other']}
   selected_value={selected_category}
   callback={(value) => {
     selected_category = value;
@@ -42,7 +42,7 @@
 </div>
 {/if}
 
-{#if selected_category=="all" || selected_category=='highlight'}
+{#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
     <p>Daijishō is a android launcher that let you manage your retro games libraries. This repo is for assets and served as a main page. It has 1M+ accumalated downloads on <a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>.</p>
