@@ -14,7 +14,7 @@
     --secondary-functional-text-color: white;
 
     --media-max-width: 768px;
-    --shrink-card-img: 0.66;
+    --shrink-card-img: 0.8;
 }
 :global {
     /* html, body {
