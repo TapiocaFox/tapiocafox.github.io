@@ -52,7 +52,7 @@
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
   <p>Flashy and cartoonish blocks.</p>
-  <img class="preview" src={amc_2020}/><img class="x-small" src={mosquito_zoomed}/><img class="x-small" src={crow}/>
+  <img class="preview" src={amc_2020}/><img class="preview" src={mosquito_zoomed}/><img class="preview" src={crow}/>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
