@@ -49,7 +49,7 @@
     }
   }}
 />
-{#if selected_category=="all" || selected_category=='characters'}
+{#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
   <h2>Comics</h2>
   <p>Surrealism is what I am looking for right now.</p>
