@@ -1,1 +1,0 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BtmbMqgn.js";import{f as r,b as e,a as n,e as i}from"../chunks/BobO0uHl.js";import{H as p}from"../chunks/dv0Pw7Kd.js";var s=r('<!> <p class="annotation">Personal practice of GLSL. Go to <a href="/glsl/editor">editor</a>.</p>',1);function l(t){var o=s(),a=e(o);p(a,{text:"GLSL"}),i(2),n(t,o)}export{l as component};

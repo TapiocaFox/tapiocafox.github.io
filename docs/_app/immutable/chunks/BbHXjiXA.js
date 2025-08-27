@@ -1,0 +1,1 @@
+import"./DsnmJJEf.js";import{f as i,t as m,a as p,s as f,c as n,r as c}from"./pGsUag7x.js";import{s as h}from"./BAUb0OI0.js";import{p as l}from"./DuTmEY6g.js";import{B as d}from"./BLuTrBl7.js";var u=i("<h1> <!></h1>");function k(e,a){let o=l(a,"text",3,"Header");var t=u(),r=n(t,!0),s=f(r);d(s,{inline:!0}),c(t),m(()=>h(r,o())),p(e,t)}export{k as H};

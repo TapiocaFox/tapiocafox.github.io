@@ -1,0 +1,1 @@
+declare module "glslEditor/build/glslEditor.js";

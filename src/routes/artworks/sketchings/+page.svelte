@@ -16,6 +16,7 @@
 	import miku_reference from '$lib/assets/sketchings/miku_reference.jpg';
 	import airplane_1 from '$lib/assets/sketchings/airplane_1.jpg';
 	import airplane_2 from '$lib/assets/sketchings/airplane_2.jpg';
+	import ginko from '$lib/assets/sketchings/ginko.png';
     
 </script>
 <style>
@@ -63,3 +64,5 @@
 <p class="annotation">Hatsune Miku. Got this sticker from Tokyo Japan. I like how it looks sharp and detailed.</p>
 <img class="sketching_in_row" alt="Airplane 1" src={airplane_1}/><img class="sketching_in_row" alt="Airplane 2" src={airplane_2}/>
 <p class="annotation">Fighter jets. I definitely know nothing about aero dynamic. But I like the precisional feeling of the fighter jet. I am amazed to think about the components of a jet require constant renewal and maintenance until it is no longer the same one. One exterme example is the F-16V model in Taiwan. Despite it's old inheriting design, and relatively long service period, the constant update of avionics make the F-16s still very competitive in the mordern combat. While keeping the cost efficiency reasonable. (Taiwanese defense budget is relatively small compare to its hostile neighbor. And the American worries about Taiwan leaking intel to China if possesses newer fighter models, due to low linguistic and cultural barrier in between.)</p>
+<img class="sketching" alt="Ginko" src={ginko}/>
+<p class="annotation">Ginko and some random plants. Line flow here isn't ideal. But I like the conceptualization.</p>

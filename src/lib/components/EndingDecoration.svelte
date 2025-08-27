@@ -4,6 +4,7 @@
 <div 
     style:display="flex"
     style:color="dimgrey"
+    style:margin-block-start="0.5rem"
     style:margin-block-end="0.5rem"
     style:gap="12px">
     <div style:width="auto">

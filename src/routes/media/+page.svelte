@@ -23,6 +23,8 @@
 <p class="annotation"><a href="https://en.wikipedia.org/wiki/Susan_Kare" target="_blank">Susan Kare</a> is an American artist and graphic designer, who contributed interface elements and typefaces for the first Apple Macintosh personal computer from 1983 to 1986.</p>
 <iframe class="youtube" src="https://www.youtube.com/embed/PkPSDOjhxwM?si=uxjuwaS3c0qlrfO4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 <p class="annotation">Another chill videos about <a href="https://en.wikipedia.org/wiki/Vacuum_fluorescent_display" target="_blank">VFD (Vacuum Fluorescent Display)</a>. The owner of the channel produces his own <a href="https://posy.bandcamp.com" target="_blank">music</a> for the videos.</p>
+<iframe class="youtube" src="https://www.youtube.com/embed/eRbnVqTGLUc?si=YabkT3VTZUTDmLaZ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<p class="annotation"><a href="https://en.wikipedia.org/wiki/Vib-Ribbon" target="_blank">Vib-Ribbon</a>, a Japanese rhythm game on PlayStation 2. One of the interesting facts about this game is that you can eject the game disc, and place in your custom CD to generate your own game level. The game itself can be completely on RAM. Despite its geometric design. The music, animation, and character design emanate a heartwarming minimalistic vibe. The game was very ahead of its time.</p>
 {/if}
 
 {#if selected_category=="other"}
