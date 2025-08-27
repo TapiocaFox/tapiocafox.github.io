@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
   import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
   import amc_2020 from '$lib/assets/squares/amc_2020.png';
@@ -23,7 +23,7 @@
   names={['All categories', 'Colored', 'Animals', 'Characters']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}
-  callback={(value) => {
+  callback={(value: any) => {
     selected_category = value;
   }}
 />

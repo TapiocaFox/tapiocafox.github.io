@@ -9,7 +9,7 @@
         u_mouse: { value: THREE.Vector2 };
     }
 
-    let {vertex_shader = "void main() {gl_Position = vec4( position, 1.0 );}", fragment_shader="uniform vec2 u_resolution; uniform vec2 u_mouse; uniform float u_time;  void main() {vec2 st = gl_FragCoord.xy/u_resolution.xy;st.x *= u_resolution.x/u_resolution.y;vec3 color = vec3(0.);color = vec3(st.x,st.y,abs(sin(u_time)));gl_FragColor = vec4(color,1.0); }"} = $props();
+    let {vertex_shader = "void main() {gl_Position = vec4( position, 1.0 );}", fragment_shader="uniform vec2 u_resolution; uniform vec2 u_mouse; uniform float u_time;  void main() {vec2 st = gl_FragCoord.xy/u_resolution.xy;st.x *= u_resolution.x/u_resolution.y;vec3 color = vec3(0.);color = vec3(st.x,st.y,abs(sin(u_time)));gl_FragColor = vec4(color,1.0); }", size=250} = $props();
 
     var canvas: HTMLCanvasElement;
     var camera: THREE.Camera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, clock: THREE.Clock;
@@ -81,12 +81,15 @@
         width: 100%;
         height: 100%;
         aspect-ratio: 1;
-        max-width: 256px;
-        max-height: 256px;
+        max-width: 250px;
+        max-height: 250px;
         margin: auto;
         /* padding: 0; */
         border: 1px dotted var(--fox-background-color);
         background-color: white;
     }
 </style>
-<canvas bind:this={canvas} class="glsl"></canvas>
+<canvas bind:this={canvas} 
+style:max-width = {`${size}px`}
+style:max-height = {`${size}px`}
+class="glsl"></canvas>
