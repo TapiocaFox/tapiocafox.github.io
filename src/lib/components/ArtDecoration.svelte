@@ -19,4 +19,4 @@
 	}
 </style>
 
-<img class="decoration" src={decoration}/>
+<img alt="Decoration" class="decoration" src={decoration}/>

@@ -1,7 +1,7 @@
-<script>
+<script lang="ts">
     import icon from '$lib/assets/icon.png';
-
     import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
     let selected_category = $state('all');
 </script>
 <h1>Projects</h1>
@@ -9,7 +9,7 @@
   names={['All categories', 'Highlights', 'Other']} 
   values={['all', 'highlights', 'other']}
   selected_value={selected_category}
-  callback={(value) => {
+  callback={(value: any) => {
     selected_category = value;
   }}
 />
@@ -19,6 +19,7 @@
 <div class="card">
     <h2><a href="/glsl">GLSL</a></h2>
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
+    <GlslCanvas/>
 </div>
 {/if}
 

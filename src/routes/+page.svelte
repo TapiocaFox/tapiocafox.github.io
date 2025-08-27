@@ -45,8 +45,8 @@
     <!-- <h3>The music I like recently</h3> -->
     <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/2000-mixed/1829001427?i=1829001428"></iframe> -->
     <!-- <p class="annotation">The music I vibe with recently.</p> -->
-    <img class="sqaure_item" src={spiral_1}/>
-    <img class="sqaure_item" src={spiral_2}/>
+    <img alt="Spiral 1" class="sqaure_item" src={spiral_1}/>
+    <img alt="Spiral 2" class="sqaure_item" src={spiral_2}/>
     <EndingDecoration/>
 </div>
 <!-- <ArtDecoration/> -->

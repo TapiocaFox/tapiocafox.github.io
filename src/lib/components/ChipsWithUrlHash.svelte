@@ -24,7 +24,7 @@
   names={names} 
   values={values}
   selected_value={selected_value}
-  callback={(value) => {
+  callback={(value: any) => {
     callback(value);
     if (typeof window !== "undefined") {
       goto($page.url.pathname+`#${selected_value}`);

@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
     let selected_category = $state('all');
 </script>
@@ -7,7 +7,7 @@
   names={['Music', 'Videos']} 
   values={['music', 'videos', 'other']}
   selected_value={selected_category}
-  callback={(value) => {
+  callback={(value: any) => {
     selected_category = value;
   }}
 />
@@ -15,7 +15,7 @@
 
 
 {#if selected_category=="music"}
-<iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/playlist/tapiocafoxs-selection/pl.u-EdAVR7Gu5Wq7yq"></iframe>
+<iframe title="Apple Music playlist" allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/playlist/tapiocafoxs-selection/pl.u-EdAVR7Gu5Wq7yq"></iframe>
 {/if}
 
 {#if selected_category=="videos"}

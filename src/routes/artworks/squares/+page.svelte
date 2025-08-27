@@ -81,7 +81,7 @@
     style:margin="8px 0">
     {#each squares as square}
         <div class="item sqaure_item">
-            <img style:width="100%" src={square}/>
+            <img alt="Sqaure" style:width="100%" src={square}/>
         </div>
     {/each}
 </div>
