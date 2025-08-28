@@ -20,7 +20,7 @@
 </script>
 <h1>Artworks</h1>
 <ChipsWithUrlHash 
-  names={['All categories', 'Colored', 'Animals', 'Characters']} 
+  names={['All categories', 'Colored', 'Animals']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}
   callback={(value: any) => {
