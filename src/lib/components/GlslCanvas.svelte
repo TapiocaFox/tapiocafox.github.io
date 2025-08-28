@@ -3,6 +3,7 @@
     import * as THREE from 'three';
     import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
+    import { min } from 'three/tsl';
     // const frag_shader = "uniform vec2 u_resolution; uniform vec2 u_mouse; uniform float u_time;  void main() {vec2 st = gl_FragCoord.xy/u_resolution.xy;st.x *= u_resolution.x/u_resolution.y;vec3 color = vec3(0.);color = vec3(st.x,st.y,abs(sin(u_time)));gl_FragColor = vec4(color,1.0); }";
     interface Uniforms {
         [uniform: string]: THREE.IUniform<any>;
@@ -83,9 +84,18 @@
             display_code_block = true;
             // await tick();
             const { clientX, clientY } = event;
+
+            const windowWidth = window.innerWidth;
+            const windowHeight = window.innerHeight;
+
+            const codeBlockWidth = code_block.offsetWidth;
+            const codeBlockHeight = code_block.offsetHeight;
+            console.log(clientX+16, clientY+16);
+            console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
+            console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
             code_block.animate({
-                left: `${clientX+16}px`,
-                top: `${clientY+16}px`
+                left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
+                top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
             }, {fill: "forwards"});
             // console.log(clientX, clientY);
         };
