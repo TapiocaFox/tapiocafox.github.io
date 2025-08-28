@@ -5,6 +5,7 @@
 	import lena from '$lib/assets/misc/lenna.png'
   import icon from '$lib/assets/icon_dark.png';
   import Chips from '$lib/components/Chips.svelte';
+  import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
   let chip_selected_value = $state(-1);
   let grid_item_num = $state(12);
@@ -59,7 +60,7 @@
 <div class="card">
   <h2>Lorem Ipsum</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <img alt="Lena" class="x-small" src={lena}/>
+  <img alt="Lena" class="preview" src={lena}/><GlslCanvas preview={true}/>
   <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>
 

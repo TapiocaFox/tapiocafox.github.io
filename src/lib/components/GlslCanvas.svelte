@@ -12,7 +12,7 @@
     }
     // console.log(typeof(frag_shader.replace));
     // console.log(typeof(default_fragment_shader.replace));
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, size=250, show_code_block=true} = $props();
+    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -112,6 +112,11 @@
         background-color: white;
         color: white;
     }
+    canvas.glsl.preview {
+        max-height: calc(var(--compact-width) * 0.25);
+        width: auto;
+        margin-right: 8px;
+    }
     div.code-block {
         display: none;
         position: fixed;
@@ -134,11 +139,12 @@
     div.code-block > pre {
         white-space: pre-wrap;
     }
+
 </style>
 <canvas bind:this={canvas} 
-style:max-width = {`${size}px`}
-style:max-height = {`${size}px`}
-class="glsl"></canvas>
+style:max-width = {preview?'calc(var(--compact-width) * 0.25)':`${size}px`}
+style:max-height = {preview?'auto':`${size}px`}
+class="glsl {preview?'preview':''}"></canvas>
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
     <h4>Vertex shader</h4>
