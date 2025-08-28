@@ -90,9 +90,9 @@
 
             const codeBlockWidth = code_block.offsetWidth;
             const codeBlockHeight = code_block.offsetHeight;
-            console.log(clientX+16, clientY+16);
-            console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
-            console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
+            // console.log(clientX+16, clientY+16);
+            // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
+            // console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
             code_block.animate({
                 left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
                 top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
