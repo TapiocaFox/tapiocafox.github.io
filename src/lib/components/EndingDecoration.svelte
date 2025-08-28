@@ -1,5 +1,5 @@
 <script lang="ts">
-    import icon from '$lib/assets/icon.png';
+    import icon from '$lib/assets/icon_dark.png';
 </script>
 <div 
     style:display="flex"
