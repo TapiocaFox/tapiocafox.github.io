@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, tick } from 'svelte';
+    import { onMount } from 'svelte';
     import * as THREE from 'three';
     import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
@@ -12,7 +12,7 @@
     }
     // console.log(typeof(frag_shader.replace));
     // console.log(typeof(default_fragment_shader.replace));
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, size=250} = $props();
+    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, size=250, show_code_block=true} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -78,8 +78,8 @@
             uniforms.u_time.value += clock.getDelta();
             renderer.render( scene, camera ); 
         }
-
-        canvas.onpointermove = async event => {
+        
+        if(show_code_block) canvas.onpointermove = async event => {
             display_code_block = true;
             // await tick();
             const { clientX, clientY } = event;
@@ -120,6 +120,7 @@
         border: 1px solid var(--fox-background-color);
         background-color: white;
         padding: 1em;
+        max-width: 400px;
     }
     div.code-block.visible {
         display: block !important; /* you can safely use !important here */
@@ -129,6 +130,9 @@
     }
     div.code-block > :last-child {
         margin-bottom: 0;
+    }
+    div.code-block > pre {
+        white-space: pre-wrap;
     }
 </style>
 <canvas bind:this={canvas} 
