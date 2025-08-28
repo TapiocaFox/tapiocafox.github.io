@@ -27,6 +27,10 @@
         background-color: white;
     }
 
+    button {
+        cursor:pointer;
+    }
+
     .align-with-nav {
         padding: 0 12px;	
     }
