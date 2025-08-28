@@ -55,7 +55,8 @@
         width: 100%;
         max-width: var(--compact-width);
         border-radius: var(--sharper-radius);
-        /* border: 1px dashed black; */
+        /* background-color: white; */
+        border: 1px solid none;
     }
     div.card img.medium {
         max-width: calc(var(--compact-width) * 0.65);

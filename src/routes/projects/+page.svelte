@@ -19,7 +19,7 @@
 <div class="card">
     <h2><a href="/glsl">GLSL shader</a></h2>
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">more…</a></p>
-    <GlslCanvas size={150}/>
+    <GlslCanvas preview={true}/>
 </div>
 {/if}
 
