@@ -111,6 +111,7 @@
         border: 1px dotted var(--fox-background-color);
         background-color: white;
         color: white;
+        cursor: crosshair;
     }
     canvas.glsl.preview {
         max-height: calc(var(--compact-width) * 0.25);

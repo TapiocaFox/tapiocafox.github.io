@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/UZBDKW3R.js";import{f as s,b as m,a as f,s as o}from"../chunks/DZnnTQCO.js";import{H as p}from"../chunks/DBAKjFB5.js";import{G as e}from"../chunks/C86cbsG2.js";const d=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import"../chunks/UZBDKW3R.js";import{f as s,b as m,a as f,s as o}from"../chunks/DZnnTQCO.js";import{H as p}from"../chunks/DBAKjFB5.js";import{G as e}from"../chunks/D1SuM3EA.js";const d=`#ifdef GL_ES
 precision mediump float;
 #endif
 

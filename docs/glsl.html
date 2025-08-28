@@ -6,16 +6,16 @@
 		
 		<link href="./_app/immutable/assets/0.CV22mDOQ.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.VB9pg0AY.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/GlslCanvas.C3t8mhmZ.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.BhO2CThh.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/CEzlZNEr.js">
+		<link href="./_app/immutable/assets/GlslCanvas.B0xUBAY9.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.BI0175HA.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DGJFjs9L.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DqFINAkj.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DZnnTQCO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BNtUlh8Z.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BSmvTg2p.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BFxcctg7.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/C5zBiRHy.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.DhugqCci.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.kU2li-dR.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/nB7Cuxcs.js">
@@ -27,15 +27,15 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/C1TGpE4U.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/UZBDKW3R.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BJ2Z2zxg.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.Uwx6nA9u.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.DDSEFfe3.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DBAKjFB5.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/-hXVx1Iy.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/C86cbsG2.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.BC1qf8wS.ico"/> <link rel="stylesheet" href=""/><!--]-->
+		<link rel="modulepreload" href="./_app/immutable/chunks/D1SuM3EA.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.BC1qf8wS.ico"/> <link rel="stylesheet" href=""/><!--]-->
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents"><!--[--><!--[--><!----><nav id="main-nav" class="svelte-1sv9f3c"><a href="/" class="svelte-1sv9f3c">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects" class="svelte-1sv9f3c">[Projects]</a> <a href="/artworks" class="svelte-1sv9f3c">[Artworks]</a> <a href="/media" class="svelte-1sv9f3c">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>GLSL shader<!--[--><button class="back_button back_button_inlined svelte-39k2ut"><span class="text svelte-39k2ut">« go back</span></button><!--]--><!----></h1><!----> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <canvas class="glsl  svelte-2kpj5c" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-2kpj5c"><h4 class="svelte-2kpj5c">Vertex shader</h4> <pre class="svelte-2kpj5c">void main() {
+		<div style="display: contents"><!--[--><!--[--><!----><nav id="main-nav" class="svelte-1sv9f3c"><a href="/" class="svelte-1sv9f3c">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects" class="svelte-1sv9f3c">[Projects]</a> <a href="/artworks" class="svelte-1sv9f3c">[Artworks]</a> <a href="/media" class="svelte-1sv9f3c">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>GLSL shader<!--[--><button class="back_button back_button_inlined svelte-39k2ut"><span class="text svelte-39k2ut">« go back</span></button><!--]--><!----></h1><!----> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <canvas class="glsl  svelte-kam82t" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-kam82t"><h4 class="svelte-kam82t">Vertex shader</h4> <pre class="svelte-kam82t">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-2kpj5c">Fragment shader</h4> <pre class="svelte-2kpj5c">#ifdef GL_ES
+}</pre> <h4 class="svelte-kam82t">Fragment shader</h4> <pre class="svelte-kam82t">#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -51,9 +51,9 @@ void main() {
     color = vec3(st.x,st.y,abs(sin(u_time)));
 
     gl_FragColor = vec4(color,1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-2kpj5c" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-2kpj5c"><h4 class="svelte-2kpj5c">Vertex shader</h4> <pre class="svelte-2kpj5c">void main() {
+}</pre></div><!----> <canvas class="glsl  svelte-kam82t" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-kam82t"><h4 class="svelte-kam82t">Vertex shader</h4> <pre class="svelte-kam82t">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-2kpj5c">Fragment shader</h4> <pre class="svelte-2kpj5c">#ifdef GL_ES
+}</pre> <h4 class="svelte-kam82t">Fragment shader</h4> <pre class="svelte-kam82t">#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -67,15 +67,15 @@ void main() {
 			
 			<script>
 				{
-					__sveltekit_1ba9r6d = {
+					__sveltekit_18st27x = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.BhO2CThh.js"),
-						import("./_app/immutable/entry/app.DhugqCci.js")
+						import("./_app/immutable/entry/start.BI0175HA.js"),
+						import("./_app/immutable/entry/app.kU2li-dR.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],
