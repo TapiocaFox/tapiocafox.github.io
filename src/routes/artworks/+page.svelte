@@ -37,7 +37,7 @@
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
   </ul>
-  <img class="preview" src={two_blocks_cosmos}/>
+  <img class="preview outlined" src={two_blocks_cosmos}/>
 </div>
 {/if}
 {#if selected_category=="all"}
