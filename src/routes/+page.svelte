@@ -19,7 +19,7 @@
     }
 </style>
 <div class="align-with-nav">
-    <h1 style:margin-bottom="0.5em">TapiocaFox 🦊</h1>
+    <h1 style:margin-block-end="0.4em">TapiocaFox 🦊</h1>
     <div class="icon_description_layout">
         <div class="icon">
             <img src={profile} 
@@ -30,13 +30,13 @@
         </div>
         <div class="description">
             <div>
-                <h3>Yves Chen</h3>
+                <h3 style:margin-block-end="0.0em">Yves Chen</h3>
                 <p>
                     GitHub: <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     Email: <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     Resume: click me<br>
                 </p>
-                <p class="annotation">*I am the one on the left.</p>
+                <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>
         </div>
     </div>
