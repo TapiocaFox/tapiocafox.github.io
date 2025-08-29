@@ -4,10 +4,11 @@
 <div 
     style:display="flex"
     style:color="dimgrey"
+    style:margin-block-start="0.5rem"
     style:margin-block-end="0.5rem"
-    style:gap="12px">
+    style:gap="9px">
     <div style:width="auto">
-        <img style:height="54px" style:width="54px" src={icon}/>
+        <img alt="Icon" style:height="46px" style:width="46px" src={icon}/>
     </div>
     <div 
         style:flex-grow="1"
@@ -27,7 +28,7 @@
                 }}>
                 TapiocaFox.com
             </button>
-            <p style:margin="4px 0 0 0 "
+            <p style:margin="3px 0 4px 0"
             style:font-family="'Courier New', Courier, monospace"
             style:font-size="x-small">©2025 TapiocaFox. End of the page.</p>
         </div>

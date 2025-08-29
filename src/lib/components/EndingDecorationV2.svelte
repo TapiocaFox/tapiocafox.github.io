@@ -7,7 +7,7 @@
     style:margin-block-end="0.5rem"
     style:gap="12px">
     <div style:width="auto">
-        <img style:height="54px" style:width="54px" src={icon}/>
+        <img alt="Icon" style:height="54px" style:width="54px" src={icon}/>
     </div>
     <div 
         style:flex-grow="1"
