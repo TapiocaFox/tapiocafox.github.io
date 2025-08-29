@@ -19,7 +19,7 @@
     }
 </style>
 <div class="align-with-nav">
-    <h1 style:margin-block-end="0.4em">TapiocaFox 🦊</h1>
+    <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
     <div class="icon_description_layout">
         <div class="icon">
             <img src={profile} 
