@@ -38,8 +38,8 @@
         margin: 0px;
         font-family: Arial, sans-serif;
         background-color: white;
-        background-image: var(--background-dot-image);
-        background-size: var(--background-dot-gap) var(--background-dot-gap);
+        /* background-image: var(--background-dot-image);
+        background-size: var(--background-dot-gap) var(--background-dot-gap); */
     }
 
     button {
