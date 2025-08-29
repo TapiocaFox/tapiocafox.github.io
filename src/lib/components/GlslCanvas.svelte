@@ -132,6 +132,7 @@
         display: none;
         position: fixed;
         min-width: 100px;
+        max-height: 90vh;
         /* min-height: 100px; */
         border: 1px solid var(--fox-background-color);
         background-color: white;
@@ -149,6 +150,8 @@
     }
     div.code-block > pre {
         white-space: pre-wrap;
+        text-overflow: ellipsis;
+        overflow: hidden; 
     }
 
 </style>
