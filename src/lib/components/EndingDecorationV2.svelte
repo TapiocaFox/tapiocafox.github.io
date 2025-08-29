@@ -1,5 +1,5 @@
 <script>
-    import icon from '$lib/assets/icon_dark.png';
+    import icon from '$lib/assets/icon.png';
 </script>
 <div 
     style:display="flex"
@@ -25,7 +25,7 @@
                     document.body.scrollTop = 0; // For Safari
                     document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
                 }}>
-                TapiocaFox.com
+                tapiocafox.com
             </button>
             <p style:margin="4px 0 0 0 "
             style:font-family="'Courier New', Courier, monospace"
