@@ -2,6 +2,7 @@
   import BackButton from '$lib/components/BackButton.svelte';
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import snake from '$lib/assets/portraits/snake.png';
+  import EndingDecoration from '$lib/components/EndingDecoration.svelte';
 	import lena from '$lib/assets/misc/lenna.png'
   import icon from '$lib/assets/icon_dark.png';
   import Chips from '$lib/components/Chips.svelte';
@@ -101,3 +102,4 @@
 </div>
 <hr class="dashed">
 <BackButton text="A back button"/>
+<EndingDecoration/>
