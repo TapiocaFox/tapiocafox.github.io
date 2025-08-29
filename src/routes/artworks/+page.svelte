@@ -74,12 +74,11 @@
 {#if selected_category=="all" || selected_category=='colored'}
 <div class="card">
   <h2>Handbooks</h2>
+  <p>AMC stands for "Applied Mathematics Camp".</p>
   <ul>
     <li><a href="/artworks/handbooks/amc2018">NCTU AMC 2018</a></li>
   </ul>
   <img class="preview" src={amc2018_cover}/>
-  <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
-
 </div>
 {/if}
 <ArtDecoration/>

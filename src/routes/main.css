@@ -60,6 +60,10 @@
         padding: 1em 1em;
         border: 1px dotted var(--border-color);
         margin: 1em 0;
+        color: black;
+    }
+    div.card h1, h2, h3, h4, h5 {
+        color: black;
     }
     /* div.card:hover {
         background-color: whitesmoke;
@@ -190,7 +194,7 @@
     }
 
     a[target="_blank"]::after {
-        content: " ⧉";
+        /* content: " ⧉"; */
         font-size: small;
         color: grey;
     }
