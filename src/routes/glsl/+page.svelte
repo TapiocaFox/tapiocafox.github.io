@@ -10,4 +10,4 @@
 <GlslCanvas/>
 <GlslCanvas fragment_shader={alter_green_red_frag}/>
 <GlslCanvas fragment_shader={shader_toy_demo}/>
-<p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js is translatable.)</p>
+<p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>
