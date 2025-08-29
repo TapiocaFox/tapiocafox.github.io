@@ -4,11 +4,11 @@
 <div 
     style:display="flex"
     style:color="dimgrey"
-    style:margin-block-start="0.5rem"
-    style:margin-block-end="0.5rem"
+    style:margin-block-start="1rem"
+    style:margin-block-end="1rem"
     style:gap="9px">
     <div style:width="auto">
-        <img alt="Icon" style:height="46px" style:width="46px" src={icon}/>
+        <img alt="Icon" style:height="50px" style:width="50px" src={icon}/>
     </div>
     <div 
         style:flex-grow="1"
