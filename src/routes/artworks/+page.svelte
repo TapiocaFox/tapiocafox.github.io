@@ -77,8 +77,9 @@
   <ul>
     <li><a href="/artworks/handbooks/amc2018">NCTU AMC 2018</a></li>
   </ul>
-  <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
   <img class="preview" src={amc2018_cover}/>
+  <p class="annotation">* AMC stands for "Applied Mathematics Camp".</p>
+
 </div>
 {/if}
 <ArtDecoration/>

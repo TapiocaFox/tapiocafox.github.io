@@ -4,10 +4,10 @@
 <style>
 	img.decoration {
 		position: fixed;
-		right: 0;
-		bottom: 0;
-		max-height: 40vh;
-		max-width: 30vw;
+		right: 8px;
+		bottom: 8px;
+		max-height: 35vh;
+		max-width: 25vw;
 		aspect-ratio: 1;
 		/* opacity: 90%; */
 		z-index: -99;
