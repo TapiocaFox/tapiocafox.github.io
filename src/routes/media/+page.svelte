@@ -5,7 +5,7 @@
 <h1>Media</h1>
 <ChipsWithUrlHash 
   names={['Music', 'Videos']} 
-  values={['music', 'videos', 'other']}
+  values={['music', 'videos', 'photos', 'other']}
   selected_value={selected_category}
   callback={(value: any) => {
     selected_category = value;

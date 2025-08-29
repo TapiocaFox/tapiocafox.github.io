@@ -1,5 +1,5 @@
 <script>
-    import decoration from '$lib/assets/squares/cacba.png';
+    import decoration from '$lib/assets/cacba_nobg.png';
 </script>
 <style>
 	img.decoration {
