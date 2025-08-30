@@ -1,36 +1,26 @@
 <script>
     import icon from '$lib/assets/icon_dark.png';
+    import tapiocafox from '$lib/assets/tapiocafox_small.png';
 </script>
 <div 
     style:display="flex"
-    style:color="dimgrey"
+    style:color="black"
     style:margin-block-start="1rem"
     style:margin-block-end="1rem"
-    style:gap="9px">
+    style:gap="8px">
     <div style:width="auto">
-        <img alt="Icon" style:height="50px" style:width="50px" src={icon}/>
+        <img alt="Icon" style:height="49px" style:width="49px" src={icon}/>
     </div>
     <div 
         style:flex-grow="1"
+        style:opacity="1"
         style:display="flex"
         style:align-items="center">
         <div>
-            <button
-                style:border="none"
-                style:color="inherit"
-                style:background-color="unset"
-                style:font-family="'Courier New', Courier, monospace"
-                style:font-size="medium"
-                style:padding="0 0"
-                onclick={()=>{
-                    document.body.scrollTop = 0; // For Safari
-                    document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
-                }}>
-                TapiocaFox.com
-            </button>
-            <p style:margin="3px 0 4px 0"
+            <img alt="TapiocaFox" style:height="22px" src={tapiocafox}/>
+            <p style:margin="0"
             style:font-family="'Courier New', Courier, monospace"
-            style:font-size="x-small">©2025 TapiocaFox. End of the page.</p>
+            style:font-size="xx-small">©2025 TapiocaFox. End of the page.</p>
         </div>
     </div>
 </div>
