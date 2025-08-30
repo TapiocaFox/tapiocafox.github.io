@@ -5,6 +5,6 @@
 
 <div class="align-with-nav">
 {@render children?.()}
-<p class="annotation">(*These media are not created or owned by me.)</p>
+<!-- <p class="annotation">(*These media are not created or owned by me.)</p> -->
 <EndingDecoration/>
 </div>

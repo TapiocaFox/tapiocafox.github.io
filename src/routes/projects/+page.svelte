@@ -1,5 +1,5 @@
 <script lang="ts">
-    import icon from '$lib/assets/icon.png';
+    import icon from '$lib/assets/squares/tapiocafox.png';
     import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
     let selected_category = $state('all');

@@ -1,10 +1,10 @@
 <script lang="ts">
   import BackButton from '$lib/components/BackButton.svelte';
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-	import snake from '$lib/assets/portraits/snake.png';
   import EndingDecoration from '$lib/components/EndingDecoration.svelte';
 	import lena from '$lib/assets/misc/lenna.png'
   import icon from '$lib/assets/icon_dark.png';
+	import tapiocafox from '$lib/assets/squares/tapiocafox.png';
   import Chips from '$lib/components/Chips.svelte';
   import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
@@ -50,7 +50,7 @@
     <h2><a href="/components">Components</a></h2>
     <div class="icon_description_layout">
         <div class="icon">
-            <img class="icon" alt="Icon" src={icon}/>
+            <img class="icon" alt="Icon" src={tapiocafox}/>
         </div>
         <div class="description">
             <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
