@@ -1,10 +1,10 @@
 :root {
     --compact-width: 660px;
-    --normal-radius: 10px;
-    --sharper-radius: 5px;
+    --normal-radius: 6px;
+    --sharper-radius: 4px;
     --normal-transition: transform .1s;
 
-    --page-offset: 12px;
+    --page-offset: 16px;
 
     --fox-background-color: rgb(32, 32, 32);
     --fox-primary-color: darkorange;
