@@ -29,8 +29,9 @@
     --background-dot-image: radial-gradient(circle at center, var(--background-dot-color) 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px));
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
 
-    --load-animation-duration: .25s;
+    --load-animation-duration: .26s;
     --load-animation-delay: .08s;
+    --secondary-load-animation-delay: .16s;
     --load-animation-timing-function: ease;
 
     @media (max-width: 768px) {
@@ -63,7 +64,7 @@
         text-decoration: none;
         transition: var(--normal-transition);
     }
-    
+
     button:hover {
         border: 1px solid black;
         background-color: whitesmoke;
@@ -301,6 +302,9 @@
         animation-duration: var(--load-animation-duration);
         animation-delay: var(--load-animation-delay);
         animation-fill-mode: both;
+    }
+    .load-delay {
+        animation-delay: var(--secondary-load-animation-delay);
     }
     @keyframes fadeInOpacity {
         0% {opacity: 0;}

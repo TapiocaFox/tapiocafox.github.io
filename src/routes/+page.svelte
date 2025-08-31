@@ -21,10 +21,9 @@
 </style>
 <div class="align-with-nav">
     <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
-    <div class="icon_description_layout">
+    <div class="icon_description_layout fade-in">
         <div class="icon">
-            <img src={profile} 
-            class="fade-in"
+            <img src={profile}
             alt="Profile"
             style:border-radius="var(--sharper-radius)"
             style:margin="1rem 0"
@@ -43,13 +42,13 @@
             </div>
         </div>
     </div>
-    <hr class="dashed">
-    <p class="compact" >Hi. This is the website of me sharing personal projects and demos. Including digital artworks, previous projects that I've done, and some ongoing experimental works.</p>
+    <hr class="dashed fade-in load-delay">
+    <p class="compact fade-in load-delay" >Hi. This is the website of me sharing personal projects and demos. Including digital artworks, previous projects that I've done, and some ongoing experimental works.</p>
     <!-- <h3>The music I like recently</h3> -->
     <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/2000-mixed/1829001427?i=1829001428"></iframe> -->
     <!-- <p class="annotation">The music I vibe with recently.</p> -->
-    <img alt="Spiral 1" class="sqaure_item fade-in" src={spiral_1} style:float="left"/>
-    <img alt="Spiral 2" class="sqaure_item fade-in" src={spiral_2}/>
+    <img alt="Spiral 1" class="sqaure_item fade-in load-delay" src={spiral_1} style:float="left"/>
+    <img alt="Spiral 2" class="sqaure_item fade-in load-delay" src={spiral_2}/>
     <EndingDecoration/>
 </div>
 <!-- <ArtDecoration/> -->
