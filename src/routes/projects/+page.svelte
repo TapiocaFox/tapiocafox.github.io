@@ -7,6 +7,7 @@
     import talksy from '$lib/assets/projects/talksy.png';
 
     import reversi_talk from '$lib/assets/projects/reversi_talk.png';
+    import reversi_talk_terminal from '$lib/assets/projects/reversi_talk_terminal.png';
 
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
@@ -44,7 +45,8 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Talksy" target="_blank">Talksy</a></h2>
-    <p>Full stack chatting software. The frontend is written in React.js. With a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch. And was used by my university radio station "goto&Play".</p>
+    <p>Full stack chatting software. The frontend is written in React.js. With a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch
+        . And was used by my university radio station "goto&Play".</p>
     <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
     <img class="preview-large" alt="Talksy" src={talksy}/>
 </div>
@@ -63,7 +65,9 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
     <p>A reversi game that can be controlled by various IoT devices. The AI agent uses CNN model, and the library was written in <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a>. It was my second year undergrad project.</p>
-    <img class="small" alt="Reversi Talk" src={reversi_talk}/>
+    <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
+    <!-- <img class="preview" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/> -->
+    
 </div>
 {/if}
 
