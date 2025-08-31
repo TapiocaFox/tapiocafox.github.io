@@ -303,7 +303,7 @@
         animation-delay: var(--load-animation-delay);
         animation-fill-mode: both;
     }
-    .load-delay {
+    .load-delay, iframe {
         animation-delay: var(--secondary-load-animation-delay);
     }
     @keyframes fadeInOpacity {
