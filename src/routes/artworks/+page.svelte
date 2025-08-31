@@ -27,7 +27,7 @@
     selected_category = value;
   }}
 />
-<p class="bold-annotation">Collection of my artworks. Some with tidbits.</p>
+<p class="annotation">Collection of my artworks. Some with tidbits.</p>
 
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">

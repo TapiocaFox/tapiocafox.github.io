@@ -11,7 +11,7 @@
     selected_category = value;
   }}
 />
-<p class="bold-annotation">Personal taste. Including music, videos and other forms of content.</p>
+<p class="annotation">Personal taste. Including music, videos and other forms of content.</p>
 
 
 {#if selected_category=="music"}

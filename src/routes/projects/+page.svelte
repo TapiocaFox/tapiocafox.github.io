@@ -13,7 +13,7 @@
     selected_category = value;
   }}
 />
-<p class="bold-annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
+<p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
 
 {#if selected_category=="all"}
 <div class="card">
