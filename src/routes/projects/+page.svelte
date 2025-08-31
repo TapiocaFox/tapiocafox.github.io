@@ -44,7 +44,7 @@
 
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
-    <h2><a href="https://github.com/TapiocaFox/Talksy" target="_blank">Talksy</a></h2>
+    <h2><a href="https://github.com/NOOXY-research/Talksy" target="_blank">Talksy</a></h2>
     <p>Full stack chatting software. The frontend is written in React.js. With a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch. And was used by my university's radio station "goto&Play". (A channel embedded as a chat bubble. And the admins have the full control throught the interface as shown.)</p>
     <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
     <img class="preview-large" alt="Talksy" src={talksy}/>
