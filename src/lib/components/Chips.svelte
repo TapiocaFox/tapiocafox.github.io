@@ -27,7 +27,7 @@
     }
 
     button.selected {
-        /* border: 1px solid var(--secondary-functional-color); */
+        border: 1px solid black;
         background-color: var(--secondary-functional-color);
     }
     button:last-child {
@@ -51,7 +51,7 @@
                 callback(values[index]);
             }}><span class="text">{name}</span></button>
         {:else}
-            <button onclick={() => {
+            <button class="" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
             }}><span class="text">{name}</span></button>

@@ -18,7 +18,7 @@
 
     --primary-backgroud-color: rgb(245, 245, 245);
 
-    --border-color: grey;
+    --border-color: rgb(150, 150, 150);
 
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
@@ -84,10 +84,10 @@
         transition: var(--normal-transition);
         border-radius: var(--normal-radius);
         padding: 1em 1em;
-        border: 1px dotted var(--border-color);
+        outline: 1px dotted var(--border-color);
         margin: 1em 0;
         color: black;
-        font-size: 99%;
+        font-size: 98%;
     }
     div.card h1, h2, h3, h4, h5 {
         color: black;
@@ -143,7 +143,7 @@
         }
     }
     div.card img.outlined {
-        border: 1px dashed black;
+        outline: 1px dashed black;
     }
     div.card img.icon {
         width: 96px;
