@@ -55,7 +55,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
-    <p>A simple rhythm console made with Arduino UNO. You can edit your music sheet on browser and upload it to Arduino through bluetooth BLE. The editor also support the importation from the Open Music XML format through conversion.</p>
+    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet on browser and upload it to Arduino through bluetooth BLE. The editor also support the importation from the Open Music XML format through conversion.</p>
     <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
     <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
 </div>
