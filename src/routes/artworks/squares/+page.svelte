@@ -72,13 +72,14 @@
     }
 </style>
 <HeaderWithBackButton text="Squares"/>
-<p>Blocky things align with grid are captivating. <a href="#" onclick={()=>{shuffle(squares);}}>Randomize</a>.</p>
+<p class="bold-annotation">Blocky things align with grid are captivating. <a href="#" onclick={()=>{shuffle(squares);}}>Randomize</a>.</p>
+<hr class="dotted"/>
 <div class="flex_grid" 
     style:align-items="center"
     style:justify-content="center"
     style:width="100%"
     style:gap="12px"
-    style:margin="8px 0">
+    style:margin="1rem 0">
     {#each squares as square}
         <div class="item sqaure_item">
             <img alt="Sqaure" style:width="100%" src={square}/>

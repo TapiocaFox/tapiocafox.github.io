@@ -28,6 +28,10 @@
     --background-dot-gap: 8px;      /* distance between dot centers */
     --background-dot-image: radial-gradient(circle at center, var(--background-dot-color) 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px));
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
+
+    @media (max-width: 768px) {
+        --page-offset: 12px;
+    }
 }
 :global {
     /* html, body {
@@ -63,6 +67,7 @@
         border: 1px dotted var(--border-color);
         margin: 1em 0;
         color: black;
+        font-size: 99%;
     }
     div.card h1, h2, h3, h4, h5 {
         color: black;
@@ -196,7 +201,7 @@
     }
 
     a[target="_blank"]::after {
-        /* content: " ⧉"; */
+        content: " ⧉";
         font-size: small;
         color: grey;
     }
@@ -206,12 +211,13 @@
     p.annotation {
         color: dimgrey;
         font-size: small;
-        max-width: var(--compact-width);
+        /* max-width: var(--compact-width); */
     }
 
     p.bold-annotation {
-        font-size: 0.8em;
-        max-width: var(--compact-width);
+        color: rgb(65, 65, 65);
+        font-size: 0.875em;
+        /* max-width: var(--compact-width); */
     }
 
     p.compact {
