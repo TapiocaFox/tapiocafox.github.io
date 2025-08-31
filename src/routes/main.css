@@ -30,7 +30,7 @@
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
 
     --load-animation-duration: .25s;
-    --load-animation-delay: .1s;
+    --load-animation-delay: .08s;
     --load-animation-timing-function: ease;
 
     @media (max-width: 768px) {
