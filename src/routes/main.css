@@ -29,6 +29,9 @@
     --background-dot-image: radial-gradient(circle at center, var(--background-dot-color) 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px));
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
 
+    --load-animation-duration: 0.25s;
+    --load-animation-timing-function: ease;
+
     @media (max-width: 768px) {
         --page-offset: 12px;
     }
@@ -274,4 +277,18 @@
         margin-block-start: 0.67em;
         margin-block-end: 0.67em;
     } */
+
+
+    .fade-in, iframe, div.card img, div.card canvas {
+        opacity: 1;
+        animation-name: fadeInOpacity;
+        animation-timing-function: var(--load-animation-timing-function);
+        animation-iteration-count: 1;
+        animation-duration: var(--load-animation-duration);
+        /* animation-delay: 0.312s; */
+    }
+    @keyframes fadeInOpacity {
+        0% {opacity: 0;}
+        100% {opacity: 1;}
+    }
 }
