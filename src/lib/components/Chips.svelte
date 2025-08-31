@@ -36,9 +36,9 @@
     button.selected:hover {
         background-color: var(--secondary-functional-color);
     }
-    /* button span.text {
-        color: var(--secondary-functional-color);
-    } */
+    button span.text {
+        color: black;
+    }
     button.selected span.text {
         color: var(--secondary-functional-text-color);
     }
