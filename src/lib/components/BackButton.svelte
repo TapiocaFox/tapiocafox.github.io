@@ -1,5 +1,5 @@
 <script  lang="ts">
-  let {text = "go back", inline=false} = $props();
+  let {text = "Go back", inline=false} = $props();
 </script>
 <style>
   button.back_button {

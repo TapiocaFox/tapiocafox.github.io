@@ -12,7 +12,7 @@
 
     --primary-functional-color: royalblue;
     --primary-functional-text-color: white;
-    --secondary-functional-color: mediumvioletred;
+    --secondary-functional-color: SlateGrey;
     --secondary-functional-text-color: white;
 
     --primary-backgroud-color: rgb(245, 245, 245);
@@ -29,7 +29,7 @@
     --background-dot-image: radial-gradient(circle at center, var(--background-dot-color) 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px));
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
 
-    --load-animation-duration: .24s;
+    --load-animation-duration: .2s;
     --load-animation-delay: .08s;
     --secondary-load-animation-delay: .16s;
     --load-animation-timing-function: ease;
@@ -56,12 +56,13 @@
     button {
         cursor:pointer;
         width: fit-content;
-        padding: 0.1em 0.5em;
+        padding: 0.12em 0.5em;
         border: 1px solid black;
-        font-size: small;
         border-radius: var(--sharper-radius);
-        background-color: unset;
+        background-color: white;
         text-decoration: none;
+        font-size: 0.85rem;
+        /* font-weight: 600; */
         transition: var(--normal-transition);
     }
 

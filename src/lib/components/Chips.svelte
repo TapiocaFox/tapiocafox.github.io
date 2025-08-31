@@ -18,6 +18,7 @@
         display: inline-block;
         vertical-align: middle;
         margin: 0 0.5em 0 0;
+        /* border: 1px solid var(--secondary-functional-color); */
     }
     
     button:hover {
@@ -35,9 +36,9 @@
     button.selected:hover {
         background-color: var(--secondary-functional-color);
     }
-    button span.text {
+    /* button span.text {
         color: var(--secondary-functional-color);
-    }
+    } */
     button.selected span.text {
         color: var(--secondary-functional-text-color);
     }
@@ -56,4 +57,5 @@
             }}><span class="text">{name}</span></button>
         {/if}
     {/each}
+    
 </div>
