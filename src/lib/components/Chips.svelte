@@ -1,4 +1,4 @@
-<script  lang="ts">
+<script lang="ts">
   let {names = [], values = [], selected_value=null, callback = () => {}, selection = true} = $props();
   let selected_index = $state(values.indexOf(selected_value));
 </script>
@@ -17,27 +17,20 @@
     button {
         display: inline-block;
         vertical-align: middle;
-        width: fit-content;
-        padding: 0.1em 0.5em;
-        /* border-radius: var(--sharper-radius); */
-        border: 1px solid black;
-        font-size: small;
-        margin: 12px 0;
-        background-color: unset;
-        text-decoration: none;
-        transition: var(--normal-transition);
         margin: 0 0.5em 0 0;
     }
+    
+    button:hover {
+        border: 1px solid black;
+        background-color: whitesmoke;
+    }
+
     button.selected {
         /* border: 1px solid var(--secondary-functional-color); */
         background-color: var(--secondary-functional-color);
     }
     button:last-child {
         margin: 0;
-    }
-    button:hover {
-        border: 1px solid black;
-        background-color: whitesmoke;
     }
     button.selected:hover {
         background-color: var(--secondary-functional-color);

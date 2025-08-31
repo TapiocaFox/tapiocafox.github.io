@@ -73,7 +73,7 @@
 </style>
 <HeaderWithBackButton text="Squares"/>
 <p class="bold-annotation">Blocky things align with grid are captivating. <a href="#" onclick={()=>{shuffle(squares);}}>Randomize</a>.</p>
-<hr class="dotted"/>
+<!-- <hr class="dotted"/> -->
 <div class="flex_grid" 
     style:align-items="center"
     style:justify-content="center"

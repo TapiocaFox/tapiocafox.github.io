@@ -1,7 +1,7 @@
 :root {
     --compact-width: 660px;
     --normal-radius: 6px;
-    --sharper-radius: 4px;
+    --sharper-radius: 2px;
     --normal-transition: transform .1s;
 
     --page-offset: 16px;
@@ -15,7 +15,7 @@
     --secondary-functional-color: mediumvioletred;
     --secondary-functional-text-color: white;
 
-    --primary-backgroud-color: whitesmoke;
+    --primary-backgroud-color: rgb(245, 245, 245);
 
     --border-color: grey;
 
@@ -54,6 +54,19 @@
 
     button {
         cursor:pointer;
+        width: fit-content;
+        padding: 0.1em 0.5em;
+        border: 1px solid black;
+        font-size: small;
+        border-radius: var(--sharper-radius);
+        background-color: unset;
+        text-decoration: none;
+        transition: var(--normal-transition);
+    }
+    
+    button:hover {
+        border: 1px solid black;
+        background-color: whitesmoke;
     }
 
     .align-with-nav {
