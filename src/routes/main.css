@@ -131,6 +131,11 @@
         width: auto;
         margin-right: 8px;
     }
+    div.card img.preview-large {
+        max-height: calc(var(--compact-width) * 0.4);
+        width: auto;
+        margin-right: 8px;
+    }
 
     @media (max-width: 768px) {
         div.card img.medium {

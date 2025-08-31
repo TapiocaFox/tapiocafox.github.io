@@ -5,7 +5,11 @@
 
     import talksy_poster from '$lib/assets/projects/talksy_poster.png';
     import talksy from '$lib/assets/projects/talksy.png';
+
     import reversi_talk from '$lib/assets/projects/reversi_talk.png';
+
+    import note_g_editor from '$lib/assets/projects/note_g_editor.png';
+    import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
     let selected_category = $state('all');
 </script>
@@ -41,8 +45,17 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Talksy" target="_blank">Talksy</a></h2>
     <p>Full stack chatting software. The frontend is written in React.js. With a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch by me. And was used by my university radio station "goto&Play".</p>
-    <img class="preview outlined" alt="Talksy Poster" src={talksy_poster}/>
-    <img class="preview" alt="Talksy" src={talksy}/>
+    <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
+    <img class="preview-large" alt="Talksy" src={talksy}/>
+</div>
+{/if}
+
+{#if selected_category=="all" || selected_category=='highlights'}
+<div class="card">
+    <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
+    <p>A simple rhythm console made with Arduino UNO. You can edit your music sheet on browser and upload it to Arduino through bluetooth BLE. The editor also support the importation from the Open Music XML format.</p>
+    <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
+    <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
 </div>
 {/if}
 
@@ -50,7 +63,7 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
     <p>A reversi game that can be controlled by various IoT devices. The AI agent uses CNN model, and the library was written in <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a>. It was my second year undergrad project.</p>
-    <img class="small" alt="Talksy Poster" src={reversi_talk}/>
+    <img class="small" alt="Reversi Talk" src={reversi_talk}/>
 </div>
 {/if}
 
