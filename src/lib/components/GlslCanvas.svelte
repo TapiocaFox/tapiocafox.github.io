@@ -138,6 +138,7 @@
         background-color: white;
         padding: 1em;
         max-width: 400px;
+        z-index: 99;
     }
     div.code-block.visible {
         display: block !important; /* you can safely use !important here */
@@ -149,6 +150,7 @@
         margin-bottom: 0;
     }
     div.code-block > pre {
+        
         white-space: pre-wrap;
         text-overflow: ellipsis;
         overflow: hidden; 
