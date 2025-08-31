@@ -9,7 +9,7 @@
     style:margin-block-end="1rem"
     style:gap="8px">
     <div style:width="auto">
-        <img alt="Icon" style:height="49px" style:width="49px" src={icon}/>
+        <img alt="Icon" style:height="48px" style:width="48px" src={icon}/>
     </div>
     <div 
         style:flex-grow="1"
