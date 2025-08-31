@@ -22,7 +22,7 @@
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
 
-    --background-dot-color: rgb(230, 230, 230);
+    --background-dot-color: rgb(240, 240, 240);
     /* --background-dot-color: whitesmoke; */
     --background-dot-size: 1px;      /* diameter of dot */
     --background-dot-gap: 8px;      /* distance between dot centers */
