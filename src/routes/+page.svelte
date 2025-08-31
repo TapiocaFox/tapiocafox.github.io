@@ -26,13 +26,14 @@
             <img src={profile} 
             alt="Profile"
             style:border-radius="var(--sharper-radius)"
+            style:margin="1rem 0"
             style:width="125px"
             style:height="125px"/>
         </div>
         <div class="description">
             <div>
                 <h3 style:margin-block-end="0.0em">Yves Chen</h3>
-                <p>
+                <p class="bold-annotation">
                     GitHub: <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     Email: <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     Resume: click me<br>

@@ -209,6 +209,11 @@
         max-width: var(--compact-width);
     }
 
+    p.bold-annotation {
+        font-size: 0.8em;
+        max-width: var(--compact-width);
+    }
+
     p.compact {
         max-width: var(--compact-width);
     }
@@ -216,6 +221,10 @@
     span.annotation {
         color: dimgrey;
         font-size: small;
+    }
+
+    span.bold-annotation {
+        font-size: smaller;
     }
 
 
