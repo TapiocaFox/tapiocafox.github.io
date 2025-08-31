@@ -29,7 +29,8 @@
     --background-dot-image: radial-gradient(circle at center, var(--background-dot-color) 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px));
     /* --background-dot-size: var(--background-dot-gap) var(--background-dot-gap); */
 
-    --load-animation-duration: 0.25s;
+    --load-animation-duration: .25s;
+    --load-animation-delay: .1s;
     --load-animation-timing-function: ease;
 
     @media (max-width: 768px) {
@@ -280,12 +281,13 @@
 
 
     .fade-in, iframe, div.card img, div.card canvas {
-        opacity: 1;
+        /* opacity: 0; */
         animation-name: fadeInOpacity;
         animation-timing-function: var(--load-animation-timing-function);
         animation-iteration-count: 1;
         animation-duration: var(--load-animation-duration);
-        /* animation-delay: 0.312s; */
+        animation-delay: var(--load-animation-delay);
+        animation-fill-mode: both;
     }
     @keyframes fadeInOpacity {
         0% {opacity: 0;}
