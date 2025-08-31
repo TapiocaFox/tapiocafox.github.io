@@ -18,6 +18,7 @@
         display: inline-block;
         vertical-align: middle;
         margin: 0 0.5em 0 0;
+        /* filter: drop-shadow(0 0.5rem 1rem grey); */
         /* border: 1px solid var(--secondary-functional-color); */
     }
     

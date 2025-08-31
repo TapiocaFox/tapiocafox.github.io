@@ -1,7 +1,7 @@
 :root {
     --compact-width: 660px;
     --normal-radius: 6px;
-    --sharper-radius: 2px;
+    --sharper-radius: 3px;
     --normal-transition: transform .1s;
 
     --page-offset: 16px;
@@ -52,6 +52,11 @@
         background-size: var(--background-dot-gap) var(--background-dot-gap);
         /* mask-image: radial-gradient(circle, #000 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px)); */
         background-repeat: repeat, no-repeat;
+        /* background: linear-gradient(
+            to top,
+            white,
+            darkorange
+        ); */
     }
 
     button {
@@ -88,6 +93,7 @@
         margin: 1em 0;
         color: black;
         font-size: 98%;
+        /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
     div.card h1, h2, h3, h4, h5 {
         color: black;
