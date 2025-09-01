@@ -6,6 +6,7 @@
 <svelte:head>
 	<link rel="icon" href={favicon} />
 	<link rel="stylesheet" href="" />
+	<title>tapiocafox.com</title>
 </svelte:head>
 
 <style>
