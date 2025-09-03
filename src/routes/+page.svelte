@@ -4,6 +4,7 @@
     import EndingDecoration from '$lib/components/EndingDecoration.svelte';
     import spiral_1 from '$lib/assets/squares/spiral_1.png';
     import spiral_2 from '$lib/assets/squares/spiral_2.png';
+    import tapiocafox from '$lib/assets/squares/tapiocafox.png';
 </script>
 <style>
     .sqaure_item {
