@@ -65,8 +65,8 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
     <p>A reversi game that can be controlled by various IoT devices. The AI agent uses CNN model, and the library was written in <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a>. It was my second year undergrad project.</p>
-    <img class="preview" alt="Reversi Talk" src={reversi_talk}/>
-    <img class="preview" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>
+    <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
+    <img class="preview-large" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>
 </div>
 {/if}
 
