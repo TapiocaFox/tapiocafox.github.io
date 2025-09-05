@@ -12,6 +12,8 @@
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
+    import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
+
     let selected_category = $state('all');
 </script>
 <h1>Projects</h1>
@@ -30,6 +32,8 @@
     <h2><a href="/glsl">GLSL shader</a></h2>
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
     <GlslCanvas preview={true}/>
+    <GlslCanvas preview={true} fragment_shader={sin}/>
+
 </div>
 {/if}
 

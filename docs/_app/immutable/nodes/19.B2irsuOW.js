@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/DJeDtmQW.js";import{f as c,b as f,a as u,s as n,e as m}from"../chunks/Bqm8lQsz.js";import{H as v}from"../chunks/BQwktgtb.js";import{G as t}from"../chunks/CKnWFAxW.js";const p=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import"../chunks/DJeDtmQW.js";import{f,b as m,a as c,s as n,e as u}from"../chunks/Bqm8lQsz.js";import{H as d}from"../chunks/BQwktgtb.js";import{G as e}from"../chunks/CKnWFAxW.js";import{s as v}from"../chunks/CklW6Izh.js";const _=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -8,7 +8,7 @@ uniform float u_time;
 
 void main() {
 	gl_FragColor = vec4(pow(sin((u_time+PI)*3.), 2.0),pow(cos(u_time*3.), 2.0),0.0,1.0);
-}`,d=`// Author:
+}`,p=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -64,30 +64,4 @@ void main() {
     }
 
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
-}`,_=`#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define PI 3.14159265358979
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float plot(vec2 st, float pct) {
-    return smoothstep(pct-0.02, pct,st.y) - smoothstep(pct, pct+0.02,st.y);
-    
-}
-
-void main() {
-    vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
-    st.x *= u_resolution.x/u_resolution.y;
-	
-	float y = sin(PI*(st.x - u_time));
-    
-    float pct = plot(st, y);
-    
-    vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
-
-    gl_FragColor = vec4(color,1.0);
-}`;var g=c('<!> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <!> <!> <!> <!> <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>',1);function b(s){var e=g(),o=f(e);v(o,{text:"GLSL shader"});var r=n(o,4);t(r,{});var i=n(r,2);t(i,{get fragment_shader(){return p}});var a=n(i,2);t(a,{get fragment_shader(){return d}});var l=n(a,2);t(l,{get fragment_shader(){return _}}),m(2),u(s,e)}export{b as component};
+}`;var g=f('<!> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <!> <!> <!> <!> <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>',1);function G(s){var t=g(),o=m(t);d(o,{text:"GLSL shader"});var r=n(o,4);e(r,{});var a=n(r,2);e(a,{get fragment_shader(){return _}});var i=n(a,2);e(i,{get fragment_shader(){return p}});var l=n(i,2);e(l,{get fragment_shader(){return v}}),u(2),c(s,t)}export{G as component};
