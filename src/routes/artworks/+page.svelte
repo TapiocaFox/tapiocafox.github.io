@@ -35,17 +35,6 @@
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
 {/if}
 
-{#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
-<div class="card">
-  <h2>Comics</h2>
-  <p>Surrealism is what I am looking for right now.</p>
-  <ul>
-    <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
-    <li>Four Blocks 📦 x 4 (None for now.)</li>
-  </ul>
-  <img class="preview outlined" src={two_blocks_cosmos}/>
-</div>
-{/if}
 {#if selected_category=="all"}
 <div class="card">
   <h2><a href="/artworks/portraits">Portraits</a></h2>
@@ -65,6 +54,17 @@
     <img class="preview" src={mosquito_zoomed}/>
     <img class="preview" src={crow}/>
   </div>
+</div>
+{/if}
+{#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
+<div class="card">
+  <h2>Comics</h2>
+  <p>Surrealism is what I am looking for right now.</p>
+  <ul>
+    <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
+    <li>Four Blocks 📦 x 4 (None for now.)</li>
+  </ul>
+  <img class="preview outlined" src={two_blocks_cosmos}/>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
