@@ -56,8 +56,8 @@
         </div>
     </div>
     <hr class="dashed fade-in load-delay">
-    <p class="compact fade-in load-delay" >Hi. This is the website of me sharing personal projects and demos. Including digital artworks, previous projects that I've done, and some ongoing experimental works.</p>
-    <p class="compact fade-in load-delay" >I’m the creator of the retro game management software <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a> (~1M accumalated users). Please take a glimpse of my <a href="/projects">projects</a> page to see more of my projects.</p>
+    <p class="compact fade-in load-delay" >Hi. This is the website of me sharing personal <a href="/projects">projects</a> and demos. Including digital <a href="/artworks">artworks</a>, previous projects that I've done, and some ongoing experimental works.</p>
+    <p class="compact fade-in load-delay" >I’m the creator of the retro game management software <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a> (~1M accumalated users). I like to build frameworks that can interact with people.</p>
     <!-- <h3>The music I like recently</h3> -->
     <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/2000-mixed/1829001427?i=1829001428"></iframe> -->
     <!-- <p class="annotation">The music I vibe with recently.</p> -->
