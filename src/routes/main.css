@@ -90,9 +90,9 @@
         border-radius: var(--normal-radius);
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
-        margin: 1.2em 0;
+        margin: 1.2rem 0;
         color: black;
-        font-size: 98%;
+        font-size: 95%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
     /* div.card h1, h2, h3, h4, h5 {
