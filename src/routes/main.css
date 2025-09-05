@@ -137,6 +137,27 @@
         margin-right: 8px;
     }
 
+    div.card div.preview-row {
+        padding: 1px 1px;
+		overflow-x: auto;
+		white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+    }
+
+    div.card div.preview-row :first-child {
+        margin-left: 0;
+    }
+
+    div.card div.preview-row :last-child {
+        margin-right: 0;
+    }
+
+    div.card div.preview-row::-webkit-scrollbar {
+		background: transparent; /* Chrome/Safari/Webkit */
+		width: 0px;
+	}
+
     @media (max-width: 768px) {
         div.card img.medium {
             max-width: calc(var(--shrink-card-img) * var(--compact-width) * 0.65);

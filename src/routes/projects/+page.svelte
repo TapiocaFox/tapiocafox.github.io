@@ -59,8 +59,10 @@
     <h2><a href="https://github.com/NOOXY-research/Talksy" target="_blank">Talksy</a></h2>
     <p>A full stack chatting software. The frontend is written in React.js. With a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch.</p>
     <p>It was used by my university's radio station "goto&Play". Embeded as a chatting bubble binded to a channel. Admins have fine-grained control through the interface as shown. Users can login to access the interface, but only with the channels where the permissions are given.</p>
-    <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
-    <img class="preview-large outlined" alt="Talksy" src={talksy}/>
+    <div class="preview-row">
+        <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
+        <img class="preview-large outlined" alt="Talksy" src={talksy}/>
+    </div>
 </div>
 {/if}
 
@@ -68,8 +70,10 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
     <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet on browser and upload it to Arduino through bluetooth BLE. The editor also support the importation from the Open Music XML format through conversion.</p>
-    <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
-    <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
+    <div class="preview-row">
+        <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
+        <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
+    </div>
 </div>
 {/if}
 
@@ -77,8 +81,10 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
     <p>A reversi game that can be controlled by various IoT devices. The AI agent uses CNN model, and the library was written in <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a>. It was my second year undergrad project.</p>
-    <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
-    <img class="preview-large" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>
+    <div class="preview-row">
+        <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
+        <img class="preview-large" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>
+    </div>
 </div>
 {/if}
 

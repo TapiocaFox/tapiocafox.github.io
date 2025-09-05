@@ -50,31 +50,41 @@
 <div class="card">
   <h2><a href="/artworks/portraits">Portraits</a></h2>
   <p>People and some significant individuals in my life.</p>
-  <img class="preview outlined" src={snake}/>
-  <img class="preview outlined" src={jyneda}/>
+  <div class="preview-row">
+    <img class="preview outlined" src={snake}/>
+    <img class="preview outlined" src={jyneda}/>
+  </div>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
   <p>Flashy and cartoonish blocks.</p>
-  <img class="preview" src={amc_2020}/><img class="preview" src={mosquito_zoomed}/><img class="preview" src={crow}/>
+  <div class="preview-row">
+    <img class="preview" src={amc_2020}/>
+    <img class="preview" src={mosquito_zoomed}/>
+    <img class="preview" src={crow}/>
+  </div>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
   <h2><a href="/artworks/design">Design</a></h2>
   <p>Posters, Blueprints, UI and stuffs.</p>
-  <img class="preview" src={daijishou_widget_ui}/>
-  <img class="preview outlined" src={phone_1}/>
+  <div class="preview-row">
+    <img class="preview" src={daijishou_widget_ui}/>
+    <img class="preview outlined" src={phone_1}/>
+  </div>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
   <h2><a href="/artworks/sketchings">Sketchings</a></h2>
   <p>Mostly things in real life, or quirky ideas inside of my head.</p>
-  <img class="preview outlined" src={hut}/>
-  <img class="preview outlined" src={border_collie}/>
+  <div class="preview-row">
+    <img class="preview outlined" src={hut}/>
+    <img class="preview outlined" src={border_collie}/>
+  </div>
 </div>
 {/if}
 {#if selected_category=="all" || selected_category=='colored'}
