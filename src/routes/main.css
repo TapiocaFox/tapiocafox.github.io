@@ -90,7 +90,7 @@
         border-radius: var(--normal-radius);
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
-        margin: 1em 0;
+        margin: 1.2em 0;
         color: black;
         font-size: 98%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
