@@ -27,7 +27,13 @@
     selected_category = value;
   }}
 />
+{#if selected_category == "colored"}
+<p class="annotation">Collection of my artworks with wonderful colors.</p>
+{:else if selected_category == "animals"}
+<p class="annotation">Collection of my artworks with goofy animals.</p>
+{:else}
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
+{/if}
 
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">

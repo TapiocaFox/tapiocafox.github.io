@@ -25,7 +25,15 @@
     selected_category = value;
   }}
 />
+{#if selected_category == "highlights"}
+<p class="annotation">Projects that can showcase my core skills.</p>
+{:else if selected_category == "ongoing"}
+<p class="annotation">Projects that are still onging, including experimental ones.</p>
+{:else if selected_category == "other"}
+<p class="annotation">Other uncategorized stuffs belong to here.</p>
+{:else}
 <p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
+{/if}
 
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
