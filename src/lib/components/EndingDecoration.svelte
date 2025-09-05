@@ -11,7 +11,6 @@
     <div>
         <img alt="TapiocaFox" style:height="25px" src={tapiocafox}/>
         <p style:margin="0"
-        style:font-family="'Courier New', Courier, monospace"
-        style:font-size="xx-small">©2025 TapiocaFox. End of the page.</p>
+        style:font-size="xx-small">Copyright © 2025 TapiocaFox.</p>
     </div>
 </div>
