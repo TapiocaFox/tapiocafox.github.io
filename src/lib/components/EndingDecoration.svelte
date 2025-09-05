@@ -9,7 +9,7 @@
     style:margin-block-end="1rem"
     style:align-items="center">
     <div>
-        <img alt="TapiocaFox" style:height="25px" src={tapiocafox}/>
+        <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
         <p style:margin="0"
         style:font-size="xx-small">Copyright © 2025 TapiocaFox.</p>
     </div>
