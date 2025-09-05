@@ -19,8 +19,10 @@
     }
     img.inline_icon {
         display: inline-block;
-        width: .85em;
-        height: .85em;
+        margin-bottom: 0.125em;
+        width: .95em;
+        height: .95em;
+        vertical-align: middle;
     }
     @media (max-width: 768px) {
         .sqaure_item {
@@ -48,8 +50,8 @@
                     <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     <img class="inline_icon" alt="Email" src={email_icon}/>
                     <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
-                    <img class="inline_icon" alt="Email" src={resume_icon}/>
-                    resume<br>
+                    <img class="inline_icon" alt="Resume" src={resume_icon}/>
+                    Resume<br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>
