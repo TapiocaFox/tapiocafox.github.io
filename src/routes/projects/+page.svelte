@@ -32,7 +32,7 @@
 {:else if selected_category == "other"}
 <p class="annotation">Other uncategorized stuffs belong to here.</p>
 {:else}
-<p class="annotation">The website is still very barebone; Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>.</p>
+<p class="annotation">Please visit <a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>. If you are interested for more.</p>
 {/if}
 
 {#if selected_category=="all" || selected_category=='ongoing'}

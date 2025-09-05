@@ -28,9 +28,9 @@
   }}
 />
 {#if selected_category == "colored"}
-<p class="annotation">Collection of my artworks with wonderful colors.</p>
+<p class="annotation">Artworks that come with wonderful colors.</p>
 {:else if selected_category == "animals"}
-<p class="annotation">Collection of my artworks with goofy animals.</p>
+<p class="annotation">Artworks that come with goofy animals.</p>
 {:else}
 <p class="annotation">Collection of my artworks. Some with tidbits.</p>
 {/if}
