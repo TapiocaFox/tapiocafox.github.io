@@ -16,9 +16,9 @@
     /* --secondary-functional-color: DarkMagenta; */
     --secondary-functional-text-color: white;
 
-    --primary-backgroud-color: rgb(245, 245, 245);
+    --primary-backgroud-color: rgb(240, 240, 240);
 
-    --border-color: rgb(150, 150, 150);
+    --border-color: rgb(180, 180, 180);
 
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
