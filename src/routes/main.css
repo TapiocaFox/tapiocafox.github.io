@@ -1,7 +1,7 @@
 :root {
     --compact-width: 660px;
-    --normal-radius: 6px;
-    --sharper-radius: 3px;
+    --normal-radius: 8px;
+    --sharper-radius: 4px;
     --normal-transition: transform .1s;
 
     --page-offset: 16px;
