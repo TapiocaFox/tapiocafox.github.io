@@ -128,6 +128,13 @@
         width: auto;
         margin-right: 8px;
     }
+    @media (max-width: 768px) {
+        canvas.glsl.preview {
+            max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
+            width: auto;
+            margin-right: 8px;
+        }
+    }
     div.code-block {
         display: none;
         position: fixed;
@@ -150,7 +157,6 @@
         margin-bottom: 0;
     }
     div.code-block > pre {
-        
         white-space: pre-wrap;
         text-overflow: ellipsis;
         overflow: hidden; 

@@ -95,9 +95,9 @@
         font-size: 98%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
-    div.card h1, h2, h3, h4, h5 {
+    /* div.card h1, h2, h3, h4, h5 {
         color: black;
-    }
+    } */
     /* div.card:hover {
         background-color: whitesmoke;
     } */
@@ -149,6 +149,11 @@
         }
         div.card img.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
+            width: auto;
+            margin-right: 8px;
+        }
+        div.card img.preview-large {
+            max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.4);
             width: auto;
             margin-right: 8px;
         }
