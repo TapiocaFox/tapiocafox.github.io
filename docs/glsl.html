@@ -6,15 +6,15 @@
 		
 		<link href="./_app/immutable/assets/0.BfD5Uxng.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
-		<link href="./_app/immutable/assets/GlslCanvas.BIiAJJ6X.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.Doua58mx.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/BoiGeqLE.js">
+		<link href="./_app/immutable/assets/GlslCanvas.mTxwU9WJ.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.Bu1wp0tQ.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CdUKlgDV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/qrUOpeqp.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Bqm8lQsz.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/dyYIa_zk.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/a4Aq3DTO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Cn_BCs_p.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.D9XjE7E-.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.BZ8xlwvH.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DldC7sIG.js">
@@ -25,16 +25,16 @@
 		<link rel="modulepreload" href="./_app/immutable/nodes/6.CPZNvKCO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/5UnAu6LL.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DJeDtmQW.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.BWbPo38J.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.BjB6IuvE.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BQwktgtb.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CcgvaHd1.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/JLJn2CMu.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CWVUC4ob.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CklW6Izh.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
-		<div style="display: contents"><!--[--><!--[--><!----><nav id="main-nav" class="svelte-frt5pn"><a href="/" class="svelte-frt5pn">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects" class="svelte-frt5pn">[Projects]</a> <a href="/artworks" class="svelte-frt5pn">[Artworks]</a> <a href="/media" class="svelte-frt5pn">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>GLSL shader<!--[--><button class="back_button back_button_inlined svelte-r1ycf1"><span class="text svelte-r1ycf1">« Go back</span></button><!--]--><!----></h1><!----> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <canvas class="glsl  svelte-qpsw4p" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-qpsw4p"><h4 class="svelte-qpsw4p">Vertex shader</h4> <pre class="svelte-qpsw4p">void main() {
+		<div style="display: contents"><!--[--><!--[--><!----><nav id="main-nav" class="svelte-frt5pn"><a href="/" class="svelte-frt5pn">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects" class="svelte-frt5pn">[Projects]</a> <a href="/artworks" class="svelte-frt5pn">[Artworks]</a> <a href="/media" class="svelte-frt5pn">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>GLSL shader<!--[--><button class="back_button back_button_inlined svelte-r1ycf1"><span class="text svelte-r1ycf1">« Go back</span></button><!--]--><!----></h1><!----> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-qpsw4p">Fragment shader</h4> <pre class="svelte-qpsw4p">#ifdef GL_ES
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -50,9 +50,9 @@ void main() {
     color = vec3(st.x,st.y,abs(sin(u_time)));
 
     gl_FragColor = vec4(color,1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-qpsw4p" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-qpsw4p"><h4 class="svelte-qpsw4p">Vertex shader</h4> <pre class="svelte-qpsw4p">void main() {
+}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-qpsw4p">Fragment shader</h4> <pre class="svelte-qpsw4p">#ifdef GL_ES
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -62,9 +62,9 @@ uniform float u_time;
 
 void main() {
 	gl_FragColor = vec4(pow(sin((u_time+PI)*3.), 2.0),pow(cos(u_time*3.), 2.0),0.0,1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-qpsw4p" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-qpsw4p"><h4 class="svelte-qpsw4p">Vertex shader</h4> <pre class="svelte-qpsw4p">void main() {
+}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-qpsw4p">Fragment shader</h4> <pre class="svelte-qpsw4p">// Author:
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">// Author:
 // Title:
 
 #ifdef GL_ES
@@ -120,9 +120,9 @@ void main() {
     }
 
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-qpsw4p" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-qpsw4p"><h4 class="svelte-qpsw4p">Vertex shader</h4> <pre class="svelte-qpsw4p">void main() {
+}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
     gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-qpsw4p">Fragment shader</h4> <pre class="svelte-qpsw4p">#ifdef GL_ES
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -152,15 +152,15 @@ void main() {
 			
 			<script>
 				{
-					__sveltekit_1av5nry = {
+					__sveltekit_5n7gpk = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.Doua58mx.js"),
-						import("./_app/immutable/entry/app.D9XjE7E-.js")
+						import("./_app/immutable/entry/start.Bu1wp0tQ.js"),
+						import("./_app/immutable/entry/app.BZ8xlwvH.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],

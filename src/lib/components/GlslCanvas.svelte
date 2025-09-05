@@ -129,6 +129,11 @@
         margin-right: 8px;
     }
     @media (max-width: 768px) {
+        canvas.glsl {
+            width: 150px;
+            height: 150px;
+        }
+        
         canvas.glsl.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
             width: auto;
