@@ -9,6 +9,7 @@
     import github_icon from '$lib/assets/icons/github.svg';
     import email_icon from '$lib/assets/icons/email.svg';
     import resume_icon from '$lib/assets/icons/resume.svg';
+    import linkedin_icon from '$lib/assets/icons/linkedin.svg';
 </script>
 <style>
     .sqaure_item {
@@ -51,7 +52,9 @@
                     <img class="inline_icon" alt="Email" src={email_icon}/>
                     <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     <img class="inline_icon" alt="Resume" src={resume_icon}/>
-                    <a href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view?usp=share_link" target="_blank">Resume</a><br>
+                    <a href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view" target="_blank">Resume</a>
+                    <img class="inline_icon" alt="LinkedIn" src={linkedin_icon}/>
+                    <a href="https://www.linkedin.com/in/yves-chen-991949161/" target="_blank">LinkedIn</a><br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>
