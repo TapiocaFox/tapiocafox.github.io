@@ -77,6 +77,31 @@
         background-color: whitesmoke;
     }
 
+
+  	#main-nav {
+		background-color: var(--fox-background-color);
+		/* background-color: black; */
+		color: white;
+		padding: .25em 1em .25em 0px;
+		font-family: 'Courier New', Courier, monospace;
+		overflow-x: auto;
+		white-space: nowrap;
+        scrollbar-width: none;
+        -ms-overflow-style: none;
+	}
+
+	#main-nav::-webkit-scrollbar {
+		background: transparent; /* Chrome/Safari/Webkit */
+		width: 0px;
+	}
+	
+	#main-nav > a {
+		color: white;
+		text-decoration: none;
+		margin: 0 0px;
+		border-bottom-style: none;
+        border-bottom-width: 0;
+	}
     .align-with-nav {
         padding: 0 var(--page-offset);	
     }
@@ -240,7 +265,7 @@
 
     /* Full height with nav offset */
     .full_height_with_nav_offset {
-        height: calc(100vh - 8px - 1rem) !important;
+        height: calc(100vh - 0.5rem - 1rem) !important;
     }
 
     /* Solid border */
@@ -290,6 +315,13 @@
         font-size: smaller;
     }
 
+    img.inline_icon {
+        display: inline-block;
+        margin-bottom: 0.125em;
+        width: .95em;
+        height: .95em;
+        vertical-align: middle;
+    }
 
     div.icon_description_layout {
         display: flex;

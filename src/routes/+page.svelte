@@ -18,13 +18,6 @@
         height: 125px;
         margin-right: 4px;
     }
-    img.inline_icon {
-        display: inline-block;
-        margin-bottom: 0.125em;
-        width: .95em;
-        height: .95em;
-        vertical-align: middle;
-    }
     @media (max-width: 768px) {
         .sqaure_item {
             width: 125px;

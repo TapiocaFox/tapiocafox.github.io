@@ -11,30 +11,6 @@
 
 <style>
   	@import 'main.css';
-  	#main-nav {
-		background-color: var(--fox-background-color);
-		/* background-color: black; */
-		color: white;
-		padding: 4px 1em 4px 0px;
-		font-family: 'Courier New', Courier, monospace;
-		overflow-x: auto;
-		white-space: nowrap;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
-	}
-
-	#main-nav::-webkit-scrollbar {
-		background: transparent; /* Chrome/Safari/Webkit */
-		width: 0px;
-	}
-	
-	#main-nav > a {
-		color: white;
-		text-decoration: none;
-		margin: 0 0px;
-		border-bottom-style: none;
-        border-bottom-width: 0;
-	}
 </style>
 
 <nav id="main-nav">
