@@ -51,7 +51,7 @@
                     <img class="inline_icon" alt="Email" src={email_icon}/>
                     <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     <img class="inline_icon" alt="Resume" src={resume_icon}/>
-                    Resume<br>
+                    <a href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view?usp=share_link" target="_blank">Resume</a><br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>
