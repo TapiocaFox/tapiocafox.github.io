@@ -22,6 +22,8 @@
 
     let display_code_block = $state(false);
 
+    const code_block_division_percentage = 0.5;
+
     onMount(() => {
         init();
         animate();
@@ -88,15 +90,28 @@
             const windowWidth = window.innerWidth;
             const windowHeight = window.innerHeight;
 
+            const canvasRect = canvas.getBoundingClientRect();
+
             const codeBlockWidth = code_block.offsetWidth;
             const codeBlockHeight = code_block.offsetHeight;
             // console.log(clientX+16, clientY+16);
             // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
             // console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
-            code_block.animate({
-                left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
-                top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
-            }, {fill: "forwards"});
+            if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
+                // console.log('right');
+                code_block.animate({
+                    left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
+                    top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                }, {fill: "forwards"});
+            }
+            else {
+                // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-16}px`);
+                code_block.animate({
+                    right:`${Math.max(windowWidth-clientX+16, 0)}px`,
+                    top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                }, {fill: "forwards"});
+            }
+
             // console.log(clientX, clientY);
         };
 
@@ -172,6 +187,7 @@
 style:max-width = {preview?'calc(var(--compact-width) * 0.25)':`${size}px`}
 style:max-height = {preview?'auto':`${size}px`}
 class="glsl {preview?'preview':''}"></canvas>
+<!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
     <h4>Vertex shader</h4>
