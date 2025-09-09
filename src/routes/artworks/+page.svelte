@@ -16,6 +16,8 @@
 
 	import amc2018_cover from '$lib/assets/design/amc2018_cover.png';
 
+  import decoration from '$lib/assets/cacba_nobg.png';
+
   let selected_category = $state('all');
 </script>
 <h1>Artworks</h1>
@@ -97,4 +99,4 @@
   <img class="preview" src={amc2018_cover}/>
 </div>
 {/if}
-<ArtDecoration/>
+<ArtDecoration src={decoration}/>

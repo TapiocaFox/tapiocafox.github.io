@@ -1,5 +1,6 @@
 <script lang="ts">
     import icon from '$lib/assets/squares/tapiocafox.png';
+    import ArtDecoration from '$lib/components/ArtDecoration.svelte';
     import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
@@ -15,6 +16,8 @@
     import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
+
+    // import decoration from '$lib/assets/mejiro.png';
 
     let selected_category = $state('all');
 </script>
@@ -103,3 +106,5 @@
     </div>
 </div>
 {/if}
+
+<!-- <ArtDecoration src={decoration}/> -->

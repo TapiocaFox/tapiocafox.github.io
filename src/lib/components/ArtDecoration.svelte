@@ -1,5 +1,5 @@
 <script>
-    import decoration from '$lib/assets/cacba_nobg.png';
+	let {src} = $props();
 </script>
 <style>
 	img.decoration {
@@ -19,4 +19,4 @@
 	}
 </style>
 
-<img alt="Decoration" class="decoration" src={decoration}/>
+<img alt="Decoration" class="decoration" src={src}/>
