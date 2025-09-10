@@ -239,16 +239,16 @@
     }
 
     /* Header/Content Format */
-    div.header_content_format {
+    div.header-content-format {
         display: flex;
         flex-flow: column;
         height: 100vh;
     }
-    div.header_content_format > div.header {
+    div.header-content-format > div.header {
         flex: 0 1 auto;
         /* background-color: blue; */
     }
-    div.header_content_format > div.content {
+    div.header-content-format > div.content {
         flex: 1 1 auto;
         /* background-color: red; */
     }
@@ -264,7 +264,7 @@
     }
 
     /* Full height with nav offset */
-    .full_height_with_nav_offset {
+    .full-height-with-nav-offset {
         height: calc(100vh - 0.5rem - 1rem) !important;
     }
 
@@ -315,7 +315,7 @@
         font-size: smaller;
     }
 
-    img.inline_icon {
+    img.inline-icon {
         display: inline-block !important;
         margin-bottom: 0.125em !important;
         margin-right: 0.1em !important;
@@ -324,19 +324,19 @@
         vertical-align: middle !important;
     }
 
-    div.icon_description_layout {
+    div.icon-description-layout {
         display: flex;
         gap: 12px;
     }
 
-    div.icon_description_layout > div.icon {
+    div.icon-description-layout > div.icon {
         display: flex;
         justify-content: center;
         align-items: center;
         width: auto;
     }
     
-    div.icon_description_layout > div.description {
+    div.icon-description-layout > div.description {
         display: flex;
         justify-content: center;
         align-content: center;

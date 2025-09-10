@@ -18,6 +18,7 @@
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
     import discord_icon from '$lib/assets/icons/discord.svg';
+    import info_icon from '$lib/assets/icons/info.svg';
 
     // import decoration from '$lib/assets/mejiro.png';
 
@@ -39,13 +40,13 @@
 {:else if selected_category == "other"}
 <p class="annotation">Other uncategorized stuffs belong to here.</p>
 {:else}
-<p class="annotation">Please visit <img class="inline_icon" alt="GitHub" src={github_icon}/><a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>. If you are interested for more.</p>
+<p class="annotation">Please visit <img class="inline-icon" alt="GitHub" src={github_icon}/><a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>. If you are interested for more.</p>
 {/if}
 
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
     <h2><a href="/glsl">GLSL shader</a></h2>
-    <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
+    <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <img class="inline-icon" alt="Info" src={info_icon}/><a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
     <GlslCanvas preview={true}/>
     <GlslCanvas preview={true} fragment_shader={sin}/>
 
@@ -56,7 +57,7 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
     <p>Daijishō is a android launcher that let you manage your retro games libraries. The App is written in Kotlin, Room database, Jsoup, Javet and various other tools. Designed with responsiveness, modularity and tight integration in mind. Features included multi-language, synchronization, google drive backup, achievements and a rather simple theming system.</p>
-    <p>It has 1M+ accumalated downloads on <img class="inline_icon" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have a community with 2k+ members on <img class="inline_icon" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
+    <p>It has 1M+ accumalated downloads on <img class="inline-icon" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have a community with 2k+ members on <img class="inline-icon" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
@@ -99,7 +100,7 @@
 {#if selected_category=='other'}
 <div class="card">
     <h2><a href="/components">Components</a></h2>
-    <div class="icon_description_layout">
+    <div class="icon-description-layout">
         <div class="icon">
             <img class="icon" alt="Icon" src={icon}/>
         </div>

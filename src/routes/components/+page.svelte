@@ -48,7 +48,7 @@
 
 <div class="card">
     <h2><a href="/components">Components</a></h2>
-    <div class="icon_description_layout">
+    <div class="icon-description-layout">
         <div class="icon">
             <img class="icon" alt="Icon" src={tapiocafox}/>
         </div>

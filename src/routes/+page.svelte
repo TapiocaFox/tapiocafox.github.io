@@ -27,7 +27,7 @@
 </style>
 <div class="align-with-nav">
     <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
-    <div class="icon_description_layout">
+    <div class="icon-description-layout">
         <div class="icon fade-in">
             <img src={profile}
             alt="Profile"
@@ -40,13 +40,13 @@
             <div>
                 <h3 style:margin-block-end="0.0em">Yves Chen</h3>
                 <p class="bold-annotation">
-                    <img class="inline_icon" alt="GitHub" src={github_icon}/>
+                    <img class="inline-icon" alt="GitHub" src={github_icon}/>
                     <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
-                    <img class="inline_icon" alt="Email" src={email_icon}/>
+                    <img class="inline-icon" alt="Email" src={email_icon}/>
                     <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
-                    <img class="inline_icon" alt="Resume" src={resume_icon}/>
+                    <img class="inline-icon" alt="Resume" src={resume_icon}/>
                     <a href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view" target="_blank">Resume</a>
-                    <img class="inline_icon" alt="LinkedIn" src={linkedin_icon}/>
+                    <img class="inline-icon" alt="LinkedIn" src={linkedin_icon}/>
                     <a href="https://www.linkedin.com/in/yves-chen-991949161/" target="_blank">LinkedIn</a><br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>

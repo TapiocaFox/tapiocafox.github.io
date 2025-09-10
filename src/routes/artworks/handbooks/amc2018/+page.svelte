@@ -2,7 +2,7 @@
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import handbook from '$lib/assets/handbooks/AMC2018Handbook.pdf';
 </script>
-<div class="header_content_format full_height_with_nav_offset">
+<div class="header-content-format full-height-with-nav-offset">
 	<div class="header">
 		<HeaderWithBackButton text="NCTU AMC 2018"/>
 		<!-- <h1>AMC 2018</h1> -->
