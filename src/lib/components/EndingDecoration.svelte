@@ -11,6 +11,6 @@
     <div>
         <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
         <p style:margin="0"
-        style:font-size="xx-small">Copyright © 2025 TapiocaFox.</p>
+        style:font-size="xx-small">Copyright © {new Date().getFullYear()} TapiocaFox.</p>
     </div>
 </div>
