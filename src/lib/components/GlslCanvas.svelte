@@ -61,8 +61,11 @@
             window.addEventListener( 'resize', onWindowResize, false );
 
             document.onmousemove = function(e){
-                uniforms.u_mouse.value.x = e.pageX
-                uniforms.u_mouse.value.y = e.pageY
+                const rect = canvas.getBoundingClientRect();
+                const height = rect.bottom - rect.top;
+                uniforms.u_mouse.value.x = window.devicePixelRatio*(e.clientX-rect.left);
+                uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(e.clientY-rect.top));
+                console.log(e.clientX-rect.left, e.clientY-rect.top);
             }
         }
 

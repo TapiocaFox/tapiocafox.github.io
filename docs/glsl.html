@@ -7,15 +7,15 @@
 		<link href="./_app/immutable/assets/0.BSzBbYQP.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/GlslCanvas.mTxwU9WJ.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.BACv--Lv.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/D0FQ8K1_.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.B-qCCS2e.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DTWRLl4n.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CYzOF9-b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BMnbXWX4.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/9seOKE3V.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DfE8NsFA.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/C2GV5iPp.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BSJYrMLc.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.LMLebcvp.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.RMSsiT8p.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/B81ZVmVp.js">
@@ -27,10 +27,10 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/Lyc_tZvx.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D8hk22ri.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CVYHBFvr.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.DyjLIcu8.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.CBf7RWG4.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DQxZnCW_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BMfNZo7y.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/BNYSLbLi.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/C5n9svqR.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CX3tc_CR.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -121,19 +121,45 @@ void main() {
     vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
 
     gl_FragColor = vec4(color,1.0);
+}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
+    gl_Position = vec4( position, 1.0 );
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">// Author:
+// Title:
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define radius 0.033
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+float point(vec2 st, vec2 center) {
+    float dist = distance(st, center);
+    return 1.-smoothstep(radius-.005, radius+.005, dist);
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy *2. - 1.;
+    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    st.x *= u_resolution.x/u_resolution.y;
+	float pct = point(st, st_mouse);
+    gl_FragColor = vec4(mix(vec3(1.), vec3(0., 1., 0.), pct),1.0);
 }</pre></div><!----><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_adtafr = {
+					__sveltekit_1id15kl = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.BACv--Lv.js"),
-						import("./_app/immutable/entry/app.LMLebcvp.js")
+						import("./_app/immutable/entry/start.B-qCCS2e.js"),
+						import("./_app/immutable/entry/app.RMSsiT8p.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],
