@@ -11,7 +11,7 @@
 <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p>
 <GlslCanvas/>
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
-<GlslCanvas fragment_shader={shader_toy_demo}/>
-<GlslCanvas fragment_shader={sin}/>
+<!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->
 <GlslCanvas fragment_shader={abstract}/>
-<p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>
+<GlslCanvas fragment_shader={sin}/>
+<!-- <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p> -->

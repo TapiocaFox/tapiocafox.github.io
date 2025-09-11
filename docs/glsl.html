@@ -7,15 +7,15 @@
 		<link href="./_app/immutable/assets/0.BSzBbYQP.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/GlslCanvas.mTxwU9WJ.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.CHbJuLoO.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/DGR22vRr.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.CxxRtONM.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DraRsvwU.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CYzOF9-b.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BMnbXWX4.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/9seOKE3V.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DfE8NsFA.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/C2GV5iPp.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BSJYrMLc.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.CC0uY2dD.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.DPkupvIQ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/B81ZVmVp.js">
@@ -27,7 +27,7 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/Lyc_tZvx.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D8hk22ri.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CVYHBFvr.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.NmwJkpix.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.CzB7DBiQ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DQxZnCW_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BMfNZo7y.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BNYSLbLi.js">
@@ -52,93 +52,7 @@ void main() {
     color = vec3(st.x,st.y,abs(sin(u_time)));
 
     gl_FragColor = vec4(color,1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
-    gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">// Author:
-// Title:
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-// by nikos papadopoulos, 4rknova / 2013
-// Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported License.
-
-#define AA 4.
-
-#define CI vec3(.3,.5,.6)
-#define CO vec3(0.0745, 0.0862, 0.1058)
-#define CM vec3(.0)
-#define CE vec3(.8,.7,.5)
-
-float metaball(vec2 p, float r)
-{
-	return r / dot(p, p);
-}
-
-vec3 samplef(in vec2 uv)
-{
-	float t0 = sin(u_time * 1.9) * .46;
-	float t1 = sin(u_time * 2.4) * .49;
-	float t2 = cos(u_time * 1.4) * .57;
-
-	float r = metaball(uv + vec2(t0, t2), .33) *
-			  metaball(uv - vec2(t0, t1), .27) *
-			  metaball(uv + vec2(t1, t2), .59);
-
-	vec3 c = (r > .4 &amp;&amp; r &lt; .7)
-			  ? (vec3(step(.1, r*r*r)) * CE)
-			  : (r &lt; .9 ? (r &lt; .7 ? CO: CM) : CI);
-
-	return c;
-}
-
-void main() {
-    vec2 uv = (gl_FragCoord.xy / u_resolution.xy * 2. - 1.)
-            * vec2(u_resolution.x / u_resolution.y, 1.0) * 1.25;
-
-    vec3 col = vec3(0.0);
-
-    float e = 1.0 / min(u_resolution.y , u_resolution.x);
-    for (float i = -AA; i &lt; AA; ++i) {
-        for (float j = -AA; j &lt; AA; ++j) {
-            col += samplef(uv + vec2(i, j) * (e/AA)) / (4.0*AA*AA);
-        }
-    }
-
-    gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
-    gl_Position = vec4( position, 1.0 );
-}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define PI 3.14159265358979
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float plot(vec2 st, float pct) {
-    return smoothstep(pct-0.02, pct,st.y) - smoothstep(pct, pct+0.02,st.y);
-    
-}
-
-void main() {
-    vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
-    st.x *= u_resolution.x/u_resolution.y;
-	
-	float y = sin(PI*(st.x - u_time));
-    
-    float pct = plot(st, y);
-    
-    vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
-
-    gl_FragColor = vec4(color,1.0);
-}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
+}</pre></div><!---->  <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
     gl_Position = vec4( position, 1.0 );
 }</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">// Author:
 // Title:
@@ -179,19 +93,47 @@ void main() {
     else {
         gl_FragColor = vec4(0.,0.,0.,1.0);
     }
-}</pre></div><!----> <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+}</pre></div><!----> <canvas class="glsl  svelte-hxp5he" style="max-width: 250px; max-height: 250px;"></canvas> <div class="code-block  svelte-hxp5he"><h4 class="svelte-hxp5he">Vertex shader</h4> <pre class="svelte-hxp5he">void main() {
+    gl_Position = vec4( position, 1.0 );
+}</pre> <h4 class="svelte-hxp5he">Fragment shader</h4> <pre class="svelte-hxp5he">#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265358979
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+float plot(vec2 st, float pct) {
+    return smoothstep(pct-0.02, pct,st.y) - smoothstep(pct, pct+0.02,st.y);
+    
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
+    st.x *= u_resolution.x/u_resolution.y;
+	
+	float y = sin(PI*(st.x - u_time));
+    
+    float pct = plot(st, y);
+    
+    vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
+
+    gl_FragColor = vec4(color,1.0);
+}</pre></div><!----><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_1nkzt6d = {
+					__sveltekit_o7qg3d = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.CHbJuLoO.js"),
-						import("./_app/immutable/entry/app.CC0uY2dD.js")
+						import("./_app/immutable/entry/start.CxxRtONM.js"),
+						import("./_app/immutable/entry/app.DPkupvIQ.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],
