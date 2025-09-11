@@ -14,6 +14,7 @@
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
     import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
+    import abstract from '$lib/assets/glsl_shaders/abstract.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
@@ -47,9 +48,11 @@
 <div class="card">
     <h2><a href="/glsl">GLSL shader</a></h2>
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <img class="inline-icon" alt="Info" src={info_icon}/><a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
-    <GlslCanvas preview={true}/>
-    <GlslCanvas preview={true} fragment_shader={sin}/>
-
+    <div class="preview-row">
+        <GlslCanvas preview={true}/>
+        <GlslCanvas preview={true} fragment_shader={abstract}/>
+        <GlslCanvas preview={true} fragment_shader={sin}/>
+    </div>
 </div>
 {/if}
 

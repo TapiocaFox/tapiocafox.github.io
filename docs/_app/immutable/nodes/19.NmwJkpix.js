@@ -1,14 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/D8hk22ri.js";import{f,b as m,a as c,s as n,e as u}from"../chunks/BMnbXWX4.js";import{H as d}from"../chunks/DQxZnCW_.js";import{G as e}from"../chunks/BNYSLbLi.js";import{s as v}from"../chunks/CklW6Izh.js";const _=`#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define PI 3.14159265359
-
-uniform float u_time;
-
-void main() {
-	gl_FragColor = vec4(pow(sin((u_time+PI)*3.), 2.0),pow(cos(u_time*3.), 2.0),0.0,1.0);
-}`,p=`// Author:
+import"../chunks/DsnmJJEf.js";import"../chunks/D8hk22ri.js";import{f,b as m,a as c,s as n,e as u}from"../chunks/BMnbXWX4.js";import{H as v}from"../chunks/DQxZnCW_.js";import{G as e}from"../chunks/BNYSLbLi.js";import{s as d,a as p}from"../chunks/CX3tc_CR.js";const _=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -64,4 +54,4 @@ void main() {
     }
 
     gl_FragColor = vec4(clamp(col, 0.0, 1.0), 1.0);
-}`;var g=f('<!> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <!> <!> <!> <!> <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>',1);function G(s){var t=g(),o=m(t);d(o,{text:"GLSL shader"});var r=n(o,4);e(r,{});var a=n(r,2);e(a,{get fragment_shader(){return _}});var i=n(a,2);e(i,{get fragment_shader(){return p}});var l=n(i,2);e(l,{get fragment_shader(){return v}}),u(2),c(s,t)}export{G as component};
+}`;var h=f('<!> <p class="annotation">Personal practice of GLSL. Try it in <a href="/glsl/editor">editor</a>.</p> <!> <!> <!> <!> <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p>',1);function x(s){var t=h(),o=m(t);v(o,{text:"GLSL shader"});var r=n(o,4);e(r,{});var a=n(r,2);e(a,{get fragment_shader(){return _}});var i=n(a,2);e(i,{get fragment_shader(){return d}});var l=n(i,2);e(l,{get fragment_shader(){return p}}),u(2),c(s,t)}export{x as component};
