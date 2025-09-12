@@ -19,7 +19,7 @@ float point(vec2 st, vec2 center) {
     return 1.-smoothstep(radius-.005, radius+.005, dist);
 }
 
-float line(vec2 st) {
+float grid(vec2 st) {
     vec2 mod_st = mod(st, gap);
     vec2 pct_st = smoothstep(gap-half_stroke_size, gap, mod_st) + smoothstep(-half_stroke_size, 0., -mod_st);
     return max(pct_st.x, pct_st.y);
@@ -31,12 +31,12 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
     
     vec3 color_point = vec3(0., 1., 0.);
-    vec3 color_line = vec3(0.5, 0.5, 0.5);
+    vec3 color_grid = vec3(0.5, 0.5, 0.5);
     
 	float pct = point(st, st_mouse);
-    float pct_line = line(st);
+    float pct_grid = grid(st);
     
-    vec3 color = mix(vec3(1.), color_line, pct_line);
+    vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
 }
