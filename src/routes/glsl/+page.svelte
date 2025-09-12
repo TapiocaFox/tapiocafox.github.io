@@ -13,7 +13,7 @@
     
 </script>
 <HeaderWithBackButton text="GLSL shader"/>
-<p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-icon" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
+<p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
 <GlslCanvas/>
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
 <!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->

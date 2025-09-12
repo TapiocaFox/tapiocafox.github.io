@@ -244,7 +244,7 @@ class="glsl {preview?'preview':''}"></canvas>
 class="edit {display_edit_button ? 'visible' : ''}" 
 onclick={clickEditButton}
 bind:this={edit_button}>
-<img class="inline-icon" alt="Edit" src={edit_icon}/>Edit</button>
+<img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>

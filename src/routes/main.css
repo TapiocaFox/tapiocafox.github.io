@@ -46,7 +46,7 @@
 
     body {
         margin: 0px;
-        font-family: Arial, sans-serif;
+        font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
         background-color: white;
         background-image: var(--background-dot-image);
         background-size: var(--background-dot-gap) var(--background-dot-gap);
@@ -320,7 +320,7 @@
         font-size: smaller;
     }
 
-    img.inline-icon {
+    img.inline-glyph {
         display: inline-block !important;
         margin-bottom: 0.125em !important;
         margin-right: 0.1em !important;
