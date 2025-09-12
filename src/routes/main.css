@@ -116,8 +116,8 @@
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
         margin: 1.15rem 0 1.3rem 0;
-        color: rgb(64, 64, 64);
-        font-size: 94%;
+        color: rgb(54, 54, 54);
+        font-size: 94.5%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
     /* div.card h1, h2, h3, h4, h5 {
