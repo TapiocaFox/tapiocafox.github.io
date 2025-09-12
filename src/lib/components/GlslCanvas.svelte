@@ -24,6 +24,8 @@
 
     const code_block_division_percentage = 0.5;
 
+    const pointer_offset = 24;
+
     onMount(() => {
         init();
         animate();
@@ -85,7 +87,7 @@
             const height = rect.bottom - rect.top;
             uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-rect.left);
             uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(event.clientY-rect.top));
-            console.log(event.clientX-rect.left, event.clientY-rect.top);
+            // console.log(event.clientX-rect.left, event.clientY-rect.top);
             
             if(show_code_block) {
                 display_code_block = true;
@@ -99,21 +101,21 @@
 
                 const codeBlockWidth = code_block.offsetWidth;
                 const codeBlockHeight = code_block.offsetHeight;
-                // console.log(clientX+16, clientY+16);
+                // console.log(clientX+pointer_offset, clientY+pointer_offset);
                 // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
-                // console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
+                // console.log(Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth), Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight));
                 if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
                     // console.log('right');
                     code_block.animate({
-                        left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
-                        top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                        left:`${Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth)}px`,
+                        top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
                     }, {fill: "forwards"});
                 }
                 else {
-                    // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-16}px`);
+                    // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-pointer_offset}px`);
                     code_block.animate({
-                        right:`${Math.max(windowWidth-clientX+16, 0)}px`,
-                        top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                        right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
+                        top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
                     }, {fill: "forwards"});
                 }
             }
