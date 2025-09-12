@@ -13,7 +13,7 @@
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
-    import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
+    import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
     import abstract from '$lib/assets/glsl_shaders/abstract.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
@@ -51,7 +51,7 @@
     <div class="preview-row">
         <GlslCanvas preview={true}/>
         <GlslCanvas preview={true} fragment_shader={abstract}/>
-        <GlslCanvas preview={true} fragment_shader={sin}/>
+        <GlslCanvas preview={true} fragment_shader={balls}/>
     </div>
 </div>
 {/if}
