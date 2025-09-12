@@ -3,7 +3,9 @@
     import * as THREE from 'three';
     import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
-    import { min } from 'three/tsl';
+    import edit_icon from '$lib/assets/icons/edit.svg';
+    // import { min } from 'three/tsl';
+    import { goto } from '$app/navigation';
     // const frag_shader = "uniform vec2 u_resolution; uniform vec2 u_mouse; uniform float u_time;  void main() {vec2 st = gl_FragCoord.xy/u_resolution.xy;st.x *= u_resolution.x/u_resolution.y;vec3 color = vec3(0.);color = vec3(st.x,st.y,abs(sin(u_time)));gl_FragColor = vec4(color,1.0); }";
     interface Uniforms {
         [uniform: string]: THREE.IUniform<any>;
@@ -17,10 +19,12 @@
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
+    var edit_button: HTMLButtonElement;
     var camera: THREE.Camera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, clock: THREE.Clock;
     var uniforms: Uniforms;
 
     let display_code_block = $state(false);
+    let display_edit_button = $state(false);
 
     const code_block_division_percentage = 0.5;
 
@@ -79,25 +83,37 @@
             uniforms.u_time.value += clock.getDelta();
             renderer.render( scene, camera ); 
         }
-        
+
+        // const buttonRect = edit_button.getBoundingClientRect();
+        // const buttonWidth = buttonRect.right - buttonRect.left;
+        // window.addEventListener("resize", ()=> {
+            // console.log(window.innerWidth, window.innerHeight);
+        // });
+
         canvas.onpointermove = async event => {
+            const canvasRect = canvas.getBoundingClientRect();
+            const canvasHeight = canvasRect.bottom - canvasRect.top;
+
             // console.log(canvas);
-            if(canvas==null) return;
-            const rect = canvas.getBoundingClientRect();
-            const height = rect.bottom - rect.top;
-            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-rect.left);
-            uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(event.clientY-rect.top));
+            // console.log(buttonRect.right, buttonRect.left);
+            
+            // if(canvas==null) return;
+            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
+            uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
             // console.log(event.clientX-rect.left, event.clientY-rect.top);
             
             if(show_code_block) {
                 display_code_block = true;
+                if(!preview) display_edit_button = true;
                 // await tick();
                 const { clientX, clientY } = event;
 
                 const windowWidth = window.innerWidth;
                 const windowHeight = window.innerHeight;
 
-                const canvasRect = canvas.getBoundingClientRect();
+                // console.log(windowWidth, windowHeight);
+                // console.log((canvasRect.left+canvasRect.right)*0.5, windowWidth*code_block_division_percentage);
+                // const canvasRect = canvas.getBoundingClientRect();
 
                 const codeBlockWidth = code_block.offsetWidth;
                 const codeBlockHeight = code_block.offsetHeight;
@@ -110,6 +126,10 @@
                         left:`${Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth)}px`,
                         top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
                     }, {fill: "forwards"});
+                    edit_button.animate({
+                        left:`${canvasRect.left}px`,
+                        top: `${canvasRect.bottom+2}px`
+                    }, {fill: "forwards"})
                 }
                 else {
                     // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-pointer_offset}px`);
@@ -117,17 +137,37 @@
                         right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
                         top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
                     }, {fill: "forwards"});
+                    edit_button.animate({
+                        right:`${windowWidth-canvasRect.right}px`,
+                        top: `${canvasRect.bottom+1}px`
+                    }, {fill: "forwards"})
                 }
             }
         };
 
         canvas.onpointerleave = async event => {
             display_code_block = false;
+            display_edit_button = false;
+            // console.log('canvas.onpointerleave');
             // console.log('onpointerleave', display_code_block);
+        };
+
+        // const rect = canvas.getBoundingClientRect();
+
+        edit_button.onpointerenter = async event => {
+            // console.log('edit_button.onpointerenter');
+            if(!preview) display_edit_button = true;
+        };
+
+        edit_button.onpointerleave = async event => {
+            // console.log('edit_button.onpointerenter');
+            display_edit_button = false;
         };
     });
 
-
+    function clickEditButton() {
+        goto(`/glsl/editor/?frag=${encodeURIComponent(fragment_shader)}`);
+    }
     
 </script>
 <style>
@@ -187,13 +227,24 @@
         text-overflow: ellipsis;
         overflow: hidden; 
     }
-
+    button.edit {
+        display: none;
+        position: fixed;
+    }
+    button.edit.visible {
+        display: block !important;
+    }
 </style>
 <canvas bind:this={canvas} 
 style:max-width = {preview?'calc(var(--compact-width) * 0.25)':`${size}px`}
 style:max-height = {preview?'auto':`${size}px`}
 style:background-color = {background_color}
 class="glsl {preview?'preview':''}"></canvas>
+<button 
+class="edit {display_edit_button ? 'visible' : ''}" 
+onclick={clickEditButton}
+bind:this={edit_button}>
+<img class="inline-icon" alt="Edit" src={edit_icon}/>Edit</button>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
