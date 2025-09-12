@@ -16,7 +16,10 @@ float plot(vec2 st, float pct) {
 void main() {
     vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
     st.x *= u_resolution.x/u_resolution.y;
-	
+
+    vec2 st_mouse = u_mouse / u_resolution.xy * 2.0 - 1.0;
+    st.x -= st_mouse.x;
+    
 	float y = sin(PI*(st.x - u_time));
     
     float pct = plot(st, y);
