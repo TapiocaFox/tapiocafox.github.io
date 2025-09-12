@@ -28,7 +28,7 @@
 
     const code_block_division_percentage = 0.5;
 
-    const pointer_offset = 32;
+    const pointer_offset = 48;
 
     onMount(() => {
         init();
