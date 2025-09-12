@@ -3,9 +3,12 @@
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
     import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
     import shader_toy_demo from '$lib/assets/glsl_shaders/shader_toy_demo.frag?raw';
+
     import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
     import mouse from '$lib/assets/glsl_shaders/mouse.frag?raw';
     import abstract from '$lib/assets/glsl_shaders/abstract.frag?raw';
+    import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
+
     import edit_icon from '$lib/assets/icons/edit.svg';
     
 </script>
@@ -17,4 +20,5 @@
 <GlslCanvas fragment_shader={abstract}/>
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
+<GlslCanvas fragment_shader={balls}/>
 <!-- <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p> -->

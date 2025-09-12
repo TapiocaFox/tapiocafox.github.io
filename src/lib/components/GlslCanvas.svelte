@@ -13,7 +13,7 @@
     }
     // console.log(typeof(frag_shader.replace));
     // console.log(typeof(default_fragment_shader.replace));
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true} = $props();
+    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true, background_color='black'} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -65,7 +65,7 @@
                 const height = rect.bottom - rect.top;
                 uniforms.u_mouse.value.x = window.devicePixelRatio*(e.clientX-rect.left);
                 uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(e.clientY-rect.top));
-                console.log(e.clientX-rect.left, e.clientY-rect.top);
+                // console.log(e.clientX-rect.left, e.clientY-rect.top);
             }
         }
 
@@ -137,7 +137,7 @@
         margin: auto;
         /* padding: 0; */
         border: 1px dotted var(--fox-background-color);
-        background-color: white;
+        background-color: black;
         color: white;
         cursor: crosshair;
     }
@@ -189,6 +189,7 @@
 <canvas bind:this={canvas} 
 style:max-width = {preview?'calc(var(--compact-width) * 0.25)':`${size}px`}
 style:max-height = {preview?'auto':`${size}px`}
+style:background-color = {background_color}
 class="glsl {preview?'preview':''}"></canvas>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
