@@ -8,6 +8,7 @@
     import mouse from '$lib/assets/glsl_shaders/mouse.frag?raw';
     import abstract from '$lib/assets/glsl_shaders/abstract.frag?raw';
     import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
+    import fiber from '$lib/assets/glsl_shaders/fiber.frag?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     
@@ -21,4 +22,5 @@
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
+<GlslCanvas fragment_shader={fiber}/>
 <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>
