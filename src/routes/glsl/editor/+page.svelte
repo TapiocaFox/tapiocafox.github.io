@@ -5,13 +5,14 @@
     import { beforeNavigate } from '$app/navigation';
     import { page } from '$app/state';
 
-    const frag = page.url.searchParams.get("frag");
+    
     // console.log(frag);
     onMount(async () => {
         // Import ONLY on the client
         const { default: GlslEditor } = await import('glslEditor/build/glslEditor.js');
         await import('glslEditor/build/glslEditor.css');
-
+        const frag = page.url.searchParams.get("frag");
+        
         const glslEditor = new GlslEditor('#glsl_editor', { 
             canvas_size: 500,
             canvas_draggable: true,
