@@ -79,7 +79,8 @@
         }
         
         canvas.onpointermove = async event => {
-            console.log(canvas);
+            // console.log(canvas);
+            if(canvas==null) return;
             const rect = canvas.getBoundingClientRect();
             const height = rect.bottom - rect.top;
             uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-rect.left);
