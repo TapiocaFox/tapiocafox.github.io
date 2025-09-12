@@ -21,4 +21,4 @@
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
-<p class="annotation">My <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music</a> playlist to match the shader coding vibe.</p>
+<p class="annotation">Personal <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a> while coding these shaders.</p>

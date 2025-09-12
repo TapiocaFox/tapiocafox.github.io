@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as d,t as f,a as v,s as t,c as g,n as l,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as n,e as b}from"../chunks/BG9zchJE.js";import{a as C,b as G}from"../chunks/CpuCMm-m.js";const L=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as d,t as f,a as v,s as t,c as g,n as l,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as n,e as b}from"../chunks/Dztb1ex0.js";import{a as C,b as G}from"../chunks/CpuCMm-m.js";const L=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -68,4 +68,4 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`;var F=p('<!> <p class="annotation">Personal practice of GLSL. Try it in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation">My <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music</a> playlist to match the shader coding vibe.</p>',1);function H(m){var e=F(),s=d(e);y(s,{text:"GLSL shader"});var o=t(s,2),u=t(g(o));l(2),h(o);var r=t(o,2);n(r,{});var a=t(r,2);n(a,{get fragment_shader(){return C}});var i=t(a,2);n(i,{get fragment_shader(){return L}});var c=t(i,2);n(c,{get fragment_shader(){return k}});var _=t(c,2);n(_,{get fragment_shader(){return G}}),l(2),f(()=>x(u,"src",b)),v(m,e)}export{H as component};
+}`;var F=p('<!> <p class="annotation">Personal practice of GLSL. Try it in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation">Personal <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a> while coding these shaders.</p>',1);function I(u){var e=F(),s=d(e);y(s,{text:"GLSL shader"});var o=t(s,2),m=t(g(o));l(2),h(o);var r=t(o,2);n(r,{});var a=t(r,2);n(a,{get fragment_shader(){return C}});var i=t(a,2);n(i,{get fragment_shader(){return L}});var c=t(i,2);n(c,{get fragment_shader(){return k}});var _=t(c,2);n(_,{get fragment_shader(){return G}}),l(2),f(()=>x(m,"src",b)),v(u,e)}export{I as component};
