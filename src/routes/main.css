@@ -116,7 +116,7 @@
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
         margin: 1.2rem 0;
-        color: black;
+        color: rgb(64, 64, 64);;
         font-size: 95%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
@@ -211,6 +211,11 @@
         width: 96px;
         height: 96px;
     }
+
+    div.card > h1, h2, h3, h4, h5, h6 {
+        color: black;
+    }
+
     /* Grid */
     div.grid {
         display: grid;
