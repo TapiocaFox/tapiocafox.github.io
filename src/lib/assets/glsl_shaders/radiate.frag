@@ -7,7 +7,7 @@ precision mediump float;
 
 #define PI 3.1415926535897932
 #define size_shrink 2.
-#define size_shrink_mouse .005
+#define size_shrink_mouse .1
 #define freq_polar 4.
 #define freq_rotate 0.4
 #define t_delay .075

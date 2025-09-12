@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f,e as p,t as v,a as g,s as n,c as h,n as m,r as x}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as k}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/BGBIFlfO.js";import{a as I,b as P}from"../chunks/CKLAX-Q9.js";const z=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f,e as p,t as v,a as g,s as n,c as h,n as m,r as x}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as k}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/BO4qpovt.js";import{a as I,b as P}from"../chunks/CKLAX-Q9.js";const z=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -96,7 +96,7 @@ precision mediump float;
 
 #define PI 3.1415926535897932
 #define size_shrink 2.
-#define size_shrink_mouse .005
+#define size_shrink_mouse .1
 #define freq_polar 4.
 #define freq_rotate 0.4
 #define t_delay .075
