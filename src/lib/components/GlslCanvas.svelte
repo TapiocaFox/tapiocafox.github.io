@@ -175,8 +175,8 @@
         width: 100%;
         height: 100%;
         aspect-ratio: 1;
-        max-width: 250px;
-        max-height: 250px;
+        max-width: 220px;
+        max-height: 220px;
         margin: auto;
         /* padding: 0; */
         border: 1px dotted var(--fox-background-color);
