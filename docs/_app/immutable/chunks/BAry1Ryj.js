@@ -65,7 +65,9 @@ void main() {
     	st.x *= u_resolution.x/u_resolution.y;
         
         for(int j=0; j<3; j++) {
-            float u_time_ch = (abs(0.75*sin(1.*float(i+1)))+.5)*u_time-float(j)*t_delay;
+            // float u_time_ch = (abs(0.75*sin(1.*float(i+1)))+.5)*u_time-float(j)*t_delay;
+        	float u_time_ch = u_time-float(j)*t_delay;
+
 
             vec2 st_ch = st;
             st_ch.x -= sin(.5*u_time_ch+float(i));    
