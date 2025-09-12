@@ -2,7 +2,9 @@
     --compact-width: 660px;
     --normal-radius: 8px;
     --sharper-radius: 4px;
-    --normal-transition: transform .1s;
+
+    --animation-time: .1s;
+    --normal-transition: transform var(--animation-time);
 
     --page-offset: 16px;
 

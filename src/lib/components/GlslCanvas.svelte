@@ -69,6 +69,7 @@
         }
 
         function onWindowResize(event: UIEvent | null) {
+            if(canvas==null) return;
             renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
             uniforms.u_resolution.value.x = renderer.domElement.width;
             uniforms.u_resolution.value.y = renderer.domElement.height;
@@ -128,7 +129,7 @@
                     }, {fill: "forwards"});
                     edit_button.animate({
                         left:`${canvasRect.left}px`,
-                        top: `${canvasRect.bottom+2}px`
+                        top: `${canvasRect.bottom+4}px`
                     }, {fill: "forwards"})
                 }
                 else {
@@ -139,7 +140,7 @@
                     }, {fill: "forwards"});
                     edit_button.animate({
                         right:`${windowWidth-canvasRect.right}px`,
-                        top: `${canvasRect.bottom+1}px`
+                        top: `${canvasRect.bottom+4}px`
                     }, {fill: "forwards"})
                 }
             }
@@ -147,7 +148,27 @@
 
         canvas.onpointerleave = async event => {
             display_code_block = false;
-            display_edit_button = false;
+            if(edit_button == null) return;
+
+            // const canvasRect = canvas.getBoundingClientRect();
+            const editButtonRect = edit_button.getBoundingClientRect();
+
+            if(show_code_block) {
+                const { clientX, clientY } = event;
+
+                // const windowWidth = window.innerWidth;
+                // const codeBlockWidth = code_block.offsetWidth;
+
+                if(editButtonRect.left<=clientX && clientX<=editButtonRect.right) {
+                    display_edit_button = true;
+                    // console.log('display_edit_button = true;');
+                }
+                else {
+                    display_edit_button = false;
+                    // console.log('display_edit_button = false;');
+
+                }
+            }
             // console.log('canvas.onpointerleave');
             // console.log('onpointerleave', display_code_block);
         };
@@ -233,6 +254,19 @@
     }
     button.edit.visible {
         display: block !important;
+        animation: dropdown var(--animation-time) linear forwards;
+    }
+    @keyframes dropdown {
+        from {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-10px);
+        }
+        to { 
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
     }
 </style>
 <canvas bind:this={canvas} 
