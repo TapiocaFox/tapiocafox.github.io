@@ -7,8 +7,9 @@ precision mediump float;
 
 #define PI 3.1415926535897932
 #define size_shrink 2.
+#define size_shrink_mouse .005
 #define freq_polar 4.
-#define freq_rotate 0.3
+#define freq_rotate 0.4
 #define t_delay .075
 #define d_shift .2
 
@@ -22,6 +23,7 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
     vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
     float atan_mouse = atan(st_mouse.x, st_mouse.y);
+    float shrink_mouse = size_shrink_mouse*distance(st_mouse, vec2(0.));
     
     vec3 color = vec3(1.);
     
@@ -39,7 +41,7 @@ void main() {
         vec2 st_new = rot*st;
 
         // d -= 1.*tremor;
-        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin(size_shrink*PI*(d-u_time_ch))*.5+.5;
+        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink+shrink_mouse)*PI*(d-u_time_ch))*.5+.5;
         color[i] = pct;
     }
 

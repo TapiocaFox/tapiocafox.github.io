@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f,e as p,t as v,a as g,s as n,c as h,n as m,r as x}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as b}from"../chunks/WpVhzMs_.js";import{G as e,e as I}from"../chunks/YALEBlPS.js";import{a as k,b as P}from"../chunks/CKLAX-Q9.js";const F=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f,e as p,t as v,a as g,s as n,c as h,n as m,r as x}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as k}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/BGBIFlfO.js";import{a as I,b as P}from"../chunks/CKLAX-Q9.js";const z=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -39,7 +39,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,z=`// Author: TapiocaFox
+}`,F=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -96,8 +96,9 @@ precision mediump float;
 
 #define PI 3.1415926535897932
 #define size_shrink 2.
+#define size_shrink_mouse .005
 #define freq_polar 4.
-#define freq_rotate 0.3
+#define freq_rotate 0.4
 #define t_delay .075
 #define d_shift .2
 
@@ -111,6 +112,7 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
     vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
     float atan_mouse = atan(st_mouse.x, st_mouse.y);
+    float shrink_mouse = size_shrink_mouse*distance(st_mouse, vec2(0.));
     
     vec3 color = vec3(1.);
     
@@ -128,10 +130,10 @@ void main() {
         vec2 st_new = rot*st;
 
         // d -= 1.*tremor;
-        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin(size_shrink*PI*(d-u_time_ch))*.5+.5;
+        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink+shrink_mouse)*PI*(d-u_time_ch))*.5+.5;
         color[i] = pct;
     }
 
     
     gl_FragColor = vec4(color,1.0);
-}`;var G=f('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function B(u){var o=G(),s=p(o);b(s,{text:"GLSL shader"});var t=n(s,2),l=n(h(t));m(2),x(t);var r=n(t,2);e(r,{});var i=n(r,2);e(i,{get fragment_shader(){return k}});var a=n(i,2);e(a,{get fragment_shader(){return F}});var _=n(a,2);e(_,{get fragment_shader(){return P}});var c=n(_,2);e(c,{get fragment_shader(){return z}});var d=n(c,2);e(d,{get fragment_shader(){return C}}),m(2),v(()=>y(l,"src",I)),g(u,o)}export{B as component};
+}`;var G=f('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function B(u){var o=G(),s=p(o);k(s,{text:"GLSL shader"});var t=n(s,2),l=n(h(t));m(2),x(t);var i=n(t,2);e(i,{});var r=n(i,2);e(r,{get fragment_shader(){return I}});var a=n(r,2);e(a,{get fragment_shader(){return z}});var _=n(a,2);e(_,{get fragment_shader(){return P}});var c=n(_,2);e(c,{get fragment_shader(){return F}});var d=n(c,2);e(d,{get fragment_shader(){return C}}),m(2),v(()=>y(l,"src",b)),g(u,o)}export{B as component};
