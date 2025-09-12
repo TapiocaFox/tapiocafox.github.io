@@ -60,13 +60,6 @@
             onWindowResize(null);
             window.addEventListener( 'resize', onWindowResize, false );
 
-            document.onmousemove = function(e){
-                const rect = canvas.getBoundingClientRect();
-                const height = rect.bottom - rect.top;
-                uniforms.u_mouse.value.x = window.devicePixelRatio*(e.clientX-rect.left);
-                uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(e.clientY-rect.top));
-                // console.log(e.clientX-rect.left, e.clientY-rect.top);
-            }
         }
 
         function onWindowResize(event: UIEvent | null) {
@@ -85,37 +78,44 @@
             renderer.render( scene, camera ); 
         }
         
-        if(show_code_block) canvas.onpointermove = async event => {
-            display_code_block = true;
-            // await tick();
-            const { clientX, clientY } = event;
+        canvas.onpointermove = async event => {
+            console.log(canvas);
+            const rect = canvas.getBoundingClientRect();
+            const height = rect.bottom - rect.top;
+            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-rect.left);
+            uniforms.u_mouse.value.y = window.devicePixelRatio*(height-(event.clientY-rect.top));
+            console.log(event.clientX-rect.left, event.clientY-rect.top);
+            
+            if(show_code_block) {
+                display_code_block = true;
+                // await tick();
+                const { clientX, clientY } = event;
 
-            const windowWidth = window.innerWidth;
-            const windowHeight = window.innerHeight;
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
 
-            const canvasRect = canvas.getBoundingClientRect();
+                const canvasRect = canvas.getBoundingClientRect();
 
-            const codeBlockWidth = code_block.offsetWidth;
-            const codeBlockHeight = code_block.offsetHeight;
-            // console.log(clientX+16, clientY+16);
-            // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
-            // console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
-            if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
-                // console.log('right');
-                code_block.animate({
-                    left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
-                    top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
-                }, {fill: "forwards"});
+                const codeBlockWidth = code_block.offsetWidth;
+                const codeBlockHeight = code_block.offsetHeight;
+                // console.log(clientX+16, clientY+16);
+                // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
+                // console.log(Math.min(clientX+16, windowWidth-codeBlockWidth), Math.min(clientY+16, windowHeight-codeBlockHeight));
+                if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
+                    // console.log('right');
+                    code_block.animate({
+                        left:`${Math.min(clientX+16, windowWidth-codeBlockWidth)}px`,
+                        top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                    }, {fill: "forwards"});
+                }
+                else {
+                    // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-16}px`);
+                    code_block.animate({
+                        right:`${Math.max(windowWidth-clientX+16, 0)}px`,
+                        top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
+                    }, {fill: "forwards"});
+                }
             }
-            else {
-                // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-16}px`);
-                code_block.animate({
-                    right:`${Math.max(windowWidth-clientX+16, 0)}px`,
-                    top: `${Math.min(clientY+16, windowHeight-codeBlockHeight)}px`
-                }, {fill: "forwards"});
-            }
-
-            // console.log(clientX, clientY);
         };
 
         canvas.onpointerleave = async event => {
