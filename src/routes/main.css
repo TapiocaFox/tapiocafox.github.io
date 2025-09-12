@@ -184,7 +184,7 @@
 	}
 
     div.card p > span.emphasize {
-        font-weight: 500;
+        /* font-weight: 400; */
         /* color: rgb(32, 32, 32); */
     }
 
