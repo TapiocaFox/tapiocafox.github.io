@@ -288,7 +288,7 @@
     }
 
     a[target="_blank"]::after {
-        content: " ⧉";
+        /* content: " ⧉"; */
         font-size: small;
         color: grey;
     }
