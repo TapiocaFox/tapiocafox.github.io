@@ -20,6 +20,8 @@ uniform float u_time;
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
     st.x *= u_resolution.x/u_resolution.y;
+    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    float atan_mouse = atan(st_mouse.x, st_mouse.y);
     
     vec3 color = vec3(1.);
     
@@ -31,7 +33,7 @@ void main() {
         
         float d = distance(st, vec2(0.));
         mat2 rot;
-        float r = sin(freq_rotate*PI*(d-u_time));
+        float r = sin(freq_rotate*PI*(d-u_time))-atan_mouse;
         rot[0] = vec2(cos(r), -sin(r));    
         rot[1] = vec2(sin(r), cos(r));
         vec2 st_new = rot*st;
