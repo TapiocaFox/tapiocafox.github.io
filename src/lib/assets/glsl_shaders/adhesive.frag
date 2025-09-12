@@ -6,6 +6,7 @@ precision mediump float;
 #endif
 
 #define PI 3.14159265358979
+#define radius 0.75
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -15,7 +16,7 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy * 2. - 1.;
     st.x *= u_resolution.x/u_resolution.y;
     
-    float r = 0.5;
+    float r = radius;
     vec3 light = vec3(1., 1., 2.);
     
     st.x += sin(5.*st.x+PI*u_time);      
