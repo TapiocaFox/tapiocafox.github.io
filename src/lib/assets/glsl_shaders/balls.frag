@@ -20,7 +20,7 @@ vec3 l_directional = normalize(vec3(1., 1., 2.));
 vec3 l_ambient = vec3(0.7,0.78,0.92);
 
 void main() {
-	vec4 color;
+	vec4 color = vec4(0., 0., 0., 1.);
     for(int i=0; i<num_balls; i++) {
         vec2 st = gl_FragCoord.xy/u_resolution*2.-1.;
     	st.x *= u_resolution.x/u_resolution.y;

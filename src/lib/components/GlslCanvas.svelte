@@ -15,7 +15,7 @@
     }
     // console.log(typeof(frag_shader.replace));
     // console.log(typeof(default_fragment_shader.replace));
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true, background_color='black'} = $props();
+    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true, background_color='transparent'} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -180,7 +180,7 @@
         margin: auto;
         /* padding: 0; */
         border: 1px dotted var(--fox-background-color);
-        background-color: black;
+        /* background-color: white; */
         color: white;
         cursor: crosshair;
     }
