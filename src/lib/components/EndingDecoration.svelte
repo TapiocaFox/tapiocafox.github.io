@@ -9,7 +9,17 @@
     style:margin-block-end="1rem"
     style:align-items="center">
     <div>
-        <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
+        <button
+        style:border="none"
+        style:color="inherit"
+        style:background-color="unset"
+        style:padding="0 0"
+        onclick={()=>{
+            document.body.scrollTop = 0; // For Safari
+            document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+        }}>
+            <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
+        </button>
         <p style:margin="0"
         style:font-size="xx-small">Copyright © {new Date().getFullYear()} TapiocaFox.</p>
     </div>
