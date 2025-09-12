@@ -4,8 +4,8 @@
 </script>
 <h1>Media</h1>
 <ChipsWithUrlHash 
-  names={['Retina', 'Karaoke']} 
-  values={['videos', 'music', 'credits', 'photos', 'other']}
+  names={['Karaoke', 'Retina']} 
+  values={['music', 'videos', 'credits', 'photos', 'other']}
   selected_value={selected_category}
   callback={(value: any) => {
     selected_category = value;
