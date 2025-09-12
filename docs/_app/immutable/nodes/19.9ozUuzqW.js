@@ -1,33 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as d,e as f,t as v,a as g,s as t,c as h,n as l,r as x}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as b}from"../chunks/WpVhzMs_.js";import{G as n,e as I}from"../chunks/8IHZiSoD.js";import{a as P,b as k}from"../chunks/CpuCMm-m.js";const C=`#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define PI 3.14159265358979
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float plot(vec2 st, float pct) {
-    return smoothstep(pct-0.02, pct,st.y) - smoothstep(pct, pct+0.02,st.y);
-    
-}
-
-void main() {
-    vec2 st = gl_FragCoord.xy / u_resolution.xy * 2.0 - 1.0;
-    st.x *= u_resolution.x/u_resolution.y;
-
-    vec2 st_mouse = u_mouse / u_resolution.xy * 2.0 - 1.0;
-    st.x -= st_mouse.x;
-    
-	float y = sin(PI*(st.x - u_time));
-    
-    float pct = plot(st, y);
-    
-    vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
-
-    gl_FragColor = vec4(color,1.0);
-}`,G=`// Author:
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as d,e as p,t as f,a as g,s as t,c as v,n as _,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/DO4yCqzm.js";import{a as k,b as I}from"../chunks/CpuCMm-m.js";const P=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -68,7 +39,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,L=`// Author:
+}`,z=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -115,4 +86,4 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     gl_FragColor = vec4(color,1.0);
-}`;var z=d('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function w(m){var o=z(),s=f(o);b(s,{text:"GLSL shader"});var e=t(s,2),u=t(h(e));l(2),x(e);var r=t(e,2);n(r,{});var i=t(r,2);n(i,{get fragment_shader(){return P}});var a=t(i,2);n(a,{get fragment_shader(){return C}});var c=t(a,2);n(c,{get fragment_shader(){return G}});var _=t(c,2);n(_,{get fragment_shader(){return k}});var p=t(_,2);n(p,{get fragment_shader(){return L}}),l(2),v(()=>y(u,"src",I)),g(m,o)}export{w as component};
+}`;var C=d('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function T(m){var o=C(),s=p(o);y(s,{text:"GLSL shader"});var n=t(s,2),l=t(v(n));_(2),h(n);var r=t(n,2);e(r,{});var i=t(r,2);e(i,{get fragment_shader(){return k}});var a=t(i,2);e(a,{get fragment_shader(){return P}});var c=t(a,2);e(c,{get fragment_shader(){return I}});var u=t(c,2);e(u,{get fragment_shader(){return z}}),_(2),f(()=>x(l,"src",b)),g(m,o)}export{T as component};

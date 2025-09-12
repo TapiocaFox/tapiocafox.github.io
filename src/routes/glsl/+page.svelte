@@ -19,7 +19,7 @@
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
 <!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->
 <GlslCanvas fragment_shader={abstract}/>
-<GlslCanvas fragment_shader={sin}/>
+<!-- <GlslCanvas fragment_shader={sin}/> -->
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
 <GlslCanvas fragment_shader={fiber}/>
