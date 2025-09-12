@@ -21,4 +21,4 @@
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
-<p class="annotation compact">Some of them are interactable with the mouse. I like to vibe code shader with the music on my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a>.</p>
+<p class="annotation compact">Some of them are interactable with the mouse. I like to vibe code shaders with the music on my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a>.</p>
