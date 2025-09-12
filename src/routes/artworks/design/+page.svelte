@@ -59,7 +59,7 @@
 <img class="design" alt="Daijishō Wallpaper" src={daijishou_wallpaper}/>
 <p class="annotation compact">Guideline for people to design <a href="https://daijishou.github.io/Gallery/" target="_blank">wallpeper pack</a> for Daijishō. (The whiter the area the more you want to put things that attract eyeballs.)</p>
 <img class="design" alt="Projector" src={projector_1}/>
-<p class="annotation compact">My dad asked me to design the pedestal for our new home projector. While I also tried to draw something with complicated shapes. It ended up being a monolithic hardass slab of polished Hinoki. Because we figured out simple things with good texture tend to be more visually sustainable. And we don't want the thing distracts, while watching TV.</p>
+<p class="annotation compact">My dad asked me to design the pedestal for our new home projector. While I also tried to draw something with complicated shapes. It ended up being a monolithic hardass slab of polished Hinoki. Because we figured out the stuff with a simple geometry with good texture tend to be more visually sustainable. And we don't want the pedestal distracts while watching TV.</p>
 <img class="design" alt="Projector 2" src={projector_2}/>
 <p class="annotation compact">It ended up in a pile of everything. (Listened to KMFDM, but I am not a serial killer or anything. It was purely musical and aesthetic.)</p>
 <!-- <ArtDecoration/> -->
