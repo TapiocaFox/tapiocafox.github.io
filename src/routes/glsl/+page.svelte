@@ -13,7 +13,7 @@
     
 </script>
 <HeaderWithBackButton text="GLSL shader"/>
-<p class="annotation">Personal practice of GLSL. Try it in <img class="inline-icon" alt="Edit" src={edit_icon}/><a href="/glsl/editor">editor</a>.</p>
+<p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-icon" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
 <GlslCanvas/>
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
 <!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->
@@ -21,4 +21,4 @@
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
-<p class="annotation">Personal <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a> while vibe coding with these shaders.</p>
+<p class="annotation">Some of them are interactable with mouse. <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a> while vibe coding with these shaders.</p>
