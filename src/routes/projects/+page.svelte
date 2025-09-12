@@ -62,7 +62,7 @@
     <p>Daijishō is <span class="emphasize">an android launcher that let you manage your retro games libraries</span>. The App is written in Kotlin, Room database, Jsoup, Javet and various other tools. Designed <span class="emphasize">with responsiveness, modularity and tight integration in mind</span>.</p>
     <p>Features included multi-language, meta data fetching, items synchronization, Google Drive backup, <a href="https://retroachievements.org/" target="_blank">RetroAchievements</a> and a rather simple theming system.</p>
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
-    <p>It has <span class="emphasize">1M+ accumalated downloads</span> on <img class="inline-glyph" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have <span class="emphasize">a community with 2k+ members</span> on <img class="inline-glyph" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
+    <p>Daijishō has <span class="emphasize">1M+ accumalated downloads</span> on <img class="inline-glyph" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have <span class="emphasize">a community with 2k+ members</span> on <img class="inline-glyph" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
 {/if}
@@ -82,7 +82,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
-    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet in browser and <span class="emphasize">upload it to Arduino via bluetooth BLE</span>. The editor also support the importation from the <span class="emphasize">Open Music XML format through conversion</span>.</p>
+    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet in browser and <span class="emphasize">upload it to Arduino via bluetooth BLE</span>. The editor also support the importation from the <span class="emphasize">Open Music XML format</span> through conversion.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
         <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
@@ -93,7 +93,7 @@
 {#if selected_category=="all"}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
-    <p>A reversi game that can be controlled by various IoT devices, and can be displayed on the webpage. The AI agent uses CNN model, and <span class="emphasize">the library was written <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a></span>. It was my second year undergrad project.</p>
+    <p>A reversi game stack that can be controlled by various IoT devices, and can be displayed on the webpage. The AI agent uses CNN model, and <span class="emphasize">the library was written <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a></span>. It was my second year undergrad project.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
         <img class="preview-large" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>
