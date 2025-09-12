@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as d,e as p,t as f,a as g,s as t,c as v,n as _,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/c8Dbj0Zn.js";import{a as k,b as I}from"../chunks/CpuCMm-m.js";const P=`// Author:
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as d,e as p,t as f,a as g,s as t,c as v,n as _,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/BHNuqEGR.js";import{a as k,b as I}from"../chunks/CpuCMm-m.js";const P=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -72,7 +72,7 @@ void main() {
     rot[1] = vec2(sin(deg_r), cos(deg_r));
     
     st = st*rot;
-    st -= 5.*st_mouse;
+    st -= .5*st_mouse;
 	
     st.x -= sin(3.*st.x-PI*u_time);      
     st.x -= sin(3.*st.y-PI*u_time);    

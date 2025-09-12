@@ -31,7 +31,7 @@ void main() {
     rot[1] = vec2(sin(deg_r), cos(deg_r));
     
     st = st*rot;
-    st -= 5.*st_mouse;
+    st -= .5*st_mouse;
 	
     st.x -= sin(3.*st.x-PI*u_time);      
     st.x -= sin(3.*st.y-PI*u_time);    
