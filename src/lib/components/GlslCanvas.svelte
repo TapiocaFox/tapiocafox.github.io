@@ -170,7 +170,7 @@
         border: 1px solid var(--fox-background-color);
         background-color: rgba(255, 255, 255, 0.95);
         padding: 1em;
-        max-width: 400px;
+        max-width: 480px;
         z-index: 99;
     }
     div.code-block.visible {
