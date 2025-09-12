@@ -59,8 +59,9 @@
 {#if selected_category=="all" || selected_category=='highlights' || selected_category=='ongoing'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
-    <p>Daijishō is a android launcher that let you manage your retro games libraries. The App is written in Kotlin, Room database, Jsoup, Javet and various other tools. Designed with responsiveness, modularity and tight integration in mind. Features included multi-language, synchronization, Google Drive backup, achievements and a rather simple theming system.</p>
-    <p>It has 1M+ accumalated downloads on <img class="inline-glyph" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have a community with 2k+ members on <img class="inline-glyph" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
+    <p>Daijishō is <span class="emphasize">an android launcher that let you manage your retro games libraries</span>. The App is written in Kotlin, Room database, Jsoup, Javet and various other tools.</p>
+    <p>Designed <span class="emphasize">with responsiveness, modularity and tight integration in mind</span>. Features included multi-language, meta data fetching, items synchronization, Google Drive backup, <a href="https://retroachievements.org/" target="_blank">RetroAchievements</a> and a rather simple theming system.</p>
+    <p>It has <span class="emphasize">1M+ accumalated downloads</span> on <img class="inline-glyph" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And we have <span class="emphasize">a community with 2k+ members on <img class="inline-glyph" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a></span>.</p>
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
@@ -69,7 +70,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/NOOXY-research/Talksy" target="_blank">Talksy</a></h2>
-    <p>A full stack chatting software. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", a content management system (CMS) written from scratch.</p>
+    <p>A <span class="emphasize">full stack chatting software</span>. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", <span class="emphasize">a content management system (CMS) written from scratch</span>.</p>
     <p>It was used by my university's radio station "goto&Play". Embeded as a chatting bubble binded to a channel. Admins have fine-grained control through the interface as shown. Users can login to access the interface, but only with the channels where the permissions are given.</p>
     <div class="preview-row">
         <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
@@ -81,7 +82,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
-    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet on browser and upload it to Arduino through bluetooth BLE. The editor also support the importation from the Open Music XML format through conversion.</p>
+    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet in browser and <span class="emphasize">upload it to Arduino via bluetooth BLE</span>. The editor also support the importation from the <span class="emphasize">Open Music XML format through conversion</span>.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
         <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
@@ -92,7 +93,7 @@
 {#if selected_category=="all"}
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
-    <p>A reversi game that can be controlled by various IoT devices. The AI agent uses CNN model, and the library was written in <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a>. It was my second year undergrad project.</p>
+    <p>A reversi game that can be controlled by various IoT devices, and can be displayed on the webpage. The AI agent uses CNN model, and <span class="emphasize">the library was written <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a></span>. It was my second year undergrad project.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
         <img class="preview-large" alt="Reversi Talk Terminal" src={reversi_talk_terminal}/>

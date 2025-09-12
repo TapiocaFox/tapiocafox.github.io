@@ -116,7 +116,7 @@
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
         margin: 1.2rem 0;
-        color: rgb(64, 64, 64);;
+        color: rgb(64, 64, 64);
         font-size: 95%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
@@ -182,6 +182,12 @@
 		background: transparent; /* Chrome/Safari/Webkit */
 		width: 0px;
 	}
+
+    div.card p > span.emphasize {
+        font-weight: 500;
+        color: rgb(32, 32, 32);
+    }
+
 
     @media (max-width: 768px) {
         div.card img.medium {
@@ -292,8 +298,6 @@
         font-size: small;
         color: grey;
     }
-
-
 
     p.annotation {
         color: dimgrey;
