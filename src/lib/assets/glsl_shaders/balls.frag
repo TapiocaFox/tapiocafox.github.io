@@ -1,6 +1,6 @@
 
-// Author:
-// Title:
+// Author: TapiocaFox
+// Title: Balls
 
 #ifdef GL_ES
 precision mediump float;

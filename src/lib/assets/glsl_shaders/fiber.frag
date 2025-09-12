@@ -1,5 +1,5 @@
-// Author:
-// Title:
+// Author: TapiocaFox
+// Title: Fiber
 
 #ifdef GL_ES
 precision mediump float;

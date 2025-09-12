@@ -1,5 +1,5 @@
-// Author:
-// Title:
+// Author: TapiocaFox
+// Title: Adhesive
 
 #ifdef GL_ES
 precision mediump float;

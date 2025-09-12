@@ -14,12 +14,12 @@
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
     import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
-    import abstract from '$lib/assets/glsl_shaders/abstract.frag?raw';
+    import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
     import discord_icon from '$lib/assets/icons/discord.svg';
-    import info_icon from '$lib/assets/icons/info.svg';
+    // import info_icon from '$lib/assets/icons/info.svg';
 
     // import decoration from '$lib/assets/mejiro.png';
 
@@ -50,7 +50,7 @@
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
     <div class="preview-row">
         <GlslCanvas preview={true}/>
-        <GlslCanvas preview={true} fragment_shader={abstract}/>
+        <GlslCanvas preview={true} fragment_shader={adhesive}/>
         <GlslCanvas preview={true} fragment_shader={balls}/>
     </div>
 </div>
