@@ -18,7 +18,7 @@
 
     --primary-backgroud-color: rgb(240, 240, 240);
 
-    --border-color: rgb(180, 180, 180);
+    --border-color: rgb(160, 160, 160);
 
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
@@ -115,7 +115,7 @@
         border-radius: var(--normal-radius);
         padding: 1em 1em;
         outline: 1px dotted var(--border-color);
-        margin: 1.2rem 0;
+        margin: 1.15rem 0 1.3rem 0;
         color: rgb(64, 64, 64);
         font-size: 95%;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
