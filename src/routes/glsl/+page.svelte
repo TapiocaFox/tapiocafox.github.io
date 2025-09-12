@@ -21,4 +21,4 @@
 <GlslCanvas fragment_shader={sin}/>
 <GlslCanvas fragment_shader={mouse}/>
 <GlslCanvas fragment_shader={balls}/>
-<!-- <p class="annotation">The third one is <a href="https://www.shadertoy.com/view/XsXGRS" target="_blank">The Blob</a> from shadertoy. (Using it to see if GLSL uniforms in three.js and shadertoy are interchangable.)</p> -->
+<p class="annotation">My <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music</a> playlist to match the shader coding vibe.</p>

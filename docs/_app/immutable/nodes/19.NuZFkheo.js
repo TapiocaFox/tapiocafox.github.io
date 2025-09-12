@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as u,e as p,t as f,a as d,s as t,c as v,n as g,r as x}from"../chunks/Q6qDtJCQ.js";import{s as h}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as n,e as G}from"../chunks/VKLqIFO5.js";import{a as L,b}from"../chunks/CpuCMm-m.js";const C=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as d,t as f,a as v,s as t,c as g,n as l,r as h}from"../chunks/Q6qDtJCQ.js";import{s as x}from"../chunks/-KVrhg4G.js";import{H as y}from"../chunks/WpVhzMs_.js";import{G as n,e as b}from"../chunks/BaSm1sUF.js";import{a as C,b as G}from"../chunks/CpuCMm-m.js";const L=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -68,4 +68,4 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`;var F=u('<!> <p class="annotation">Personal practice of GLSL. Try it in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">editor</a>.</p> <!>  <!> <!> <!> <!>',1);function T(l){var e=F(),r=p(e);y(r,{text:"GLSL shader"});var o=t(r,2),_=t(v(o));g(2),x(o);var s=t(o,2);n(s,{});var i=t(s,2);n(i,{get fragment_shader(){return L}});var a=t(i,2);n(a,{get fragment_shader(){return C}});var c=t(a,2);n(c,{get fragment_shader(){return k}});var m=t(c,2);n(m,{get fragment_shader(){return b}}),f(()=>h(_,"src",G)),d(l,e)}export{T as component};
+}`;var F=p('<!> <p class="annotation">Personal practice of GLSL. Try it in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation">My <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music</a> playlist to match the shader coding vibe.</p>',1);function H(m){var e=F(),s=d(e);y(s,{text:"GLSL shader"});var o=t(s,2),u=t(g(o));l(2),h(o);var r=t(o,2);n(r,{});var a=t(r,2);n(a,{get fragment_shader(){return C}});var i=t(a,2);n(i,{get fragment_shader(){return L}});var c=t(i,2);n(c,{get fragment_shader(){return k}});var _=t(c,2);n(_,{get fragment_shader(){return G}}),l(2),f(()=>x(u,"src",b)),v(m,e)}export{H as component};
