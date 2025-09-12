@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as _,e as f,t as d,a as v,s as t,c as g,n as l,r as h}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as x}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/tpGsJj8J.js";import{a as C,b as G}from"../chunks/CpuCMm-m.js";const L=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as _,e as d,t as f,a as v,s as t,c as g,n as l,r as h}from"../chunks/Q6qDtJCQ.js";import{s as y}from"../chunks/-KVrhg4G.js";import{H as x}from"../chunks/WpVhzMs_.js";import{G as e,e as b}from"../chunks/gbHuhJEu.js";import{a as k,b as C}from"../chunks/CpuCMm-m.js";const G=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -27,7 +27,7 @@ void main() {
     vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
 
     gl_FragColor = vec4(color,1.0);
-}`,k=`// Author:
+}`,L=`// Author:
 // Title:
 
 #ifdef GL_ES
@@ -68,4 +68,4 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`;var S=_('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. Vibe coding with <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a>.</p>',1);function H(m){var o=S(),s=f(o);x(s,{text:"GLSL shader"});var n=t(s,2),u=t(g(n));l(2),h(n);var r=t(n,2);e(r,{});var a=t(r,2);e(a,{get fragment_shader(){return C}});var i=t(a,2);e(i,{get fragment_shader(){return L}});var c=t(i,2);e(c,{get fragment_shader(){return k}});var p=t(c,2);e(p,{get fragment_shader(){return G}}),l(2),d(()=>y(u,"src",b)),v(m,o)}export{H as component};
+}`;var S=_('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-icon" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to vibe code shader with the music on my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">Music playlist</a>.</p>',1);function w(m){var n=S(),s=d(n);x(s,{text:"GLSL shader"});var o=t(s,2),u=t(g(o));l(2),h(o);var r=t(o,2);e(r,{});var a=t(r,2);e(a,{get fragment_shader(){return k}});var i=t(a,2);e(i,{get fragment_shader(){return G}});var c=t(i,2);e(c,{get fragment_shader(){return L}});var p=t(c,2);e(p,{get fragment_shader(){return C}}),l(2),f(()=>y(u,"src",b)),v(m,n)}export{w as component};
