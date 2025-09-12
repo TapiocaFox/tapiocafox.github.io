@@ -23,14 +23,15 @@ float calc_bg(vec2 st) {
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
+
+    vec2 st_mouse = u_mouse / u_resolution.xy * 2. - 1.;
     
     mat2 rot;
     rot[0] = vec2(cos(deg_r), -sin(deg_r));    
     rot[1] = vec2(sin(deg_r), cos(deg_r));
     
     st = st*rot;
-    
-    st -= 0.005*u_mouse;
+    st -= 5.*st_mouse;
 	
     st.x -= sin(3.*st.x-PI*u_time);      
     st.x -= sin(3.*st.y-PI*u_time);    
