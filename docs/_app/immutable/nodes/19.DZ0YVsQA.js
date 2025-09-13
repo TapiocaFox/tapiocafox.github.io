@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as h,a as g,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/BDLP_Jb5.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as h,a as g,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/CIcozKOY.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -152,6 +152,7 @@ precision mediump float;
 #define size_half_interval .05
 #define PI 3.14159265358979
 #define scale_rot .5
+#define scale_distort 0.025
 
 
 uniform vec2 u_resolution;
@@ -170,8 +171,14 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
     
+    
+    
     vec3 color = vec3(0.);
     color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
+    
+    st.y += scale_distort*sin(color.x);    
+    st.x += scale_distort*sin(color.z);
+
     
     vec2 st_block = st;
     st_block = mod(st_block-size_half_interval, 2.*size_half_interval)-size_half_interval;
@@ -184,4 +191,4 @@ void main() {
     
     
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`;var G=p('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function H(u){var o=G(),s=v(o);z(s,{text:"GLSL shader"});var t=n(s,2),f=n(x(t));m(2),y(t);var i=n(t,2);e(i,{});var a=n(i,2);e(a,{get fragment_shader(){return I}});var r=n(a,2);e(r,{get fragment_shader(){return F}});var _=n(r,2);e(_,{get fragment_shader(){return P}});var c=n(_,2);e(c,{get fragment_shader(){return w}});var l=n(c,2);e(l,{get fragment_shader(){return C}});var d=n(l,2);e(d,{get fragment_shader(){return T}}),m(2),h(()=>b(f,"src",k)),g(u,o)}export{H as component};
+}`;var G=p('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <!>  <!> <!> <!> <!> <!> <!> <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function H(u){var o=G(),s=v(o);z(s,{text:"GLSL shader"});var t=n(s,2),d=n(x(t));m(2),y(t);var i=n(t,2);e(i,{});var a=n(i,2);e(a,{get fragment_shader(){return I}});var r=n(a,2);e(r,{get fragment_shader(){return F}});var _=n(r,2);e(_,{get fragment_shader(){return P}});var c=n(_,2);e(c,{get fragment_shader(){return w}});var l=n(c,2);e(l,{get fragment_shader(){return C}});var f=n(l,2);e(f,{get fragment_shader(){return T}}),m(2),h(()=>b(d,"src",k)),g(u,o)}export{H as component};

@@ -10,6 +10,7 @@ precision mediump float;
 #define size_half_interval .05
 #define PI 3.14159265358979
 #define scale_rot .5
+#define scale_distort 0.025
 
 
 uniform vec2 u_resolution;
@@ -28,8 +29,14 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
     
+    
+    
     vec3 color = vec3(0.);
     color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
+    
+    st.y += scale_distort*sin(color.x);    
+    st.x += scale_distort*sin(color.z);
+
     
     vec2 st_block = st;
     st_block = mod(st_block-size_half_interval, 2.*size_half_interval)-size_half_interval;
