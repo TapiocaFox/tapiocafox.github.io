@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as g,a as h,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/Dataw3qh.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as g,a as h,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/YAoFKx-l.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -151,9 +151,9 @@ precision mediump float;
 #define size_edge .005
 #define size_half_interval .05
 #define PI 3.14159265358979
-#define rot_base -.01
+#define rot_base -.005
 #define scale_rot .5
-#define scale_deg_r -0.02
+#define scale_deg_r -0.01
 #define ratio_rot_interval 0.25
 
 

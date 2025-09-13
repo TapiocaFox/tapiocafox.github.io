@@ -9,9 +9,9 @@ precision mediump float;
 #define size_edge .005
 #define size_half_interval .05
 #define PI 3.14159265358979
-#define rot_base -.01
+#define rot_base -.005
 #define scale_rot .5
-#define scale_deg_r -0.02
+#define scale_deg_r -0.01
 #define ratio_rot_interval 0.25
 
 
