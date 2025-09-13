@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{au as h,f as l,e as g,t as x,a as r,s as o,c as _,n as c,r as s,m as y}from"../chunks/Q6qDtJCQ.js";import{e as b,i as z}from"../chunks/Dmph-SRT.js";import{s as k}from"../chunks/-KVrhg4G.js";import{s as I}from"../chunks/CsRbOMts.js";import{H as P}from"../chunks/WpVhzMs_.js";import{d as F,e as w,G as C}from"../chunks/BoUgpd2Y.js";import{a as T,b as G}from"../chunks/BC6LL0MR.js";const L=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{au as h,f as l,e as g,t as x,a as r,s as o,c as _,n as c,r as s,m as y}from"../chunks/Q6qDtJCQ.js";import{e as b,i as z}from"../chunks/Dmph-SRT.js";import{s as k}from"../chunks/-KVrhg4G.js";import{s as I}from"../chunks/CsRbOMts.js";import{H as P}from"../chunks/WpVhzMs_.js";import{d as F,e as w,G as C}from"../chunks/Dv3RwlDG.js";import{a as T,b as G}from"../chunks/BC6LL0MR.js";const L=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES

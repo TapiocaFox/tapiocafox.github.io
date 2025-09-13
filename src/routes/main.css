@@ -6,7 +6,7 @@
     --animation-time: .1s;
     --normal-transition: transform var(--animation-time);
 
-    --page-offset: 16px;
+    --page-offset: 18px;
 
     --fox-background-color: rgb(32, 32, 32);
     --fox-primary-color: darkorange;
