@@ -7,15 +7,15 @@
 		<link href="./_app/immutable/assets/0.Ci1GYyET.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/GlslCanvas.CvLxHw1i.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.BdAZe8ms.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/Bfq_Jiq3.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.qeNphMcd.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/KG-LJeUu.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/8fBGRLRg.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Q6qDtJCQ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BJR3iDRO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BjCBlCv9.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DFXh1u0u.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DR3bdNHH.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.3PCOfQiQ.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.51qCeEKW.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CHZcJG0L.js">
@@ -27,10 +27,10 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/C4K6dfQZ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BT3W6beP.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/qgK2_Nw-.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.CX4wNS-Y.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.BBF-tsqz.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/WpVhzMs_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BOjToM13.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/YAoFKx-l.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/kTj6hK00.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BC6LL0MR.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -261,6 +261,12 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
     st.x *= u_resolution.x/u_resolution.y;
@@ -287,9 +293,10 @@ void main() {
 
         // d -= 1.*tremor;
         float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink)*PI*(shrink_mouse*d-u_time_ch))*.5+.5;
+        pct = mix(0., pct, .5*random(st_new)+.5);
         color[i] = pct;
     }
-
+	
     
     gl_FragColor = vec4(color,1.0);
 }</pre></div><!----> <canvas class="glsl  svelte-1rj3ach" style="max-width: 250px; max-height: 250px; background-color: transparent;"></canvas> <button class="edit  svelte-1rj3ach"><img class="inline-glyph" alt="Edit" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='File%20/%20Note_Edit'%3e%3cpath%20id='Vector'%20d='M10.0002%204H7.2002C6.08009%204%205.51962%204%205.0918%204.21799C4.71547%204.40973%204.40973%204.71547%204.21799%205.0918C4%205.51962%204%206.08009%204%207.2002V16.8002C4%2017.9203%204%2018.4801%204.21799%2018.9079C4.40973%2019.2842%204.71547%2019.5905%205.0918%2019.7822C5.5192%2020%206.07899%2020%207.19691%2020H16.8031C17.921%2020%2018.48%2020%2018.9074%2019.7822C19.2837%2019.5905%2019.5905%2019.2839%2019.7822%2018.9076C20%2018.4802%2020%2017.921%2020%2016.8031V14M16%205L10%2011V14H13L19%208M16%205L19%202L22%205L19%208M16%205L19%208'%20stroke='%23000000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/g%3e%3c/svg%3e"/>Edit</button> <div class="code-block  svelte-1rj3ach"><h4 class="svelte-1rj3ach">Vertex shader</h4> <pre class="svelte-1rj3ach">void main() {
@@ -353,15 +360,15 @@ void main() {
 			
 			<script>
 				{
-					__sveltekit_2w6bv5 = {
+					__sveltekit_h3e5km = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.BdAZe8ms.js"),
-						import("./_app/immutable/entry/app.3PCOfQiQ.js")
+						import("./_app/immutable/entry/start.qeNphMcd.js"),
+						import("./_app/immutable/entry/app.51qCeEKW.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],

@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as g,a as h,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/YAoFKx-l.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import"../chunks/BT3W6beP.js";import{f as p,e as v,t as g,a as h,s as n,c as x,n as m,r as y}from"../chunks/Q6qDtJCQ.js";import{s as b}from"../chunks/-KVrhg4G.js";import{H as z}from"../chunks/WpVhzMs_.js";import{G as e,e as k}from"../chunks/kTj6hK00.js";import{a as I,b as P}from"../chunks/BC6LL0MR.js";const F=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -109,6 +109,12 @@ uniform vec2 u_resolution;
 uniform vec2 u_mouse;
 uniform float u_time;
 
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
     st.x *= u_resolution.x/u_resolution.y;
@@ -135,9 +141,10 @@ void main() {
 
         // d -= 1.*tremor;
         float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink)*PI*(shrink_mouse*d-u_time_ch))*.5+.5;
+        pct = mix(0., pct, .5*random(st_new)+.5);
         color[i] = pct;
     }
-
+	
     
     gl_FragColor = vec4(color,1.0);
 }`,T=`// Author: TapiocaFox
