@@ -19,8 +19,9 @@
 <style>
     .shader_item {
         border: none !important;
-        overflow:auto; 
-        aspect-ratio: 1;
+        display: flex;
+        align-items: stretch;
+        /* aspect-ratio: 1; */
     }
 </style>
 <HeaderWithBackButton text="GLSL shader"/>
