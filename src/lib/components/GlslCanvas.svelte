@@ -150,7 +150,7 @@
             display_code_block = false;
             if(edit_button == null) return;
 
-            // const canvasRect = canvas.getBoundingClientRect();
+            const canvasRect = canvas.getBoundingClientRect();
             const editButtonRect = edit_button.getBoundingClientRect();
 
             if(show_code_block) {
@@ -159,7 +159,7 @@
                 // const windowWidth = window.innerWidth;
                 // const codeBlockWidth = code_block.offsetWidth;
 
-                if(editButtonRect.left<=clientX && clientX<=editButtonRect.right) {
+                if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
                     display_edit_button = true;
                     // console.log('display_edit_button = true;');
                 }
