@@ -7,15 +7,15 @@
 		<link href="./_app/immutable/assets/0.Ci1GYyET.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/GlslCanvas.CvLxHw1i.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.D9kxsGtv.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/C-4izydJ.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.BKyiz0OA.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/mAaJxTDv.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/8fBGRLRg.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Q6qDtJCQ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BJR3iDRO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BjCBlCv9.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DFXh1u0u.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DR3bdNHH.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.Da1WwF9H.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.CWpX2yZ_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CHZcJG0L.js">
@@ -27,10 +27,10 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/C4K6dfQZ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BT3W6beP.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/qgK2_Nw-.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.Bi9FqkTX.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.fY6jereG.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/WpVhzMs_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BOjToM13.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/E69vHXVD.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/vCRCUJ9A.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DKQ5tbJx.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -248,7 +248,7 @@ precision mediump float;
 
 #define PI 3.1415926535897932
 #define size_shrink 2.
-#define size_shrink_mouse .1
+#define size_shrink_mouse 1.
 #define freq_polar 4.
 #define freq_rotate 0.4
 #define t_delay .075
@@ -264,7 +264,7 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
     vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
     float atan_mouse = atan(st_mouse.x, st_mouse.y);
-    float shrink_mouse = size_shrink_mouse*distance(st_mouse, vec2(0.));
+    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
     
     vec3 color = vec3(1.);
     
@@ -282,7 +282,7 @@ void main() {
         vec2 st_new = rot*st;
 
         // d -= 1.*tremor;
-        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink+shrink_mouse)*PI*(d-u_time_ch))*.5+.5;
+        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink)*PI*(shrink_mouse*d-u_time_ch))*.5+.5;
         color[i] = pct;
     }
 
@@ -292,15 +292,15 @@ void main() {
 			
 			<script>
 				{
-					__sveltekit_191hzip = {
+					__sveltekit_948jrs = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.D9kxsGtv.js"),
-						import("./_app/immutable/entry/app.Da1WwF9H.js")
+						import("./_app/immutable/entry/start.BKyiz0OA.js"),
+						import("./_app/immutable/entry/app.CWpX2yZ_.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],
