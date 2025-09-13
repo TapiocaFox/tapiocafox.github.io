@@ -4,7 +4,7 @@
     import EndingDecoration from '$lib/components/EndingDecoration.svelte';
     import spiral_1 from '$lib/assets/squares/spiral_1.png';
     import spiral_2 from '$lib/assets/squares/spiral_2.png';
-    import tapiocafox from '$lib/assets/squares/tapiocafox.png';
+    import tapiocafox from '$lib/assets/squares/tapiocafox_mascot.png';
 
     import github_icon from '$lib/assets/icons/github.svg';
     import email_icon from '$lib/assets/icons/email.svg';
@@ -59,7 +59,8 @@
     <!-- <iframe allow="autoplay *; encrypted-media *;" frameborder="0" height="150" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/album/2000-mixed/1829001427?i=1829001428"></iframe> -->
     <!-- <p class="annotation">The music I vibe with recently.</p> -->
     <img alt="Spiral 1" class="sqaure_item fade-in load-delay" src={spiral_1} style:float="left"/>
-    <img alt="Spiral 2" class="sqaure_item fade-in load-delay" src={spiral_2}/>
+    <img alt="Spiral 2" class="sqaure_item fade-in load-delay" src={spiral_2} />
+    <!-- <img alt="TapiocaFox" class="sqaure_item fade-in load-delay" src={tapiocafox}/> -->
     <EndingDecoration/>
 </div>
 <!-- <ArtDecoration/> -->

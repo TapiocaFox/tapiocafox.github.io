@@ -233,6 +233,7 @@
         padding: 1em;
         max-width: 480px;
         z-index: 99;
+        text-align: left;
     }
     div.code-block.visible {
         display: block !important; /* you can safely use !important here */
