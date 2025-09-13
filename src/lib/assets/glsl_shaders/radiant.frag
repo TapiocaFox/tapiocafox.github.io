@@ -22,6 +22,8 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
     st.x *= u_resolution.x/u_resolution.y;
     vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
+    
     float atan_mouse = atan(st_mouse.x, st_mouse.y);
     float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
     

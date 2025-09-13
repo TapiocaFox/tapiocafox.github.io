@@ -26,7 +26,7 @@ void main() {
     	st.x *= u_resolution.x/u_resolution.y;
         
         for(int j=0; j<3; j++) {
-            float u_time_ch = u_time+(.5*sin(u_time+3.*float(i+1)))-float(j)*t_delay;
+            float u_time_ch = u_time+(.5*sin(u_time+3.*float(i+1)))-float(3-j)*t_delay;
         	// float u_time_ch = u_time-float(j)*t_delay;
 
 

@@ -18,6 +18,7 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
 
     vec2 st_mouse = u_mouse / u_resolution.xy * 2.0 - 1.0;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
     st.x -= st_mouse.x;
     
 	float y = sin(PI*(st.x - u_time));

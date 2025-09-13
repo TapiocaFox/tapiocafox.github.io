@@ -25,6 +25,7 @@ void main() {
     st.x *= u_resolution.x/u_resolution.y;
 
     vec2 st_mouse = u_mouse / u_resolution.xy * 2. - 1.;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
     
     mat2 rot;
     rot[0] = vec2(cos(deg_r), -sin(deg_r));    
