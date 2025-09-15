@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{au as p,f as l,e as y,t as h,a,s as t,c,n as _,r as s,m as g}from"../chunks/Q6qDtJCQ.js";import{e as z,i as b}from"../chunks/Dmph-SRT.js";import{s as w}from"../chunks/-KVrhg4G.js";import{s as I}from"../chunks/CsRbOMts.js";import{H as k}from"../chunks/WpVhzMs_.js";import{d as P,e as C,G as F}from"../chunks/CDGZThMQ.js";import{a as T,b as S}from"../chunks/BC6LL0MR.js";const G=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{au as p,f as l,e as y,t as h,a,s as t,c,n as _,r as s,m as g}from"../chunks/Q6qDtJCQ.js";import{e as z,i as b}from"../chunks/Dmph-SRT.js";import{s as k}from"../chunks/-KVrhg4G.js";import{s as w}from"../chunks/CsRbOMts.js";import{H as I}from"../chunks/WpVhzMs_.js";import{d as P,e as C,G as F}from"../chunks/CURs50ZZ.js";import{a as T,b as S}from"../chunks/BC6LL0MR.js";const G=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -211,6 +211,7 @@ precision mediump float;
 #endif
 
 #define PI 3.14159265358979
+#define size_shrink_mouse 1.
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -309,15 +310,21 @@ float snoise(vec3 v) {
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
+    
+    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
+    
+    float atan_mouse = atan(st_mouse.x, st_mouse.y);
+    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
 
     vec3 color = vec3(0.);
     color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
     
-    float pct_noise_w = snoise(.8*vec3(st, 0.7*u_time));
-    float pct_noise_c = 2.*snoise(.9*vec3(st, 0.5*u_time));
+    float pct_noise_w = snoise(vec3(.8*shrink_mouse*st-vec2(.33*u_time), 0.7*u_time));
+    float pct_noise_b = 2.*snoise(vec3(.9*shrink_mouse*st-vec2(.33*u_time), 0.5*u_time));
     
     color = mix(color, vec3(1.), pct_noise_w);    
-    color = mix(color, vec3(0.), pct_noise_c);
+    color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`;var j=l('<div class="item shader_item svelte-ynuj4"><!></div>'),D=l('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function J(m){let u=p([P,T,G,S,L,A,q,E]);var i=D(),r=y(i);k(r,{text:"GLSL shader"});var n=t(r,2),v=t(c(n));_(2),s(n);var e=t(n,2);I(e,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),z(e,21,()=>u,b,(d,x)=>{var o=j(),f=c(o);F(f,{get fragment_shader(){return g(x)}}),s(o),a(d,o)}),s(e),_(2),h(()=>w(v,"src",C)),a(m,i)}export{J as component};
+}`;var j=l('<div class="item shader_item svelte-ynuj4"><!></div>'),D=l('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function J(m){let u=p([P,T,G,S,L,A,q,E]);var i=D(),r=y(i);I(r,{text:"GLSL shader"});var n=t(r,2),v=t(c(n));_(2),s(n);var e=t(n,2);w(e,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),z(e,21,()=>u,b,(d,x)=>{var o=j(),f=c(o);F(f,{get fragment_shader(){return g(x)}}),s(o),a(d,o)}),s(e),_(2),h(()=>k(v,"src",C)),a(m,i)}export{J as component};

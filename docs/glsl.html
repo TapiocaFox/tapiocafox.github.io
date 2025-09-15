@@ -8,15 +8,15 @@
 		<link href="./_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/GlslCanvas.S5Cw0l3F.css" rel="stylesheet">
 		<link href="./_app/immutable/assets/19.D4NHC1KY.css" rel="stylesheet">
-		<link rel="modulepreload" href="./_app/immutable/entry/start.C310ZAwA.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/BkqkFJx4.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.BWhNPipK.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DczLgqJZ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/8fBGRLRg.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Q6qDtJCQ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BJR3iDRO.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BjCBlCv9.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DFXh1u0u.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DR3bdNHH.js">
-		<link rel="modulepreload" href="./_app/immutable/entry/app.C1ZJda6S.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.o2trpz8o.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/CHZcJG0L.js">
@@ -28,11 +28,11 @@
 		<link rel="modulepreload" href="./_app/immutable/chunks/C4K6dfQZ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BT3W6beP.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/qgK2_Nw-.js">
-		<link rel="modulepreload" href="./_app/immutable/nodes/19.U4F7No5F.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/19.DLo2xuVo.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/Dmph-SRT.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/WpVhzMs_.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BOjToM13.js">
-		<link rel="modulepreload" href="./_app/immutable/chunks/CDGZThMQ.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CURs50ZZ.js">
 		<link rel="modulepreload" href="./_app/immutable/chunks/BC6LL0MR.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -369,6 +369,7 @@ precision mediump float;
 #endif
 
 #define PI 3.14159265358979
+#define size_shrink_mouse 1.
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -467,30 +468,36 @@ float snoise(vec3 v) {
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
+    
+    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
+    
+    float atan_mouse = atan(st_mouse.x, st_mouse.y);
+    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
 
     vec3 color = vec3(0.);
     color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
     
-    float pct_noise_w = snoise(.8*vec3(st, 0.7*u_time));
-    float pct_noise_c = 2.*snoise(.9*vec3(st, 0.5*u_time));
+    float pct_noise_w = snoise(vec3(.8*shrink_mouse*st-vec2(.33*u_time), 0.7*u_time));
+    float pct_noise_b = 2.*snoise(vec3(.9*shrink_mouse*st-vec2(.33*u_time), 0.5*u_time));
     
     color = mix(color, vec3(1.), pct_noise_w);    
-    color = mix(color, vec3(0.), pct_noise_c);
+    color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
 }</pre></div><!----></div><!--]--></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><button style="border: none; color: inherit; background-color: unset; padding: 0 0;"><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/></button> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_22phwd = {
+					__sveltekit_ol2c9m = {
 						base: new URL(".", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("./_app/immutable/entry/start.C310ZAwA.js"),
-						import("./_app/immutable/entry/app.C1ZJda6S.js")
+						import("./_app/immutable/entry/start.BWhNPipK.js"),
+						import("./_app/immutable/entry/app.o2trpz8o.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 6, 19],

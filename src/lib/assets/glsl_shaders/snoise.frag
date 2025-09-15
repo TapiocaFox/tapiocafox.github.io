@@ -7,6 +7,7 @@ precision mediump float;
 #endif
 
 #define PI 3.14159265358979
+#define size_shrink_mouse 1.
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -105,15 +106,21 @@ float snoise(vec3 v) {
 void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
+    
+    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
+    st_mouse.x *= u_resolution.x/u_resolution.y;
+    
+    float atan_mouse = atan(st_mouse.x, st_mouse.y);
+    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
 
     vec3 color = vec3(0.);
     color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
     
-    float pct_noise_w = snoise(.8*vec3(st, 0.7*u_time));
-    float pct_noise_c = 2.*snoise(.9*vec3(st, 0.5*u_time));
+    float pct_noise_w = snoise(vec3(.8*shrink_mouse*st-vec2(.33*u_time), 0.7*u_time));
+    float pct_noise_b = 2.*snoise(vec3(.9*shrink_mouse*st-vec2(.33*u_time), 0.5*u_time));
     
     color = mix(color, vec3(1.), pct_noise_w);    
-    color = mix(color, vec3(0.), pct_noise_c);
+    color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
 }
