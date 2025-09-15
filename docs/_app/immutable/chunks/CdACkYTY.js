@@ -12,7 +12,7 @@ precision mediump float;
 #define size_unit 1200.
 #define time_ratio_distort 0.25
 #define time_ratio_noise 0.25
-#define time_delay 1.
+#define time_delay .5
 #define time_fade_in .5
 // #define opacity 0.25
 
@@ -126,7 +126,7 @@ void main() {
     
     st = st*rot;
 
-    float pct_noise = snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.25;
+    float pct_noise = snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.275;
 	
     st.x -= sin(3.*st.x-PI*time_ratio_distort*u_time);      
     st.x -= sin(3.*st.y-PI*time_ratio_distort*u_time);    
