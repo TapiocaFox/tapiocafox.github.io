@@ -126,7 +126,7 @@ void main() {
     
     st = st*rot;
 
-    float pct_noise = snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time));
+    float pct_noise = snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.25;
 	
     st.x -= sin(3.*st.x-PI*time_ratio_distort*u_time);      
     st.x -= sin(3.*st.y-PI*time_ratio_distort*u_time);    
