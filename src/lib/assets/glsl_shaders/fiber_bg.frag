@@ -133,7 +133,7 @@ void main() {
     st.y -= sin(3.*st.y+PI*time_ratio_distort*u_time);
     st.y -= sin(3.*st.x+PI*time_ratio_distort*u_time);
     
-    vec4 color = vec4(0., 0., 0., .05);
+    vec4 color = vec4(0., 0., 0., .035);
     // color = vec4(0., 0., 0., .5);
     // color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
     
