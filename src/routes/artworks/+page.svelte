@@ -1,5 +1,5 @@
 <script lang="ts">
-  import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+  import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
   import amc_2020 from '$lib/assets/squares/amc_2020.png';
   import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
@@ -21,7 +21,7 @@
   let selected_category = $state('all');
 </script>
 <h1>Artworks</h1>
-<ChipsWithUrlHash 
+<ChipsWithUrlState 
   names={['All categories', 'Colored', 'Animals']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}

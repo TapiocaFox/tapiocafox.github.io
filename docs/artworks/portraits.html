@@ -5,33 +5,32 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		
 		<link href="../_app/immutable/assets/GlslCanvas.CHdiN8fC.css" rel="stylesheet">
-		<link href="../_app/immutable/assets/0.BMx28jK3.css" rel="stylesheet">
+		<link href="../_app/immutable/assets/0.CClsmUCE.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/BackButton.COYzt6go.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/15.D2O1dtyu.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.DoCg3gfq.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/D_TWjFft.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/DoZtnD4a.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Byy5kUPe.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/B5uxg8oY.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CNV5RRyu.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/DQ41MVqI.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.C05irms_.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CwqJF9Bv.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DduvLNXF.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dzf8B8uK.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CWUTvJ_F.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BfFfj5p8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/C0vRjjok.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.DPMfcOvS.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DsnmJJEf.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/DElCixX-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Bb8qyqgI.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Xk0QTNfx.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.C6HNtlG1.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/B5NLWZm-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Dq4_j7DI.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Dh2Z7dSB.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/2.DOyl5Ww_.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/BtVWyZC8.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CrIcASA1.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/CDXiQ0ac.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/15.BuqKPjf_.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/DzA1Fyek.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/WZM2kzx6.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/4TIxH0ti.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/ksbW-ivr.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BZkm-uI6.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.BNOIao95.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/B5AYb_gv.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DiJHNKSF.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BoblfAuG.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/2.BJXqXbLw.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/GyjmRJ6q.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/D7ijhrNU.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CN-glFB9.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/15.BtnjxWNp.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/C0L4l3HA.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/D2FBy2DD.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CYlis0zr.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
 	</head>
 	<body data-sveltekit-preload-data="hover">
@@ -165,14 +164,14 @@ void main() {
     
     st = st*rot;
 
-    float pct_noise = .8*snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.325;
+    float pct_noise = .795*snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.33;
 	
     st.x -= sin(3.*st.x-PI*time_ratio_distort*u_time);      
     st.x -= sin(3.*st.y-PI*time_ratio_distort*u_time);    
     st.y -= sin(3.*st.y+PI*time_ratio_distort*u_time);
     st.y -= sin(3.*st.x+PI*time_ratio_distort*u_time);
     
-    vec4 color = vec4(0., 0., 0., .035);
+    vec4 color = vec4(0., 0., 0., .0375);
     // color = vec4(0.298, 0.318, 0.427, .35);
     // color = vec4(0., 0., 0., .5);
     // color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
@@ -185,19 +184,19 @@ void main() {
 
     gl_FragColor = color;
     // gl_FragColor = vec4(1.,1,.1,.1.);
-}</pre></div><!----> <nav id="main-nav"><a href="/">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects">[Projects]</a> <a href="/artworks">[Artworks]</a> <a href="/media">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>Portraits<!--[--><button class="back_button back_button_inlined svelte-r1ycf1"><span class="text svelte-r1ycf1">« Go back</span></button><!--]--><!----></h1><!----> <p class="bold-annotation">People and some significant individuals in my life. (Does not include every one of them due to many reasons.)</p> <img class="portrait svelte-1qvwsma" alt="Snake" src="/_app/immutable/assets/snake.DRKORHhk.png"/> <p class="annotation compact">A woman with a snake wrapped around her neck. There was a reference picture on Pinterest, but I've lost it.</p> <img class="portrait svelte-1qvwsma" alt="jyneda" src="/_app/immutable/assets/jyneda.L98upuE_.png"/> <p class="annotation compact">Prof. Jyneda (Yun-Wei Lin), he was a very informed, talkative and engaging person. He introduced me many concepts like micro-service and other internet paradigms. He was a very pragmatic, humble, and patient person. He wrote me a recommandation letter that get me into NYU.</p> <img class="portrait svelte-1qvwsma" alt="Lin Yi-Bing" src="/_app/immutable/assets/lin_yi_bing.DsWO44zs.png"/> <p class="annotation compact">Prof. Lin Yi-Bing (林一平), he was the vice president of my undergrade university NCTU. He is a very insightful person, who also enjoys sketching and other forms of arts. He was very insisting in his own belief; having a lots of pride, but also a very open-minded person. I was invited into his lab, wrote me a recommandation letter as well.</p> <img class="portrait svelte-1qvwsma" alt="stubbs" src="/_app/immutable/assets/stubbs.CtvNmsVD.png"/> <p class="annotation compact">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". We chatted on Discord, he is very good at communicating and connecting people and developers from different backgrounds. He has a very sweet family and seems to live in the woods? He ALSO wrote me a recommandation letter.</p><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><button style="border: none; color: inherit; background-color: unset; padding: 0 0;"><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/></button> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+}</pre></div><!----> <nav id="main-nav"><a href="/">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects">[Projects]</a> <a href="/artworks">[Artworks]</a> <a href="/media">[Media]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>Portraits<!--[!--><!--[--><button class="back_button back_button_inlined svelte-r1ycf1"><span class="text svelte-r1ycf1">« Go back</span></button><!--]--><!--]--><!----></h1><!----> <p class="bold-annotation">People and some significant individuals in my life. (Does not include every one of them due to many reasons.)</p> <img class="portrait svelte-1qvwsma" alt="Snake" src="/_app/immutable/assets/snake.DRKORHhk.png"/> <p class="annotation compact">A woman with a snake wrapped around her neck. There was a reference picture on Pinterest, but I've lost it.</p> <img class="portrait svelte-1qvwsma" alt="jyneda" src="/_app/immutable/assets/jyneda.L98upuE_.png"/> <p class="annotation compact">Prof. Jyneda (Yun-Wei Lin), he was a very informed, talkative and engaging person. He introduced me many concepts like micro-service and other internet paradigms. He was a very pragmatic, humble, and patient person. He wrote me a recommandation letter that get me into NYU.</p> <img class="portrait svelte-1qvwsma" alt="Lin Yi-Bing" src="/_app/immutable/assets/lin_yi_bing.DsWO44zs.png"/> <p class="annotation compact">Prof. Lin Yi-Bing (林一平), he was the vice president of my undergrade university NCTU. He is a very insightful person, who also enjoys sketching and other forms of arts. He was very insisting in his own belief; having a lots of pride, but also a very open-minded person. I was invited into his lab, wrote me a recommandation letter as well.</p> <img class="portrait svelte-1qvwsma" alt="stubbs" src="/_app/immutable/assets/stubbs.CtvNmsVD.png"/> <p class="annotation compact">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". We chatted on Discord, he is very good at communicating and connecting people and developers from different backgrounds. He has a very sweet family and seems to live in the woods? He ALSO wrote me a recommandation letter.</p><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><button class="no-style"><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/></button> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
 			
 			<script>
 				{
-					__sveltekit_xiajg1 = {
+					__sveltekit_qb13ob = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.DoCg3gfq.js"),
-						import("../_app/immutable/entry/app.C05irms_.js")
+						import("../_app/immutable/entry/start.CwqJF9Bv.js"),
+						import("../_app/immutable/entry/app.DPMfcOvS.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 2, 15],

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+    import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
@@ -10,7 +10,7 @@
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
 <h1>Media</h1>
-<ChipsWithUrlHash 
+<ChipsWithUrlState 
   names={['Karaoke', 'Retina']} 
   values={['music', 'videos', 'credits', 'photos', 'other']}
   selected_value={selected_category}

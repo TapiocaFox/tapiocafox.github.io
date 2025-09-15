@@ -28,6 +28,8 @@
 	<a href="/media">[Media]</a>
 	<!-- <a href="/glsl">[GLSL]</a> -->
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
+	<!-- <button class="no-style" onclick={()=>{}}>[☾]</button> -->
+
 </nav>
 
 {@render children?.()}

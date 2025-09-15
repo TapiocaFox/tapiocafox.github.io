@@ -10,10 +10,7 @@
     style:align-items="center">
     <div>
         <button
-        style:border="none"
-        style:color="inherit"
-        style:background-color="unset"
-        style:padding="0 0"
+        class="no-style"
         onclick={()=>{
             document.body.scrollTop = 0; // For Safari
             document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera

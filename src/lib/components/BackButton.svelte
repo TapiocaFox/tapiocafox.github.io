@@ -1,5 +1,9 @@
-<script  lang="ts">
-  let {text = "Go back", inline=false} = $props();
+<script lang="ts">
+  let {text = "Go back", mode='default'} = $props();
+  function back() {
+    window.history.back(); 
+    return false;
+  }
 </script>
 <style>
   button.back_button {
@@ -15,8 +19,10 @@
     color: var(--primary-functional-color);
   }
 </style>
-{#if inline}
-  <button class="back_button back_button_inlined" onclick={()=>{window.history.back(); return false;}}><span class="text">« {text}</span></button>
-{:else}
-  <button class="back_button" onclick={()=>{window.history.back(); return false;}}><span class="text">« {text}</span></button>
+{#if mode == 'default'}
+  <button class="back_button" onclick={back}><span class="text">« {text}</span></button>
+{:else if mode == 'inline'}
+  <button class="back_button back_button_inlined" onclick={back}><span class="text">« {text}</span></button>
+{:else if mode == 'text'}
+  <button class="no-style" onclick={back}>{text}</button>
 {/if}

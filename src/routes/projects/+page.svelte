@@ -1,7 +1,7 @@
 <script lang="ts">
     import icon from '$lib/assets/squares/tapiocafox.png';
     import ArtDecoration from '$lib/components/ArtDecoration.svelte';
-    import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+    import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     import talksy_poster from '$lib/assets/projects/talksy_poster.png';
@@ -27,7 +27,7 @@
     let selected_category = $state('all');
 </script>
 <h1>Projects</h1>
-<ChipsWithUrlHash 
+<ChipsWithUrlState 
   names={['All categories', 'Highlights', 'Ongoing', 'Other']} 
   values={['all', 'highlights', 'ongoing', 'other']}
   selected_value={selected_category}
