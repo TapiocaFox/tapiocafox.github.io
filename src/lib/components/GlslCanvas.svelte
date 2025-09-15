@@ -15,7 +15,7 @@
     }
     // console.log(typeof(frag_shader.replace));
     // console.log(typeof(default_fragment_shader.replace));
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, preview=false, size=250, show_code_block=true, background_color='transparent'} = $props();
+    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent'} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -105,7 +105,7 @@
             
             if(show_code_block) {
                 display_code_block = true;
-                if(!preview) display_edit_button = true;
+                if(mode == 'default') display_edit_button = true;
                 // await tick();
                 const { clientX, clientY } = event;
 
@@ -177,7 +177,7 @@
 
         edit_button.onpointerenter = async event => {
             // console.log('edit_button.onpointerenter');
-            if(!preview) display_edit_button = true;
+            if(mode == 'default') display_edit_button = true;
         };
 
         edit_button.onpointerleave = async event => {
@@ -209,6 +209,13 @@
         max-height: calc(var(--compact-width) * 0.25);
         width: auto;
         margin-right: 8px;
+    }
+    canvas.glsl.background {
+        position: fixed;
+        z-index: -99;
+        top: 0;
+        left: 0;
+        border: none;
     }
     @media (max-width: 768px) {
         canvas.glsl {
@@ -271,10 +278,10 @@
     }
 </style>
 <canvas bind:this={canvas} 
-style:max-width = {preview?'calc(var(--compact-width) * 0.25)':`${size}px`}
-style:max-height = {preview?'auto':`${size}px`}
+style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
+style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
 style:background-color = {background_color}
-class="glsl {preview?'preview':''}"></canvas>
+class="glsl {mode=='preview'?'preview':''} {mode=='background'?'background':''}"></canvas>
 <button 
 class="edit {display_edit_button ? 'visible' : ''}" 
 onclick={clickEditButton}

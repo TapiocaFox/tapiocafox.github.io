@@ -10,6 +10,9 @@
     import email_icon from '$lib/assets/icons/email.svg';
     import resume_icon from '$lib/assets/icons/resume.svg';
     import linkedin_icon from '$lib/assets/icons/linkedin.svg';
+    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
+
+    import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
 </script>
 <style>
     .sqaure_item {
@@ -25,6 +28,7 @@
         }
     }
 </style>
+<GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/>
 <div class="align-with-nav">
     <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
     <div class="icon-description-layout">
