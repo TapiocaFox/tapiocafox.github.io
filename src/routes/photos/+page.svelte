@@ -56,7 +56,7 @@
     const photos = $state([pma, scooter, dc, train, cat_checker, bowling, central_park, east_river, brooklyn, gecko, turtle_bay, lindsay, in_n_out, newport, sd_zoo, tahoe, tainan, tainan_2, tainan_3, lennon_wall, thsr, stuyvesant, toufen, ubike, cat_matsu, boat_matsu, shirogane, brit_museum, noboribetsu, temple, texture, neiwan, nycu]);
 </script>
 <HeaderWithBackButton text="Photos"/>
-<p class="bold-annotation">The selection of the pictures I took. <button class="text" onclick={()=>{shuffle(photos);}}>Randomize</button>.</p>
+<p class="bold-annotation">Pictures I took. <button class="text" onclick={()=>{shuffle(photos);}}>Randomize</button>.</p>
 <div class="flex_grid gallery">
     {#each photos as photo}
         <div class="item gallery_item">
