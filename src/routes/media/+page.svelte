@@ -1,13 +1,13 @@
 <script lang="ts">
     import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
-    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
+    // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
-    import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
-    
+    // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+
     let selected_category = $state('all');
 </script>
 
-<GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/>
+<!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
 <h1>Media</h1>
 <ChipsWithUrlHash 
