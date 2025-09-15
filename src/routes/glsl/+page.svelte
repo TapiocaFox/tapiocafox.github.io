@@ -1,5 +1,5 @@
 <script lang="ts">
-    import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+    import Chips from '$lib/components/Chips.svelte';
 
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
@@ -63,7 +63,7 @@
     }
 </style>
 <HeaderWithBackButton text="GLSL shader"/>
-<ChipsWithUrlHash 
+<Chips 
   names={['All categories', 'Noise', 'Distortion']} 
   values={['all', 'noise', 'distortion']}
   selected_value={selected_category}
