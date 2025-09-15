@@ -126,14 +126,15 @@ void main() {
     
     st = st*rot;
 
-    float pct_noise = snoise(vec3(.5*st, time_ratio_noise*u_time));
+    float pct_noise = snoise(vec3(.33*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time));
 	
     st.x -= sin(3.*st.x-PI*time_ratio_distort*u_time);      
     st.x -= sin(3.*st.y-PI*time_ratio_distort*u_time);    
     st.y -= sin(3.*st.y+PI*time_ratio_distort*u_time);
     st.y -= sin(3.*st.x+PI*time_ratio_distort*u_time);
     
-    vec4 color = vec4(0., 0., 0., .05);
+    vec4 color = vec4(0., 0., 0., .075);
+    // color = vec4(0., 0., 0., .5);
     // color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
     
     float pct = calc_bg(st);
