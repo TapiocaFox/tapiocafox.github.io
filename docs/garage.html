@@ -1,0 +1,213 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		
+		<link href="./_app/immutable/assets/GlslCanvas.CHdiN8fC.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/0.EP_hUDQC.css" rel="stylesheet">
+		<link href="./_app/immutable/assets/Chips.5BDYLyCh.css" rel="stylesheet">
+		<link rel="modulepreload" href="./_app/immutable/entry/start.bv68gj9A.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BpGBgsGu.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DI8pY1U9.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BU-BJxkg.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CMwqarHY.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/CLkqSCRH.js">
+		<link rel="modulepreload" href="./_app/immutable/entry/app.Dldzs2IW.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/D9Z9MdNV.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DsnmJJEf.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/Cyw0M31N.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BmWLAf6J.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DXOIwLO1.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/0.BD9UZM3A.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/GMcADXPf.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BrTCo6EZ.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/Bp4LCF3N.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/6.CFprXVK2.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DkDvy86P.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/U4z15GEt.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BxGK044L.js">
+		<link rel="modulepreload" href="./_app/immutable/nodes/20.DRN64qtv.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/DbKxgGGw.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BfB5EA6i.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/BTOMrOF7.js">
+		<link rel="modulepreload" href="./_app/immutable/chunks/B1kzFQrc.js"><!--[--><link rel="icon" href="/_app/immutable/assets/favicon.D_3pYc5i.ico"/> <link rel="stylesheet" href=""/><!--]--><title>tapiocafox.com</title>
+	</head>
+	<body data-sveltekit-preload-data="hover">
+		<div style="display: contents"><!--[--><!--[--><!----><canvas class="glsl  background svelte-iqhyab" style="max-width: 100vw; max-height: 100vh; background-color: transparent;"></canvas> <button class="edit  svelte-iqhyab"><img class="inline-glyph" alt="Edit" src="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cg%20id='File%20/%20Note_Edit'%3e%3cpath%20id='Vector'%20d='M10.0002%204H7.2002C6.08009%204%205.51962%204%205.0918%204.21799C4.71547%204.40973%204.40973%204.71547%204.21799%205.0918C4%205.51962%204%206.08009%204%207.2002V16.8002C4%2017.9203%204%2018.4801%204.21799%2018.9079C4.40973%2019.2842%204.71547%2019.5905%205.0918%2019.7822C5.5192%2020%206.07899%2020%207.19691%2020H16.8031C17.921%2020%2018.48%2020%2018.9074%2019.7822C19.2837%2019.5905%2019.5905%2019.2839%2019.7822%2018.9076C20%2018.4802%2020%2017.921%2020%2016.8031V14M16%205L10%2011V14H13L19%208M16%205L19%202L22%205L19%208M16%205L19%208'%20stroke='%23000000'%20stroke-width='2'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/g%3e%3c/svg%3e"/>Edit</button> <div class="code-block  svelte-iqhyab"><h4 class="svelte-iqhyab">Vertex shader</h4> <pre class="svelte-iqhyab">void main() {
+    gl_Position = vec4( position, 1.0 );
+}</pre> <h4 class="svelte-iqhyab">Fragment shader</h4> <pre class="svelte-iqhyab">// Author: TapiocaFox
+// Title: Fiber
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265358979
+#define gap 0.1
+#define half_stroke_size 0.0075
+#define deg_r 0.4125
+#define size_unit 1200.
+#define time_ratio_distort 0.25
+#define time_ratio_noise 0.25
+#define time_delay .5
+#define time_fade_in .5
+// #define opacity 0.25
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+
+vec3 mod289(vec3 x) {
+	return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 mod289(vec4 x) {
+	return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 permute(vec4 x) {
+	return mod289(((x*34.0)+10.0)*x);
+}
+
+vec4 taylorInvSqrt(vec4 r) {
+    return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+float snoise(vec3 v) { 
+    const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+    const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+
+    // First corner
+    vec3 i  = floor(v + dot(v, C.yyy) );
+    vec3 x0 =   v - i + dot(i, C.xxx) ;
+
+    // Other corners
+    vec3 g = step(x0.yzx, x0.xyz);
+    vec3 l = 1.0 - g;
+    vec3 i1 = min( g.xyz, l.zxy );
+    vec3 i2 = max( g.xyz, l.zxy );
+
+    //   x0 = x0 - 0.0 + 0.0 * C.xxx;
+    //   x1 = x0 - i1  + 1.0 * C.xxx;
+    //   x2 = x0 - i2  + 2.0 * C.xxx;
+    //   x3 = x0 - 1.0 + 3.0 * C.xxx;
+    vec3 x1 = x0 - i1 + C.xxx;
+    vec3 x2 = x0 - i2 + C.yyy; // 2.0*C.x = 1/3 = C.y
+    vec3 x3 = x0 - D.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y
+
+    // Permutations
+    i = mod289(i); 
+    vec4 p = permute( permute( permute( 
+             i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+           + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
+           + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+
+    // Gradients: 7x7 points over a square, mapped onto an octahedron.
+    // The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)
+    float n_ = 0.142857142857; // 1.0/7.0
+    vec3  ns = n_ * D.wyz - D.xzx;
+
+    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+
+    vec4 x_ = floor(j * ns.z);
+    vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+
+    vec4 x = x_ *ns.x + ns.yyyy;
+    vec4 y = y_ *ns.x + ns.yyyy;
+    vec4 h = 1.0 - abs(x) - abs(y);
+
+    vec4 b0 = vec4( x.xy, y.xy );
+    vec4 b1 = vec4( x.zw, y.zw );
+
+    // vec4 s0 = vec4(lessThan(b0,0.0))*2.0 - 1.0;
+    // vec4 s1 = vec4(lessThan(b1,0.0))*2.0 - 1.0;
+    vec4 s0 = floor(b0)*2.0 + 1.0;
+    vec4 s1 = floor(b1)*2.0 + 1.0;
+    vec4 sh = -step(h, vec4(0.0));
+
+    vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+    vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+
+    vec3 p0 = vec3(a0.xy,h.x);
+    vec3 p1 = vec3(a0.zw,h.y);
+    vec3 p2 = vec3(a1.xy,h.z);
+    vec3 p3 = vec3(a1.zw,h.w);
+
+    // Normalise gradients
+    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+    p0 *= norm.x;
+    p1 *= norm.y;
+    p2 *= norm.z;
+    p3 *= norm.w;
+
+    // Mix final noise value
+    vec4 m = max(0.5 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    m = m * m;
+    return 105.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), 
+                                dot(p2,x2), dot(p3,x3) ) );
+}
+
+float calc_bg(vec2 st) {
+    vec2 mod_st = mod(st, gap);
+    vec2 pct_st = smoothstep(gap-half_stroke_size, gap, mod_st) + smoothstep(-half_stroke_size, 0., -mod_st);
+    return max(pct_st.x, pct_st.y);
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/size_unit*2.-1.;
+
+    mat2 rot;
+    rot[0] = vec2(cos(deg_r), -sin(deg_r));    
+    rot[1] = vec2(sin(deg_r), cos(deg_r));
+    
+    st = st*rot;
+
+    float pct_noise = .795*snoise(vec3(.25*st-vec2(.05*u_time, .025*u_time), time_ratio_noise*u_time))+.33;
+	
+    st.x -= sin(3.*st.x-PI*time_ratio_distort*u_time);      
+    st.x -= sin(3.*st.y-PI*time_ratio_distort*u_time);    
+    st.y -= sin(3.*st.y+PI*time_ratio_distort*u_time);
+    st.y -= sin(3.*st.x+PI*time_ratio_distort*u_time);
+    
+    vec4 color = vec4(0., 0., 0., .0375);
+    // color = vec4(0.298, 0.318, 0.427, .35);
+    // color = vec4(0., 0., 0., .5);
+    // color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
+    
+    float pct = calc_bg(st);
+    
+    color = mix(vec4(0., 0., 0., 0.), color, pct);
+    color = mix(vec4(0., 0., 0., 0.), color, pct_noise);
+    color = mix(vec4(0., 0., 0., 0.), color, step(time_delay, u_time)*smoothstep(time_delay, time_delay+time_fade_in, u_time));
+
+    gl_FragColor = color;
+    // gl_FragColor = vec4(1.,1,.1,.1.);
+}</pre></div><!----> <nav id="main-nav"><a href="/">> <span style="font-weight: bold; color: var(--fox-secondary-color);">Tapioca</span><span style="font-weight: bold; color: var(--fox-primary-color);">Fox</span></a>  <a href="/projects">[Projects]</a> <a href="/artworks">[Artworks]</a> <a href="/garage">[Garage]</a></nav> <!--[--><!----><div class="align-with-nav"><!--[!--><!----><h1>Garage</h1> <div class="chip_container svelte-61eplg"><!--[--><!--[!--><button class="svelte-61eplg"><span class="text svelte-61eplg">Karaoke</span></button><!--]--><!--[!--><button class="svelte-61eplg"><span class="text svelte-61eplg">Retina</span></button><!--]--><!--[!--><button class="svelte-61eplg"><span class="text svelte-61eplg">Photos</span></button><!--]--><!--]--></div><!----> <!--[--><p class="annotation">Personal music taste. Curated as an Music playlist.</p> <iframe title="Apple Music playlist" allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/playlist/tapiocafoxs-selection/pl.u-EdAVR7Gu5Wq7yq"></iframe><!--]--> <!--[!--><!--]--> <!--[!--><!--]--> <!--[!--><!--]--><!----><!--]--><!----> <div style="display: flex; color: black; margin-block-start: 1rem; margin-block-end: 1rem; align-items: center;"><div><button class="no-style"><img alt="TapiocaFox" src="/_app/immutable/assets/tapiocafox_small.SxC_KTAU.png" style="height: 24px;"/></button> <p style="margin: 0; font-size: xx-small;">Copyright © 2025 TapiocaFox.</p></div></div><!----></div><!----><!--]--><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_jiudqu = {
+						base: new URL(".", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("./_app/immutable/entry/start.bv68gj9A.js"),
+						import("./_app/immutable/entry/app.Dldzs2IW.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 6, 20],
+							data: [null,null,null],
+							form: null,
+							error: null,
+							remote: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

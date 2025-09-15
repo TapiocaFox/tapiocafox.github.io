@@ -53,37 +53,15 @@
         }
     }
 
-    let squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie, hut, cacba, sumi, mejiro]);
+    const squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie, hut, cacba, sumi, mejiro]);
     shuffle(squares);
 </script>
-<style>
-    .sqaure_item {
-        width: 250px;
-        height: 250px;
-        transition: var(--normal-transition);
-    }
-    .sqaure_item:hover {
-        transform: scale(1.25);
-        z-index: 99;
-    }
-    @media (max-width: 768px) {
-        .sqaure_item {
-            width: 150px;
-            height: 150px;
-        }
-    }
-</style>
 <HeaderWithBackButton text="Squares"/>
 <p class="bold-annotation">Blocky things align with grid are captivating. <button class="text" onclick={()=>{shuffle(squares);}}>Randomize</button>.</p>
 <!-- <hr class="dotted"/> -->
-<div class="flex_grid" 
-    style:align-items="center"
-    style:justify-content="center"
-    style:width="100%"
-    style:gap="12px"
-    style:margin="1rem 0">
+<div class="flex_grid gallery">
     {#each squares as square}
-        <div class="item sqaure_item">
+        <div class="item gallery_item">
             <img alt="Sqaure" style:width="100%" src={square}/>
         </div>
     {/each}
