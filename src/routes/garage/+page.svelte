@@ -12,7 +12,7 @@
 
 <h1>Garage</h1>
 <ChipsWithUrlState 
-  names={['Karaoke', 'Retina', 'Photos']} 
+  names={['Karaoke', 'Retina']} 
   values={['music', 'videos', 'photos', 'credits', 'other']}
   selected_value={selected_category}
   callback={(value: any) => {
