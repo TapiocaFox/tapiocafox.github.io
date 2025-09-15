@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{au as I,f as h,e as x,t as C,a as c,s as o,w as P,m as n,x as F,c as f,n as p,r as _,g as T}from"../chunks/Q6qDtJCQ.js";import{i as S}from"../chunks/CHZcJG0L.js";import{e as G,i as A}from"../chunks/Dmph-SRT.js";import{s as L}from"../chunks/-KVrhg4G.js";import{s as q}from"../chunks/CsRbOMts.js";import{C as D}from"../chunks/CChlOV_n.js";import{H as E}from"../chunks/WpVhzMs_.js";import{d as j,e as B,G as M}from"../chunks/BrwlHker.js";import{a as N,b as Y}from"../chunks/BC6LL0MR.js";const H=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{au as I,f as h,e as x,t as C,a as c,s as o,w as P,m as n,x as F,c as f,n as p,r as _,g as T}from"../chunks/Q6qDtJCQ.js";import{i as S}from"../chunks/CHZcJG0L.js";import{e as G,i as A}from"../chunks/Dmph-SRT.js";import{s as L}from"../chunks/-KVrhg4G.js";import{s as q}from"../chunks/CsRbOMts.js";import{C as D}from"../chunks/CChlOV_n.js";import{H as E}from"../chunks/WpVhzMs_.js";import{d as j,e as B,G as M}from"../chunks/BFVf0-kq.js";import{a as N,b as Y}from"../chunks/BC6LL0MR.js";const H=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -99,7 +99,7 @@ precision mediump float;
 #define PI 3.1415926535897932
 #define size_shrink 2.
 #define size_shrink_mouse 1.
-#define freq_polar 4.
+#define freq_polar 5.
 #define freq_rotate 0.4
 #define t_delay .075
 #define d_shift .2
