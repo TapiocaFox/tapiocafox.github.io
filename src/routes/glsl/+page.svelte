@@ -41,12 +41,12 @@
             categories: ['distortion']
         },
         {
-            shader: radiant,
-            categories: ['noise']
-        },
-        {
             shader: array,
             categories: []
+        },
+        {
+            shader: radiant,
+            categories: ['noise']
         },
         {
             shader: snoise,
