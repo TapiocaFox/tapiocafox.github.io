@@ -84,7 +84,7 @@
 		background-color: var(--fox-background-color);
 		/* background-color: black; */
 		color: white;
-        font-size: 1.025em;
+        font-size: 1.015em;
 		padding: .25em 1em .25em 0px;
 		font-family: 'Courier New', Courier, monospace;
 		overflow-x: auto;
@@ -279,7 +279,7 @@
 
     /* Full height with nav offset */
     .full-height-with-nav-offset {
-        height: calc(100vh - 0.5rem - 1.025rem) !important;
+        height: calc(100vh - 0.5rem - 1.015rem) !important;
     }
 
     /* Solid border */
