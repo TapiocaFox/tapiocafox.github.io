@@ -11,10 +11,11 @@
     import fiber from '$lib/assets/glsl_shaders/fiber.frag?raw';
     import radiant from '$lib/assets/glsl_shaders/radiant.frag?raw';
     import array from '$lib/assets/glsl_shaders/array.frag?raw';
+    import snoise from '$lib/assets/glsl_shaders/snoise.frag?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     
-    let shaders = $state([default_shader, adhesive, mouse, balls, fiber, radiant, array]);
+    let shaders = $state([default_shader, adhesive, mouse, balls, fiber, radiant, array, snoise]);
 </script>
 <style>
     .shader_item {

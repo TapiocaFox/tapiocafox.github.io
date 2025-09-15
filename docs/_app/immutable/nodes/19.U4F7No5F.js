@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{au as h,f as l,e as g,t as x,a as r,s as o,c as _,n as c,r as s,m as y}from"../chunks/Q6qDtJCQ.js";import{e as b,i as z}from"../chunks/Dmph-SRT.js";import{s as k}from"../chunks/-KVrhg4G.js";import{s as I}from"../chunks/CsRbOMts.js";import{H as P}from"../chunks/WpVhzMs_.js";import{d as F,e as w,G as C}from"../chunks/Dv3RwlDG.js";import{a as T,b as G}from"../chunks/BC6LL0MR.js";const L=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{au as p,f as l,e as y,t as h,a,s as t,c,n as _,r as s,m as g}from"../chunks/Q6qDtJCQ.js";import{e as z,i as b}from"../chunks/Dmph-SRT.js";import{s as w}from"../chunks/-KVrhg4G.js";import{s as I}from"../chunks/CsRbOMts.js";import{H as k}from"../chunks/WpVhzMs_.js";import{d as P,e as C,G as F}from"../chunks/CDGZThMQ.js";import{a as T,b as S}from"../chunks/BC6LL0MR.js";const G=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -40,7 +40,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,A=`// Author: TapiocaFox
+}`,L=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -89,7 +89,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     gl_FragColor = vec4(color,1.0);
-}`,S=`// Author: TapiocaFox
+}`,A=`// Author: TapiocaFox
 // Title: Radiant
 
 #ifdef GL_ES
@@ -147,7 +147,7 @@ void main() {
 	
     
     gl_FragColor = vec4(color,1.0);
-}`,E=`// Author: TapiocaFox
+}`,q=`// Author: TapiocaFox
 // Title: Array
 
 #ifdef GL_ES
@@ -202,4 +202,122 @@ void main() {
     
     
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`;var q=l('<div class="item shader_item svelte-ynuj4"><!></div>'),B=l('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function K(m){let u=h([F,T,L,G,A,S,E]);var i=B(),a=g(i);P(a,{text:"GLSL shader"});var n=o(a,2),d=o(_(n));c(2),s(n);var e=o(n,2);I(e,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),b(e,21,()=>u,z,(f,p)=>{var t=q(),v=_(t);C(v,{get fragment_shader(){return y(p)}}),s(t),r(f,t)}),s(e),c(2),x(()=>k(d,"src",w)),r(m,i)}export{K as component};
+}`,E=`// Author: TapiocaFox
+// Title: Colorful Snoise
+// Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
+
+#ifdef GL_ES
+precision mediump float;
+#endif
+
+#define PI 3.14159265358979
+
+uniform vec2 u_resolution;
+uniform vec2 u_mouse;
+uniform float u_time;
+
+vec3 mod289(vec3 x) {
+	return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 mod289(vec4 x) {
+	return x - floor(x * (1.0 / 289.0)) * 289.0;
+}
+
+vec4 permute(vec4 x) {
+	return mod289(((x*34.0)+10.0)*x);
+}
+
+vec4 taylorInvSqrt(vec4 r) {
+    return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+float snoise(vec3 v) { 
+    const vec2  C = vec2(1.0/6.0, 1.0/3.0) ;
+    const vec4  D = vec4(0.0, 0.5, 1.0, 2.0);
+
+    // First corner
+    vec3 i  = floor(v + dot(v, C.yyy) );
+    vec3 x0 =   v - i + dot(i, C.xxx) ;
+
+    // Other corners
+    vec3 g = step(x0.yzx, x0.xyz);
+    vec3 l = 1.0 - g;
+    vec3 i1 = min( g.xyz, l.zxy );
+    vec3 i2 = max( g.xyz, l.zxy );
+
+    //   x0 = x0 - 0.0 + 0.0 * C.xxx;
+    //   x1 = x0 - i1  + 1.0 * C.xxx;
+    //   x2 = x0 - i2  + 2.0 * C.xxx;
+    //   x3 = x0 - 1.0 + 3.0 * C.xxx;
+    vec3 x1 = x0 - i1 + C.xxx;
+    vec3 x2 = x0 - i2 + C.yyy; // 2.0*C.x = 1/3 = C.y
+    vec3 x3 = x0 - D.yyy;      // -1.0+3.0*C.x = -0.5 = -D.y
+
+    // Permutations
+    i = mod289(i); 
+    vec4 p = permute( permute( permute( 
+             i.z + vec4(0.0, i1.z, i2.z, 1.0 ))
+           + i.y + vec4(0.0, i1.y, i2.y, 1.0 )) 
+           + i.x + vec4(0.0, i1.x, i2.x, 1.0 ));
+
+    // Gradients: 7x7 points over a square, mapped onto an octahedron.
+    // The ring size 17*17 = 289 is close to a multiple of 49 (49*6 = 294)
+    float n_ = 0.142857142857; // 1.0/7.0
+    vec3  ns = n_ * D.wyz - D.xzx;
+
+    vec4 j = p - 49.0 * floor(p * ns.z * ns.z);  //  mod(p,7*7)
+
+    vec4 x_ = floor(j * ns.z);
+    vec4 y_ = floor(j - 7.0 * x_ );    // mod(j,N)
+
+    vec4 x = x_ *ns.x + ns.yyyy;
+    vec4 y = y_ *ns.x + ns.yyyy;
+    vec4 h = 1.0 - abs(x) - abs(y);
+
+    vec4 b0 = vec4( x.xy, y.xy );
+    vec4 b1 = vec4( x.zw, y.zw );
+
+    // vec4 s0 = vec4(lessThan(b0,0.0))*2.0 - 1.0;
+    // vec4 s1 = vec4(lessThan(b1,0.0))*2.0 - 1.0;
+    vec4 s0 = floor(b0)*2.0 + 1.0;
+    vec4 s1 = floor(b1)*2.0 + 1.0;
+    vec4 sh = -step(h, vec4(0.0));
+
+    vec4 a0 = b0.xzyw + s0.xzyw*sh.xxyy ;
+    vec4 a1 = b1.xzyw + s1.xzyw*sh.zzww ;
+
+    vec3 p0 = vec3(a0.xy,h.x);
+    vec3 p1 = vec3(a0.zw,h.y);
+    vec3 p2 = vec3(a1.xy,h.z);
+    vec3 p3 = vec3(a1.zw,h.w);
+
+    // Normalise gradients
+    vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+    p0 *= norm.x;
+    p1 *= norm.y;
+    p2 *= norm.z;
+    p3 *= norm.w;
+
+    // Mix final noise value
+    vec4 m = max(0.5 - vec4(dot(x0,x0), dot(x1,x1), dot(x2,x2), dot(x3,x3)), 0.0);
+    m = m * m;
+    return 105.0 * dot( m*m, vec4( dot(p0,x0), dot(p1,x1), 
+                                dot(p2,x2), dot(p3,x3) ) );
+}
+
+void main() {
+    vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
+    st.x *= u_resolution.x/u_resolution.y;
+
+    vec3 color = vec3(0.);
+    color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
+    
+    float pct_noise_w = snoise(.8*vec3(st, 0.7*u_time));
+    float pct_noise_c = 2.*snoise(.9*vec3(st, 0.5*u_time));
+    
+    color = mix(color, vec3(1.), pct_noise_w);    
+    color = mix(color, vec3(0.), pct_noise_c);
+
+    gl_FragColor = vec4(color,1.0);
+}`;var j=l('<div class="item shader_item svelte-ynuj4"><!></div>'),D=l('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function J(m){let u=p([P,T,G,S,L,A,q,E]);var i=D(),r=y(i);k(r,{text:"GLSL shader"});var n=t(r,2),v=t(c(n));_(2),s(n);var e=t(n,2);I(e,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),z(e,21,()=>u,b,(d,x)=>{var o=j(),f=c(o);F(f,{get fragment_shader(){return g(x)}}),s(o),a(d,o)}),s(e),_(2),h(()=>w(v,"src",C)),a(m,i)}export{J as component};
