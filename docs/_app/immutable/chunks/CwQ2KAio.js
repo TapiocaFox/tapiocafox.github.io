@@ -12,7 +12,7 @@ precision mediump float;
 #define size_unit 1200.
 #define time_ratio_distort 0.25
 #define time_ratio_noise 0.25
-#define time_delay 2.
+#define time_delay 1.
 #define time_fade_in .5
 // #define opacity 0.25
 
