@@ -12,6 +12,8 @@ precision mediump float;
 #define size_unit 1000.
 #define time_ratio_distort 0.25
 #define time_ratio_noise 0.25
+#define time_delay 2.
+#define time_fade_in .5
 // #define opacity 0.25
 
 uniform vec2 u_resolution;
@@ -136,9 +138,9 @@ void main() {
     
     float pct = calc_bg(st);
     
-    
     color = mix(vec4(0., 0., 0., 0.), color, pct);
     color = mix(vec4(0., 0., 0., 0.), color, pct_noise);
+    color = mix(vec4(0., 0., 0., 0.), color, step(time_delay, u_time)*smoothstep(time_delay, time_delay+time_fade_in, u_time));
 
     gl_FragColor = color;
     // gl_FragColor = vec4(1.,1,.1,.1.);
