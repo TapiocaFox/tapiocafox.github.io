@@ -14,6 +14,7 @@
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
     import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
+    import spiral from '$lib/assets/glsl_shaders/radiant.frag?raw';
     import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
@@ -52,6 +53,7 @@
         <GlslCanvas mode='preview'/>
         <GlslCanvas mode='preview' fragment_shader={adhesive}/>
         <GlslCanvas mode='preview' fragment_shader={balls}/>
+        <!-- <GlslCanvas mode='preview' fragment_shader={spiral}/> -->
     </div>
 </div>
 {/if}
