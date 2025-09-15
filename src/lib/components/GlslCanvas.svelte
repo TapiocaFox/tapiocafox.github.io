@@ -215,6 +215,8 @@
         z-index: -99;
         top: 0;
         left: 0;
+        height: 100%;
+        width: 100%;
         border: none;
     }
     @media (max-width: 768px) {
