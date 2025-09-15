@@ -1,4 +1,6 @@
-<script>
+<script lang="ts">
+    import ChipsWithUrlHash from '$lib/components/ChipsWithUrlHash.svelte';
+
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import GlslCanvas from '$lib/components/GlslCanvas.svelte';
     import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
@@ -15,7 +17,42 @@
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     
-    let shaders = $state([default_shader, adhesive, mouse, balls, fiber, radiant, array, snoise]);
+    let selected_category = $state('all');
+
+    let shaders = $state([
+        {
+            shader: default_shader,
+            categories: []
+        },
+        {
+            shader: adhesive,
+            categories: ['distortion']
+        },
+        {
+            shader: mouse,
+            categories: []
+        },
+        {
+            shader: balls,
+            categories: []
+        },
+        {
+            shader: fiber,
+            categories: ['distortion']
+        },
+        {
+            shader: radiant,
+            categories: ['noise']
+        },
+        {
+            shader: array,
+            categories: []
+        },
+        {
+            shader: snoise,
+            categories: ['noise']
+        }
+    ]);
 </script>
 <style>
     .shader_item {
@@ -26,15 +63,25 @@
     }
 </style>
 <HeaderWithBackButton text="GLSL shader"/>
+<ChipsWithUrlHash 
+  names={['All categories', 'Noise', 'Distortion']} 
+  values={['all', 'noise', 'distortion']}
+  selected_value={selected_category}
+  callback={(value: any) => {
+    selected_category = value;
+  }}
+/>
 <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
 <div class="flex_grid" 
     style:width="100%"
     style:gap="12px"
     style:margin="1rem 0">
     {#each shaders as shader}
-        <div class="item shader_item">
-            <GlslCanvas fragment_shader={shader}/>
+        {#if selected_category =='all' || shader.categories.includes(selected_category)} 
+            <div class="item shader_item">
+            <GlslCanvas fragment_shader={shader.shader}/>
         </div>
+        {/if}
     {/each}
 </div>
 <!-- <GlslCanvas/> -->

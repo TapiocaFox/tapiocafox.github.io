@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{au as p,f as l,e as y,t as h,a,s as t,c,n as _,r as s,m as g}from"../chunks/Q6qDtJCQ.js";import{e as z,i as b}from"../chunks/Dmph-SRT.js";import{s as k}from"../chunks/-KVrhg4G.js";import{s as w}from"../chunks/CsRbOMts.js";import{H as I}from"../chunks/WpVhzMs_.js";import{d as P,e as C,G as F}from"../chunks/CURs50ZZ.js";import{a as T,b as S}from"../chunks/BC6LL0MR.js";const G=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{au as I,f as h,e as x,t as C,a as c,s as o,w as P,m as n,x as F,c as f,n as p,r as _,g as T}from"../chunks/Q6qDtJCQ.js";import{i as S}from"../chunks/CHZcJG0L.js";import{e as G,i as A}from"../chunks/Dmph-SRT.js";import{s as L}from"../chunks/-KVrhg4G.js";import{s as q}from"../chunks/CsRbOMts.js";import{C as D}from"../chunks/B4meA0MP.js";import{H as E}from"../chunks/WpVhzMs_.js";import{d as j,e as B,G as H}from"../chunks/B_bBvT4z.js";import{a as M,b as N}from"../chunks/BC6LL0MR.js";const Y=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -40,7 +40,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,L=`// Author: TapiocaFox
+}`,W=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -89,7 +89,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     gl_FragColor = vec4(color,1.0);
-}`,A=`// Author: TapiocaFox
+}`,O=`// Author: TapiocaFox
 // Title: Radiant
 
 #ifdef GL_ES
@@ -147,7 +147,7 @@ void main() {
 	
     
     gl_FragColor = vec4(color,1.0);
-}`,q=`// Author: TapiocaFox
+}`,R=`// Author: TapiocaFox
 // Title: Array
 
 #ifdef GL_ES
@@ -202,7 +202,7 @@ void main() {
     
     
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,E=`// Author: TapiocaFox
+}`,U=`// Author: TapiocaFox
 // Title: Colorful Snoise
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
@@ -327,4 +327,4 @@ void main() {
     color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`;var j=l('<div class="item shader_item svelte-ynuj4"><!></div>'),D=l('<!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function J(m){let u=p([P,T,G,S,L,A,q,E]);var i=D(),r=y(i);I(r,{text:"GLSL shader"});var n=t(r,2),v=t(c(n));_(2),s(n);var e=t(n,2);w(e,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),z(e,21,()=>u,b,(d,x)=>{var o=j(),f=c(o);F(f,{get fragment_shader(){return g(x)}}),s(o),a(d,o)}),s(e),_(2),h(()=>k(v,"src",C)),a(m,i)}export{J as component};
+}`;var J=h('<div class="item shader_item svelte-ynuj4"><!></div>'),K=h('<!> <!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function rn(y){let e=F("all"),g=I([{shader:j,categories:[]},{shader:M,categories:["distortion"]},{shader:Y,categories:[]},{shader:N,categories:[]},{shader:W,categories:["distortion"]},{shader:O,categories:["noise"]},{shader:R,categories:[]},{shader:U,categories:["noise"]}]);var l=K(),m=x(l);E(m,{text:"GLSL shader"});var u=o(m,2);D(u,{names:["All categories","Noise","Distortion"],values:["all","noise","distortion"],get selected_value(){return n(e)},callback:i=>{P(e,i,!0)}});var t=o(u,2),z=o(f(t));p(2),_(t);var s=o(t,2);q(s,"",{},{width:"100%",gap:"12px",margin:"1rem 0"}),G(s,21,()=>g,A,(i,d)=>{var v=T(),b=x(v);{var k=r=>{var a=J(),w=f(a);H(w,{get fragment_shader(){return n(d).shader}}),_(a),c(r,a)};S(b,r=>{(n(e)=="all"||n(d).categories.includes(n(e)))&&r(k)})}c(i,v)}),_(s),p(2),C(()=>L(z,"src",B)),c(y,l)}export{rn as component};
