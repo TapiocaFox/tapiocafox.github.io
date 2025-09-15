@@ -8,7 +8,7 @@ precision mediump float;
 #define PI 3.14159265358979
 #define gap 0.1
 #define half_stroke_size 0.0075
-#define deg_r 0.2
+#define deg_r 0.4
 #define size_unit 1200.
 #define time_ratio_distort 0.25
 #define time_ratio_noise 0.25
