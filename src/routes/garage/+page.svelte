@@ -10,7 +10,7 @@
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
-<h1>Garage</h1>
+<h1>Fox's Garage</h1>
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Shashin']} 
   values={['music', 'videos', 'photos', 'credits', 'other']}
@@ -47,7 +47,7 @@
 
 {#if selected_category=="credits"}
 <p class="annotation">Third party stuffs I used in this website.</p>
-<img src="https://www.svgrepo.com/logo.svg"/>
+<!-- <img src="https://www.svgrepo.com/logo.svg"/> -->
 <p class="annotation">SVG repo.</p>
 {/if}
 
