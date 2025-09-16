@@ -2,9 +2,9 @@
 	import two_blocks_fox from '$lib/assets/comics/two_blocks_fox.png';
     import profile from '$lib/assets/profile.png';
     import EndingDecoration from '$lib/components/EndingDecoration.svelte';
-    import spiral_1 from '$lib/assets/squares/spiral_1.png';
-    import spiral_2 from '$lib/assets/squares/spiral_2.png';
-    import tapiocafox from '$lib/assets/squares/tapiocafox_mascot.png';
+    import spiral_1 from '$lib/assets/squares/spiral_1.jpg';
+    import spiral_2 from '$lib/assets/squares/spiral_2.jpg';
+    // import tapiocafox from '$lib/assets/squares/tapiocafox_mascot.png';
 
     import github_icon from '$lib/assets/icons/github.svg';
     import email_icon from '$lib/assets/icons/email.svg';

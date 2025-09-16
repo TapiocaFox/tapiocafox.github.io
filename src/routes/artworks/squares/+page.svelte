@@ -24,8 +24,8 @@
     import mushroom from '$lib/assets/squares/mushroom.png';
     import chill_cat from '$lib/assets/squares/chill_cat.jpg';
     import nooxy from '$lib/assets/squares/nooxy.jpg';
-    import spiral_1 from '$lib/assets/squares/spiral_1.png';
-    import spiral_2 from '$lib/assets/squares/spiral_2.png';
+    import spiral_1 from '$lib/assets/squares/spiral_1.jpg';
+    import spiral_2 from '$lib/assets/squares/spiral_2.jpg';
     import magic_mountain from '$lib/assets/squares/magic_mountain.png';
     import mini_disc from '$lib/assets/squares/mini_disc.png';
     import nala_cat from '$lib/assets/squares/nala_cat.png';
