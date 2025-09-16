@@ -22,7 +22,7 @@
 </script>
 <h1>Artworks</h1>
 <ChipsWithUrlState 
-  names={['All categories', 'RGB', 'Kingdom']} 
+  names={['All categories', 'Colorful', 'Kingdom']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}
   callback={(value: any) => {
@@ -30,7 +30,7 @@
   }}
 />
 {#if selected_category == "colored"}
-<p class="annotation">Artworks that come with wonderful colors.</p>
+<p class="annotation">Artworks that come with awesome colors.</p>
 {:else if selected_category == "animals"}
 <p class="annotation">Artworks that come with goofy animals.</p>
 {:else}

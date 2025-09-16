@@ -12,13 +12,13 @@
 
 <h1>Fox's Patio</h1>
 <ChipsWithUrlState 
-  names={['Karaoke', 'Retina', 'Shashin']} 
-  values={['music', 'videos', 'photos', 'portals', 'other']}
+  names={['Karaoke', 'Retina', 'Pictures']} 
+  values={['music', 'videos', 'pictures', 'portals', 'other']}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
-    if(value == 'photos') {
-      goto('/photos');
+    if(value == 'pictures') {
+      goto('/pictures');
       return false; 
     }
     else {

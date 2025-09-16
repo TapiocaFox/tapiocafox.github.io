@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{av as I,f as h,e as x,t as C,a,s as o,w as P,m as n,x as F,c as f,n as p,r as c,g as T}from"../chunks/BWz7ozDz.js";import{i as S}from"../chunks/CIHh29BO.js";import{e as G,i as A}from"../chunks/DIcaemqR.js";import{s as L}from"../chunks/Ba1VQlg1.js";import{C as q}from"../chunks/BOIHrn3q.js";import{H as D}from"../chunks/CxIYdV9C.js";import{d as E,e as j,G as B}from"../chunks/BfPgHddP.js";import{a as M,b as N}from"../chunks/BC6LL0MR.js";const Y=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{av as I,f as h,e as x,t as C,a,s as o,w as P,m as n,x as F,c as f,n as p,r as c,g as T}from"../chunks/BWz7ozDz.js";import{i as S}from"../chunks/CIHh29BO.js";import{e as G,i as A}from"../chunks/DIcaemqR.js";import{s as L}from"../chunks/Ba1VQlg1.js";import{C as q}from"../chunks/BOIHrn3q.js";import{H as D}from"../chunks/CxIYdV9C.js";import{d as E,e as j,G as B}from"../chunks/DTU6TWs5.js";import{a as M,b as N}from"../chunks/BC6LL0MR.js";const Y=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
