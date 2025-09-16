@@ -25,6 +25,7 @@
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
 
+    --background-color: #fdfdfa;
     --background-dot-color: rgb(240, 240, 240);
     /* --background-dot-color: whitesmoke; */
     --background-dot-size: 1px;      /* diameter of dot */
@@ -36,6 +37,7 @@
     --load-animation-delay: .08s;
     --secondary-load-animation-delay: .16s;
     --load-animation-timing-function: ease;
+    
 
     --preview-row-gap: .65em;
 
@@ -51,7 +53,7 @@
     body {
         margin: 0px;
         font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-        background-color: white;
+        background-color: var(--background-color);
         background-image: var(--background-dot-image);
         background-size: var(--background-dot-gap) var(--background-dot-gap);
         /* mask-image: radial-gradient(circle, #000 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px)); */
