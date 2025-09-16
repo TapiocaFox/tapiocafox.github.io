@@ -1,9 +1,9 @@
 <script lang="ts">
   import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
   import ArtDecoration from "$lib/components/ArtDecoration.svelte";
-  import amc_2020 from '$lib/assets/squares/amc_2020.png';
+  import amc_2020 from '$lib/assets/squares/amc_2020.jpg';
   import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
-  import crow from '$lib/assets/squares/crow.png';
+  import crow from '$lib/assets/squares/crow.jpg';
   import hut from '$lib/assets/squares/hut.jpg';
   import snake from '$lib/assets/portraits/snake.png';
 	import jyneda from '$lib/assets/portraits/jyneda.png';

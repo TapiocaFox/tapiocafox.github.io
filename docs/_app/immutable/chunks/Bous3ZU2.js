@@ -1,0 +1,1 @@
+const s=""+new URL("../assets/amc_2020.C-Zdkdl_.jpg",import.meta.url).href,t=""+new URL("../assets/mosquito_zoomed.C4DeDV6o.jpg",import.meta.url).href,e=""+new URL("../assets/crow.DUUqT3ld.jpg",import.meta.url).href,o=""+new URL("../assets/hut.DWvJCa0X.jpg",import.meta.url).href;export{s as a,e as c,o as h,t as m};

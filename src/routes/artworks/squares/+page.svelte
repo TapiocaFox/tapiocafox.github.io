@@ -1,15 +1,15 @@
 <script lang="ts">
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-    import amc_2018 from '$lib/assets/squares/amc_2018.png';
-    import amc_2020 from '$lib/assets/squares/amc_2020.png';
+    import amc_2018 from '$lib/assets/squares/amc_2018.jpg';
+    import amc_2020 from '$lib/assets/squares/amc_2020.jpg';
     import spooky from '$lib/assets/squares/spooky.png';
-    import dukk from '$lib/assets/squares/dukk.png';
+    import dukk from '$lib/assets/squares/dukk.jpg';
     import nooxy_art from '$lib/assets/squares/nooxy_art.png';
-    import faucet from '$lib/assets/squares/faucet.png';
-    import lunar_new_year from '$lib/assets/squares/lunar_new_year.png';
-    import tna from '$lib/assets/squares/tna.png';
-    import chihuahua from '$lib/assets/squares/chihuahua.png';
-    import crow from '$lib/assets/squares/crow.png';
+    import faucet from '$lib/assets/squares/faucet.jpg';
+    import lunar_new_year from '$lib/assets/squares/lunar_new_year.jpg';
+    import tna from '$lib/assets/squares/tna.jpg';
+    import chihuahua from '$lib/assets/squares/chihuahua.jpg';
+    import crow from '$lib/assets/squares/crow.jpg';
     import old_man from '$lib/assets/squares/old_man.png';
     import shell_with_eye from '$lib/assets/squares/shell_with_eye.png';
     import eye_with_uuid from '$lib/assets/squares/eye_with_uuid.png';
@@ -33,7 +33,7 @@
     import mosquito_zoomed from '$lib/assets/squares/mosquito_zoomed.jpg';
     import border_collie from '$lib/assets/squares/border_collie.jpg';
     import hut from '$lib/assets/squares/hut.jpg';
-    import cacba from '$lib/assets/squares/cacba.png';
+    import cacba from '$lib/assets/squares/cacba.jpg';
     import sumi from '$lib/assets/squares/sumi.png';
     import mejiro from '$lib/assets/squares/mejiro.png';
     
