@@ -22,7 +22,7 @@
 </script>
 <h1>Artworks</h1>
 <ChipsWithUrlState 
-  names={['All categories', 'Colored', 'Animals']} 
+  names={['All categories', 'RGB', 'Kingdom']} 
   values={['all', 'colored', 'animals', 'characters']}
   selected_value={selected_category}
   callback={(value: any) => {
