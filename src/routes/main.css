@@ -280,7 +280,7 @@
         align-items: center;
         justify-content: center;
         width: 100%;
-        gap: 12px;
+        gap: 1rem;
         margin: 1rem 0;
     }
     div.flex_grid > div.item {
@@ -301,6 +301,9 @@
         z-index: 99;
     }
     @media (max-width: 768px) {
+        div.flex_grid.gallery {
+            gap: .85rem;
+        }
         div.flex_grid > .gallery_item {
             width: 150px;
             height: 150px;
