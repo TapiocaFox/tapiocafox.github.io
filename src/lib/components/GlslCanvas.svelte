@@ -208,7 +208,7 @@
     canvas.glsl.preview {
         max-height: calc(var(--compact-width) * 0.25);
         width: auto;
-        margin-right: 8px;
+        margin-right: var(--preview-row-gap);
     }
     canvas.glsl.background {
         position: fixed;

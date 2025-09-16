@@ -57,7 +57,7 @@
 </script>
 <HeaderWithBackButton text="Shashin"/>
 <p class="bold-annotation">The selection of the photos I took. <button class="text" onclick={()=>{shuffle(photos);}}>Randomize</button>.</p>
-<div class="flex_grid gallery">
+<div class="flex_grid gallery center">
     {#each photos as photo}
         <div class="item gallery_item">
             <img class="center-crop" alt="Sqaure" style:width="100%" src={photo}/>

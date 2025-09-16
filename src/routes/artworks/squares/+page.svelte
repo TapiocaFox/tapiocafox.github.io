@@ -59,7 +59,7 @@
 <HeaderWithBackButton text="Squares"/>
 <p class="bold-annotation">Blocky things align with grid are captivating. <button class="text" onclick={()=>{shuffle(squares);}}>Randomize</button>.</p>
 <!-- <hr class="dotted"/> -->
-<div class="flex_grid gallery">
+<div class="flex_grid gallery center">
     {#each squares as square}
         <div class="item gallery_item">
             <img alt="Sqaure" style:width="100%" src={square}/>

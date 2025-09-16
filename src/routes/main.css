@@ -37,6 +37,8 @@
     --secondary-load-animation-delay: .16s;
     --load-animation-timing-function: ease;
 
+    --preview-row-gap: .65em;
+
     @media (max-width: 768px) {
         --page-offset: 12px;
     }
@@ -173,25 +175,22 @@
     }
     div.card img.medium {
         max-width: calc(var(--compact-width) * 0.65);
-        margin-right: 8px;
     }
     div.card img.small {
         max-width: calc(var(--compact-width) * 0.5);
-        margin-right: 8px;
     }
     div.card img.x-small {
         max-width: calc(var(--compact-width) * 0.25);
-        margin-right: 8px;
     }
     div.card img.preview {
         max-height: calc(var(--compact-width) * 0.25);
         width: auto;
-        margin-right: 8px;
+        margin-right: var(--preview-row-gap);
     }
     div.card img.preview-large {
         max-height: calc(var(--compact-width) * 0.4);
         width: auto;
-        margin-right: 8px;
+        margin-right: var(--preview-row-gap);
     }
 
     div.card div.preview-row {
@@ -236,12 +235,10 @@
         div.card img.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
             width: auto;
-            margin-right: 8px;
         }
         div.card img.preview-large {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.4);
             width: auto;
-            margin-right: 8px;
         }
     }
     div.card img.outlined {
@@ -277,11 +274,13 @@
         gap: 4px;
     }
     div.flex_grid.gallery {
-        align-items: center;
-        justify-content: center;
         width: 100%;
         gap: 1rem;
         margin: 1rem 0;
+    }
+    div.flex_grid.center {
+        align-items: center;
+        justify-content: center;
     }
     div.flex_grid > div.item {
         background-color: white;

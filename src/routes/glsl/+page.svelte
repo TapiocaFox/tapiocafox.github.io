@@ -72,10 +72,7 @@
   }}
 />
 <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
-<div class="flex_grid" 
-    style:width="100%"
-    style:gap="12px"
-    style:margin="1rem 0">
+<div class="flex_grid gallery">
     {#each shaders as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
             <div class="item shader_item">
