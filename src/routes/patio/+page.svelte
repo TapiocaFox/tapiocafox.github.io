@@ -13,7 +13,7 @@
 <h1>Fox's Patio</h1>
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Shashin']} 
-  values={['music', 'videos', 'photos', 'credits', 'other']}
+  values={['music', 'videos', 'photos', 'portals', 'other']}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
