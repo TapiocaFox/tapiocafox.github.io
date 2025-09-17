@@ -79,14 +79,15 @@
 <img class="design" alt="goto&Play" src={goto_and_play_2}/>
 <p class="annotation compact">And the second one.</p>
 
-<img class="design" alt="RA" src={retro_achievements}/>
-<p class="annotation compact">UI design for RetroAchievements in <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a>.</p>
-<img class="design" alt="RA UI" src={retro_achievements_ui}/>
-<p class="annotation compact">The actual UI for RetroAchievements.</p>
+
 <img class="design" alt="Daijishō Widget" src={daijishou_widget}/>
 <p class="annotation compact">Sketches before Daijishō widgets being implemented.</p>
 <img class="design" alt="Daijishō Widget" src={daijishou_widget_ui}/>
 <p class="annotation compact">Daijishō widgets actually being implemented.</p>
+<img class="design" alt="RA" src={retro_achievements}/>
+<p class="annotation compact">UI design for RetroAchievements in <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a>.</p>
+<img class="design" alt="RA UI" src={retro_achievements_ui}/>
+<p class="annotation compact">The actual UI for RetroAchievements.</p>
 <img class="design" alt="Daijishō Wallpaper" src={daijishou_wallpaper}/>
 <p class="annotation compact">Guideline for people to design <a href="https://daijishou.github.io/Gallery/" target="_blank">wallpeper pack</a> for Daijishō. (The whiter the area the more you want to put things that attract eyeballs.)</p>
 
