@@ -21,6 +21,11 @@
   import palette_icon from '$lib/assets/icons/palette.svg';
   import android_icon from '$lib/assets/icons/android.svg';
   import bulb_icon from '$lib/assets/icons/bulb.svg';
+  import stack_icon from '$lib/assets/icons/stack.svg';
+  import blueprint_icon from '$lib/assets/icons/blueprint.svg';
+  import sword_icon from '$lib/assets/icons/sword.svg';
+  import face_id_icon from '$lib/assets/icons/face-id.svg';
+  import pen_swirl_icon from '$lib/assets/icons/pen-swirl.svg';
 
   // import palette_icon from '$lib/assets/icons/palette.svg';
 
@@ -50,7 +55,7 @@
 
 {#if selected_category=="all"}
 <div class="card">
-  <h2><a href="/artworks/portraits">Portraits</a></h2>
+  <h2><a href="/artworks/portraits"><img class="inline-glyph" alt="Portrait" src={face_id_icon}/>&nbsp;Portraits</a></h2>
   <p>Potraits of people.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
@@ -60,7 +65,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/squares">Squares</a></h2>
+  <h2><a href="/artworks/squares"><img class="inline-glyph" alt="Stack" src={stack_icon}/>&nbsp;Squares</a></h2>
   <p>Flashy and cartoonish blocks. It can be animals, houses, hot anime girls and else.</p>
   <div class="preview-row">
     <img class="preview" src={amc_2020}/>
@@ -71,7 +76,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
-  <h2>Comics</h2>
+  <h2><img class="inline-glyph" alt="Sword" src={sword_icon}/>&nbsp;Comics</h2>
   <p>The surrealism is what I am looking for. Not much over here right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
@@ -82,7 +87,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
-  <h2><a href="/artworks/design">Design</a></h2>
+  <h2><a href="/artworks/design"><img class="inline-glyph" alt="Blueprint" src={blueprint_icon}/>&nbsp;Design</a></h2>
   <p>Handbooks, posters, blueprints, UI and other stuffs.</p>
   <div class="preview-row">
     <img class="preview" src={amc2018_cover}/>
@@ -93,7 +98,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/sketchings">Sketchings</a></h2>
+  <h2><a href="/artworks/sketchings"><img class="inline-glyph" alt="Sketch" src={pen_swirl_icon}/>&nbsp;Sketchings</a></h2>
   <p>Mostly things in real life, or quirky ideas inside of my head.</p>
   <div class="preview-row">
     <img class="preview outlined" src={hut}/>
