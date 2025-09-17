@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import * as THREE from 'three';
-    import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
+    import default_vert_shader from '$lib/assets/glsl_shaders/default_three.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     // import { min } from 'three/tsl';
@@ -32,13 +32,13 @@
 
     const background_mode_shrink_by = 2;
 
-    function shrink(value: number, shrink_by: number) {
-        return Math.floor(value/shrink_by);
-    }
+    // function shrink(value: number, shrink_by: number) {
+    //     return Math.floor(value/shrink_by);
+    // }
 
-    function shrink_bg(value: number) {
-        return shrink(value, background_mode_shrink_by);
-    }
+    // function shrink_bg(value: number) {
+    //     return shrink(value, background_mode_shrink_by);
+    // }
 
     onMount(() => {
         init();
@@ -71,7 +71,10 @@
             scene.add( mesh );
 
             renderer = new THREE.WebGLRenderer({antialias: true, canvas});
-            renderer.setPixelRatio(window.devicePixelRatio);
+            if(mode == 'background') {
+                renderer.setPixelRatio(window.devicePixelRatio/background_mode_shrink_by);
+            }
+            else renderer.setPixelRatio(window.devicePixelRatio);
             
             onWindowResize(null);
             window.addEventListener( 'resize', onWindowResize, false );
@@ -80,16 +83,10 @@
 
         function onWindowResize(event: UIEvent | null) {
             if(canvas==null) return;
-            if(mode=='background') {
-                renderer.setSize(shrink_bg(canvas.clientWidth), shrink_bg(canvas.clientHeight), false);
-                uniforms.u_resolution.value.x = shrink_bg(renderer.domElement.width);
-                uniforms.u_resolution.value.y = shrink_bg(renderer.domElement.height);
-            }
-            else {
-                renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-                uniforms.u_resolution.value.x = renderer.domElement.width;
-                uniforms.u_resolution.value.y = renderer.domElement.height;
-            }
+            
+            renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+            uniforms.u_resolution.value.x = renderer.domElement.width;
+            uniforms.u_resolution.value.y = renderer.domElement.height;
         }
 
         function animate() {
@@ -116,15 +113,8 @@
             // console.log(buttonRect.right, buttonRect.left);
             
             // if(canvas==null) return;
-            if(mode=='background') {
-                uniforms.u_mouse.value.x = shrink_bg(window.devicePixelRatio*(event.clientX-canvasRect.left));
-                uniforms.u_mouse.value.y = shrink_bg(window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top)));
-                
-            }
-            else {
-                uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
-                uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-            }
+            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
+            uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
             // console.log(event.clientX-rect.left, event.clientY-rect.top);
             
             if(show_code_block) {

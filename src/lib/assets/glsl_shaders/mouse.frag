@@ -30,7 +30,7 @@ void main() {
     vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
     st.x *= u_resolution.x/u_resolution.y;
     st_mouse.x *= u_resolution.x/u_resolution.y;
-    
+
     vec3 color_point = vec3(0., 1., 0.);
     vec3 color_grid = vec3(0.5, 0.5, 0.5);
     

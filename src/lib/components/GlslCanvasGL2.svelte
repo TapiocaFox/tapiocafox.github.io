@@ -47,7 +47,7 @@
 
             function init() {
                 const dpr = window.devicePixelRatio || 1;
-                const width  = Math.floor(canvas.offsetWidth * dpr);
+                const width  = Math.floor(canvas.offsetWidth  * dpr);
                 const height = Math.floor(canvas.offsetHeight * dpr);
 
                 if (canvas.width !== width || canvas.height !== height) {
@@ -93,7 +93,15 @@
                 
             }
             function onWindowResize(event: UIEvent | null) {
-                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), canvas.width, canvas.width);
+                // console.log(canvas.offsetWidth, canvas.offsetHeight);
+                if(mode=='background') {
+                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), window.devicePixelRatio*canvas.offsetWidth, window.devicePixelRatio*canvas.offsetHeight);
+                    // gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), 220, 220);
+                }
+                else {
+                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), window.devicePixelRatio*canvas.offsetWidth, window.devicePixelRatio*canvas.offsetHeight);
+                    // gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), 220, 220);
+                }
             }
 
             function animate() {
@@ -178,6 +186,8 @@
         catch (error) {
             console.log(error);
         }
+
+        
 
         edit_button.onpointerenter = async event => {
             if(mode == 'default') display_edit_button = true;
