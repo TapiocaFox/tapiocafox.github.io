@@ -19,7 +19,7 @@
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
-  inline_icons={[null, null, picture_icon]}
+  inline_icons={[null, null, null]}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
