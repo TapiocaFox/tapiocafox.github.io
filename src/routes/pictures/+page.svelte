@@ -66,4 +66,4 @@
         </div>
     {/each}
 </div>
-<p class="annotation">*AR-15 here is just a prop for the <a href="https://www.dazadgame.com" target="_blank">shooter game</a> developed by my friend <a href="https://yenlinchen.com" target="_blank">Yen-Lin Chen</a>. Please don't report me to the police.</p>
+<p class="annotation">*AR-15 here is just a prop for the <a href="https://www.dazadgame.com" target="_blank">shooter game</a> developed by <a href="https://yenlinchen.com" target="_blank">Yen-Lin Chen</a>. Please don't report me to the police.</p>
