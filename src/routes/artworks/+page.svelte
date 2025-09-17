@@ -24,7 +24,7 @@
   import stack_icon from '$lib/assets/icons/stack.svg';
   import blueprint_icon from '$lib/assets/icons/blueprint.svg';
   import sword_icon from '$lib/assets/icons/sword.svg';
-  import face_icon from '$lib/assets/icons/face.svg';
+  import person_icon from '$lib/assets/icons/person.svg';
   import pen_swirl_icon from '$lib/assets/icons/pen-swirl.svg';
 
   // import palette_icon from '$lib/assets/icons/palette.svg';
@@ -55,7 +55,7 @@
 
 {#if selected_category=="all"}
 <div class="card">
-  <h2><a href="/artworks/portraits"><img class="inline-glyph" alt="Portrait" src={face_icon}/>&nbsp;Portraits</a></h2>
+  <h2><a href="/artworks/portraits"><img class="inline-glyph" alt="Portrait" src={person_icon}/>&nbsp;Portraits</a></h2>
   <p>Potraits of people.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
