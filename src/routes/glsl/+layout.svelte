@@ -4,7 +4,7 @@
 </script>
 
 <svelte:head>
-    <title>TapiocaFox | GLSL</title> 
+    <title>TapiocaFox | GLSL Shader</title> 
 </svelte:head>
 
 <div class="align-with-nav">

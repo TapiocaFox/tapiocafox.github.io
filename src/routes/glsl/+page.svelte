@@ -63,7 +63,7 @@
         /* aspect-ratio: 1; */
     }
 </style>
-<HeaderWithBackButton text="GLSL shader"/>
+<HeaderWithBackButton text="GLSL Shader"/>
 <Chips 
   names={['All categories', 'Noise', 'Distortion', 'Editor']}
   inline_icons={[null, null, null, edit_icon]}
