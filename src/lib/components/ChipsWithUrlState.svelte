@@ -21,8 +21,8 @@
   values={values}
   selected_value={selected_value}
   callback={(value: any) => {
-    const default_behaviour = callback(value) | true;
-    if (default_behaviour && typeof window !== "undefined") {
+    const default_behaviour = callback(value);
+    if ((default_behaviour == null || default_behaviour) && typeof window !== "undefined") {
       const url = new URL(page.url);
       url.searchParams.set(key_name, selected_value);
       goto(url);
