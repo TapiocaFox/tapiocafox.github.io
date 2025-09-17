@@ -47,11 +47,11 @@
 
             function init() {
                 const dpr = window.devicePixelRatio || 1;
-                const width  = Math.floor(canvas.offsetWidth  * dpr);
+                const width  = Math.floor(canvas.offsetWidth * dpr);
                 const height = Math.floor(canvas.offsetHeight * dpr);
 
                 if (canvas.width !== width || canvas.height !== height) {
-                    console.log(width, height);
+                    // console.log(width, height);
                     // canvas.width = 550;
                     // canvas.height = 550;
                     canvas.width = width;
@@ -93,15 +93,7 @@
                 
             }
             function onWindowResize(event: UIEvent | null) {
-                // console.log(canvas.offsetWidth, canvas.offsetHeight);
-                if(mode=='background') {
-                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), window.devicePixelRatio*canvas.offsetWidth, window.devicePixelRatio*canvas.offsetHeight);
-                    // gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), 220, 220);
-                }
-                else {
-                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), window.devicePixelRatio*canvas.offsetWidth, window.devicePixelRatio*canvas.offsetHeight);
-                    // gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), 220, 220);
-                }
+                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), canvas.width, canvas.width);
             }
 
             function animate() {
@@ -182,12 +174,15 @@
                     }
                 }
             };
+
+            canvas.addEventListener("webglcontextlost", (error) => {
+                error.preventDefault();
+                console.warn("GLSL canvas WebGL context lost!");
+            });
         }
         catch (error) {
             console.log(error);
         }
-
-        
 
         edit_button.onpointerenter = async event => {
             if(mode == 'default') display_edit_button = true;
