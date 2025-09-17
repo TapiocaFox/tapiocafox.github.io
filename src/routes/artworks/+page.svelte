@@ -66,7 +66,7 @@
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
   <h2>Comics</h2>
-  <p>The surrealism is what I am looking for right now. Not much over here right now.</p>
+  <p>The surrealism is what I am looking for. Not much over here right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
