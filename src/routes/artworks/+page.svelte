@@ -45,7 +45,7 @@
 {#if selected_category=="all"}
 <div class="card">
   <h2><a href="/artworks/portraits">Portraits</a></h2>
-  <p>People and some significant individuals in my life.</p>
+  <p>Potraits of people. Including who helped me along the way.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
     <img class="preview outlined" src={jyneda}/>
