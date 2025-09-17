@@ -79,6 +79,7 @@
   <h2><a href="/artworks/design">Design</a></h2>
   <p>Posters, Blueprints, UI and stuffs.</p>
   <div class="preview-row">
+    <img class="preview" src={amc2018_cover}/>
     <img class="preview" src={daijishou_widget_ui}/>
     <img class="preview outlined" src={phone_1}/>
   </div>
@@ -94,7 +95,7 @@
   </div>
 </div>
 {/if}
-{#if selected_category=="all" || selected_category=='colored'}
+<!-- {#if selected_category=="all" || selected_category=='colored'}
 <div class="card">
   <h2>Handbooks</h2>
   <p>AMC stands for "Applied Mathematics Camp".</p>
@@ -103,5 +104,5 @@
   </ul>
   <img class="preview" src={amc2018_cover}/>
 </div>
-{/if}
+{/if} -->
 <ArtDecoration src={decoration}/>
