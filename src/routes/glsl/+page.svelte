@@ -25,34 +25,34 @@
             shader: default_shader,
             categories: []
         },
-        {
-            shader: adhesive,
-            categories: ['distortion']
-        },
-        {
-            shader: mouse,
-            categories: []
-        },
-        {
-            shader: balls,
-            categories: []
-        },
-        {
-            shader: fiber,
-            categories: ['distortion']
-        },
-        {
-            shader: array,
-            categories: []
-        },
-        {
-            shader: radiant,
-            categories: ['noise']
-        },
-        {
-            shader: snoise,
-            categories: ['noise']
-        }
+        // {
+        //     shader: adhesive,
+        //     categories: ['distortion']
+        // },
+        // {
+        //     shader: mouse,
+        //     categories: []
+        // },
+        // {
+        //     shader: balls,
+        //     categories: []
+        // },
+        // {
+        //     shader: fiber,
+        //     categories: ['distortion']
+        // },
+        // {
+        //     shader: array,
+        //     categories: []
+        // },
+        // {
+        //     shader: radiant,
+        //     categories: ['noise']
+        // },
+        // {
+        //     shader: snoise,
+        //     categories: ['noise']
+        // }
     ]);
 </script>
 <style>
