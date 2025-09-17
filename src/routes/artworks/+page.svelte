@@ -89,7 +89,7 @@
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
   <h2><a href="/artworks/design">Design</a></h2>
-  <p>Handbooks, posters, blueprints, UI and other stuffs.</p>
+  <p>In forms of handbooks, posters, blueprints, UI and other stuffs.</p>
   <div class="preview-row">
     <img class="preview" src={amc2018_cover}/>
     <img class="preview" src={daijishou_widget_ui}/>
