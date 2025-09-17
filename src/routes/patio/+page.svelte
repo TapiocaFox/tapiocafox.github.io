@@ -4,13 +4,14 @@
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+    import tapiocafox_icon from '$lib/assets/icons/tapiocafox.png';
     let selected_category = $state('all');
 
 </script>
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
-<h1>Fox's Patio</h1>
+<h1>Fox's Patio <img class="inline-glyph" alt="TapiocaFox" src={tapiocafox_icon}/></h1>
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
