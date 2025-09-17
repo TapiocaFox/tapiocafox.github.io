@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as b,ax as k,f as x,e as u,a as i,b as w,s as d,x as I,o as n,y as P,r as v,n as C,g as F,c as T}from"../chunks/Dfh8tEOf.js";import{i as A}from"../chunks/CmV-MaqQ.js";import{e as S,i as G}from"../chunks/CaiSE359.js";import{C as q}from"../chunks/Dli1-4hO.js";import{H as L}from"../chunks/Bgq-A_AG.js";import{d as D,G as E}from"../chunks/B9YfiiMh.js";import{a as j,b as B}from"../chunks/BC6LL0MR.js";import{g as M}from"../chunks/D0xYHmv1.js";const N=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as z,ax as k,f as x,e as v,a as i,b as C,s as u,x as I,o as e,y as P,r as d,n as w,g as F,c as T}from"../chunks/Dfh8tEOf.js";import{i as A}from"../chunks/CmV-MaqQ.js";import{e as S,i as G}from"../chunks/CaiSE359.js";import{C as D}from"../chunks/Dli1-4hO.js";import{H as L}from"../chunks/Bgq-A_AG.js";import{G as j}from"../chunks/Dpd7ZJZU.js";import{d as E}from"../chunks/CdRHMzj1.js";import{a as q,b as B,s as M}from"../chunks/CjiA10hm.js";import{g as N}from"../chunks/BhxQC1D7.js";const O=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -40,7 +40,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,O=`// Author: TapiocaFox
+}`,H=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -88,64 +88,6 @@ void main() {
     
     color = mix(vec3(0.), color, pct);
 
-    gl_FragColor = vec4(color,1.0);
-}`,H=`// Author: TapiocaFox
-// Title: Radiant
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define PI 3.1415926535897932
-#define size_shrink 2.
-#define size_shrink_mouse 1.
-#define freq_polar 5.
-#define freq_rotate 0.4
-#define t_delay .075
-#define d_shift .2
-
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-float random (vec2 st) {
-    return fract(sin(dot(st.xy,
-                         vec2(12.9898,78.233)))*
-        43758.5453123);
-}
-
-void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
-    st.x *= u_resolution.x/u_resolution.y;
-    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
-    st_mouse.x *= u_resolution.x/u_resolution.y;
-    
-    float atan_mouse = atan(st_mouse.x, st_mouse.y);
-    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
-    
-    vec3 color = vec3(1.);
-    
-    for(int i=0; i<3; i++) {
-        float x = u_time;
-        float tremor = d_shift*mix(sin(x), mix(sin(5.*x), mix(sin(5.*x), sin(12.*x), .9), .5), .2);
-        float u_time_ch = u_time+tremor*float(i);
-        // float u_time_ch = u_time;
-        
-        float d = distance(st, vec2(0.));
-        mat2 rot;
-        float r = sin(freq_rotate*PI*(d-u_time))-atan_mouse;
-        rot[0] = vec2(cos(r), -sin(r));    
-        rot[1] = vec2(sin(r), cos(r));
-        vec2 st_new = rot*st;
-
-        // d -= 1.*tremor;
-        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink)*PI*(shrink_mouse*d-u_time_ch))*.5+.5;
-        pct = mix(0., pct, .5*random(st_new)+.5);
-        color[i] = pct;
-    }
-	
-    
     gl_FragColor = vec4(color,1.0);
 }`,Y=`// Author: TapiocaFox
 // Title: Array
@@ -202,7 +144,7 @@ void main() {
     
     
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,R=`// Author: TapiocaFox
+}`,W=`// Author: TapiocaFox
 // Title: Colorful Snoise
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
@@ -327,4 +269,4 @@ void main() {
     color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`;var W=x('<div class="item shader_item svelte-1xj01x5"><!></div>'),J=x('<!> <!> <h3>Practice One</h3> <p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function on(f,p){b(p,!0);let e=P("all"),h=k([{shader:D,categories:[]},{shader:j,categories:["distortion"]},{shader:N,categories:[]},{shader:B,categories:[]},{shader:O,categories:["distortion"]},{shader:Y,categories:[]},{shader:H,categories:["noise"]},{shader:R,categories:["noise"]}]);var r=J(),a=u(r);L(a,{text:"GLSL shader"});var c=d(a,2);q(c,{names:["All categories","Editor","Noise","Distortion"],values:["all","editor","noise","distortion"],get selected_value(){return n(e)},callback:o=>{o=="editor"?M("/glsl/editor"):I(e,o,!0)}});var _=d(c,6);S(_,21,()=>h,G,(o,l)=>{var m=F(),g=u(m);{var y=t=>{var s=W(),z=T(s);E(z,{get fragment_shader(){return n(l).shader}}),v(s),i(t,s)};A(g,t=>{(n(e)=="all"||n(l).categories.includes(n(e)))&&t(y)})}i(o,m)}),v(_),C(2),i(f,r),w()}export{on as component};
+}`;var J=x('<div class="item shader_item svelte-1xj01x5"><!></div>'),K=x('<!> <!> <h3>Practice One</h3> <p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function te(p,f){z(f,!0);let n=P("all"),g=k([{shader:E,categories:[]},{shader:q,categories:["distortion"]},{shader:O,categories:[]},{shader:B,categories:[]},{shader:H,categories:["distortion"]},{shader:Y,categories:[]},{shader:M,categories:["noise"]},{shader:W,categories:["noise"]}]);var r=K(),a=v(r);L(a,{text:"GLSL shader"});var c=u(a,2);D(c,{names:["All categories","Editor","Noise","Distortion"],values:["all","editor","noise","distortion"],get selected_value(){return e(n)},callback:o=>{o=="editor"?N("/glsl/editor"):I(n,o,!0)}});var l=u(c,6);S(l,21,()=>g,G,(o,_)=>{var m=F(),h=v(m);{var y=t=>{var s=J(),b=T(s);j(b,{get fragment_shader(){return e(_).shader}}),d(s),i(t,s)};A(h,t=>{(e(n)=="all"||e(_).categories.includes(e(n)))&&t(y)})}i(o,m)}),d(l),w(2),i(p,r),C()}export{te as component};

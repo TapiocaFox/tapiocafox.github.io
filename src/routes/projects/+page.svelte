@@ -2,7 +2,7 @@
     import icon from '$lib/assets/squares/tapiocafox.png';
     import ArtDecoration from '$lib/components/ArtDecoration.svelte';
     import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
-    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
+    import GlslCanvas from '$lib/components/GlslCanvasGL2.svelte';
 
     import talksy_poster from '$lib/assets/projects/talksy_poster.png';
     import talksy from '$lib/assets/projects/talksy.png';
@@ -53,7 +53,7 @@
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' fragment_shader={adhesive}/>
         <GlslCanvas mode='preview' fragment_shader={balls}/>
-        <!-- <GlslCanvas mode='preview' fragment_shader={spiral}/> -->
+        <GlslCanvas mode='preview' fragment_shader={spiral}/>
     </div>
 </div>
 {/if}
