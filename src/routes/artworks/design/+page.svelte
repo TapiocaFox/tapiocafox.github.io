@@ -67,7 +67,7 @@
 
 
 {#if selected_category=="all" || selected_category=="hardware"}
-<p class="annotation">Something that are tangible.</p>
+<p class="annotation">Something that are tangible and touchable.</p>
 <img class="design_in_row" alt="Phone 1" src={phone_1}/><img class="design_in_row" alt="Phone 2" src={phone_2}/>
 <p class="annotation compact">A phone I drew in 2013. It was inspired by the design of iPod nano 6th gen.</p>
 <img class="design" alt="Handheld 1" src={handheld_1}/>
@@ -81,7 +81,7 @@
 {/if}
 
 {#if selected_category=="all" || selected_category=="software"}
-<p class="annotation">Something that are also tangible.</p>
+<p class="annotation">Something that are also tangible but in imagination.</p>
 
 <img class="design" alt="goto&Play" src={goto_and_play_1}/>
 <p class="annotation compact">NCTU's radio station "goto&Play". The site was for broadcasting music, scheduling programs and chatting with the DJ. Includes a <a href="/projects#:~:text=A%20full%20stack%20chatting%20software.%20Written%20in%20React.js%20with%20a%20microservice%20that%20provide%20realtime%20chat%2C%20channel%20management%2C%20permission%20control%2C%20user%20authentication%20and%20other%20features.%20The%20service%20is%20built%20on%20top%20of%20%22NoService%22%2C%20a%20content%20management%20system%20(CMS)%20written%20from%20scratch." target="_blank">fullstack chatting software</a> for the chatting feature and site's backend management.</p>
