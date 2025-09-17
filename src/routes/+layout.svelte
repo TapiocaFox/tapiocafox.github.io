@@ -1,7 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.ico';
 
-    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
+    import GlslCanvas from '$lib/components/GlslCanvasGL2.svelte';
     import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
 
 	let { children } = $props();
