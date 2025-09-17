@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{ax as I,f as h,e as x,t as C,a,s as o,x as P,o as n,y as F,c as f,n as p,r as c,g as T}from"../chunks/Dfh8tEOf.js";import{i as S}from"../chunks/CmV-MaqQ.js";import{e as G,i as A}from"../chunks/CaiSE359.js";import{s as L}from"../chunks/Dghl5MZl.js";import{C as q}from"../chunks/Dli1-4hO.js";import{H as D}from"../chunks/Bgq-A_AG.js";import{d as E,e as j,G as B}from"../chunks/CrnudZ-h.js";import{a as M,b as N}from"../chunks/BC6LL0MR.js";const Y=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as b,ax as k,f as x,e as u,a as i,b as w,s as d,x as I,o as n,y as C,r as v,n as P,g as F,c as T}from"../chunks/Dfh8tEOf.js";import{i as S}from"../chunks/CmV-MaqQ.js";import{e as A,i as G}from"../chunks/CaiSE359.js";import{C as q}from"../chunks/Dli1-4hO.js";import{H as L}from"../chunks/Bgq-A_AG.js";import{d as D,G as E}from"../chunks/oKTG3HLm.js";import{a as j,b as B}from"../chunks/BC6LL0MR.js";import{g as M}from"../chunks/uk4_dOUU.js";const N=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -147,7 +147,7 @@ void main() {
 	
     
     gl_FragColor = vec4(color,1.0);
-}`,R=`// Author: TapiocaFox
+}`,Y=`// Author: TapiocaFox
 // Title: Array
 
 #ifdef GL_ES
@@ -202,7 +202,7 @@ void main() {
     
     
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,W=`// Author: TapiocaFox
+}`,R=`// Author: TapiocaFox
 // Title: Colorful Snoise
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
@@ -327,4 +327,4 @@ void main() {
     color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`;var J=h('<div class="item shader_item svelte-1xj01x5"><!></div>'),K=h('<!> <!> <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit"/><a href="/glsl/editor">the editor</a>.</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function tn(y){let e=F("all"),g=I([{shader:E,categories:[]},{shader:M,categories:["distortion"]},{shader:Y,categories:[]},{shader:N,categories:[]},{shader:H,categories:["distortion"]},{shader:R,categories:[]},{shader:O,categories:["noise"]},{shader:W,categories:["noise"]}]);var _=K(),l=x(_);D(l,{text:"GLSL shader"});var m=o(l,2);q(m,{names:["All categories","Noise","Distortion"],values:["all","noise","distortion"],get selected_value(){return n(e)},callback:s=>{P(e,s,!0)}});var t=o(m,2),z=o(f(t));p(2),c(t);var u=o(t,2);G(u,21,()=>g,A,(s,d)=>{var v=T(),b=x(v);{var k=i=>{var r=J(),w=f(r);B(w,{get fragment_shader(){return n(d).shader}}),c(r),a(i,r)};S(b,i=>{(n(e)=="all"||n(d).categories.includes(n(e)))&&i(k)})}a(s,v)}),c(u),p(2),C(()=>L(z,"src",j)),a(y,_)}export{tn as component};
+}`;var W=x('<div class="item shader_item svelte-1xj01x5"><!></div>'),J=x('<!> <!> <h3>Practice One</h3> <p class="annotation">Abstract patterns animated over time.</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function on(f,p){b(p,!0);let e=C("all"),h=k([{shader:D,categories:[]},{shader:j,categories:["distortion"]},{shader:N,categories:[]},{shader:B,categories:[]},{shader:H,categories:["distortion"]},{shader:Y,categories:[]},{shader:O,categories:["noise"]},{shader:R,categories:["noise"]}]);var r=J(),a=u(r);L(a,{text:"GLSL shader"});var c=d(a,2);q(c,{names:["All categories","Editor","Noise","Distortion"],values:["all","editor","noise","distortion"],get selected_value(){return n(e)},callback:o=>{o=="editor"?M("/glsl/editor"):I(e,o,!0)}});var _=d(c,6);A(_,21,()=>h,G,(o,l)=>{var m=F(),g=u(m);{var y=t=>{var s=W(),z=T(s);E(z,{get fragment_shader(){return n(l).shader}}),v(s),i(t,s)};S(g,t=>{(n(e)=="all"||n(l).categories.includes(n(e)))&&t(y)})}i(o,m)}),v(_),P(2),i(f,r),w()}export{on as component};

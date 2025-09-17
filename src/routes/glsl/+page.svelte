@@ -16,10 +16,11 @@
     import snoise from '$lib/assets/glsl_shaders/snoise.frag?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
+    import { goto } from '$app/navigation';
     
     let selected_category = $state('all');
 
-    let shaders = $state([
+    let shaders_1 = $state([
         {
             shader: default_shader,
             categories: []
@@ -64,16 +65,22 @@
 </style>
 <HeaderWithBackButton text="GLSL shader"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion']} 
-  values={['all', 'noise', 'distortion']}
+  names={['All categories', 'Editor', 'Noise', 'Distortion']} 
+  values={['all', 'editor', 'noise', 'distortion']}
   selected_value={selected_category}
   callback={(value: any) => {
-    selected_category = value;
+    if(value == 'editor') {
+        goto('/glsl/editor');
+    }
+    else selected_category = value;
   }}
 />
-<p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p>
+<!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
+
+<h3>Practice One</h3>
+<p class="annotation">Abstract patterns animated over time.</p>
 <div class="flex_grid gallery">
-    {#each shaders as shader}
+    {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
             <div class="item shader_item">
             <GlslCanvas fragment_shader={shader.shader}/>

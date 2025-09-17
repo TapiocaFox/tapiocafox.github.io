@@ -30,6 +30,16 @@
 
     const pointer_offset = 56;
 
+    const background_mode_shrink_by = 2;
+
+    function shrink(value: number, shrink_by: number) {
+        return Math.floor(value/shrink_by);
+    }
+
+    function shrink_bg(value: number) {
+        return shrink(value, background_mode_shrink_by);
+    }
+
     onMount(() => {
         init();
         animate();
@@ -70,9 +80,16 @@
 
         function onWindowResize(event: UIEvent | null) {
             if(canvas==null) return;
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-            uniforms.u_resolution.value.x = renderer.domElement.width;
-            uniforms.u_resolution.value.y = renderer.domElement.height;
+            if(mode=='background') {
+                renderer.setSize(shrink_bg(canvas.clientWidth), shrink_bg(canvas.clientHeight), false);
+                uniforms.u_resolution.value.x = shrink_bg(renderer.domElement.width);
+                uniforms.u_resolution.value.y = shrink_bg(renderer.domElement.height);
+            }
+            else {
+                renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
+                uniforms.u_resolution.value.x = renderer.domElement.width;
+                uniforms.u_resolution.value.y = renderer.domElement.height;
+            }
         }
 
         function animate() {
@@ -99,8 +116,15 @@
             // console.log(buttonRect.right, buttonRect.left);
             
             // if(canvas==null) return;
-            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
-            uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+            if(mode=='background') {
+                uniforms.u_mouse.value.x = shrink_bg(window.devicePixelRatio*(event.clientX-canvasRect.left));
+                uniforms.u_mouse.value.y = shrink_bg(window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top)));
+                
+            }
+            else {
+                uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
+                uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+            }
             // console.log(event.clientX-rect.left, event.clientY-rect.top);
             
             if(show_code_block) {

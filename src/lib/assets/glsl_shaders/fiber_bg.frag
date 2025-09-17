@@ -9,7 +9,7 @@ precision mediump float;
 #define gap 0.1
 #define half_stroke_size 0.0075
 #define deg_r 0.4125
-#define size_unit 1200.
+#define size_unit 1200.*2.
 #define time_ratio_distort 0.25
 #define time_ratio_noise 0.25
 #define time_delay .5
