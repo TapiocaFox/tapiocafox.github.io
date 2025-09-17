@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
+	import Chips from '$lib/components/Chips.svelte';
 	import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import phone_1 from '$lib/assets/design/phone_1.png';
 	import phone_2 from '$lib/assets/design/phone_2.jpg';
@@ -38,7 +38,7 @@
     }
 </style>
 <HeaderWithBackButton text="Design"/>
-<ChipsWithUrlState 
+<Chips 
   names={['Posters', 'Hardware', 'Software']} 
   values={['posters','hardware', 'software']}
   selected_value={selected_category}
