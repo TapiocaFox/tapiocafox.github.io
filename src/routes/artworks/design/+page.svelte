@@ -80,9 +80,9 @@
 
 {#if selected_category=="all" || selected_category=="software"}
 <img class="design" alt="goto&Play" src={goto_and_play_1}/>
-<p class="annotation compact">Blueprint was for my undergrad university's radio station "goto&Play". Which I also designed a <a href="/projects#:~:text=A%20full%20stack%20chatting%20software.%20Written%20in%20React.js%20with%20a%20microservice%20that%20provide%20realtime%20chat%2C%20channel%20management%2C%20permission%20control%2C%20user%20authentication%20and%20other%20features.%20The%20service%20is%20built%20on%20top%20of%20%22NoService%22%2C%20a%20content%20management%20system%20(CMS)%20written%20from%20scratch." target="_blank">fullstack chatting software</a> for the website.</p>
+<p class="annotation compact">Blueprint was for my undergrad university's radio station "goto&Play". The site was for broadcasting music, scheduling programs and chatting with the DJ. Which I also designed a <a href="/projects#:~:text=A%20full%20stack%20chatting%20software.%20Written%20in%20React.js%20with%20a%20microservice%20that%20provide%20realtime%20chat%2C%20channel%20management%2C%20permission%20control%2C%20user%20authentication%20and%20other%20features.%20The%20service%20is%20built%20on%20top%20of%20%22NoService%22%2C%20a%20content%20management%20system%20(CMS)%20written%20from%20scratch." target="_blank">fullstack chatting software</a> for the chatting feature and site's backend management.</p>
 <img class="design" alt="goto&Play" src={goto_and_play_2}/>
-<p class="annotation compact">And the second one.</p>
+<p class="annotation compact">And the second one. We spend a lot of time to make it feel cozy and welcoming, but only about half of the elements were implemented. Because it is difficult to maintain the style for mobile size's screens.</p>
 
 
 <img class="design" alt="Daijishō Widget" src={daijishou_widget}/>
