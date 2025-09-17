@@ -4,6 +4,10 @@
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+    import karaoke_icon from '$lib/assets/icons/karaoke.svg';
+    import eye_icon from '$lib/assets/icons/eye.svg';
+    import picture_icon from '$lib/assets/icons/picture.svg';
+
     import tapiocafox_icon from '$lib/assets/icons/tapiocafox.png';
     let selected_category = $state('all');
 
@@ -15,6 +19,7 @@
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
+  inline_icons={[null, null, picture_icon]}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
@@ -32,7 +37,7 @@
 
 
 {#if selected_category=="music"}
-<p class="annotation">Personal music taste. Curated as an Music playlist.</p>
+<p class="annotation">Personal music taste <img class="inline-glyph" alt="Karaoke" src={karaoke_icon}/>. Curated as an Music playlist.</p>
 <iframe title="Apple Music playlist" allow="autoplay *; encrypted-media *;" frameborder="0" height="450" style="width:100%;max-width:660px;overflow:hidden;background:transparent;" sandbox="allow-forms allow-popups allow-same-origin allow-scripts allow-storage-access-by-user-activation allow-top-navigation-by-user-activation" src="https://embed.music.apple.com/us/playlist/tapiocafoxs-selection/pl.u-EdAVR7Gu5Wq7yq"></iframe>
 {/if}
 
