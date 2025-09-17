@@ -66,7 +66,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/squares">Squares</a>&nbsp;<img class="inline-glyph" alt="Stack" src={stack_icon}/></h2>
+  <h2><a href="/artworks/squares">Squares</a></h2>
   <p>Flashy and cartoonish blocks. It can be animals, houses, hot anime girls and else.</p>
   <div class="preview-row">
     <img class="preview" src={amc_2020}/>
@@ -77,7 +77,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
-  <h2>Comics&nbsp;<img class="inline-glyph" alt="Comic" src={grid_icon}/></h2>
+  <h2>Comics</h2>
   <p>The surrealism is what I am looking for. Not much over here right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
@@ -88,7 +88,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
-  <h2><a href="/artworks/design">Design</a>&nbsp;<img class="inline-glyph" alt="Blueprint" src={blueprint_icon}/></h2>
+  <h2><a href="/artworks/design">Design</a></h2>
   <p>Handbooks, posters, blueprints, UI and other stuffs.</p>
   <div class="preview-row">
     <img class="preview" src={amc2018_cover}/>
@@ -99,7 +99,7 @@
 {/if}
 {#if selected_category=="all" || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/sketchings">Sketchings</a>&nbsp;<img class="inline-glyph" alt="Sketch" src={pen_swirl_icon}/></h2>
+  <h2><a href="/artworks/sketchings">Sketchings</a></h2>
   <p>Mostly things in real life, or quirky ideas inside of my head.</p>
   <div class="preview-row">
     <img class="preview outlined" src={hut}/>
