@@ -11,7 +11,7 @@
     }
 </style>
 <HeaderWithBackButton text="Comics: Two blocks"/>
-<p class="bold-annotation">This type of format inspired me to focus on the transitions and motions. Surrealism is what I am looking for right now.</p>
+<p class="bold-annotation">Surrealism is what I am looking for. And I want to focus on the transitions and motions.</p>
 <img class="two_block" alt="Cosmos" src={two_blocks_cosmos}/>
 <hr class="dashed"/>
 <img class="two_block" alt="Fox" src={two_blocks_fox}/>
