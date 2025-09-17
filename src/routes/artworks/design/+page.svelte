@@ -46,11 +46,11 @@
     selected_category = value;
   }}
 />
-<p class="annotation">Designs in forms of posters, blueprints, UI and else.</p>
+<p class="annotation">Designs in forms of handbooks, posters, blueprints, UI and else.</p>
 
 {#if selected_category=="all" || selected_category=="posters"}
 <img class="design" alt="Handbook" src={amc2018_cover}/>
-<p class="annotation compact">Cover for NCTU AMC 2018 handbook. Please check out the full version in <a href="/artworks/handbooks/amc2018">PDF here</a>.</p>
+<p class="annotation compact">Cover for NCTU AMC 2018 handbook. Please check out the full version in <a href="/artworks/handbooks/amc2018" target="_blank">PDF here</a>.</p>
 <img class="design" alt="Daijishō" src={daijishou}/>
 <p class="annotation compact">Poster art for <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a>.</p>
 <img class="design" alt="Nara Cat" src={nala_cat}/>

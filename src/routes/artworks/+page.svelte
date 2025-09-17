@@ -66,7 +66,7 @@
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
   <h2>Comics</h2>
-  <p>Surrealism is what I am looking for right now.</p>
+  <p>The surrealism is what I am looking for right now. There is not much over here right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
@@ -77,7 +77,7 @@
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
   <h2><a href="/artworks/design">Design</a></h2>
-  <p>Posters, Blueprints, UI and stuffs.</p>
+  <p>Handbooks, posters, blueprints, UI and other stuffs.</p>
   <div class="preview-row">
     <img class="preview" src={amc2018_cover}/>
     <img class="preview" src={daijishou_widget_ui}/>
