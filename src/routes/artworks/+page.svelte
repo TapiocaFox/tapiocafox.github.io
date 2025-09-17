@@ -20,6 +20,11 @@
 
   let selected_category = $state('all');
 </script>
+
+<svelte:head>
+    <title>TapiocaFox | Artworks</title> 
+</svelte:head>
+
 <h1>Artworks</h1>
 <ChipsWithUrlState 
   names={['All categories', 'Colorful', 'Kingdom']} 

@@ -3,6 +3,10 @@
 	let { children } = $props();
 </script>
 
+<svelte:head>
+    <title>TapiocaFox | Patio</title> 
+</svelte:head>
+
 <div class="align-with-nav">
 {@render children?.()}
 <!-- <p class="annotation">(*These media are not created or owned by me.)</p> -->

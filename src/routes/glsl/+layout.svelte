@@ -3,6 +3,10 @@
 	let { children } = $props();
 </script>
 
+<svelte:head>
+    <title>TapiocaFox | GLSL</title> 
+</svelte:head>
+
 <div class="align-with-nav">
 {@render children?.()}
 <EndingDecoration/>
