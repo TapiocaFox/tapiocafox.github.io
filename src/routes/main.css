@@ -443,7 +443,7 @@
     } */
 
 
-    .fade-in, iframe, div.card img, div.card canvas {
+    .fade-in, iframe, div.card img.preview, div.card canvas {
         /* opacity: 0; */
         animation-name: fadeInOpacity;
         animation-timing-function: var(--load-animation-timing-function);
