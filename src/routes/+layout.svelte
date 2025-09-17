@@ -9,7 +9,6 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<link rel="stylesheet" href="" />
 	<title>TapiocaFox</title>
 </svelte:head>
 

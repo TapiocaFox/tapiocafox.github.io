@@ -28,6 +28,10 @@
         }
     }
 </style>
+<svelte:head>
+	<title>TapiocaFox</title>
+</svelte:head>
+
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 <div class="align-with-nav">
     <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
