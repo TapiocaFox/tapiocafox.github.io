@@ -55,8 +55,8 @@
 
 {#if selected_category=="all"}
 <div class="card">
-  <h2><a href="/artworks/portraits"><img class="inline-glyph" alt="Portrait" src={person_icon}/>&nbsp;Portraits</a></h2>
-  <p>Potraits of people.</p>
+  <h2><a href="/artworks/portraits">Portraits</a></h2>
+  <p><img class="inline-glyph" alt="Portrait" src={person_icon}/>&nbsp;Potraits of people.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
     <img class="preview outlined" src={jyneda}/>
@@ -65,8 +65,8 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/squares"><img class="inline-glyph" alt="Stack" src={stack_icon}/>&nbsp;Squares</a></h2>
-  <p>Flashy and cartoonish blocks. It can be animals, houses, hot anime girls and else.</p>
+  <h2><a href="/artworks/squares">Squares</a></h2>
+  <p><img class="inline-glyph" alt="Stack" src={stack_icon}/>&nbsp;Flashy and cartoonish blocks. It can be animals, houses, hot anime girls and else.</p>
   <div class="preview-row">
     <img class="preview" src={amc_2020}/>
     <img class="preview" src={mosquito_zoomed}/>
@@ -76,8 +76,8 @@
 {/if}
 {#if selected_category=="all" || selected_category=='characters' || selected_category=='animals'}
 <div class="card">
-  <h2><img class="inline-glyph" alt="Sword" src={sword_icon}/>&nbsp;Comics</h2>
-  <p>The surrealism is what I am looking for. Not much over here right now.</p>
+  <h2>Comics</h2>
+  <p><img class="inline-glyph" alt="Sword" src={sword_icon}/>&nbsp;The surrealism is what I am looking for. Not much over here right now.</p>
   <ul>
     <li><a href="/artworks/comics/two_blocks">Two Blocks</a> 📦 x 2</li>
     <li>Four Blocks 📦 x 4 (None for now.)</li>
@@ -87,8 +87,8 @@
 {/if}
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals'}
 <div class="card">
-  <h2><a href="/artworks/design"><img class="inline-glyph" alt="Blueprint" src={blueprint_icon}/>&nbsp;Design</a></h2>
-  <p>Handbooks, posters, blueprints, UI and other stuffs.</p>
+  <h2><a href="/artworks/design">Design</a></h2>
+  <p><img class="inline-glyph" alt="Blueprint" src={blueprint_icon}/>&nbsp;Handbooks, posters, blueprints, UI and other stuffs.</p>
   <div class="preview-row">
     <img class="preview" src={amc2018_cover}/>
     <img class="preview" src={daijishou_widget_ui}/>
@@ -98,8 +98,8 @@
 {/if}
 {#if selected_category=="all" || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
-  <h2><a href="/artworks/sketchings"><img class="inline-glyph" alt="Sketch" src={pen_swirl_icon}/>&nbsp;Sketchings</a></h2>
-  <p>Mostly things in real life, or quirky ideas inside of my head.</p>
+  <h2><a href="/artworks/sketchings">Sketchings</a></h2>
+  <p><img class="inline-glyph" alt="Sketch" src={pen_swirl_icon}/>&nbsp;Mostly things in real life, or quirky ideas inside of my head.</p>
   <div class="preview-row">
     <img class="preview outlined" src={hut}/>
     <img class="preview outlined" src={border_collie}/>
