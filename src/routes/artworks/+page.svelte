@@ -55,7 +55,7 @@
 {#if selected_category=="all" || selected_category=='colored' || selected_category=='animals' || selected_category=='characters'}
 <div class="card">
   <h2><a href="/artworks/squares">Squares</a></h2>
-  <p>Flashy and cartoonish blocks.</p>
+  <p>Flashy and cartoonish blocks. It can be animals, houses, hot anime girls and else.</p>
   <div class="preview-row">
     <img class="preview" src={amc_2020}/>
     <img class="preview" src={mosquito_zoomed}/>
