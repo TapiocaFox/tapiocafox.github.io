@@ -7,19 +7,19 @@
     import karaoke_icon from '$lib/assets/icons/karaoke.svg';
     import eye_icon from '$lib/assets/icons/eye.svg';
     import picture_icon from '$lib/assets/icons/picture.svg';
-
     import tapiocafox_icon from '$lib/assets/icons/tapiocafox.png';
+
     let selected_category = $state('all');
 
 </script>
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
-<h1>Fox's Patio <img class="inline-glyph" alt="TapiocaFox" src={tapiocafox_icon}/></h1>
+<h1>Fox's Patio</h1>
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
-  inline_icons={[null, null, null]}
+  inline_icons={[null, null, picture_icon]}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
