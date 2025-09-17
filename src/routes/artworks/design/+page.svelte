@@ -7,6 +7,7 @@
 	import handheld_2 from '$lib/assets/design/handheld_2.png';
 	import retro_achievements from '$lib/assets/design/retro_achievements.png';
 	import retro_achievements_ui from '$lib/assets/design/retro_achievements_ui.png';
+	import nsf from '$lib/assets/design/nsf.png';
 	import daijishou_wallpaper from '$lib/assets/design/daijishou_wallpaper.png';
 	import daijishou_widget from '$lib/assets/design/daijishou_widget.png';
 	import daijishou_widget_ui from '$lib/assets/design/daijishou_widget_ui.png';
@@ -18,6 +19,7 @@
 	import nala_cat from '$lib/assets/design/nala_cat.png';
 	import goto_and_play_1 from '$lib/assets/design/goto_and_play_1.jpg';
 	import goto_and_play_2 from '$lib/assets/design/goto_and_play_2.jpg';
+	import nsf_icon from '$lib/assets/icons/nsf.png';
 
 	let selected_category = $state('posters');
 </script>
@@ -53,10 +55,13 @@
 <p class="annotation compact">Cover for NCTU AMC 2018 handbook. Please check out the full version in <a href="/artworks/handbooks/amc2018" target="_blank">PDF here</a>.</p>
 <img class="design" alt="Daijishō" src={daijishou}/>
 <p class="annotation compact">Poster art for <a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a>.</p>
-<img class="design" alt="Nara Cat" src={nala_cat}/>
-<p class="annotation compact">This is <a href="https://www.facebook.com/nalacatshow" target="_blank">nala cat</a>. I used this color palette without knowing transgenderism. The palette just comes out naturally.</p>
 <img class="design" alt="TNA Wallpaper" src={tna_wallpaper}/>
 <p class="annotation compact">Nationalism has its utility purpose in Taiwanese geopolitics. Because we are constantly in threat, very diverse and easliy influenced due to a rather weak cultural rooting.</p>
+<img class="design" alt="NSF" src={nsf}/>
+<p class="annotation compact">A poster for the content management system (CMS) <a href="https://github.com/NOOXY-research/NoService" target="_blank">"<img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService"</a> written from scratch.</p>
+<img class="design" alt="Nara Cat" src={nala_cat}/>
+<p class="annotation compact">This is <a href="https://www.facebook.com/nalacatshow" target="_blank">nala cat</a>. I used this color palette without knowing transgenderism. The palette just comes out naturally.</p>
+
 {/if}
 
 

@@ -20,6 +20,8 @@
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
     import discord_icon from '$lib/assets/icons/discord.svg';
+	import nsf_icon from '$lib/assets/icons/nsf.png';
+
     // import info_icon from '$lib/assets/icons/info.svg';
 
     // import decoration from '$lib/assets/mejiro.png';
@@ -71,7 +73,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/NOOXY-research/Talksy" target="_blank">Talksy</a></h2>
-    <p>A <span class="emphasize">full stack chatting software</span>. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank">NoService</a>", <span class="emphasize">a content management system (CMS) written from scratch</span>.</p>
+    <p>A <span class="emphasize">full stack chatting software</span>. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> that provide realtime chat, channel management, permission control, user authentication and other features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank"><img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService</a>", <span class="emphasize">a content management system (CMS) written from scratch</span>.</p>
     <p>It was used by my university's radio station "goto&Play". Embeded as a chatting bubble binded to a channel. Admins have fine-grained control through the interface as shown. Users can login to access the interface, but only with the channels where the permissions are given.</p>
     <div class="preview-row">
         <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>

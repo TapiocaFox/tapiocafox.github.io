@@ -15,9 +15,9 @@
     import eye_with_uuid from '$lib/assets/squares/eye_with_uuid.png';
     import brain from '$lib/assets/squares/brain.jpg';
     import games from '$lib/assets/squares/games.png';
-    import rag from '$lib/assets/squares/rag.jpg';
+    // import rag from '$lib/assets/squares/rag.jpg';
     import demon from '$lib/assets/squares/demon.jpg';
-    import nsf from '$lib/assets/squares/nsf.png';
+    // import nsf from '$lib/assets/squares/nsf.png';
     import wasp from '$lib/assets/squares/wasp.jpg';
     // import mosquito from '$lib/assets/squares/mosquito.jpg';
     // import indigenous from '$lib/assets/squares/indigenous.jpg';
@@ -53,7 +53,7 @@
         }
     }
 
-    const squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, nsf, wasp, mushroom, chill_cat, nooxy, spiral_1, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie, hut, cacba, sumi, mejiro]);
+    const squares = $state([amc_2018, amc_2020, dukk, faucet, spooky, lunar_new_year, tna, chihuahua, old_man, shell_with_eye, crow, eye_with_uuid, brain, games, demon, wasp, mushroom, chill_cat, nooxy, spiral_1, magic_mountain, mini_disc, nala_cat, ping_pong, mosquito_zoomed, border_collie, hut, cacba, sumi, mejiro]);
     shuffle(squares);
 </script>
 <HeaderWithBackButton text="Squares"/>
