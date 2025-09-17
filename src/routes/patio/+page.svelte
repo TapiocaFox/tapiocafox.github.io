@@ -15,11 +15,11 @@
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 
-<h1>Fox's Patio</h1>
+<h1>Fox's Patio <img class="inline-glyph" alt="TapiocaFox" src={tapiocafox_icon}/></h1>
 <ChipsWithUrlState 
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
-  inline_icons={[null, null, picture_icon]}
+  inline_icons={[null, null, null]}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
