@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {names = [], values = [], selected_value, key_name='chip_selected', callback = () => {}} = $props();
+  let {names = [], values = [], inline_icons=[], selected_value, key_name='chip_selected', callback = () => {}} = $props();
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
 
@@ -19,6 +19,7 @@
 <Chips 
   names={names} 
   values={values}
+  inline_icons={inline_icons}
   selected_value={selected_value}
   callback={(value: any) => {
     const default_behaviour = callback(value);

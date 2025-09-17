@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {names = [], values = [], selected_value=null, callback = () => {}, selection = true} = $props();
+  let {names = [], values = [], inline_icons=[], selected_value=null, callback = () => {}, selection = true} = $props();
   let selected_index = $state(values.indexOf(selected_value));
 </script>
 <style>
@@ -50,12 +50,22 @@
             <button class="selected" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
-            }}><span class="text">{name}</span></button>
+            }}><span class="text">
+                {#if inline_icons.length>0 && inline_icons[index]!=null}
+                    <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
+                {/if}
+                {name}
+            </span></button>
         {:else}
             <button class="" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
-            }}><span class="text">{name}</span></button>
+            }}><span class="text">
+                {#if inline_icons.length>0 && inline_icons[index]!=null}
+                    <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
+                {/if}
+                {name}
+            </span></button>
         {/if}
     {/each}
     

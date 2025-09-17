@@ -65,7 +65,8 @@
 </style>
 <HeaderWithBackButton text="GLSL shader"/>
 <Chips 
-  names={['All categories', 'Editor', 'Noise', 'Distortion']} 
+  names={['All categories', 'Editor', 'Noise', 'Distortion']}
+  inline_icons={[null, edit_icon, null, null]}
   values={['all', 'editor', 'noise', 'distortion']}
   selected_value={selected_category}
   callback={(value: any) => {
