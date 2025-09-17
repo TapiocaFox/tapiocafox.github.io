@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as b,ax as k,f as x,e as u,a as i,b as w,s as d,x as I,o as n,y as C,r as v,n as P,g as F,c as T}from"../chunks/Dfh8tEOf.js";import{i as S}from"../chunks/CmV-MaqQ.js";import{e as A,i as G}from"../chunks/CaiSE359.js";import{C as q}from"../chunks/Dli1-4hO.js";import{H as L}from"../chunks/Bgq-A_AG.js";import{d as D,G as E}from"../chunks/CGwEsN0h.js";import{a as j,b as B}from"../chunks/BC6LL0MR.js";import{g as M}from"../chunks/BzkciqGA.js";const N=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as b,ax as k,f as x,e as u,a as i,b as w,s as d,x as I,o as n,y as P,r as v,n as C,g as F,c as T}from"../chunks/Dfh8tEOf.js";import{i as A}from"../chunks/CmV-MaqQ.js";import{e as S,i as G}from"../chunks/CaiSE359.js";import{C as q}from"../chunks/Dli1-4hO.js";import{H as L}from"../chunks/Bgq-A_AG.js";import{d as D,G as E}from"../chunks/B9YfiiMh.js";import{a as j,b as B}from"../chunks/BC6LL0MR.js";import{g as M}from"../chunks/D0xYHmv1.js";const N=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -40,7 +40,7 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`,H=`// Author: TapiocaFox
+}`,O=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -89,7 +89,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     gl_FragColor = vec4(color,1.0);
-}`,O=`// Author: TapiocaFox
+}`,H=`// Author: TapiocaFox
 // Title: Radiant
 
 #ifdef GL_ES
@@ -327,4 +327,4 @@ void main() {
     color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`;var W=x('<div class="item shader_item svelte-1xj01x5"><!></div>'),J=x('<!> <!> <h3>Practice One</h3> <p class="annotation">Abstract patterns animated over time.</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function on(f,p){b(p,!0);let e=C("all"),h=k([{shader:D,categories:[]},{shader:j,categories:["distortion"]},{shader:N,categories:[]},{shader:B,categories:[]},{shader:H,categories:["distortion"]},{shader:Y,categories:[]},{shader:O,categories:["noise"]},{shader:R,categories:["noise"]}]);var r=J(),a=u(r);L(a,{text:"GLSL shader"});var c=d(a,2);q(c,{names:["All categories","Editor","Noise","Distortion"],values:["all","editor","noise","distortion"],get selected_value(){return n(e)},callback:o=>{o=="editor"?M("/glsl/editor"):I(e,o,!0)}});var _=d(c,6);A(_,21,()=>h,G,(o,l)=>{var m=F(),g=u(m);{var y=t=>{var s=W(),z=T(s);E(z,{get fragment_shader(){return n(l).shader}}),v(s),i(t,s)};S(g,t=>{(n(e)=="all"||n(l).categories.includes(n(e)))&&t(y)})}i(o,m)}),v(_),P(2),i(f,r),w()}export{on as component};
+}`;var W=x('<div class="item shader_item svelte-1xj01x5"><!></div>'),J=x('<!> <!> <h3>Practice One</h3> <p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p> <div class="flex_grid gallery"></div>    <p class="annotation compact">Some of them are interactable with the mouse. I like to "vibe code" shaders with my <a href="https://music.apple.com/us/playlist/psychedelic/pl.u-r2yBAdYCAMeYoe" target="_blank">music playlist</a>.</p>',1);function on(f,p){b(p,!0);let e=P("all"),h=k([{shader:D,categories:[]},{shader:j,categories:["distortion"]},{shader:N,categories:[]},{shader:B,categories:[]},{shader:O,categories:["distortion"]},{shader:Y,categories:[]},{shader:H,categories:["noise"]},{shader:R,categories:["noise"]}]);var r=J(),a=u(r);L(a,{text:"GLSL shader"});var c=d(a,2);q(c,{names:["All categories","Editor","Noise","Distortion"],values:["all","editor","noise","distortion"],get selected_value(){return n(e)},callback:o=>{o=="editor"?M("/glsl/editor"):I(e,o,!0)}});var _=d(c,6);S(_,21,()=>h,G,(o,l)=>{var m=F(),g=u(m);{var y=t=>{var s=W(),z=T(s);E(z,{get fragment_shader(){return n(l).shader}}),v(s),i(t,s)};A(g,t=>{(n(e)=="all"||n(l).categories.includes(n(e)))&&t(y)})}i(o,m)}),v(_),C(2),i(f,r),w()}export{on as component};

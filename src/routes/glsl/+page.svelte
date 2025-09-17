@@ -78,7 +78,7 @@
 <!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
 
 <h3>Practice One</h3>
-<p class="annotation">Abstract patterns animated over time.</p>
+<p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p>
 <div class="flex_grid gallery">
     {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
