@@ -56,7 +56,7 @@
 
 {#if selected_category=="all"}
 <div class="card">
-  <h2><a href="/artworks/portraits">Portraits</a>&nbsp;<img class="inline-glyph" alt="Portrait" src={person_icon}/></h2>
+  <h2><a href="/artworks/portraits">Portraits</a></h2>
   <p>Potraits of people.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
