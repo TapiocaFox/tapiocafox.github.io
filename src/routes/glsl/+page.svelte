@@ -66,14 +66,17 @@
 </style>
 <HeaderWithBackButton text="GLSL Shader"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
-  inline_icons={[null, null, null, debug_icon, edit_icon]}
-  values={['all', 'noise', 'distortion', 'debug', 'editor']}
+  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor', 'WebGL2']}
+  inline_icons={[null, null, null, debug_icon, edit_icon, edit_icon]}
+  values={['all', 'noise', 'distortion', 'debug', 'editor', 'editor_webgl2']}
   dividers={['debug']}
   selected_value={selected_category}
   callback={(value: any) => {
     if(value == 'editor') {
         goto('/glsl/editor');
+    }
+    else if(value == 'editor_webgl2') {
+        goto('/editor_webgl2');
     }
     else selected_category = value;
   }}

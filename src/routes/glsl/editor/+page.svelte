@@ -40,7 +40,7 @@
 <!-- <style>
     @import '../glsl.css';
 </style> -->
-<HeaderWithBackButton text="GLSL editor"/>
+<HeaderWithBackButton text="GLSL Editor"/>
 <p class="annotation">The editor is from <a href="https://github.com/patriciogonzalezvivo/glslEditor" target="_blank">patriciogonzalezvivo/glslEditor</a>.</p>
 <!-- <canvas class="glsl">Your browser does not seem to support HTML canvas.</canvas> -->
 <div id="glsl_editor"></div>
