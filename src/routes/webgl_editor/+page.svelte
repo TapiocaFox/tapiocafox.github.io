@@ -4,6 +4,7 @@
     import GlslCanvasGl2 from '$lib/components/GlslCanvasGL2.svelte';
     
     import { EditorView, basicSetup } from "codemirror";
+    import {javascript} from "@codemirror/lang-javascript"
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
@@ -53,7 +54,7 @@
         const javascriptEditorView = new EditorView({
             parent: javascript_editor,
             doc: js? js : default_js,
-            extensions: [basicSetup /* ... */]
+            extensions: [basicSetup, javascript()]
         })
     });
 
