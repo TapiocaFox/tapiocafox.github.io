@@ -4,7 +4,6 @@
     import GlslCanvasGl2 from '$lib/components/GlslCanvasGL2.svelte';
     
     import { EditorView, basicSetup } from "codemirror";
-    import { glsl } from "@nuskey8/codemirror-lang-glsl";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
@@ -29,11 +28,15 @@
     let fragment_shader_editor: HTMLDivElement;
     let javascript_editor: HTMLDivElement;
 
-    onMount(() => {
+    let view_mode = $state('all');
+
+    onMount(async () => {
+        const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
+        const glsl = browserRenderMod.glsl;
+
         const vert = page.url.searchParams.get("vert");
         const frag = page.url.searchParams.get("frag");
         const js = page.url.searchParams.get("js");
-
 
         const vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
@@ -88,27 +91,44 @@
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips 
     names={['Run', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
-    values={['run', 'share', 'view_all', 'view_vertex', 'view_frag', 'view_js']}
+    values={['run', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[play_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     dividers={['view_all']}
     selectable={false}
+    callback={(value: any) => {
+        if(value=='view_all') {
+            view_mode = 'all';
+        }
+        else if(value=='view_vert') {
+            view_mode = 'vert';
+        }
+        else if(value=='view_frag') {
+            view_mode = 'frag';
+        }
+        else if(value=='view_js') {
+            view_mode = 'js';
+        }
+    }}
 />
-<p class="annotation">This editor is targeting WebGL 2.</p>
+<p class="annotation">This editor is targeting WebGL 2, following my own convention.</p>
 
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
+        {#if view_mode=='all' || view_mode=='vert'}
         <h3>Vertex Shader</h3>
         <div bind:this={vertex_shader_editor} class="editor-container">
-
         </div>
+        {/if}
+        {#if view_mode=='all' || view_mode=='frag'}
         <h3>Fragment Shader</h3>
         <div bind:this={fragment_shader_editor} class="editor-container">
-
         </div>
+        {/if}
+        {#if view_mode=='all' || view_mode=='js'}
         <h3>JavaScript</h3>
         <div bind:this={javascript_editor} class="editor-container">
-
         </div>
+        {/if}
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
