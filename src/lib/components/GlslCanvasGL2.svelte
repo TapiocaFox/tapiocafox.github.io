@@ -14,6 +14,7 @@
 
     let display_code_block = $state(false);
     let display_edit_button = $state(false);
+    let fps = $state(0);
 
     const code_block_division_percentage = 0.5;
 
@@ -42,13 +43,17 @@
             const gl = canvas.getContext('webgl2')!;
             const gl_program = gl.createProgram();
             const startTime = Date.now() / 1000;
+            const dpr = window.devicePixelRatio || 1;
+            let u_time_last_frame = 0;
+
             init();
             animate();
 
             function init() {
-                const dpr = window.devicePixelRatio || 1;
-                const width  = Math.floor(canvas.offsetWidth * dpr);
-                const height = Math.floor(canvas.offsetHeight * dpr);
+                const width  = Math.floor(canvas.clientWidth * dpr);
+                const height = Math.floor(canvas.clientHeight * dpr);
+                // const width  = 250;
+                // const height = 250;
 
                 if (canvas.width !== width || canvas.height !== height) {
                     // console.log(width, height);
@@ -103,6 +108,9 @@
 
             function render() {
                 const u_time = Date.now() / 1000 - startTime;
+                // console.log(u_time_last_frame);
+                fps = 1/(u_time-u_time_last_frame);
+                u_time_last_frame = u_time; 
                 gl.uniform1f(gl.getUniformLocation(gl_program, 'u_time'), u_time);
                 gl.drawArrays(gl.TRIANGLES, 0, 6);
             }
@@ -111,16 +119,9 @@
                 const canvasRect = canvas.getBoundingClientRect();
                 const canvasHeight = canvasRect.bottom - canvasRect.top;
 
-                if(mode=='background') {
-                    const u_mouse_x = window.devicePixelRatio*(event.clientX-canvasRect.left);
-                    const u_mouse_y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_mouse'), u_mouse_x, u_mouse_y);
-                }
-                else {
-                    const u_mouse_x = window.devicePixelRatio*(event.clientX-canvasRect.left);
-                    const u_mouse_y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-                    gl.uniform2f(gl.getUniformLocation(gl_program, 'u_mouse'), u_mouse_x, u_mouse_y);
-                }
+                const u_mouse_x = dpr*(event.clientX-canvasRect.left);
+                const u_mouse_y = dpr*(canvasHeight-(event.clientY-canvasRect.top));
+                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_mouse'), u_mouse_x, u_mouse_y);
 
                 if(show_code_block) {
                     display_code_block = true;
@@ -299,7 +300,7 @@ bind:this={edit_button}>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
-    <h4>Vertex shader</h4>
+    <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{fragment_shader}</pre>

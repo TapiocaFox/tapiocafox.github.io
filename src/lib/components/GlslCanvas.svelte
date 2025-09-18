@@ -1,30 +1,20 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import * as THREE from 'three';
-    import default_vert_shader from '$lib/assets/glsl_shaders/default_three.vert?raw';
+    import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
-    // import { min } from 'three/tsl';
     import { goto } from '$app/navigation';
-    // const frag_shader = "uniform vec2 u_resolution; uniform vec2 u_mouse; uniform float u_time;  void main() {vec2 st = gl_FragCoord.xy/u_resolution.xy;st.x *= u_resolution.x/u_resolution.y;vec3 color = vec3(0.);color = vec3(st.x,st.y,abs(sin(u_time)));gl_FragColor = vec4(color,1.0); }";
-    interface Uniforms {
-        [uniform: string]: THREE.IUniform<any>;
-        u_time: { value: number };
-        u_resolution: { value: THREE.Vector2 };
-        u_mouse: { value: THREE.Vector2 };
-    }
-    // console.log(typeof(frag_shader.replace));
-    // console.log(typeof(default_fragment_shader.replace));
+
     let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent'} = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
     var edit_button: HTMLButtonElement;
-    var camera: THREE.Camera, scene: THREE.Scene, renderer: THREE.WebGLRenderer, clock: THREE.Clock;
-    var uniforms: Uniforms;
 
     let display_code_block = $state(false);
     let display_edit_button = $state(false);
+    let fps = $state(0);
 
     const code_block_division_percentage = 0.5;
 
@@ -32,170 +22,174 @@
 
     const background_mode_shrink_by = 2;
 
-    // function shrink(value: number, shrink_by: number) {
-    //     return Math.floor(value/shrink_by);
-    // }
+    // const glsl_version = '300 es';
 
-    // function shrink_bg(value: number) {
-    //     return shrink(value, background_mode_shrink_by);
-    // }
+    // const vertex_shader_prefix = `#version ${glsl_version}\n
+    // in vec3 position;`;
+    // const fragment_shader_prefix = `#version ${glsl_version}`;
+
+    function shrink(value: number, shrink_by: number) {
+        return Math.floor(value/shrink_by);
+    }
+
+    function shrink_bg(value: number) {
+        return shrink(value, background_mode_shrink_by);
+    }
+
+    // console.log(vertex_shader, fragment_shader);
 
     onMount(() => {
-        init();
-        animate();
+        try {
+            const gl = canvas.getContext('webgl2')!;
+            const gl_program = gl.createProgram();
+            const startTime = Date.now() / 1000;
+            const dpr = window.devicePixelRatio || 1;
+            let u_time_last_frame = 0;
 
-        function init() {
-            // block = document.getElementById('block') as HTMLElement;
+            init();
+            animate();
 
-            camera = new THREE.Camera();
-            camera.position.z = 1;
+            function init() {
+                const width  = Math.floor(canvas.clientWidth * dpr);
+                const height = Math.floor(canvas.clientHeight * dpr);
+                // const width  = 250;
+                // const height = 250;
 
-            scene = new THREE.Scene();
-            clock = new THREE.Clock();
+                if (canvas.width !== width || canvas.height !== height) {
+                    // console.log(width, height);
+                    // canvas.width = 550;
+                    // canvas.height = 550;
+                    canvas.width = width;
+                    canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+                
+                const setShaders = (vertexShader: string, fragmentShader: string) => {
+                    const addShader = (type: number, src: string) => {
+                        const shader = gl.createShader(type)!;
+                        gl.shaderSource(shader, src);
+                        gl.compileShader(shader);
+                        if (! gl.getShaderParameter(shader, gl.COMPILE_STATUS))
+                            throw `Cannot compile shader: ${gl.getShaderInfoLog(shader)}`;
+                        gl.attachShader(gl_program, shader);
+                    };
+                    addShader(gl.VERTEX_SHADER, vertexShader);
+                    addShader(gl.FRAGMENT_SHADER, fragmentShader);
+                    gl.linkProgram(gl_program);
+                    if (! gl.getProgramParameter(gl_program, gl.LINK_STATUS))
+                        throw `Cannot link program:\n${gl.getProgramInfoLog(gl_program)}`;
+                    gl.useProgram(gl_program);
+                    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
 
-            var geometry = new THREE.PlaneGeometry(2, 2);
+                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,1,0, 1,1,0, 0,0,0, 1,0,0, 0,0,0, 1,1,0]), gl.STATIC_DRAW);
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,0,0, 0,0,0, -1,-1,0, 0,-1,0, -1,-1,0, 0,0,0]), gl.STATIC_DRAW);
+                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,0,0, -1,-1,0, 0,0,0, 1,0,0, 0,0,0, 1,1,0]), gl.STATIC_DRAW);
 
-            uniforms = {
-                u_time: {value: 1.0 },
-                u_resolution: {value: new THREE.Vector2() },
-                u_mouse: {value: new THREE.Vector2() }
+                    const position = gl.getAttribLocation(gl_program, 'position');
+                    gl.enableVertexAttribArray(position);
+                    gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
+                };
+
+                setShaders(vertex_shader, fragment_shader);
+
+                onWindowResize(null);
+                window.addEventListener('resize', onWindowResize, false);
+                
+            }
+            function onWindowResize(event: UIEvent | null) {
+                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), canvas.width, canvas.width);
+            }
+
+            function animate() {
+                requestAnimationFrame(animate);
+                render();
+            }
+
+            function render() {
+                const u_time = Date.now() / 1000 - startTime;
+                // console.log(u_time_last_frame);
+                fps = 1/(u_time-u_time_last_frame);
+                u_time_last_frame = u_time; 
+                gl.uniform1f(gl.getUniformLocation(gl_program, 'u_time'), u_time);
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+            }
+
+            canvas.onpointermove = async event => {
+                const canvasRect = canvas.getBoundingClientRect();
+                const canvasHeight = canvasRect.bottom - canvasRect.top;
+
+                const u_mouse_x = dpr*(event.clientX-canvasRect.left);
+                const u_mouse_y = dpr*(canvasHeight-(event.clientY-canvasRect.top));
+                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_mouse'), u_mouse_x, u_mouse_y);
+
+                if(show_code_block) {
+                    display_code_block = true;
+                    if(mode == 'default') display_edit_button = true;
+
+                    const { clientX, clientY } = event;
+
+                    const windowWidth = window.innerWidth;
+                    const windowHeight = window.innerHeight;
+
+                    const codeBlockWidth = code_block.offsetWidth;
+                    const codeBlockHeight = code_block.offsetHeight;
+
+                    if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
+                        code_block.animate({
+                            left:`${Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth)}px`,
+                            top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
+                        }, {fill: "forwards"});
+                        edit_button.animate({
+                            left:`${canvasRect.left}px`,
+                            top: `${canvasRect.bottom+4}px`
+                        }, {fill: "forwards"})
+                    }
+                    else {
+                        code_block.animate({
+                            right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
+                            top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
+                        }, {fill: "forwards"});
+                        edit_button.animate({
+                            right:`${windowWidth-canvasRect.right}px`,
+                            top: `${canvasRect.bottom+4}px`
+                        }, {fill: "forwards"})
+                    }
+                }
             };
 
-            var material = new THREE.ShaderMaterial( {
-                uniforms: uniforms,
-                vertexShader: vertex_shader,
-                fragmentShader: fragment_shader
-            } );
+            canvas.onpointerleave = async event => {
+                display_code_block = false;
+                if(edit_button == null) return;
 
-            var mesh = new THREE.Mesh( geometry, material );
-            scene.add( mesh );
+                const canvasRect = canvas.getBoundingClientRect();
+                const editButtonRect = edit_button.getBoundingClientRect();
 
-            renderer = new THREE.WebGLRenderer({antialias: true, canvas});
-            if(mode == 'background') {
-                renderer.setPixelRatio(window.devicePixelRatio/background_mode_shrink_by);
-            }
-            else renderer.setPixelRatio(window.devicePixelRatio);
-            
-            onWindowResize(null);
-            window.addEventListener( 'resize', onWindowResize, false );
-
-        }
-
-        function onWindowResize(event: UIEvent | null) {
-            if(canvas==null) return;
-            
-            renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
-            uniforms.u_resolution.value.x = renderer.domElement.width;
-            uniforms.u_resolution.value.y = renderer.domElement.height;
-        }
-
-        function animate() {
-            requestAnimationFrame( animate );
-            render();
-        }
-
-        function render() {
-            uniforms.u_time.value += clock.getDelta();
-            renderer.render( scene, camera ); 
-        }
-
-        // const buttonRect = edit_button.getBoundingClientRect();
-        // const buttonWidth = buttonRect.right - buttonRect.left;
-        // window.addEventListener("resize", ()=> {
-            // console.log(window.innerWidth, window.innerHeight);
-        // });
-
-        canvas.onpointermove = async event => {
-            const canvasRect = canvas.getBoundingClientRect();
-            const canvasHeight = canvasRect.bottom - canvasRect.top;
-
-            // console.log(canvas);
-            // console.log(buttonRect.right, buttonRect.left);
-            
-            // if(canvas==null) return;
-            uniforms.u_mouse.value.x = window.devicePixelRatio*(event.clientX-canvasRect.left);
-            uniforms.u_mouse.value.y = window.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-            // console.log(event.clientX-rect.left, event.clientY-rect.top);
-            
-            if(show_code_block) {
-                display_code_block = true;
-                if(mode == 'default') display_edit_button = true;
-                // await tick();
-                const { clientX, clientY } = event;
-
-                const windowWidth = window.innerWidth;
-                const windowHeight = window.innerHeight;
-
-                // console.log(windowWidth, windowHeight);
-                // console.log((canvasRect.left+canvasRect.right)*0.5, windowWidth*code_block_division_percentage);
-                // const canvasRect = canvas.getBoundingClientRect();
-
-                const codeBlockWidth = code_block.offsetWidth;
-                const codeBlockHeight = code_block.offsetHeight;
-                // console.log(clientX+pointer_offset, clientY+pointer_offset);
-                // console.log(windowWidth-codeBlockWidth, windowHeight-codeBlockHeight);
-                // console.log(Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth), Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight));
-                if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
-                    // console.log('right');
-                    code_block.animate({
-                        left:`${Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth)}px`,
-                        top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
-                    }, {fill: "forwards"});
-                    edit_button.animate({
-                        left:`${canvasRect.left}px`,
-                        top: `${canvasRect.bottom+4}px`
-                    }, {fill: "forwards"})
+                if(show_code_block) {
+                    const { clientX, clientY } = event;
+                    if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
+                        display_edit_button = true;
+                    }
+                    else {
+                        display_edit_button = false;
+                    }
                 }
-                else {
-                    // console.log('left', codeBlockWidth, `${clientX-codeBlockWidth-pointer_offset}px`);
-                    code_block.animate({
-                        right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
-                        top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
-                    }, {fill: "forwards"});
-                    edit_button.animate({
-                        right:`${windowWidth-canvasRect.right}px`,
-                        top: `${canvasRect.bottom+4}px`
-                    }, {fill: "forwards"})
-                }
-            }
-        };
+            };
 
-        canvas.onpointerleave = async event => {
-            display_code_block = false;
-            if(edit_button == null) return;
-
-            const canvasRect = canvas.getBoundingClientRect();
-            const editButtonRect = edit_button.getBoundingClientRect();
-
-            if(show_code_block) {
-                const { clientX, clientY } = event;
-
-                // const windowWidth = window.innerWidth;
-                // const codeBlockWidth = code_block.offsetWidth;
-
-                if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
-                    display_edit_button = true;
-                    // console.log('display_edit_button = true;');
-                }
-                else {
-                    display_edit_button = false;
-                    // console.log('display_edit_button = false;');
-
-                }
-            }
-            // console.log('canvas.onpointerleave');
-            // console.log('onpointerleave', display_code_block);
-        };
-
-        // const rect = canvas.getBoundingClientRect();
+            canvas.addEventListener("webglcontextlost", (error) => {
+                error.preventDefault();
+                console.warn("GLSL canvas WebGL context lost!");
+            });
+        }
+        catch (error) {
+            console.log(error);
+        }
 
         edit_button.onpointerenter = async event => {
-            // console.log('edit_button.onpointerenter');
             if(mode == 'default') display_edit_button = true;
         };
 
         edit_button.onpointerleave = async event => {
-            // console.log('edit_button.onpointerenter');
             display_edit_button = false;
         };
     });
@@ -306,7 +300,7 @@ bind:this={edit_button}>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
-    <h4>Vertex shader</h4>
+    <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{fragment_shader}</pre>

@@ -25,6 +25,7 @@
 
     let display_code_block = $state(false);
     let display_edit_button = $state(false);
+    let fps = $state(0);
 
     const code_block_division_percentage = 0.5;
 
@@ -83,20 +84,24 @@
 
         function onWindowResize(event: UIEvent | null) {
             if(canvas==null) return;
-            
             renderer.setSize(canvas.clientWidth, canvas.clientHeight, false);
             uniforms.u_resolution.value.x = renderer.domElement.width;
             uniforms.u_resolution.value.y = renderer.domElement.height;
+
+            // console.log('clientWidth, clientHeight', canvas.clientWidth, canvas.clientHeight);
+            // console.log('width, height', renderer.domElement.width, renderer.domElement.height);
         }
 
         function animate() {
-            requestAnimationFrame( animate );
+            requestAnimationFrame(animate);
             render();
         }
 
         function render() {
-            uniforms.u_time.value += clock.getDelta();
-            renderer.render( scene, camera ); 
+            const deltaTime = clock.getDelta();;
+            uniforms.u_time.value += deltaTime;
+            fps = 1/deltaTime;
+            renderer.render(scene, camera); 
         }
 
         // const buttonRect = edit_button.getBoundingClientRect();
@@ -306,7 +311,7 @@ bind:this={edit_button}>
 <!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
-    <h4>Vertex shader</h4>
+    <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{fragment_shader}</pre>
