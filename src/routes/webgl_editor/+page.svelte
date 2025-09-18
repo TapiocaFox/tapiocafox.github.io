@@ -42,6 +42,8 @@
     let frag_shader_src = $state(default_frag);
     let js_src = $state(default_js);
 
+    const refreshInterval = 250;
+
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
@@ -57,7 +59,7 @@
         };
 
         // clears all query parameters
-        goto(page.url.pathname, { replaceState: true });
+        // goto(page.url.pathname, { replaceState: true });
 
         const keymapExtension = keymap.of([indentWithTab]);
         const indentUnitExtension = indentUnit.of('    ');
@@ -79,12 +81,24 @@
             doc: js_src,
             extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
+
+        refreshLoop();
     });
 
+    const refreshLoop = () => {
+        run()
+        setTimeout(refreshLoop, refreshInterval);
+    };
+
     function run() {
-        vert_shader_src = vertexShaderEditorView.state.doc.toString();
-        frag_shader_src = fragmentShaderEditorView.state.doc.toString();
-        js_src = javascriptEditorView.state.doc.toString();
+        const vert_shader_editor_src = vertexShaderEditorView.state.doc.toString();
+        if(vert_shader_editor_src!=vert_shader_src) vert_shader_src = vert_shader_editor_src;
+
+        const frag_shader_editor_src = fragmentShaderEditorView.state.doc.toString();
+        if(frag_shader_editor_src!=frag_shader_src) frag_shader_src = frag_shader_editor_src;
+
+        const js_editor_src = javascriptEditorView.state.doc.toString();
+        if(js_editor_src!=js_src) js_src = js_editor_src;
         // console.log('run');
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
@@ -92,7 +106,18 @@
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
     const selected_index = $state('view_all');
+
+    function beforeUnload() {
+        return leave_message;
+    };
+
+    beforeNavigate(({ cancel }) => {
+        if (!confirm(leave_message)) {
+            cancel();
+        }
+    });
 </script>
+<svelte:window on:beforeunload={beforeUnload}/>
 <style>
     div.editor-layout {
         display: flex;
@@ -192,7 +217,6 @@
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
-
         </div>
     </div>
 </div>

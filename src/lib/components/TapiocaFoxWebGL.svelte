@@ -56,7 +56,7 @@
 
     function evalJavaScript(javascript: string) {
         try {
-            console.log('Eval', javascript);
+            // console.log('Eval', javascript);
             // eval(props.javascript);
             eval(javascript);
         }
