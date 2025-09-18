@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selection = true} = $props();
+  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selectable = true} = $props();
   let selected_index = $state(values.indexOf(selected_value));
 </script>
 <style>
@@ -55,7 +55,7 @@
 </style>
 <div class="chip_container">
     {#each names as name, index}
-        {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selected_index == index}
+        {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selectable && selected_index == index}
             <button class="selected" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
