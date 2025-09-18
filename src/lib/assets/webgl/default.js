@@ -39,11 +39,6 @@ const onpointermove = async event => {
     tapiocaFoxGL.reportStatus('u_mouse', `u_mouse: (${u_mouse_x.toFixed(1)}, ${u_mouse_y.toFixed(1)})`);
 };
 
-const onresize = async event => {
-    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
-    tapiocaFoxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
-};
-
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
     tapiocaFoxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
