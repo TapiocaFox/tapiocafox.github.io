@@ -37,17 +37,23 @@
     let javascriptEditorView: EditorView;
 
     let view_mode = $state('all');
-    let vert_shader_src = $state('');
-    let frag_shader_src = $state('');
-    let js_src = $state('');
+    let vert_shader_src = $state(default_vert);
+    let frag_shader_src = $state(default_frag);
+    let js_src = $state(default_js);
 
-    onMount(async () => {
+    onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
-
-        vert_shader_src = page.url.searchParams.get("vert") || default_vert;
-        frag_shader_src = page.url.searchParams.get("frag") || default_frag;
-        js_src = page.url.searchParams.get("js") || default_js;
+        
+        const url_vert = page.url.searchParams.get("vert");
+        if(url_vert) vert_shader_src = url_vert;
+        const url_frag = page.url.searchParams.get("frag");
+        if(url_frag) frag_shader_src = url_frag;
+        const url_js = page.url.searchParams.get("js");
+        if(url_js && url_js!=js_src) {
+            const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
+            js_src = url_js
+        };
 
         const keymapExtension = keymap.of([indentWithTab]);
         const indentUnitExtension = indentUnit.of('    ');
@@ -55,26 +61,27 @@
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
+            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
 
         fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
             doc: frag_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
+            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
 
         javascriptEditorView = new EditorView({
             parent: javascript_editor,
             doc: js_src,
-            extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension]
+            extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
     });
 
     function run() {
         vert_shader_src = vertexShaderEditorView.state.doc.toString();
         frag_shader_src = fragmentShaderEditorView.state.doc.toString();
-        console.log('run');
+        js_src = javascriptEditorView.state.doc.toString();
+        // console.log('run');
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
     }
@@ -100,11 +107,13 @@
     
     div.editor-layout > div.right {
         display: flex;
+        flex-grow: 0;
         width: auto;
     }
 
     div.editor-layout > div.right > div.canvas-container {
         margin-top: 0;
+        /* min-width: 350px; */
         height: auto;
         width: auto;
     }
@@ -135,7 +144,7 @@
         }
     }}
 />
-<p class="annotation">This editor is targeting WebGL 2, following my own convention.</p>
+<p class="annotation">This editor is targeting WebGL 2 following my own conventions. Open web console to see reports.</p>
 
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -163,7 +172,7 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
-            <GlslCanvasGl2 mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src}/>
+            <GlslCanvasGl2 mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
         </div>
     </div>
 </div>

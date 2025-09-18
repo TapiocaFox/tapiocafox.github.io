@@ -13,6 +13,7 @@
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
+    import default_vert from '$lib/assets/glsl_shaders/default.vert?raw';
     import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
     import spiral from '$lib/assets/glsl_shaders/radiant.frag?raw';
     import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
@@ -53,9 +54,9 @@
     <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
-        <GlslCanvas mode='preview' fragment_shader={adhesive}/>
-        <GlslCanvas mode='preview' fragment_shader={balls}/>
-        <GlslCanvas mode='preview' fragment_shader={spiral}/>
+        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>
+        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={balls}/>
+        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={spiral}/>
     </div>
 </div>
 {/if}

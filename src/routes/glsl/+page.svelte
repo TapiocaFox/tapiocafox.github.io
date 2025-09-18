@@ -5,7 +5,8 @@
     import GlslCanvasGL2 from '$lib/components/GlslCanvasGL2.svelte';
     import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
 
-    import default_shader from '$lib/assets/glsl_shaders/default.frag?raw';
+    import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
+    import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
     import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
     import mouse from '$lib/assets/glsl_shaders/mouse.frag?raw';
     import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
@@ -23,11 +24,13 @@
 
     let shaders_1 = $state([
         {
-            shader: default_shader,
+            vert_shader: default_vert_shader,
+            frag_shader: default_frag_shader,
             categories: []
         },
         {
-            shader: adhesive,
+            vert_shader: default_vert_shader,
+            frag_shader: adhesive,
             categories: ['distortion']
         },
         // {
@@ -35,23 +38,28 @@
         //     categories: ['debug']
         // },
         {
-            shader: balls,
+            vert_shader: default_vert_shader,
+            frag_shader: balls,
             categories: []
         },
         {
-            shader: fiber,
+            vert_shader: default_vert_shader,
+            frag_shader: fiber,
             categories: ['distortion']
         },
         {
-            shader: array,
+            vert_shader: default_vert_shader,
+            frag_shader: array,
             categories: []
         },
         {
-            shader: radiant,
+            vert_shader: default_vert_shader,
+            frag_shader: radiant,
             categories: ['noise']
         },
         {
-            shader: snoise,
+            vert_shader: default_vert_shader,
+            frag_shader: snoise,
             categories: ['noise']
         }
     ]);
@@ -66,18 +74,18 @@
 </style>
 <HeaderWithBackButton text="GLSL Shader"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor', 'WebGL 2']}
+  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
   inline_icons={[null, null, null, debug_icon, edit_icon, edit_icon]}
-  values={['all', 'noise', 'distortion', 'debug', 'editor', 'editor_webgl']}
+  values={['all', 'noise', 'distortion', 'debug', 'editor']}
   dividers={['debug']}
   selected_value={selected_category}
   callback={(value: any) => {
     if(value == 'editor') {
-        goto('/glsl/editor');
-    }
-    else if(value == 'editor_webgl') {
         goto('/webgl_editor');
     }
+    // else if(value == 'editor_webgl') {
+    //     goto('/webgl_editor');
+    // }
     else selected_category = value;
   }}
 />
@@ -87,20 +95,20 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <GlslCanvasGL2 fragment_shader={mouse}/>
+        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={mouse}/>
     </div>
     <div class="item shader_item">
-        <GlslCanvasGL2 fragment_shader={sin}/>
+        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={sin}/>
     </div>
 </div>
 <h3>Debug (Preview mode)</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <GlslCanvasGL2 fragment_shader={mouse} mode="preview"/>
+        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={mouse} mode="preview"/>
     </div>
     <div class="item shader_item">
-        <GlslCanvasGL2 fragment_shader={sin} mode="preview"/>
+        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={sin} mode="preview"/>
     </div>
 </div>
 {/if}
@@ -114,7 +122,7 @@
     {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
         <div class="item shader_item">
-            <GlslCanvasGL2 fragment_shader={shader.shader}/>
+            <GlslCanvasGL2 vertex_shader={shader.vert_shader} fragment_shader={shader.frag_shader}/>
         </div>
         {/if}
     {/each}

@@ -1,17 +1,33 @@
 // Author: TapiocaFox
 // Title:  Default
 
-const gl = tapiocaFoxGL;
+// Reference to tapiocaFoxGL:
+// interface TapiocaFoxGL {
+//     gl: WebGL2RenderingContext,
+//     canvas: HTMLCanvasElement,
+//     program: WebGLProgram,
+//     startTime: number,
+//     lastRenderTime: number,
+//     devicePixelRatio: number,
+//     initViewPort: () => void,
+//     initProgram: (vertexShader: string, fragmentShader: string) => void,
+//     newProgram: () => void,
+//     render: () => void,
+// }
+
+console.log('JavaScript entered.');
+
+const gl = tapiocaFoxGL.gl;
+const program = tapiocaFoxGL.program;
 const canvas = tapiocaFoxGL.canvas;
 
-gl.initViewPort();
-gl.initProgram(vertex_shader, fragment_shader);
+// console.log(vertex_shader, fragment_shader);
 
 function animate() {
-    requestAnimationFrame(animate);
-    const u_time = Date.now() - gl.startTime / 1000;
-    gl.uniform1f(gl.getUniformLocation(gl.program, 'u_time'), u_time);
-    gl.render();
+    tapiocaFoxGL.requestAnimationFrame(program, animate);
+    const u_time = (Date.now() - tapiocaFoxGL.startTime) / 1000;
+    gl.uniform1f(gl.getUniformLocation(program, 'u_time'), u_time);
+    tapiocaFoxGL.render();
 }
 
 canvas.addEventListener('pointermove', async event => {
@@ -19,10 +35,14 @@ canvas.addEventListener('pointermove', async event => {
     const canvasHeight = canvasRect.bottom - canvasRect.top;
     const u_mouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
     const u_mouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(gl.program, 'u_mouse'), u_mouse_x, u_mouse_y);
+    gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), u_mouse_x, u_mouse_y);
 });
 
-gl.uniform2f(gl.getUniformLocation(gl.program, 'u_resolution'), canvas.width, canvas.width);
+gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
 window.addEventListener('resize', async event => {
-    gl.uniform2f(gl.getUniformLocation(gl.program, 'u_resolution'), canvas.width, canvas.width);
+    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
 });
+
+animate();
+
+// console.log('JavaScript exited.');

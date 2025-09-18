@@ -6,21 +6,23 @@
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
 
-    interface TapiocaWebGL2RenderingContext extends WebGL2RenderingContext {
+    interface TapiocaFoxGL {
+        gl: WebGL2RenderingContext,
         canvas: HTMLCanvasElement,
         program: WebGLProgram,
         startTime: number,
         lastRenderTime: number,
         devicePixelRatio: number,
+        animate: (() => void) | null,
         initViewPort: () => void,
         initProgram: (vertexShader: string, fragmentShader: string) => void,
         newProgram: () => void,
-        // animate: () => void,
         render: () => void,
+        requestAnimationFrame: (program: WebGLProgram, animate:() => void) => void,
     }
 
     const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent' } = props;
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent' } = props;
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -42,12 +44,35 @@
         return shrink(value, background_mode_shrink_by);
     }
 
-    let tapiocaFoxGL: TapiocaWebGL2RenderingContext;
+    let tapiocaFoxGL: TapiocaFoxGL;
+
+    function evalJavaScript() {
+        try {
+            // console.log('Eval');
+            eval(javascript);
+        }
+        catch(error) {
+            console.trace(error);
+        } 
+    }
 
     $effect (() => {
-        // console.log('Something changed:');
+        console.log('Something changed:');
         // console.log(props.vertex_shader);
+        // console.log(fragment_shader);
         // console.log(props.fragment_shader);
+        // console.log();
+        props.vertex_shader, props.fragment_shader, props.javascript;
+
+
+        if(tapiocaFoxGL) {
+            tapiocaFoxGL.newProgram();
+
+            tapiocaFoxGL.initViewPort();
+            tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
+
+            evalJavaScript();
+        }
     });
 
     onMount(() => {
@@ -55,68 +80,76 @@
             const glNative = canvas.getContext('webgl2')!;
 
             tapiocaFoxGL = {
-                ...glNative,
+                gl: glNative,
                 canvas: canvas,
                 program: glNative.createProgram(),
                 startTime: Date.now(),
                 lastRenderTime: 0,
                 devicePixelRatio: window.devicePixelRatio || 1,
-                
+                animate: null,
                 initViewPort: function() {
+                    const gl = this.gl;
                     const width  = Math.floor(this.canvas.clientWidth * devicePixelRatio);
                     const height = Math.floor(this.canvas.clientHeight * devicePixelRatio);
 
                     if (this.canvas.width !== width || this.canvas.height !== height) {
                         this.canvas.width = width;
                         this.canvas.height = height;
-                        this.viewport(0, 0, width, height);
+                        gl.viewport(0, 0, width, height);
                     }
                 },
 
                 initProgram: function (vertexShader: string, fragmentShader: string) {
+                    console.log('initProgram');
+                    const gl = this.gl;
                     const addShader = (type: number, src: string) => {
-                        const shader = this.createShader(type)!;
-                        this.shaderSource(shader, src);
-                        this.compileShader(shader);
-                        if (!this.getShaderParameter(shader, this.COMPILE_STATUS))
-                            throw `Cannot compile shader: ${this.getShaderInfoLog(shader)}`;
-                        this.attachShader(this.program, shader);
+                        const shader = gl.createShader(type)!;
+                        gl.shaderSource(shader, src);
+                        gl.compileShader(shader);
+                        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
+                            throw `Cannot compile shader: ${gl.getShaderInfoLog(shader)}`;
+                        gl.attachShader(this.program, shader);
                     };
-                    addShader(this.VERTEX_SHADER, vertexShader);
-                    addShader(this.FRAGMENT_SHADER, fragmentShader);
-                    this.linkProgram(this.program);
-                    if (!this.getProgramParameter(this.program, this.LINK_STATUS))
-                        throw `Cannot link program:\n${this.getProgramInfoLog(this.program)}`;
-                    this.useProgram(this.program);
-                    this.bindBuffer(this.ARRAY_BUFFER, this.createBuffer());
-                    this.bufferData(this.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), this.STATIC_DRAW);
+                    addShader(gl.VERTEX_SHADER, vertexShader);
+                    addShader(gl.FRAGMENT_SHADER, fragmentShader);
+                    gl.linkProgram(this.program);
+                    if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
+                        throw `Cannot link program:\n${gl.getProgramInfoLog(this.program)}`;
+                    gl.useProgram(this.program);
+                    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
 
-                    const position = this.getAttribLocation(this.program, 'position');
-                    this.enableVertexAttribArray(position);
-                    this.vertexAttribPointer(position, 3, this.FLOAT, false, 0, 0);
+                    const position = gl.getAttribLocation(this.program, 'position');
+                    gl.enableVertexAttribArray(position);
+                    gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
+                },
+
+                requestAnimationFrame(program, animate) {
+                    if(program == this.program) 
+                        requestAnimationFrame(animate);
                 },
 
                 render: function() {
+                    const gl = this.gl;
                     const timeNow = Date.now();
-                    fps = 0.001/(timeNow-this.lastRenderTime);
+                    fps = 1000/(timeNow-this.lastRenderTime);
+                    // console.log('delta', timeNow-this.lastRenderTime, 'fps', 1./(timeNow-this.lastRenderTime));
                     this.lastRenderTime = timeNow;
-                    this.drawArrays(this.TRIANGLES, 0, 6);
+                    gl.drawArrays(gl.TRIANGLES, 0, 6);
                 },
 
                 newProgram: function() {
-                    const attachedShaders = this.getAttachedShaders(this.program);
-                     attachedShaders?.forEach(shader => {
-                        this.detachShader(this.program, shader);
-                        this.deleteShader(shader);
-                    });
-                    this.deleteProgram(this.program);
-                    this.program = this.createProgram();
-                }
-            }
-            
-            let u_time_last_frame = 0;
+                    const gl = this.gl;
+                    const attachedShaders = gl.getAttachedShaders(this.program);
 
-            eval(default_js);
+                    attachedShaders?.forEach( (shader: WebGLProgram) => {
+                        gl.detachShader(this.program, shader);
+                        gl.deleteShader(shader);
+                    });
+                    gl.deleteProgram(this.program);
+                    this.program = gl.createProgram();
+                }
+            };
 
             canvas.addEventListener('pointermove', async (event) => {
                 const canvasRect = canvas.getBoundingClientRect();
@@ -179,6 +212,11 @@
                 error.preventDefault();
                 console.warn('GLSL canvas WebGL context lost!');
             });
+
+            tapiocaFoxGL.initViewPort();
+            tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
+
+            evalJavaScript();
         }
         catch (error) {
             console.trace(error);
@@ -195,14 +233,14 @@
     });
 
     function clickEditButton() {
-        goto(`/glsl/editor/?frag=${encodeURIComponent(fragment_shader)}`);
+        goto(`/webgl_editor/?vert=${encodeURIComponent(vertex_shader)}&frag=${encodeURIComponent(fragment_shader)}&js=${encodeURIComponent(javascript)}`);
     }
     
 </script>
 <style>
     canvas.glsl {
         width: 100%;
-        height: 100%;
+        /* height: 100%; */
         aspect-ratio: 1;
         max-width: 220px;
         max-height: 220px;
