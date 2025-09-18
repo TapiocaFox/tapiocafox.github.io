@@ -34,6 +34,8 @@
     let display_code_block = $state(false);
     let display_edit_button = $state(false);
     let fps = $state(0);
+    let pointerX = $state(0);
+    let pointerY = $state(0);
 
     const code_block_division_percentage = 0.5;
     const pointer_offset = 56;
@@ -107,8 +109,8 @@
 
                 optimizeViewPort: function() {
                     const gl = this.gl;
-                    const width  = Math.floor(this.canvas.clientWidth * devicePixelRatio);
-                    const height = Math.floor(this.canvas.clientHeight * devicePixelRatio);
+                    const width  = Math.floor(this.canvas.clientWidth * this.devicePixelRatio);
+                    const height = Math.floor(this.canvas.clientHeight * this.devicePixelRatio);
 
                     if (this.canvas.width !== width || this.canvas.height !== height) {
                         this.canvas.width = width;
@@ -170,7 +172,7 @@
 
             canvas.addEventListener('pointermove', async (event) => {
                 const canvasRect = canvas.getBoundingClientRect();
-                // const canvasHeight = canvasRect.bottom - canvasRect.top;
+                const canvasHeight = canvasRect.bottom - canvasRect.top;
 
                 if(show_code_block) {
                     display_code_block = true;
@@ -183,6 +185,12 @@
 
                     const codeBlockWidth = code_block.offsetWidth;
                     const codeBlockHeight = code_block.offsetHeight;
+
+                    if(mode == 'in-editor') {
+                        pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
+                        pointerY = tapiocaFoxGL.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+                        console.log(canvasHeight, event.clientY, canvasRect.top);
+                    }
 
                     if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
                         code_block.animate({
@@ -356,10 +364,18 @@
     onclick={clickEditButton}
     bind:this={edit_button}>
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
+
+
 <div class="code-block {display_code_block ? 'visible' : ''}" 
+    bind:this={code_block}>
+    {#if mode != 'in-editor'}
     bind:this={code_block}>
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{props.vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{props.fragment_shader}</pre>
+    {:else}
+    <h4>Rendering Status</h4>
+    <p class="annotation">FPS: {Math.round(fps)}, PointerX: {pointerX}, PointerY: {pointerY}.</p>
+    {/if}
 </div>
