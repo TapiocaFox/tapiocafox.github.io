@@ -18,7 +18,7 @@
         stop: (() => void) | null,
         onStart: (start: () => void) => void,
         onStop: (stop: () => void) => void,
-        initViewPort: () => void,
+        optimizeViewPort: () => void,
         initProgram: (vertexShader: string, fragmentShader: string) => void,
         newProgram: () => void,
         render: () => void
@@ -73,7 +73,7 @@
 
             tapiocaFoxGL.stop?.();
 
-            tapiocaFoxGL.initViewPort();
+            tapiocaFoxGL.optimizeViewPort();
             tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
 
             evalJavaScript();
@@ -105,7 +105,7 @@
                     this.stop = stop;
                 },
 
-                initViewPort: function() {
+                optimizeViewPort: function() {
                     const gl = this.gl;
                     const width  = Math.floor(this.canvas.clientWidth * devicePixelRatio);
                     const height = Math.floor(this.canvas.clientHeight * devicePixelRatio);
@@ -163,6 +163,10 @@
                     this.program = gl.createProgram();
                 }
             };
+
+            window.addEventListener('resize', async (event) => {
+                tapiocaFoxGL.optimizeViewPort();
+            });
 
             canvas.addEventListener('pointermove', async (event) => {
                 const canvasRect = canvas.getBoundingClientRect();
@@ -228,7 +232,7 @@
 
             tapiocaFoxGL.stop?.();
 
-            tapiocaFoxGL.initViewPort();
+            tapiocaFoxGL.optimizeViewPort();
             tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
 
             evalJavaScript();
@@ -355,7 +359,7 @@
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
-    <pre>{vertex_shader}</pre>
+    <pre>{props.vertex_shader}</pre>
     <h4>Fragment shader</h4>
-    <pre>{fragment_shader}</pre>
+    <pre>{props.fragment_shader}</pre>
 </div>
