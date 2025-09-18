@@ -91,7 +91,7 @@
     }
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
-
+    const selected_index = $state('view_all');
 </script>
 <style>
     div.editor-layout {
@@ -140,15 +140,17 @@
     names={['Run', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
     values={['run', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[play_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
+    selected_value={selected_index}
     dividers={['view_all']}
-    selectable={false}
     callback={(value: any) => {
         if (value == 'run') {
             run();
+            return false;
         }
         else if(value == 'share') {
             navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
             alert('The URL has been copied to your clipboard!');
+            return false;
         }
         else if(value == 'view_all') {
             view_mode = 'all';
@@ -162,6 +164,7 @@
         else if(value == 'view_js') {
             view_mode = 'js';
         }
+        return true;
     }}
 />
 <p class="annotation">This editor targets WebGL 2 and follows my own conventions. Open web console to see bug reports.</p>

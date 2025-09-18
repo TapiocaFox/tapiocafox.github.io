@@ -49,7 +49,7 @@ function animate() {
     requestAnimationFrame(animate);
     const u_time = (Date.now() - tapiocaFoxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'u_time'), u_time);
-    tapiocaFoxGL.reportStatus('u_time', `u_time: ${u_time}`);
+    tapiocaFoxGL.reportStatus('u_time', `u_time: ${u_time.toFixed(2)}`);
     tapiocaFoxGL.render();
 }
 
