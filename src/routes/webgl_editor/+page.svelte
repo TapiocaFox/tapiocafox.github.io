@@ -113,12 +113,6 @@
     div.editor-layout > div.left > .master-container :first-child {
         /* margin-top: 1rem; */
     }
-
-    div.editor-layout > div.left > .editor-container {
-        display: inline-block;
-        position: relative;
-        width: 100%;
-    }
     
     div.editor-layout > div.right {
         display: flex;
@@ -172,21 +166,21 @@
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
-            <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader</h3>
+            <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader <img class="inline-glyph" src={vertex_icon}/></h3>
             <div 
             style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}
             bind:this={vertex_shader_editor} 
             class="editor-container">
             </div>
 
-            <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader</h3>
+            <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
             <div 
             style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}
             bind:this={fragment_shader_editor} 
             class="editor-container">
             </div>
             
-            <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript</h3>
+            <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Please be careful of what is pasted here. You might be a victim of Cross Site Scripting (XSS) attack.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
