@@ -136,7 +136,7 @@
         }
         else if(value == 'share') {
             navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
-            alert('The URL has been copy to your clipboard!');
+            alert('The URL has been copied to your clipboard!');
         }
         else if(value == 'view_all') {
             view_mode = 'all';
