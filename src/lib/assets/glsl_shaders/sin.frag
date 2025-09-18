@@ -3,6 +3,7 @@ precision mediump float;
 #endif
 
 #define PI 3.14159265358979
+#define ratio_speed .5
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -21,7 +22,7 @@ void main() {
     st_mouse.x *= u_resolution.x/u_resolution.y;
     st.x -= st_mouse.x;
     
-	float y = sin(PI*(st.x - u_time));
+	float y = sin(PI*(st.x - u_time*ratio_speed));
     
     float pct = plot(st, y);
     

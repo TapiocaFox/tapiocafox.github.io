@@ -81,13 +81,23 @@
 <!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
 {#if selected_category == 'debug'}
 <h3>Debug</h3>
-<p class="annotation">Shaders for debugging.</p>
+<p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
         <GlslCanvasGL2 fragment_shader={mouse}/>
     </div>
     <div class="item shader_item">
         <GlslCanvasGL2 fragment_shader={sin}/>
+    </div>
+</div>
+<h3>Debug (Preview mode)</h3>
+<p class="annotation">WebGL2 shaders for debugging.</p>
+<div class="flex_grid gallery">
+    <div class="item shader_item">
+        <GlslCanvasGL2 fragment_shader={mouse} mode="preview"/>
+    </div>
+    <div class="item shader_item">
+        <GlslCanvasGL2 fragment_shader={sin} mode="preview"/>
     </div>
 </div>
 {/if}

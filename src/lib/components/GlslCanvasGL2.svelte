@@ -56,7 +56,7 @@
                 // const height = 250;
 
                 if (canvas.width !== width || canvas.height !== height) {
-                    // console.log(width, height);
+                    console.log('width, height', width, height);
                     // canvas.width = 550;
                     // canvas.height = 550;
                     canvas.width = width;
@@ -215,7 +215,7 @@
     }
     canvas.glsl.preview {
         max-height: calc(var(--compact-width) * 0.25);
-        width: auto;
+        width: 100%;
         margin-right: var(--preview-row-gap);
     }
     canvas.glsl.background {
