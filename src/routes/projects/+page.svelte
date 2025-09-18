@@ -22,7 +22,7 @@
     import google_play_icon from '$lib/assets/icons/google_play.svg';
     import discord_icon from '$lib/assets/icons/discord.svg';
 	import nsf_icon from '$lib/assets/icons/nsf.png';
-
+    import edit_icon from '$lib/assets/icons/edit.svg';
     // import info_icon from '$lib/assets/icons/info.svg';
 
     // import decoration from '$lib/assets/mejiro.png';
@@ -50,8 +50,8 @@
 
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
-    <h2><a href="/glsl">GLSL Shader</a></h2>
-    <p>Personal practice of GLSL. Shaders use GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
+    <h2><a href="/projects/graphics">Graphics</a></h2>
+    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written by myself. GLSL (OpenGL Shading Language), a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>
