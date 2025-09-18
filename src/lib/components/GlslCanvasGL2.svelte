@@ -1,12 +1,11 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import * as THREE from 'three';
     import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
     import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
 
-    let {vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent'} = $props();
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent' } = $props();
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -22,12 +21,6 @@
 
     const background_mode_shrink_by = 2;
 
-    // const glsl_version = '300 es';
-
-    // const vertex_shader_prefix = `#version ${glsl_version}\n
-    // in vec3 position;`;
-    // const fragment_shader_prefix = `#version ${glsl_version}`;
-
     function shrink(value: number, shrink_by: number) {
         return Math.floor(value/shrink_by);
     }
@@ -35,8 +28,6 @@
     function shrink_bg(value: number) {
         return shrink(value, background_mode_shrink_by);
     }
-
-    // console.log(vertex_shader, fragment_shader);
 
     onMount(() => {
         try {
@@ -52,13 +43,8 @@
             function init() {
                 const width  = Math.floor(canvas.clientWidth * dpr);
                 const height = Math.floor(canvas.clientHeight * dpr);
-                // const width  = 250;
-                // const height = 250;
 
                 if (canvas.width !== width || canvas.height !== height) {
-                    console.log('width, height', width, height);
-                    // canvas.width = 550;
-                    // canvas.height = 550;
                     canvas.width = width;
                     canvas.height = height;
                     gl.viewport(0, 0, width, height);
@@ -80,11 +66,7 @@
                         throw `Cannot link program:\n${gl.getProgramInfoLog(gl_program)}`;
                     gl.useProgram(gl_program);
                     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-
-                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([0,1,0, 1,1,0, 0,0,0, 1,0,0, 0,0,0, 1,1,0]), gl.STATIC_DRAW);
                     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
-                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,0,0, 0,0,0, -1,-1,0, 0,-1,0, -1,-1,0, 0,0,0]), gl.STATIC_DRAW);
-                    // gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,0,0, -1,-1,0, 0,0,0, 1,0,0, 0,0,0, 1,1,0]), gl.STATIC_DRAW);
 
                     const position = gl.getAttribLocation(gl_program, 'position');
                     gl.enableVertexAttribArray(position);
@@ -97,6 +79,7 @@
                 window.addEventListener('resize', onWindowResize, false);
                 
             }
+
             function onWindowResize(event: UIEvent | null) {
                 gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), canvas.width, canvas.width);
             }
@@ -108,7 +91,6 @@
 
             function render() {
                 const u_time = Date.now() / 1000 - startTime;
-                // console.log(u_time_last_frame);
                 fps = 1/(u_time-u_time_last_frame);
                 u_time_last_frame = u_time; 
                 gl.uniform1f(gl.getUniformLocation(gl_program, 'u_time'), u_time);
@@ -182,7 +164,7 @@
             });
         }
         catch (error) {
-            console.log(error);
+            console.trace(error);
         }
 
         edit_button.onpointerenter = async event => {
@@ -207,9 +189,7 @@
         max-width: 220px;
         max-height: 220px;
         margin: auto;
-        /* padding: 0; */
         border: 1px dotted var(--fox-background-color);
-        /* background-color: white; */
         color: white;
         cursor: crosshair;
     }
@@ -239,12 +219,12 @@
             margin-right: 8px;
         }
     }
+
     div.code-block {
         display: none;
         position: fixed;
         min-width: 100px;
         max-height: 90vh;
-        /* min-height: 100px; */
         border: 1px solid var(--fox-background-color);
         background-color: rgba(255, 255, 255, 0.95);
         padding: 1em;
@@ -253,7 +233,7 @@
         text-align: left;
     }
     div.code-block.visible {
-        display: block !important; /* you can safely use !important here */
+        display: block !important;
     }
     div.code-block > :first-child {
         margin-top: 0;
@@ -266,6 +246,7 @@
         text-overflow: ellipsis;
         overflow: hidden; 
     }
+    
     button.edit {
         display: none;
         position: fixed;
@@ -288,21 +269,19 @@
     }
 </style>
 <canvas bind:this={canvas} 
-style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
-style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
-style:background-color = {background_color}
-class="glsl {mode=='preview'?'preview':''} {mode=='background'?'background':''}"></canvas>
+    style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
+    style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
+    style:background-color = {background_color}
+    class="glsl {mode=='preview'?'preview':''} {mode=='background'?'background':''}"></canvas>
 <button 
-class="edit {display_edit_button ? 'visible' : ''}" 
-onclick={clickEditButton}
-bind:this={edit_button}>
+    class="edit {display_edit_button ? 'visible' : ''}" 
+    onclick={clickEditButton}
+    bind:this={edit_button}>
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
-<!-- <div class="code-block {display_code_block ? 'visible' : ''}"  -->
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{fragment_shader}</pre>
-    <!-- <p>{display_code_block}</p> -->
 </div>

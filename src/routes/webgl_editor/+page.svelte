@@ -32,37 +32,50 @@
     let fragment_shader_editor: HTMLDivElement;
     let javascript_editor: HTMLDivElement;
 
+    let vertexShaderEditorView: EditorView;
+    let fragmentShaderEditorView: EditorView;
+    let javascriptEditorView: EditorView;
+
     let view_mode = $state('all');
+    let vert_shader_src = $state('');
+    let frag_shader_src = $state('');
+    let js_src = $state('');
 
     onMount(async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
 
-        const vert = page.url.searchParams.get("vert");
-        const frag = page.url.searchParams.get("frag");
-        const js = page.url.searchParams.get("js");
+        vert_shader_src = page.url.searchParams.get("vert") || default_vert;
+        frag_shader_src = page.url.searchParams.get("frag") || default_frag;
+        js_src = page.url.searchParams.get("js") || default_js;
 
         const keymapExtension = keymap.of([indentWithTab]);
         const indentUnitExtension = indentUnit.of('    ');
 
-        const vertexShaderEditorView = new EditorView({
+        vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
-            doc: vert? vert : default_vert,
+            doc: vert_shader_src,
             extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
         })
 
-        const fragmentShaderEditorView = new EditorView({
+        fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
-            doc: frag? frag : default_frag,
+            doc: frag_shader_src,
             extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
         })
 
-        const javascriptEditorView = new EditorView({
+        javascriptEditorView = new EditorView({
             parent: javascript_editor,
-            doc: js? js : default_js,
+            doc: js_src,
             extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension]
         })
     });
+
+    function run() {
+        console.log('run');
+        vert_shader_src = vertexShaderEditorView.state.doc.toString();
+        frag_shader_src = fragmentShaderEditorView.state.doc.toString();
+    }
 
 </script>
 <style>
@@ -103,16 +116,19 @@
     dividers={['view_all']}
     selectable={false}
     callback={(value: any) => {
-        if(value=='view_all') {
+        if (value == 'run') {
+            run();
+        }
+        else if(value == 'view_all') {
             view_mode = 'all';
         }
-        else if(value=='view_vert') {
+        else if(value == 'view_vert') {
             view_mode = 'vert';
         }
-        else if(value=='view_frag') {
+        else if(value == 'view_frag') {
             view_mode = 'frag';
         }
-        else if(value=='view_js') {
+        else if(value == 'view_js') {
             view_mode = 'js';
         }
     }}
@@ -145,7 +161,7 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
-            <GlslCanvasGl2 mode="in-editor" size={400}/>
+            <GlslCanvasGl2 mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src}/>
         </div>
     </div>
 </div>
