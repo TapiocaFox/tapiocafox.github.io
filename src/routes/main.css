@@ -394,6 +394,10 @@
         vertical-align: middle !important;
     }
 
+    img.inline-glyph.inverted {
+        filter: invert(1);
+    }
+
     img.center-crop {
         height: 100%;
         width: 100%;

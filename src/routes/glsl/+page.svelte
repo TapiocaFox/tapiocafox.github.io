@@ -2,7 +2,7 @@
     import Chips from '$lib/components/Chips.svelte';
 
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-    import GlslCanvas from '$lib/components/GlslCanvas.svelte';
+    import GlslCanvasGL2 from '$lib/components/GlslCanvasGL2.svelte';
     import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
 
     import default_shader from '$lib/assets/glsl_shaders/default.frag?raw';
@@ -16,6 +16,7 @@
     import snoise from '$lib/assets/glsl_shaders/snoise.frag?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
+    import debug_icon from '$lib/assets/icons/debug.svg';
     import { goto } from '$app/navigation';
     
     let selected_category = $state('all');
@@ -29,10 +30,10 @@
             shader: adhesive,
             categories: ['distortion']
         },
-        {
-            shader: mouse,
-            categories: []
-        },
+        // {
+        //     shader: mouse,
+        //     categories: ['debug']
+        // },
         {
             shader: balls,
             categories: []
@@ -65,9 +66,9 @@
 </style>
 <HeaderWithBackButton text="GLSL Shader"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion', 'Editor']}
-  inline_icons={[null, null, null, edit_icon]}
-  values={['all', 'noise', 'distortion', 'editor']}
+  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
+  inline_icons={[null, null, null, debug_icon, edit_icon]}
+  values={['all', 'noise', 'distortion', 'debug', 'editor']}
   selected_value={selected_category}
   callback={(value: any) => {
     if(value == 'editor') {
@@ -77,14 +78,24 @@
   }}
 />
 <!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
+{#if selected_category == 'debug'}
+<div class="flex_grid gallery">
+    <div class="item shader_item">
+        <GlslCanvasGL2 fragment_shader={mouse}/>
+    </div>
+    <div class="item shader_item">
+        <GlslCanvasGL2 fragment_shader={sin}/>
+    </div>
+</div>
+{/if}
 
 <h3>Practice One</h3>
 <p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p>
 <div class="flex_grid gallery">
     {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
-            <div class="item shader_item">
-            <GlslCanvas fragment_shader={shader.shader}/>
+        <div class="item shader_item">
+            <GlslCanvasGL2 fragment_shader={shader.shader}/>
         </div>
         {/if}
     {/each}

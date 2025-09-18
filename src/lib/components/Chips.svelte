@@ -52,7 +52,7 @@
                 callback(values[index]);
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
-                    <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
+                    <img class="inline-glyph inverted" alt="Inline Icon" src={inline_icons[index]}>
                 {/if}
                 {name}
             </span></button>
