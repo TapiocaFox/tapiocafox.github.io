@@ -76,6 +76,13 @@
         display: flex;
         width: auto;
     }
+
+    div.editor-layout > div.right > div.canvas-container {
+        margin-top: 0;
+        height: auto;
+        width: auto;
+    }
+    
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips 
@@ -103,6 +110,8 @@
         </div>
     </div>
     <div bind:this={editor_layout_right} class="right">
-        <GlslCanvasGl2 mode="in-editor" size={400}/>
+        <div class="canvas-container">
+            <GlslCanvasGl2 mode="in-editor" size={400}/>
+        </div>
     </div>
 </div>
