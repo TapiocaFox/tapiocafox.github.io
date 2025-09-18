@@ -1,7 +1,7 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title: Default
+// Title:  Default
 
 #ifdef GL_ES
 precision highp float;

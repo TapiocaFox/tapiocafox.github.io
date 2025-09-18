@@ -72,9 +72,11 @@
     });
 
     function run() {
-        console.log('run');
         vert_shader_src = vertexShaderEditorView.state.doc.toString();
         frag_shader_src = fragmentShaderEditorView.state.doc.toString();
+        console.log('run');
+        // console.log(vert_shader_src);
+        // console.log(frag_shader_src);
     }
 
 </script>

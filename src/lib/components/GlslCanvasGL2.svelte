@@ -1,11 +1,26 @@
 <script lang="ts">
     import { onMount } from 'svelte';
-    import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
-    import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
+    import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
+    import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
+    import default_js from '$lib/assets/webgl/default?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
 
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent' } = $props();
+    interface TapiocaWebGL2RenderingContext extends WebGL2RenderingContext {
+        canvas: HTMLCanvasElement,
+        program: WebGLProgram,
+        startTime: number,
+        lastRenderTime: number,
+        devicePixelRatio: number,
+        initViewPort: () => void,
+        initProgram: (vertexShader: string, fragmentShader: string) => void,
+        newProgram: () => void,
+        // animate: () => void,
+        render: () => void,
+    }
+
+    const props = $props();
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, mode='default', size=250, show_code_block=true, background_color='transparent' } = props;
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -16,9 +31,7 @@
     let fps = $state(0);
 
     const code_block_division_percentage = 0.5;
-
     const pointer_offset = 56;
-
     const background_mode_shrink_by = 2;
 
     function shrink(value: number, shrink_by: number) {
@@ -29,81 +42,85 @@
         return shrink(value, background_mode_shrink_by);
     }
 
+    let tapiocaFoxGL: TapiocaWebGL2RenderingContext;
+
+    $effect (() => {
+        // console.log('Something changed:');
+        // console.log(props.vertex_shader);
+        // console.log(props.fragment_shader);
+    });
+
     onMount(() => {
         try {
-            const gl = canvas.getContext('webgl2')!;
-            const gl_program = gl.createProgram();
-            const startTime = Date.now() / 1000;
-            const dpr = window.devicePixelRatio || 1;
+            const glNative = canvas.getContext('webgl2')!;
+
+            tapiocaFoxGL = {
+                ...glNative,
+                canvas: canvas,
+                program: glNative.createProgram(),
+                startTime: Date.now(),
+                lastRenderTime: 0,
+                devicePixelRatio: window.devicePixelRatio || 1,
+                
+                initViewPort: function() {
+                    const width  = Math.floor(this.canvas.clientWidth * devicePixelRatio);
+                    const height = Math.floor(this.canvas.clientHeight * devicePixelRatio);
+
+                    if (this.canvas.width !== width || this.canvas.height !== height) {
+                        this.canvas.width = width;
+                        this.canvas.height = height;
+                        this.viewport(0, 0, width, height);
+                    }
+                },
+
+                initProgram: function (vertexShader: string, fragmentShader: string) {
+                    const addShader = (type: number, src: string) => {
+                        const shader = this.createShader(type)!;
+                        this.shaderSource(shader, src);
+                        this.compileShader(shader);
+                        if (!this.getShaderParameter(shader, this.COMPILE_STATUS))
+                            throw `Cannot compile shader: ${this.getShaderInfoLog(shader)}`;
+                        this.attachShader(this.program, shader);
+                    };
+                    addShader(this.VERTEX_SHADER, vertexShader);
+                    addShader(this.FRAGMENT_SHADER, fragmentShader);
+                    this.linkProgram(this.program);
+                    if (!this.getProgramParameter(this.program, this.LINK_STATUS))
+                        throw `Cannot link program:\n${this.getProgramInfoLog(this.program)}`;
+                    this.useProgram(this.program);
+                    this.bindBuffer(this.ARRAY_BUFFER, this.createBuffer());
+                    this.bufferData(this.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), this.STATIC_DRAW);
+
+                    const position = this.getAttribLocation(this.program, 'position');
+                    this.enableVertexAttribArray(position);
+                    this.vertexAttribPointer(position, 3, this.FLOAT, false, 0, 0);
+                },
+
+                render: function() {
+                    const timeNow = Date.now();
+                    fps = 0.001/(timeNow-this.lastRenderTime);
+                    this.lastRenderTime = timeNow;
+                    this.drawArrays(this.TRIANGLES, 0, 6);
+                },
+
+                newProgram: function() {
+                    const attachedShaders = this.getAttachedShaders(this.program);
+                     attachedShaders?.forEach(shader => {
+                        this.detachShader(this.program, shader);
+                        this.deleteShader(shader);
+                    });
+                    this.deleteProgram(this.program);
+                    this.program = this.createProgram();
+                }
+            }
+            
             let u_time_last_frame = 0;
 
-            init();
-            animate();
+            eval(default_js);
 
-            function init() {
-                const width  = Math.floor(canvas.clientWidth * dpr);
-                const height = Math.floor(canvas.clientHeight * dpr);
-
-                if (canvas.width !== width || canvas.height !== height) {
-                    canvas.width = width;
-                    canvas.height = height;
-                    gl.viewport(0, 0, width, height);
-                }
-                
-                const setShaders = (vertexShader: string, fragmentShader: string) => {
-                    const addShader = (type: number, src: string) => {
-                        const shader = gl.createShader(type)!;
-                        gl.shaderSource(shader, src);
-                        gl.compileShader(shader);
-                        if (! gl.getShaderParameter(shader, gl.COMPILE_STATUS))
-                            throw `Cannot compile shader: ${gl.getShaderInfoLog(shader)}`;
-                        gl.attachShader(gl_program, shader);
-                    };
-                    addShader(gl.VERTEX_SHADER, vertexShader);
-                    addShader(gl.FRAGMENT_SHADER, fragmentShader);
-                    gl.linkProgram(gl_program);
-                    if (! gl.getProgramParameter(gl_program, gl.LINK_STATUS))
-                        throw `Cannot link program:\n${gl.getProgramInfoLog(gl_program)}`;
-                    gl.useProgram(gl_program);
-                    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
-
-                    const position = gl.getAttribLocation(gl_program, 'position');
-                    gl.enableVertexAttribArray(position);
-                    gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
-                };
-
-                setShaders(vertex_shader, fragment_shader);
-
-                onWindowResize(null);
-                window.addEventListener('resize', onWindowResize, false);
-                
-            }
-
-            function onWindowResize(event: UIEvent | null) {
-                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_resolution'), canvas.width, canvas.width);
-            }
-
-            function animate() {
-                requestAnimationFrame(animate);
-                render();
-            }
-
-            function render() {
-                const u_time = Date.now() / 1000 - startTime;
-                fps = 1/(u_time-u_time_last_frame);
-                u_time_last_frame = u_time; 
-                gl.uniform1f(gl.getUniformLocation(gl_program, 'u_time'), u_time);
-                gl.drawArrays(gl.TRIANGLES, 0, 6);
-            }
-
-            canvas.onpointermove = async event => {
+            canvas.addEventListener('pointermove', async (event) => {
                 const canvasRect = canvas.getBoundingClientRect();
-                const canvasHeight = canvasRect.bottom - canvasRect.top;
-
-                const u_mouse_x = dpr*(event.clientX-canvasRect.left);
-                const u_mouse_y = dpr*(canvasHeight-(event.clientY-canvasRect.top));
-                gl.uniform2f(gl.getUniformLocation(gl_program, 'u_mouse'), u_mouse_x, u_mouse_y);
+                // const canvasHeight = canvasRect.bottom - canvasRect.top;
 
                 if(show_code_block) {
                     display_code_block = true;
@@ -138,9 +155,9 @@
                         }, {fill: "forwards"})
                     }
                 }
-            };
+            });
 
-            canvas.onpointerleave = async event => {
+            canvas.addEventListener('pointerleave', async (event) => {
                 display_code_block = false;
                 if(edit_button == null) return;
 
@@ -156,11 +173,11 @@
                         display_edit_button = false;
                     }
                 }
-            };
+            });
 
-            canvas.addEventListener("webglcontextlost", (error) => {
+            canvas.addEventListener('webglcontextlost', async (error) => {
                 error.preventDefault();
-                console.warn("GLSL canvas WebGL context lost!");
+                console.warn('GLSL canvas WebGL context lost!');
             });
         }
         catch (error) {
@@ -174,6 +191,7 @@
         edit_button.onpointerleave = async event => {
             display_edit_button = false;
         };
+
     });
 
     function clickEditButton() {

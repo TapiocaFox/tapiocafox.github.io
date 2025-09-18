@@ -1,7 +1,7 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title: Default
+// Title:  Default
 
 in  vec3 position;
 out vec3 vPos;
