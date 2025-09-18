@@ -114,21 +114,27 @@
 
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
-        {#if view_mode=='all' || view_mode=='vert'}
-        <h3>Vertex Shader</h3>
-        <div bind:this={vertex_shader_editor} class="editor-container">
+        <h3 style:display={(view_mode=='all' || view_mode=='vert')?'inline-block':'none'}>Vertex Shader</h3>
+        <div 
+        style:display={(view_mode=='all' || view_mode=='vert')?'inline-block':'none'}
+        bind:this={vertex_shader_editor} 
+        class="editor-container">
         </div>
-        {/if}
-        {#if view_mode=='all' || view_mode=='frag'}
-        <h3>Fragment Shader</h3>
-        <div bind:this={fragment_shader_editor} class="editor-container">
+
+        <h3 style:display={(view_mode=='all' || view_mode=='frag')?'inline-block':'none'}>Fragment Shader</h3>
+        <div 
+        style:display={(view_mode=='all' || view_mode=='frag')?'inline-block':'none'}
+        bind:this={fragment_shader_editor} 
+        class="editor-container">
         </div>
-        {/if}
-        {#if view_mode=='all' || view_mode=='js'}
-        <h3>JavaScript</h3>
-        <div bind:this={javascript_editor} class="editor-container">
+        
+        <h3 style:display={(view_mode=='all' || view_mode=='js')?'inline-block':'none'}>JavaScript</h3>
+        <div 
+        style:display={(view_mode=='all' || view_mode=='js')?'inline-block':'none'}
+        bind:this={javascript_editor} 
+        class="editor-container">
         </div>
-        {/if}
+
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
