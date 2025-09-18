@@ -75,8 +75,8 @@
     {#each names as name, index}
         {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selectable && selected_index == index}
             <button class="selected" onclick={() => {
-                const default_behaviour = callback(values[index]) || true;
-                if(default_behaviour) selected_index = index;
+                const default_behaviour = callback(values[index]);
+                if(default_behaviour==null||default_behaviour) selected_index = index;
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph inverted" alt="Inline Icon" src={inline_icons[index]}>
@@ -85,8 +85,8 @@
             </span></button>
         {:else}
             <button class="" onclick={() => {
-                const default_behaviour = callback(values[index]) || true;
-                if(default_behaviour) selected_index = index;
+                const default_behaviour = callback(values[index]);
+                if(default_behaviour==null||default_behaviour) selected_index = index;
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
