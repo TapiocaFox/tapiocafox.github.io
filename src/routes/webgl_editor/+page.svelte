@@ -23,7 +23,7 @@
     import default_frag from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
     import Chips from '$lib/components/Chips.svelte';
-    import { goto } from '$app/navigation';
+    import { beforeNavigate, goto } from '$app/navigation';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -89,6 +89,8 @@
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
     }
+
+    const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
 
 </script>
 <style>

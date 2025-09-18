@@ -2,9 +2,11 @@
     import { onMount } from 'svelte';
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
-    import default_js from '$lib/assets/webgl/default?raw';
+    import default_js from '$lib/assets/webgl/default.js?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
+
+    // console.log(`default_js: ${default_js}`);
 
     interface TapiocaFoxGL {
         gl: WebGL2RenderingContext,
@@ -13,6 +15,7 @@
         startTime: number,
         lastRenderTime: number,
         devicePixelRatio: number,
+        statusDict: Record<string, string>,
         animate: (() => void) | null,
         start: (() => void) | null,
         stop: (() => void) | null,
@@ -21,7 +24,8 @@
         optimizeViewPort: () => void,
         initProgram: (vertexShader: string, fragmentShader: string) => void,
         newProgram: () => void,
-        render: () => void
+        render: () => void,
+        reportStatus: (key: string, status: string) => void,
     }
 
     const props = $props();
@@ -34,8 +38,7 @@
     let display_code_block = $state(false);
     let display_edit_button = $state(false);
     let fps = $state(0);
-    let pointerX = $state(0);
-    let pointerY = $state(0);
+    let statusDict = $state({});
 
     const code_block_division_percentage = 0.5;
     const pointer_offset = 56;
@@ -51,9 +54,10 @@
 
     let tapiocaFoxGL: TapiocaFoxGL;
 
-    function evalJavaScript() {
+    function evalJavaScript(javascript: string) {
         try {
-            // console.log('Eval');
+            console.log('Eval', javascript);
+            // eval(props.javascript);
             eval(javascript);
         }
         catch(error) {
@@ -66,8 +70,10 @@
         // console.log(props.vertex_shader);
         // console.log(fragment_shader);
         // console.log(props.fragment_shader);
-        // console.log();
-        props.vertex_shader, props.fragment_shader, props.javascript;
+        // console.log(props.javascript);
+        vertex_shader = props.vertex_shader || vertex_shader;
+        fragment_shader = props.fragment_shader || fragment_shader;
+        javascript = props.javascript || javascript;
 
 
         if(tapiocaFoxGL) {
@@ -76,9 +82,9 @@
             tapiocaFoxGL.stop?.();
 
             tapiocaFoxGL.optimizeViewPort();
-            tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
+            tapiocaFoxGL.initProgram(vertex_shader, fragment_shader);
 
-            evalJavaScript();
+            evalJavaScript(javascript);
 
             tapiocaFoxGL.start?.();
         }
@@ -98,6 +104,7 @@
                 animate: null,
                 start: null,
                 stop: null,
+                statusDict: statusDict,
 
                 onStart: function(start) {
                     this.start = start;
@@ -163,7 +170,13 @@
                     });
                     gl.deleteProgram(this.program);
                     this.program = gl.createProgram();
-                }
+
+                },
+
+                reportStatus: function(key, status) {
+                    // console.log(key, status, this.statusDict);
+                    this.statusDict[key] = status;
+                },
             };
 
             window.addEventListener('resize', async (event) => {
@@ -186,11 +199,11 @@
                     const codeBlockWidth = code_block.offsetWidth;
                     const codeBlockHeight = code_block.offsetHeight;
 
-                    if(mode == 'in-editor') {
-                        pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
-                        pointerY = tapiocaFoxGL.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-                        console.log(canvasHeight, event.clientY, canvasRect.top);
-                    }
+                    // if(mode == 'in-editor') {
+                    //     pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
+                    //     pointerY = tapiocaFoxGL.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+                        // console.log(canvasHeight, event.clientY, canvasRect.top);
+                    // }
 
                     if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
                         code_block.animate({
@@ -241,9 +254,9 @@
             tapiocaFoxGL.stop?.();
 
             tapiocaFoxGL.optimizeViewPort();
-            tapiocaFoxGL.initProgram(props.vertex_shader, props.fragment_shader);
+            tapiocaFoxGL.initProgram(vertex_shader, fragment_shader);
 
-            evalJavaScript();
+            evalJavaScript(javascript);
 
             tapiocaFoxGL.start?.();
 
@@ -375,7 +388,7 @@
     <h4>Fragment shader</h4>
     <pre>{props.fragment_shader}</pre>
     {:else}
-    <h4>Rendering Status</h4>
-    <p class="annotation">FPS: {Math.round(fps)}, PointerX: {pointerX}, PointerY: {pointerY}.</p>
+    <h3>Rendering Status</h3>
+    <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br>{status}{/each}{/if}</p>
     {/if}
 </div>

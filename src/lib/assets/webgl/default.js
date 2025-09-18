@@ -34,10 +34,12 @@ const onpointermove = async event => {
     const u_mouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
     const u_mouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'u_mouse'), u_mouse_x, u_mouse_y);
+    tapiocaFoxGL.reportStatus('u_mouse', `u_mouse: (${u_mouse_x.toFixed(1)}, ${u_mouse_y.toFixed(1)})`);
 };
 
 const onresize = async event => {
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
+    tapiocaFoxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
 };
 
 function animate() {
@@ -45,12 +47,14 @@ function animate() {
     requestAnimationFrame(animate);
     const u_time = (Date.now() - tapiocaFoxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'u_time'), u_time);
+    tapiocaFoxGL.reportStatus('u_time', `u_time: ${u_time}`);
     tapiocaFoxGL.render();
 }
 
 
 tapiocaFoxGL.onStart(() => {
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
+    tapiocaFoxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
     canvas.addEventListener('pointermove', onpointermove);
     window.addEventListener('resize', onresize);
     animate();
