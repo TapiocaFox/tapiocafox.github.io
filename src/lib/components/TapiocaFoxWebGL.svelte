@@ -65,6 +65,8 @@
         } 
     }
 
+
+
     $effect (() => {
         // console.log('Something changed:');
         // console.log(props.vertex_shader);
@@ -179,9 +181,14 @@
                 },
             };
 
-            window.addEventListener('resize', async (event) => {
+            const resizeObserver = new ResizeObserver(entries => {
                 tapiocaFoxGL.optimizeViewPort();
             });
+            resizeObserver.observe(canvas);
+
+            // window.addEventListener('resize', async (event) => {
+            //     tapiocaFoxGL.optimizeViewPort();
+            // });
 
             canvas.addEventListener('pointermove', async (event) => {
                 const canvasRect = canvas.getBoundingClientRect();
@@ -272,8 +279,9 @@
         edit_button.onpointerleave = async event => {
             display_edit_button = false;
         };
-
     });
+
+
 
     function clickEditButton() {
         goto(`/webgl_editor/?vert=${encodeURIComponent(vertex_shader)}&frag=${encodeURIComponent(fragment_shader)}&js=${encodeURIComponent(javascript)}`);
