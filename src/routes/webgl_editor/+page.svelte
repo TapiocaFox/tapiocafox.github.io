@@ -105,6 +105,15 @@
         flex-direction: column;
     }
 
+    div.editor-layout > div.left > .master-container {
+        display: block;
+        /* width: 100%; */
+    }
+
+    div.editor-layout > div.left > .master-container :first-child {
+        /* margin-top: 1rem; */
+    }
+
     div.editor-layout > div.left > .editor-container {
         display: inline-block;
         position: relative;
@@ -118,8 +127,9 @@
     }
 
     div.editor-layout > div.right > div.canvas-container {
-        margin-top: 0;
+        /* margin-top: 1rem; */
         /* min-width: 350px; */
+        display: block;
         height: auto;
         width: auto;
     }
@@ -154,35 +164,38 @@
         }
     }}
 />
-<p class="annotation">This editor is targeting WebGL 2 following my own conventions. Open web console to see bug reports.</p>
+<p class="annotation">This editor targets WebGL 2 and follows my own conventions. Open web console to see bug reports.</p>
 
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
-        <h3 style:display={(view_mode=='all' || view_mode=='vert')?'inline-block':'none'}>Vertex Shader</h3>
-        <div 
-        style:display={(view_mode=='all' || view_mode=='vert')?'inline-block':'none'}
-        bind:this={vertex_shader_editor} 
-        class="editor-container">
-        </div>
+        <div class="master-container">
+            <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader</h3>
+            <div 
+            style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}
+            bind:this={vertex_shader_editor} 
+            class="editor-container">
+            </div>
 
-        <h3 style:display={(view_mode=='all' || view_mode=='frag')?'inline-block':'none'}>Fragment Shader</h3>
-        <div 
-        style:display={(view_mode=='all' || view_mode=='frag')?'inline-block':'none'}
-        bind:this={fragment_shader_editor} 
-        class="editor-container">
+            <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader</h3>
+            <div 
+            style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}
+            bind:this={fragment_shader_editor} 
+            class="editor-container">
+            </div>
+            
+            <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript</h3>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Please be careful of what is pasted here. You might be a victim of Cross Site Scripting (XSS) attack.</p>
+            <div 
+            style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
+            bind:this={javascript_editor} 
+            class="editor-container">
+            </div>
         </div>
-        
-        <h3 style:display={(view_mode=='all' || view_mode=='js')?'inline-block':'none'}>JavaScript</h3>
-        <div 
-        style:display={(view_mode=='all' || view_mode=='js')?'inline-block':'none'}
-        bind:this={javascript_editor} 
-        class="editor-container">
-        </div>
-
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
+
         </div>
     </div>
 </div>

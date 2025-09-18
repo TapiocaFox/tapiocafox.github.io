@@ -308,8 +308,8 @@
     }
     @media (max-width: 768px) {
         canvas.glsl {
-            width: 150px;
-            height: 150px;
+            width: 220px;
+            height: 220px;
         }
         
         canvas.glsl.preview {
@@ -382,7 +382,6 @@
 <div class="code-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
     {#if mode != 'in-editor'}
-    bind:this={code_block}>
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{props.vertex_shader}</pre>
     <h4>Fragment shader</h4>
