@@ -69,6 +69,7 @@
   names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
   inline_icons={[null, null, null, debug_icon, edit_icon]}
   values={['all', 'noise', 'distortion', 'debug', 'editor']}
+  dividers={['debug']}
   selected_value={selected_category}
   callback={(value: any) => {
     if(value == 'editor') {
@@ -79,6 +80,8 @@
 />
 <!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
 {#if selected_category == 'debug'}
+<h3>Debug</h3>
+<p class="annotation">Shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
         <GlslCanvasGL2 fragment_shader={mouse}/>
@@ -89,6 +92,9 @@
 </div>
 {/if}
 
+{#if shaders_1.filter((shader) => {
+    return selected_category =='all' || shader.categories.includes(selected_category);
+}).length > 0}
 <h3>Practice One</h3>
 <p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p>
 <div class="flex_grid gallery">
@@ -100,6 +106,7 @@
         {/if}
     {/each}
 </div>
+{/if}
 <!-- <GlslCanvas/> -->
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
 <!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->

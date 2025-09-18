@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {names = [], values = [], inline_icons=[], selected_value=null, callback = () => {}, selection = true} = $props();
+  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selection = true} = $props();
   let selected_index = $state(values.indexOf(selected_value));
 </script>
 <style>
@@ -43,10 +43,19 @@
     button.selected span.text {
         color: var(--secondary-functional-text-color);
     }
+    div.divider {
+        display: inline-block;
+        border-left: 1px solid black;
+        height: 1em;
+        width: 1px;
+        /* margin-left: .25em; */
+        margin-right: calc(.5em - 1px);
+        vertical-align: middle;
+    }
 </style>
 <div class="chip_container">
-    {#each names as name, index}
-        {#if selected_index == index}
+    {#each values as value, index}
+        {#if dividers.includes(value)}<div class="divider"></div>{/if}{#if selected_index == index}
             <button class="selected" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
@@ -54,7 +63,7 @@
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph inverted" alt="Inline Icon" src={inline_icons[index]}>
                 {/if}
-                {name}
+                {names[index]}
             </span></button>
         {:else}
             <button class="" onclick={() => {
@@ -64,7 +73,7 @@
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
                 {/if}
-                {name}
+                {names[index]}
             </span></button>
         {/if}
     {/each}
