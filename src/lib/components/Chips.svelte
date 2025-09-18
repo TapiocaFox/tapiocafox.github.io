@@ -75,7 +75,7 @@
     {#each names as name, index}
         {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selectable && selected_index == index}
             <button class="selected" onclick={() => {
-                const default_behaviour = callback(values[index]);;
+                const default_behaviour = callback(values[index]) || true;
                 if(default_behaviour) selected_index = index;
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
@@ -85,7 +85,7 @@
             </span></button>
         {:else}
             <button class="" onclick={() => {
-                const default_behaviour = callback(values[index]);;
+                const default_behaviour = callback(values[index]) || true;
                 if(default_behaviour) selected_index = index;
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
