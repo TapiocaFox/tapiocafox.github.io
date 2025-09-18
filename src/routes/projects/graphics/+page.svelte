@@ -72,7 +72,7 @@
         /* aspect-ratio: 1; */
     }
 </style>
-<HeaderWithBackButton text="GLSL Shader"/>
+<HeaderWithBackButton text="Graphics"/>
 <Chips 
   names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
   inline_icons={[null, null, null, debug_icon, edit_icon, edit_icon]}
@@ -117,7 +117,7 @@
     return selected_category =='all' || shader.categories.includes(selected_category);
 }).length > 0}
 <h3>Practice One</h3>
-<p class="annotation">Abstract patterns animated over time. (Part of Assignment One.)</p>
+<p class="annotation">Abstract fragment shader patterns animated over time. (Part of assignment one.)</p>
 <div class="flex_grid gallery">
     {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
