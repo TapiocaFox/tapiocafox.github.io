@@ -1,8 +1,11 @@
 #version 300 es
 
 #ifdef GL_ES
-precision mediump float;
+precision highp float;
 #endif
+
+in  vec3 vPos;
+out vec4 fragColor;
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -14,5 +17,5 @@ void main() {
     vec3 color = vec3(0.);
     color = vec3(st.x,st.y,abs(sin(u_time)));
 
-    gl_FragColor = vec4(color,1.0);
+    fragColor = vec4(color,1.0);
 }

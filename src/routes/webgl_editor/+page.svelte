@@ -3,7 +3,8 @@
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import GlslCanvasGl2 from '$lib/components/GlslCanvasGL2.svelte';
     
-    import {EditorView, basicSetup} from "codemirror";
+    import { EditorView, basicSetup } from "codemirror";
+    import { glsl } from "@nuskey8/codemirror-lang-glsl";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
@@ -37,13 +38,13 @@
         const vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert? vert : default_vert,
-            extensions: [basicSetup /* ... */]
+            extensions: [basicSetup, glsl()]
         })
 
         const fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
             doc: frag? frag : default_frag,
-            extensions: [basicSetup /* ... */]
+            extensions: [basicSetup, glsl()]
         })
 
         const javascriptEditorView = new EditorView({
