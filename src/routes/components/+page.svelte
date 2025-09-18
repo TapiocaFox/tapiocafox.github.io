@@ -7,7 +7,7 @@
 	import tapiocafox from '$lib/assets/squares/tapiocafox.png';
   import Chips from '$lib/components/Chips.svelte';
   import GlslCanvasThree from '$lib/components/GlslCanvasThree.svelte';
-  import GlslCanvasGL2 from '$lib/components/GlslCanvasGL2.svelte';
+  import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
 
   import mouse_frag from '$lib/assets/glsl_shaders/mouse.frag?raw';
 
@@ -64,14 +64,14 @@
 <div class="card">
   <h2>Lorem Ipsum</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-  <img alt="Lena" class="preview" src={lena}/><GlslCanvasGL2 mode="preview"/>
+  <img alt="Lena" class="preview" src={lena}/><TapiocaFoxWebGL mode="preview"/>
   <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>
 
 <h3>GLSL Canvases</h3>
-<p class="annotation">"GlslCanvasThree" is used for the left side, "GlslCanvasGL2" for the right.</p>
+<p class="annotation">"GlslCanvasThree" is used for the left side, "TapiocaFoxWebGL" for the right.</p>
 <GlslCanvasThree fragment_shader={mouse_frag}/>
-<GlslCanvasGL2 fragment_shader={mouse_frag}/>
+<TapiocaFoxWebGL fragment_shader={mouse_frag}/>
 
 <hr class="solid">
 <hr class="dashed">

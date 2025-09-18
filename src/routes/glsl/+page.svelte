@@ -2,7 +2,7 @@
     import Chips from '$lib/components/Chips.svelte';
 
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-    import GlslCanvasGL2 from '$lib/components/GlslCanvasGL2.svelte';
+    import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
 
     import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
@@ -95,20 +95,20 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={mouse}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse}/>
     </div>
     <div class="item shader_item">
-        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={sin}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin}/>
     </div>
 </div>
 <h3>Debug (Preview mode)</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={mouse} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} mode="preview"/>
     </div>
     <div class="item shader_item">
-        <GlslCanvasGL2 vertex_shader={default_vert_shader} fragment_shader={sin} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} mode="preview"/>
     </div>
 </div>
 {/if}
@@ -122,7 +122,7 @@
     {#each shaders_1 as shader}
         {#if selected_category =='all' || shader.categories.includes(selected_category)} 
         <div class="item shader_item">
-            <GlslCanvasGL2 vertex_shader={shader.vert_shader} fragment_shader={shader.frag_shader}/>
+            <TapiocaFoxWebGL vertex_shader={shader.vert_shader} fragment_shader={shader.frag_shader}/>
         </div>
         {/if}
     {/each}

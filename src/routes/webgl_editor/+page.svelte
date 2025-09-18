@@ -1,7 +1,7 @@
 
 <script lang="ts">
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
-    import GlslCanvasGl2 from '$lib/components/GlslCanvasGL2.svelte';
+    import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     
     import { EditorView, basicSetup } from "codemirror";
     import { keymap } from '@codemirror/view';
@@ -23,6 +23,7 @@
     import default_frag from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
     import Chips from '$lib/components/Chips.svelte';
+    import { goto } from '$app/navigation';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -52,8 +53,11 @@
         const url_js = page.url.searchParams.get("js");
         if(url_js && url_js!=js_src) {
             const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
-            js_src = url_js
+            if(use_url_js) js_src = url_js
         };
+
+        // clears all query parameters
+        goto(page.url.pathname, { replaceState: true });
 
         const keymapExtension = keymap.of([indentWithTab]);
         const indentUnitExtension = indentUnit.of('    ');
@@ -144,7 +148,7 @@
         }
     }}
 />
-<p class="annotation">This editor is targeting WebGL 2 following my own conventions. Open web console to see reports.</p>
+<p class="annotation">This editor is targeting WebGL 2 following my own conventions. Open web console to see bug reports.</p>
 
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -172,7 +176,7 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
-            <GlslCanvasGl2 mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
+            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
         </div>
     </div>
 </div>
