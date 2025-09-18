@@ -4,7 +4,10 @@
     import GlslCanvasGl2 from '$lib/components/GlslCanvasGL2.svelte';
     
     import { EditorView, basicSetup } from "codemirror";
-    import {javascript} from "@codemirror/lang-javascript"
+    import { keymap } from '@codemirror/view';
+    import { indentUnit } from "@codemirror/language";
+    import { javascript } from "@codemirror/lang-javascript";
+    import { indentWithTab } from "@codemirror/commands";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
@@ -39,22 +42,25 @@
         const frag = page.url.searchParams.get("frag");
         const js = page.url.searchParams.get("js");
 
+        const keymapExtension = keymap.of([indentWithTab]);
+        const indentUnitExtension = indentUnit.of('    ');
+
         const vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert? vert : default_vert,
-            extensions: [basicSetup, glsl()]
+            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
         })
 
         const fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
             doc: frag? frag : default_frag,
-            extensions: [basicSetup, glsl()]
+            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension]
         })
 
         const javascriptEditorView = new EditorView({
             parent: javascript_editor,
             doc: js? js : default_js,
-            extensions: [basicSetup, javascript()]
+            extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension]
         })
     });
 
