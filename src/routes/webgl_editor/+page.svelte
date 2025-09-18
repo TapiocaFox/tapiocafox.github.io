@@ -116,6 +116,16 @@
             cancel();
         }
     });
+
+    function setEditorValue(view: EditorView, value: string) {
+        view.dispatch({
+            changes: {
+            from: 0,
+            to: view.state.doc.length,
+            insert: value
+            }
+        });
+    }
 </script>
 <svelte:window on:beforeunload={beforeUnload}/>
 <style>
@@ -192,6 +202,7 @@
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
             <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader <img class="inline-glyph" src={vertex_icon}/></h3>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>To reset to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}
             bind:this={vertex_shader_editor} 
@@ -199,6 +210,7 @@
             </div>
 
             <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To reset to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}
             bind:this={fragment_shader_editor} 
@@ -206,7 +218,7 @@
             </div>
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Please be careful of what is pasted here. You might be a victim of Cross Site Scripting (XSS) attack.</p>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To reset to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
             bind:this={javascript_editor} 

@@ -297,6 +297,7 @@
         width: 100%;
         margin-right: var(--preview-row-gap);
     }
+
     canvas.glsl.background {
         position: fixed;
         z-index: -99;
@@ -308,14 +309,19 @@
     }
     @media (max-width: 768px) {
         canvas.glsl {
-            width: 220px;
-            height: 220px;
+            width: 170px;
+            height: 170px;
         }
         
         canvas.glsl.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
             width: auto;
             margin-right: 8px;
+        }
+
+        canvas.glsl.in-editor {
+            width: 250px;
+            height: 250px;
         }
     }
 
@@ -371,7 +377,7 @@
     style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
     style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
     style:background-color = {background_color}
-    class="glsl {mode=='preview'?'preview':''} {mode=='background'?'background':''}"></canvas>
+    class="glsl {mode}"></canvas>
 <button 
     class="edit {display_edit_button ? 'visible' : ''}" 
     onclick={clickEditButton}

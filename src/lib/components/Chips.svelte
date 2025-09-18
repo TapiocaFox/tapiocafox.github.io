@@ -8,8 +8,9 @@
         overflow-x: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
-        margin-block-end: 13px;
-        margin-block-start: 13px;
+        margin-block-end: 12px;
+        margin-block-start: 12px;
+        
     }
     div.chip_container::-webkit-scrollbar {
         display: none;
@@ -17,7 +18,7 @@
     button {
         display: inline-block;
         vertical-align: middle;
-        margin: 0 0.5em 0 0;
+        margin: 1px 0.5em 1px 0;
         /* filter: drop-shadow(0 0.5rem 1rem grey); */
         /* border: 1px solid var(--secondary-functional-color); */
     }
