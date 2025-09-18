@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{f as m,e as y,a,$ as u,t as h,s as n,c,r as x,n as g,d as z}from"../chunks/BJ8luhO_.js";import{h as b}from"../chunks/89hoGnM_.js";import{s as w}from"../chunks/c_XsPyAm.js";import{s as C}from"../chunks/4a-Mrr6G.js";import{s as v}from"../chunks/BbKoEEMz.js";import{G as P}from"../chunks/BHDwDNY-.js";const I=!0,$=Object.freeze(Object.defineProperty({__proto__:null,prerender:I},Symbol.toStringTag,{value:"Module"})),k=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,j=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{f as m,e as y,a,$ as u,t as h,s as n,c,r as x,n as g,d as z}from"../chunks/BJ8luhO_.js";import{h as b}from"../chunks/89hoGnM_.js";import{s as w}from"../chunks/c_XsPyAm.js";import{s as C}from"../chunks/4a-Mrr6G.js";import{s as v}from"../chunks/BbKoEEMz.js";import{G as P}from"../chunks/D-o6BZBF.js";const I=!0,$=Object.freeze(Object.defineProperty({__proto__:null,prerender:I},Symbol.toStringTag,{value:"Module"})),k=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,j=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES

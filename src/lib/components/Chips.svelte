@@ -54,8 +54,8 @@
     }
 </style>
 <div class="chip_container">
-    {#each values as value, index}
-        {#if dividers.includes(value)}<div class="divider"></div>{/if}{#if selected_index == index}
+    {#each names as name, index}
+        {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selected_index == index}
             <button class="selected" onclick={() => {
                 selected_index = index;
                 callback(values[index]);
