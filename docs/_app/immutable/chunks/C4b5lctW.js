@@ -1,4 +1,4 @@
-import"./DsnmJJEf.js";import{o as onMount}from"./-vV0HAPV.js";import{D as hydrating,p as push,az as proxy,j as user_effect,f as from_html,e as first_child,s as sibling,t as template_effect,a as append,b as pop,aw as set,ax as state,c as child,n as next,r as reset,o as get,g as comment,ay as user_derived,aX as to_array}from"./UPt5-JKI.js";import{d as delegate,s as set_text}from"./SOinAChg.js";import{r as rest_props,i as if_block}from"./m1joI1gH.js";import{e as each,i as index}from"./CCiDgPUn.js";import{s as set_attribute}from"./B8XZWvAf.js";import{t as to_class,s as set_style}from"./MNb0eeLk.js";import{b as bind_this}from"./onylsnVz.js";import{g as goto}from"./CzfOLCj9.js";function set_class(a,e,o,t,s,i){var n=a.__className;if(hydrating||n!==o||n===void 0){var r=to_class(o,t);(!hydrating||r!==a.getAttribute("class"))&&(r==null?a.removeAttribute("class"):a.className=r),a.__className=o}return i}const default_vert=`#version 300 es
+import"./DsnmJJEf.js";import{o as onMount}from"./-vV0HAPV.js";import{D as hydrating,p as push,az as proxy,j as user_effect,f as from_html,e as first_child,s as sibling,t as template_effect,a as append,b as pop,aw as set,ax as state,c as child,n as next,r as reset,o as get,g as comment,ay as user_derived,aX as to_array}from"./UPt5-JKI.js";import{d as delegate,s as set_text}from"./SOinAChg.js";import{r as rest_props,i as if_block}from"./m1joI1gH.js";import{e as each,i as index}from"./CCiDgPUn.js";import{s as set_attribute}from"./B8XZWvAf.js";import{t as to_class,s as set_style}from"./MNb0eeLk.js";import{b as bind_this}from"./onylsnVz.js";import{g as goto}from"./DN5mN1TG.js";function set_class(a,e,o,t,s,i){var n=a.__className;if(hydrating||n!==o||n===void 0){var r=to_class(o,t);(!hydrating||r!==a.getAttribute("class"))&&(r==null?a.removeAttribute("class"):a.className=r),a.__className=o}return i}const default_vert=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Default
@@ -43,15 +43,17 @@ void main() {
 //     startTime: number,
 //     lastRenderTime: number,
 //     devicePixelRatio: number,
+//     statusDict: Record<string, string>,
 //     animate: (() => void) | null,
 //     start: (() => void) | null,
 //     stop: (() => void) | null,
 //     onStart: (start: () => void) => void,
 //     onStop: (stop: () => void) => void,
-//     initViewPort: () => void,
+//     optimizeViewPort: () => void,
 //     initProgram: (vertexShader: string, fragmentShader: string) => void,
 //     newProgram: () => void,
-//     render: () => void
+//     render: () => void,
+//     reportStatus: (key: string, status: string) => void,
 // }
 
 // console.log('JavaScript entered.');

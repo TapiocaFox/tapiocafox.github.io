@@ -9,15 +9,17 @@
 //     startTime: number,
 //     lastRenderTime: number,
 //     devicePixelRatio: number,
+//     statusDict: Record<string, string>,
 //     animate: (() => void) | null,
 //     start: (() => void) | null,
 //     stop: (() => void) | null,
 //     onStart: (start: () => void) => void,
 //     onStop: (stop: () => void) => void,
-//     initViewPort: () => void,
+//     optimizeViewPort: () => void,
 //     initProgram: (vertexShader: string, fragmentShader: string) => void,
 //     newProgram: () => void,
-//     render: () => void
+//     render: () => void,
+//     reportStatus: (key: string, status: string) => void,
 // }
 
 // console.log('JavaScript entered.');
