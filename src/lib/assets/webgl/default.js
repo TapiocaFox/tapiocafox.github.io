@@ -49,7 +49,7 @@ function animate() {
 }
 
 // Register listeners on start.
-foxGL.onStart(() => {
+foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
     foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
     resizeObserver.observe(canvas);
@@ -59,7 +59,7 @@ foxGL.onStart(() => {
 });
 
 // Deregister listeners on stop.
-foxGL.onStop(() => {
+foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);

@@ -45,7 +45,7 @@
 {:else if selected_category == "other"}
 <p class="annotation">Other uncategorized stuffs belong to here.</p>
 {:else}
-<p class="annotation">Please visit <img class="inline-glyph" alt="GitHub" src={github_icon}/><a href="https://github.com/TapiocaFox" target="_blank">GitHub</a>. If you are interested for more.</p>
+<p class="annotation">Please visit <a href="https://github.com/TapiocaFox" target="_blank"><img class="inline-glyph" alt="GitHub" src={github_icon}/>GitHub</a>. If you are interested for more.</p>
 {/if}
 
 {#if selected_category=="all" || selected_category=='ongoing'}
@@ -65,7 +65,7 @@
 <div class="card">
     <h2><a href="https://github.com/TapiocaFox/Daijishou" target="_blank">Daijishō</a></h2>
     <p>Daijishō is <span class="emphasize">an android launcher that let you manage your retro games libraries</span>. The App is written in Kotlin, Room database, Jsoup, Javet and various other tools. Designed <span class="emphasize">with responsiveness, modularity and tight integration in mind</span>.</p>
-    <p>Features included multi-language, meta data fetching, items synchronization, Google Drive backup, <a href="https://retroachievements.org/" target="_blank">RetroAchievements</a> and a rather simple theming system. Daijishō has <span class="emphasize">1M+ accumalated downloads</span> on <img class="inline-glyph" alt="Google Play" src={google_play_icon}/><a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank">Google Play Store</a>. And <span class="emphasize">a community with 2k+ members</span> on <img class="inline-glyph" alt="Discord" src={discord_icon}/><a href="https://discord.com/invite/nJbxdT3QQE" target="_blank">Discord</a>.</p>
+    <p>Features included multi-language, meta data fetching, items synchronization, Google Drive backup, <a href="https://retroachievements.org/" target="_blank">RetroAchievements</a> and a rather simple theming system. Daijishō has <span class="emphasize">1M+ accumalated downloads</span> on <a href="https://play.google.com/store/apps/details?id=com.magneticchen.daijishou" target="_blank"><img class="inline-glyph" alt="Google Play" src={google_play_icon}/>Google Play Store</a>. And <span class="emphasize">a community with 2k+ members</span> on <a href="https://discord.com/invite/nJbxdT3QQE" target="_blank"><img class="inline-glyph" alt="Discord" src={discord_icon}/>Discord</a>.</p>
     <img alt="Daijishō Banner" src="https://raw.githubusercontent.com/TapiocaFox/Daijishou/main/imgs/cover_new.png"/>
     <iframe src="https://ghbtns.com/github-btn.html?user=tapiocafox&repo=Daijishou&type=star&count=true" frameborder="0" scrolling="0" width="150" height="20" title="GitHub"></iframe>
 </div>
