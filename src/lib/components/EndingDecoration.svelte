@@ -1,5 +1,4 @@
 <script>
-    import icon from '$lib/assets/icon_dark.png';
     import tapiocafox from '$lib/assets/tapiocafox_small.png';
 </script>
 <div 

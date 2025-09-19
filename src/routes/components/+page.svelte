@@ -3,7 +3,6 @@
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
   import EndingDecoration from '$lib/components/EndingDecoration.svelte';
 	import lena from '$lib/assets/misc/lenna.png'
-  import icon from '$lib/assets/icon_dark.png';
 	import tapiocafox from '$lib/assets/squares/tapiocafox.png';
   import Chips from '$lib/components/Chips.svelte';
   import GlslCanvasThree from '$lib/components/GlslCanvasThree.svelte';

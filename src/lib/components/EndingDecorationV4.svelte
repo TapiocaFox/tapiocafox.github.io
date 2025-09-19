@@ -1,5 +1,4 @@
 <script>
-    import icon from '$lib/assets/icon_dark.png';
 </script>
 <div 
     style:display="flex"
