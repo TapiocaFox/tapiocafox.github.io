@@ -298,7 +298,7 @@
         return true;
     }}
 />
-<p class="annotation">This editor targets WebGL 2 with my own conventions. Open web console to see bug reports.</p>
+<p class="annotation">WebGL 2 with my own conventions. Open web console to see bug reports.</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
