@@ -170,9 +170,11 @@
     function loadSnapshot(snapshot: Snapshot) {
         const override = confirm('Are you sure? This will override the current state.');
         if(!override) return;
+        
         setEditorValue(vertexShaderEditorView, snapshot.vert);
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
         setEditorValue(javascriptEditorView, snapshot.js);
+        // foxGL.reset();
     }
 
     function deleteSnapshot(snapshot: Snapshot) {
@@ -202,9 +204,9 @@
     function setEditorValue(view: EditorView, value: string) {
         view.dispatch({
             changes: {
-            from: 0,
-            to: view.state.doc.length,
-            insert: value
+                from: 0,
+                to: view.state.doc.length,
+                insert: value
             }
         });
     }
