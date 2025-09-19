@@ -89,6 +89,7 @@
     else selected_category = value;
   }}
 />
+<!-- <hr style:margin-top="1em" class="dashed"> -->
 <!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
 {#if selected_category == 'debug'}
 <h3>Debug</h3>

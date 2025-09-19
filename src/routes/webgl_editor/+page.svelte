@@ -153,13 +153,16 @@
         display: flex;
         flex-grow: 0;
         width: auto;
+        /* overflow-y: auto; */
     }
 
     div.editor-layout > div.right > div.canvas-container {
-        margin-top: 1rem;
+        margin-top: 1em;
+        top: calc(var(--main-nav-font-size) + 2*var(--main-nav-vertical-padding) + var(--page-offset) + 4px);
+        position: sticky;
         /* min-width: 350px; */
         display: block;
-        height: auto;
+        height: fit-content;
         width: auto;
     }
     
