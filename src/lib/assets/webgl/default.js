@@ -1,7 +1,7 @@
 // Author: TapiocaFox
 // Title:  Default
 
-// Reference to foxGL:
+// Reference to foxGL (Only exposed APIs):
 // export interface TapiocaFoxGLContext {
 //     gl: WebGL2RenderingContext,
 //     canvas: HTMLCanvasElement,
@@ -9,17 +9,9 @@
 //     startTime: number,
 //     lastRenderTime: number,
 //     devicePixelRatio: number,
-//     statusDict: Record<string, string>,
-//     animate: (() => void) | null,
-//     start: (() => void) | null,
-//     stop: (() => void) | null,
 //     onStart: (start: () => void) => void,
 //     onStop: (stop: () => void) => void,
-//     optimizeViewPort: () => void,
-//     initProgram: (vertexShader: string, fragmentShader: string) => void,
-//     newProgram: () => void,
 //     render: () => void,
-//     reset: () => void,
 //     reportStatus: (key: string, status: string) => void,
 // }
 

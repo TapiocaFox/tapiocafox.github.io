@@ -76,7 +76,7 @@
                 startTime: Date.now(),
                 lastRenderTime: 0,
                 devicePixelRatio: window.devicePixelRatio || 1,
-                animate: null,
+                // animate: null,
                 start: null,
                 stop: null,
                 statusDict: statusDict,
