@@ -17,12 +17,13 @@
 
 // console.log('JavaScript entered.');
 
+// Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
-
 let destroyed = false;
 
+// Declare listeners.
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
@@ -46,7 +47,7 @@ function animate() {
     foxGL.render();
 }
 
-
+// Register listeners on start.
 foxGL.onStart(() => {
     gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
     foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
@@ -56,6 +57,7 @@ foxGL.onStart(() => {
     animate();
 });
 
+// Deregister listeners on stop.
 foxGL.onStop(() => {
     destroyed = true;
     resizeObserver.disconnect();
