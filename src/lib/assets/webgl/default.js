@@ -38,6 +38,7 @@ const resizeObserver = new ResizeObserver(entries => {
     foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
 });
 
+// Render per animation frame.
 function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
