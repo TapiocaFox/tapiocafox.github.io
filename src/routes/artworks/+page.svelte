@@ -57,7 +57,7 @@
 {#if selected_category=="all"}
 <div class="card">
   <h2><a href="/artworks/portraits">Portraits</a></h2>
-  <p>Potraits of people.</p>
+  <p>Potraits of people. Sketeched in black and white.</p>
   <div class="preview-row">
     <img class="preview outlined" src={snake}/>
     <img class="preview outlined" src={jyneda}/>

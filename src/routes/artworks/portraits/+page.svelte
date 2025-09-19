@@ -15,7 +15,7 @@
     }
 </style>
 <HeaderWithBackButton text="Portraits"/>
-<p class="bold-annotation">Potraits of people.</p>
+<p class="bold-annotation">Potraits of people. Sketeched in black and white.</p>
 <img class="portrait" alt="Snake" src={snake}/>
 <p class="annotation compact">A woman with a snake wrapped around her neck. There was a reference picture on Pinterest, but I've lost it.</p>
 <img class="portrait" alt="jyneda" src={jyneda}/>
