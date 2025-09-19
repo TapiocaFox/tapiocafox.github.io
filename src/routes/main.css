@@ -40,6 +40,7 @@
 
     --main-nav-font-size: 1.015rem;
     --main-nav-vertical-padding: .25rem;
+    --main-nav-height: calc(var(--main-nav-font-size) + 2*var(--main-nav-vertical-padding) + 4px);
 
     --preview-row-gap: .65em;
 

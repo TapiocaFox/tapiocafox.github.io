@@ -158,7 +158,7 @@
 
     div.editor-layout > div.right > div.canvas-container {
         margin-top: 1em;
-        top: calc(var(--main-nav-font-size) + 2*var(--main-nav-vertical-padding) + var(--page-offset) + 4px);
+        top: calc(var(--main-nav-height) + var(--page-offset));
         position: sticky;
         /* min-width: 350px; */
         display: block;
@@ -174,6 +174,7 @@
     inline_icons={[play_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     selected_value={selected_index}
     dividers={['view_all']}
+    sticky={true}
     callback={(value: any) => {
         if (value == 'run') {
             run();

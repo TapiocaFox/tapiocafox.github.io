@@ -1,18 +1,28 @@
 <script lang="ts">
-  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selectable = true} = $props();
+  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selectable = true, sticky=false} = $props();
   let selected_index = $state(values.indexOf(selected_value));
 </script>
 <style>
-    div.chip_container {
+    div.chip-container {
         white-space: nowrap;
         overflow-x: auto;
         scrollbar-width: none;
         -ms-overflow-style: none;
         margin-block-end: 12px;
         margin-block-start: 12px;
-        
     }
-    div.chip_container::-webkit-scrollbar {
+
+    div.chip-container.sticky {
+        position: sticky;
+        top: calc(var(--main-nav-height) + var(--page-offset));
+        z-index: 99;
+    }
+
+    /* div.chip-container.sticky:stuck {
+        filter: drop-shadow(0 0.5rem 0.5rem lightgrey);
+    } */
+
+    div.chip-container::-webkit-scrollbar {
         display: none;
     }
     button {
@@ -53,15 +63,19 @@
     button:last-child {
         margin: 0;
     }
+
     button.selected:hover {
         background-color: var(--secondary-functional-color);
     }
+
     button span.text {
         color: black;
     }
+
     button.selected span.text {
         color: var(--secondary-functional-text-color);
     }
+
     div.divider {
         display: inline-block;
         border-left: 1px solid black;
@@ -72,7 +86,7 @@
         vertical-align: middle;
     }
 </style>
-<div class="chip_container">
+<div class="chip-container {sticky?'sticky':''}">
     {#each names as name, index}
         {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selectable && selected_index == index}
             <button class="selected" onclick={() => {
