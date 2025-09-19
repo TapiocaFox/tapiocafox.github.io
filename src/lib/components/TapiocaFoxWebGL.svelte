@@ -151,9 +151,11 @@
                 },
 
                 reset: function() {
+                    const gl = this.gl;
                     this.newProgram();
                     this.stop?.();
                     this.optimizeViewPort();
+                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
                     this.lastRenderTime = 0;
                     this.initProgram(this.vertex_shader, this.fragment_shader);
