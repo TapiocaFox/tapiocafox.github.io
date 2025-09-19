@@ -266,6 +266,7 @@
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit}/>
             <div class="info-container">
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
+                <p class="annotation">Saved source codes will be listed.</p>
             </div>
         </div>
     </div>
