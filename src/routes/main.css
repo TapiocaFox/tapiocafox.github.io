@@ -106,6 +106,7 @@
         border: none;
         border-bottom: 1px dotted dimgray;
         border-bottom-width: 1px;
+        border-radius: unset;
         color: inherit;
         background-color: unset;
         padding: 0;
@@ -120,6 +121,7 @@
 		color: white;
         font-size: var(--main-nav-font-size);
 		padding: var(--main-nav-vertical-padding) 1em var(--main-nav-vertical-padding) 0px;
+        /* padding-top: env(safe-area-inset-top); */
 		font-family: 'Courier New', Courier, monospace;
 		overflow-x: auto;
 		white-space: nowrap;

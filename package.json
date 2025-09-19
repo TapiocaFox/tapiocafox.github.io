@@ -26,7 +26,6 @@
 		"@sveltejs/adapter-static": "^3.0.9",
 		"@types/three": "^0.179.0",
 		"codemirror": "^6.0.2",
-		"glslEditor": "^0.0.24",
 		"three": "^0.179.1"
 	}
 }

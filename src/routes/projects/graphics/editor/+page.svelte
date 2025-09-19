@@ -9,20 +9,20 @@
     // console.log(frag);
     onMount(async () => {
         // Import ONLY on the client
-        const { default: GlslEditor } = await import('glslEditor/build/glslEditor.js');
-        await import('glslEditor/build/glslEditor.css');
+        // const { default: GlslEditor } = await import('glslEditor/build/glslEditor.js');
+        // await import('glslEditor/build/glslEditor.css');
         const frag = page.url.searchParams.get("frag");
         
-        const glslEditor = new GlslEditor('#glsl_editor', { 
-            canvas_size: 500,
-            canvas_draggable: true,
-            theme: 'default',
-            multipleBuffers: true,
-            watchHash: true,
-            fileDrops: true,
-            menu: false
-        });
-        if(frag) glslEditor.open(frag);
+        // const glslEditor = new GlslEditor('#glsl_editor', { 
+        //     canvas_size: 500,
+        //     canvas_draggable: true,
+        //     theme: 'default',
+        //     multipleBuffers: true,
+        //     watchHash: true,
+        //     fileDrops: true,
+        //     menu: false
+        // });
+        // if(frag) glslEditor.open(frag);
     });
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';

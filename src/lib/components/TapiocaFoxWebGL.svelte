@@ -67,7 +67,7 @@
 
     onMount(async () => {
         try {
-            const glNative = canvas.getContext('webgl2')!;
+            const glNative = canvas.getContext('webgl2', { preserveDrawingBuffer: mode=='in-editor' })!;
 
             foxGL = {
                 gl: glNative,

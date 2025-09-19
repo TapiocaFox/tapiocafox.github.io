@@ -11,6 +11,7 @@
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
+	<meta name="theme-color" content="var(--fox-background-color)">
 	<title>TapiocaFox</title>
 </svelte:head>
 

@@ -11,11 +11,13 @@
     import { Prec } from "@codemirror/state";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
+    import storage from '$lib/store'
 
     import reset_icon from '$lib/assets/icons/reset.svg';
     import play_icon from '$lib/assets/icons/play.svg';
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
+    import delete_icon from '$lib/assets/icons/delete.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -26,6 +28,7 @@
     import default_frag from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
     import Chips from '$lib/components/Chips.svelte';
+    // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGl';
     import TapiocaFoxWebGl from '$lib/components/TapiocaFoxWebGL.svelte';
@@ -51,6 +54,16 @@
 
     const refreshInterval = 500;
 
+    type Snapshot = {
+        name: string;
+        timestamp: number;
+        img:string;
+        vert: string;
+        frag: string;
+        js: string;
+    };
+    const snapshotsStorage = storage<Snapshot[]>('snapshot', []);
+
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
@@ -72,12 +85,12 @@
         const saveKeymapExtension = Prec.highest(keymap.of([{
             key: "Mod-s",
             run({ state }) {
-                console.log(state.doc.toString()); 
+                // console.log(state.doc.toString()); 
+                snapshot();
                 return true;
             }
         }]));
         const indentUnitExtension = indentUnit.of('    ');
-
 
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
@@ -120,7 +133,49 @@
     }
 
     function reset() {
-        foxGL.reset();
+        foxGL?.reset();
+    }
+
+    function share() {
+        navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
+        alert('The URL has been copied to your clipboard!');
+    }
+
+    function shareSnapshot(snapshot: Snapshot) {
+        navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(snapshot.vert)}&frag=${encodeURIComponent(snapshot.frag)}&js=${encodeURIComponent(snapshot.js)}`);
+        alert('The URL has been copied to your clipboard!');
+    }
+
+    function snapshot() {
+        snapshotsStorage.update((snapshots) => {
+            const newSnapshot: Snapshot = {
+                name: new Date().toISOString(),
+                timestamp: Date.now(),
+                img: foxGL.canvas.toDataURL('image/png'),
+                vert: vert_shader_src,
+                frag: frag_shader_src,
+                js: js_src
+            };
+            return [...snapshots, newSnapshot]; // append the new snapshot
+        });
+    }
+
+    function loadSnapshot(snapshot: Snapshot) {
+        setEditorValue(vertexShaderEditorView, snapshot.vert);
+        setEditorValue(fragmentShaderEditorView, snapshot.frag);
+        setEditorValue(javascriptEditorView, snapshot.js);
+    }
+
+    function deleteSnapshot(snapshot: Snapshot) {
+        // console.log('snapshot');
+        // console.log(snapshot.date.getTime());
+        // console.log('snapshot items');
+        snapshotsStorage.update((snapshots) => {
+            return snapshots.filter((snapshotItem) => {
+                // console.log(snapshotItem.getTime());
+                return snapshotItem.timestamp != snapshot.timestamp;
+            });
+        });
     }
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
@@ -196,7 +251,7 @@
     
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
-<Chips 
+<Chips
     names={['Reset', 'Snapshot', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
     values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
@@ -209,11 +264,11 @@
             return false;
         }
         else if(value == 'share') {
-            navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
-            alert('The URL has been copied to your clipboard!');
+            share();
             return false;
         }
         else if (value == 'snapshot') {
+            snapshot();
             return false;
         }
         else if(value == 'view_all') {
@@ -231,8 +286,8 @@
         return true;
     }}
 />
-<p class="annotation">This editor targets WebGL 2 and follows my own conventions. Open web console to see bug reports.</p>
-<hr class="dashed">
+<p class="annotation">This editor targets WebGL 2 with my own conventions. Open web console to see bug reports.</p>
+<hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
@@ -266,7 +321,29 @@
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit}/>
             <div class="info-container">
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
+                {#if $snapshotsStorage.length == 0}
                 <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p>
+                {:else}
+                <table style:width="100%">
+                    <tbody>
+                        {#each $snapshotsStorage.toSorted((item)=>{return item.timestamp}).reverse() as snapshot}
+                        <tr>
+                            <td style:white-space="nowrap"><img class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
+                                loadSnapshot(snapshot);
+                            }}>{snapshot.name}</button></td>
+                            <td>
+                                <button class="no-style" onclick={() => {
+                                    share(snapshot);
+                                }}><img class="inline-glyph" alt="Share" src={share_icon}/></button>
+                                <button class="no-style" onclick={() => {
+                                    deleteSnapshot(snapshot);
+                                }}><img class="inline-glyph" alt="Delete" src={delete_icon}/></button>
+                            </td>
+                        </tr>
+                        {/each}
+                    </tbody>
+                </table>
+                {/if}
             </div>
         </div>
     </div>
