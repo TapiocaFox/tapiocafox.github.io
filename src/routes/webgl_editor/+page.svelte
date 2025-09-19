@@ -343,7 +343,7 @@
                             <td style:white-space="nowrap"><img class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
                                 loadSnapshot(snapshot);
                             }}>{snapshot.name}</button></td>
-                            <td>
+                            <td style:white-space="nowrap">
                                 <button class="no-style" onclick={() => {
                                     shareSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Share" src={share_icon}/></button>
