@@ -156,7 +156,7 @@
     }
 
     div.editor-layout > div.right > div.canvas-container {
-        /* margin-top: 1rem; */
+        margin-top: 1rem;
         /* min-width: 350px; */
         display: block;
         height: auto;
@@ -197,7 +197,7 @@
     }}
 />
 <p class="annotation">This editor targets WebGL 2 and follows my own conventions. Open web console to see bug reports.</p>
-
+<hr class="dashed">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
