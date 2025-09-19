@@ -45,10 +45,7 @@
     let fragmentShaderEditorView: EditorView;
     let javascriptEditorView: EditorView;
 
-    let view_mode = $state('all');
-    let vert_shader_src = $state(default_vert);
-    let frag_shader_src = $state(default_frag);
-    let js_src = $state(default_js);
+
 
     let foxGL: TapiocaFoxGLContext;
 
@@ -62,7 +59,17 @@
         frag: string;
         js: string;
     };
-    const snapshotsStorage = storage<Snapshot[]>('snapshot', []);
+    const snapshotsStorage = storage<Snapshot[]>('webgl_editor_snapshot', []);
+    const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
+
+    let view_mode = $state($viewModeStorage);
+    // let view_mode = $state('js');
+    // console.log('view_mode', view_mode);
+    let vert_shader_src = $state(default_vert);
+    let frag_shader_src = $state(default_frag);
+    let js_src = $state(default_js);
+    const selected_index = $state(`view_${$viewModeStorage}`);
+
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
@@ -161,6 +168,8 @@
     }
 
     function loadSnapshot(snapshot: Snapshot) {
+        const override = confirm('Are you sure? This will override the current state.');
+        if(!override) return;
         setEditorValue(vertexShaderEditorView, snapshot.vert);
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
         setEditorValue(javascriptEditorView, snapshot.js);
@@ -179,7 +188,6 @@
     }
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
-    const selected_index = $state('view_all');
 
     function beforeUnload() {
         return leave_message;
@@ -273,15 +281,19 @@
         }
         else if(value == 'view_all') {
             view_mode = 'all';
+            viewModeStorage.set('all');
         }
         else if(value == 'view_vert') {
             view_mode = 'vert';
+            viewModeStorage.set('vert');
         }
         else if(value == 'view_frag') {
             view_mode = 'frag';
+            viewModeStorage.set('frag');
         }
         else if(value == 'view_js') {
             view_mode = 'js';
+            viewModeStorage.set('js');
         }
         return true;
     }}
@@ -333,7 +345,7 @@
                             }}>{snapshot.name}</button></td>
                             <td>
                                 <button class="no-style" onclick={() => {
-                                    share(snapshot);
+                                    shareSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Share" src={share_icon}/></button>
                                 <button class="no-style" onclick={() => {
                                     deleteSnapshot(snapshot);
