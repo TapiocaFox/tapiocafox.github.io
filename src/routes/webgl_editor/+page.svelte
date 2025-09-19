@@ -49,7 +49,7 @@
 
     let foxGL: TapiocaFoxGLContext;
 
-    const refreshInterval = 250;
+    const refreshInterval = 500;
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');

@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as M,az as E,f as h,e as g,a as u,b as j,s,aw as B,o as t,ax as W,ay as N,n as Z,c,r,g as H}from"../chunks/CcCY2aJh.js";import{i as b}from"../chunks/5pPuPpf5.js";import{e as O,i as R}from"../chunks/DKrkXEOH.js";import{C as V}from"../chunks/Zj3PkO1b.js";import{H as Y}from"../chunks/Bmz12eyt.js";import{e as I,T as x}from"../chunks/AIYnRQpQ.js";import{d as e}from"../chunks/Dt_FDJKa.js";import{d as U,m as k}from"../chunks/BwFQz9x_.js";import{a as $,b as J,r as K}from"../chunks/BtcG8Acq.js";import{g as Q}from"../chunks/Bo2Dbok6.js";const F=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import{p as M,az as E,f as h,e as g,a as u,b as j,s,aw as B,o as t,ax as W,ay as N,n as Z,c,r,g as H}from"../chunks/CcCY2aJh.js";import{i as b}from"../chunks/5pPuPpf5.js";import{e as O,i as R}from"../chunks/DKrkXEOH.js";import{C as V}from"../chunks/Zj3PkO1b.js";import{H as Y}from"../chunks/Bmz12eyt.js";import{e as I,T as x}from"../chunks/CWAK7Q-G.js";import{d as e}from"../chunks/Dt_FDJKa.js";import{d as U,m as k}from"../chunks/BwFQz9x_.js";import{a as $,b as J,r as K}from"../chunks/BtcG8Acq.js";import{g as Q}from"../chunks/BnFe1nCl.js";const F=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -38,7 +38,7 @@ precision mediump float;
 
 #define PI 3.14159265358979
 #define gap 0.1
-#define half_stroke_size 0.0075
+#define half_stroke_size 0.02
 #define deg_r 0.2
 
 uniform vec2 u_resolution;
@@ -65,10 +65,10 @@ void main() {
     st = st*rot;
     st -= .5*st_mouse;
 	
-    st.x -= sin(3.*st.x-PI*u_time);      
-    st.x -= sin(3.*st.y-PI*u_time);    
-    st.y -= sin(3.*st.y+PI*u_time);
-    st.y -= sin(3.*st.x+PI*u_time);
+    st.x -= sin(3.*st.x-.5*PI*u_time);      
+    st.x -= sin(3.*st.y-.5*PI*u_time);    
+    st.y -= sin(3.*st.y+.5*PI*u_time);
+    st.y -= sin(3.*st.x+.5*PI*u_time);
     
     vec3 color = vec3(0.);
     color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));

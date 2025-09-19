@@ -9,22 +9,22 @@
 		<link href="../_app/immutable/assets/Chips.BFUe-1pG.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/BackButton.4qcBPwRk.css" rel="stylesheet">
 		<link href="../_app/immutable/assets/23.C83PyoLv.css" rel="stylesheet">
-		<link rel="modulepreload" href="../_app/immutable/entry/start.ef5oHkd-.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/Bo2Dbok6.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.CA9jkzaE.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BnFe1nCl.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/vuPU1vOV.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/CcCY2aJh.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DPDH4251.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BsQbOerE.js">
-		<link rel="modulepreload" href="../_app/immutable/entry/app.CIlTTNKQ.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.BrJBVX-v.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/D9Z9MdNV.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DsnmJJEf.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/5pPuPpf5.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BB0NrFdm.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/0.XHwxGaHn.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.DAqXVkjm.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/w3Ouvqlz.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dx-bslpX.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/T_rX1fdi.js">
-		<link rel="modulepreload" href="../_app/immutable/chunks/AIYnRQpQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CWAK7Q-G.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DKrkXEOH.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/SVpuG5Gg.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Dt_FDJKa.js">
@@ -32,7 +32,7 @@
 		<link rel="modulepreload" href="../_app/immutable/chunks/CEaoFXj3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/BnWalAu3.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/DwdnBIbj.js">
-		<link rel="modulepreload" href="../_app/immutable/nodes/23.CTU8GcvN.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/23.rHHW4n7y.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Zj3PkO1b.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/Bmz12eyt.js">
 		<link rel="modulepreload" href="../_app/immutable/chunks/NaWeRav_.js">
@@ -330,7 +330,7 @@ precision mediump float;
 
 #define PI 3.14159265358979
 #define gap 0.1
-#define half_stroke_size 0.0075
+#define half_stroke_size 0.02
 #define deg_r 0.2
 
 uniform vec2 u_resolution;
@@ -357,10 +357,10 @@ void main() {
     st = st*rot;
     st -= .5*st_mouse;
 	
-    st.x -= sin(3.*st.x-PI*u_time);      
-    st.x -= sin(3.*st.y-PI*u_time);    
-    st.y -= sin(3.*st.y+PI*u_time);
-    st.y -= sin(3.*st.x+PI*u_time);
+    st.x -= sin(3.*st.x-.5*PI*u_time);      
+    st.x -= sin(3.*st.y-.5*PI*u_time);    
+    st.y -= sin(3.*st.y+.5*PI*u_time);
+    st.y -= sin(3.*st.x+.5*PI*u_time);
     
     vec3 color = vec3(0.);
     color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
@@ -630,15 +630,15 @@ void main() {
 			
 			<script>
 				{
-					__sveltekit_16yzvgx = {
+					__sveltekit_1ju9l3k = {
 						base: new URL("..", location).pathname.slice(0, -1)
 					};
 
 					const element = document.currentScript.parentElement;
 
 					Promise.all([
-						import("../_app/immutable/entry/start.ef5oHkd-.js"),
-						import("../_app/immutable/entry/app.CIlTTNKQ.js")
+						import("../_app/immutable/entry/start.CA9jkzaE.js"),
+						import("../_app/immutable/entry/app.BrJBVX-v.js")
 					]).then(([kit, app]) => {
 						kit.start(app, element, {
 							node_ids: [0, 8, 23],
