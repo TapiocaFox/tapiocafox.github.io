@@ -14,6 +14,8 @@
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
+  
+  let list_item_num = $state(12);
 
   function getRandomInteger(min: number, max: number) {
       // console.log(min, typeof(min));
@@ -106,6 +108,12 @@
     <div class="item" style:width={getRandomPx(item_min_width, item_max_width)} style:height="64px"><p>{num+1}</p></div>
   {/each}
 </div>
+<hr class="dashed">
+<div>
+  <p style:display="inline">List items count: </p>
+  <input style:width="48px" type="number" bind:value={list_item_num}/>
+</div>
+
 <hr class="dashed">
 <BackButton text="A back button"/>
 <EndingDecoration/>

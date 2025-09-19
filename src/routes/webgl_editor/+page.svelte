@@ -8,11 +8,14 @@
     import { indentUnit } from "@codemirror/language";
     import { javascript } from "@codemirror/lang-javascript";
     import { indentWithTab } from "@codemirror/commands";
+    import { Prec } from "@codemirror/state";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
+    import reset_icon from '$lib/assets/icons/reset.svg';
     import play_icon from '$lib/assets/icons/play.svg';
     import share_icon from '$lib/assets/icons/share.svg';
+    import camera_icon from '$lib/assets/icons/camera.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -24,6 +27,8 @@
     import default_js from '$lib/assets/webgl/default.js?raw';
     import Chips from '$lib/components/Chips.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
+    import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGl';
+    import TapiocaFoxWebGl from '$lib/components/TapiocaFoxWebGL.svelte';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -41,6 +46,8 @@
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
     let js_src = $state(default_js);
+
+    let foxGL: TapiocaFoxGLContext;
 
     const refreshInterval = 250;
 
@@ -62,35 +69,43 @@
         // goto(page.url.pathname, { replaceState: true });
 
         const keymapExtension = keymap.of([indentWithTab]);
+        const saveKeymapExtension = Prec.highest(keymap.of([{
+            key: "Mod-s",
+            run({ state }) {
+                console.log(state.doc.toString()); 
+                return true;
+            }
+        }]));
         const indentUnitExtension = indentUnit.of('    ');
+
 
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, glsl(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
 
         fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
             doc: frag_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, glsl(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
 
         javascriptEditorView = new EditorView({
             parent: javascript_editor,
             doc: js_src,
-            extensions: [basicSetup, javascript(), keymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, javascript(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
         })
 
         refreshLoop();
     });
 
     const refreshLoop = () => {
-        run()
+        refresh()
         setTimeout(refreshLoop, refreshInterval);
     };
 
-    function run() {
+    function refresh() {
         const vert_shader_editor_src = vertexShaderEditorView.state.doc.toString();
         if(vert_shader_editor_src!=vert_shader_src) vert_shader_src = vert_shader_editor_src;
 
@@ -102,6 +117,10 @@
         // console.log('run');
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
+    }
+
+    function reset() {
+        foxGL.reset();
     }
 
     const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
@@ -125,6 +144,10 @@
             insert: value
             }
         });
+    }
+
+    async function onGLInit(foxGL_:TapiocaFoxGLContext) {
+        foxGL = foxGL_;
     }
 </script>
 <svelte:window on:beforeunload={beforeUnload}/>
@@ -165,24 +188,32 @@
         height: fit-content;
         width: auto;
     }
+
+    div.editor-layout > div.right > div.canvas-container > div.info-container {
+        display: block;
+        width: 100%;
+    }
     
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips 
-    names={['Run', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
-    values={['run', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
-    inline_icons={[play_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
+    names={['Reset', 'Snapshot', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
+    values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
+    inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     selected_value={selected_index}
     dividers={['view_all']}
     sticky={true}
     callback={(value: any) => {
-        if (value == 'run') {
-            run();
+        if (value == 'reset') {
+            reset();
             return false;
         }
         else if(value == 'share') {
             navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
             alert('The URL has been copied to your clipboard!');
+            return false;
+        }
+        else if (value == 'snapshot') {
             return false;
         }
         else if(value == 'view_all') {
@@ -232,7 +263,10 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
-            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src}/>
+            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit}/>
+            <div class="info-container">
+                <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
+            </div>
         </div>
     </div>
 </div>

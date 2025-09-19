@@ -5,31 +5,12 @@
     import default_js from '$lib/assets/webgl/default.js?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
+    import type { TapiocaFoxGLContext } from './TapiocaFoxGl';
 
     // console.log(`default_js: ${default_js}`);
 
-    interface TapiocaFoxGL {
-        gl: WebGL2RenderingContext,
-        canvas: HTMLCanvasElement,
-        program: WebGLProgram,
-        startTime: number,
-        lastRenderTime: number,
-        devicePixelRatio: number,
-        statusDict: Record<string, string>,
-        animate: (() => void) | null,
-        start: (() => void) | null,
-        stop: (() => void) | null,
-        onStart: (start: () => void) => void,
-        onStop: (stop: () => void) => void,
-        optimizeViewPort: () => void,
-        initProgram: (vertexShader: string, fragmentShader: string) => void,
-        newProgram: () => void,
-        render: () => void,
-        reportStatus: (key: string, status: string) => void,
-    }
-
     const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent' } = props;
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {} } = props;
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -52,7 +33,7 @@
         return shrink(value, background_mode_shrink_by);
     }
 
-    let tapiocaFoxGL: TapiocaFoxGL;
+    let foxGL: TapiocaFoxGLContext;
 
     function evalJavaScript(javascript: string) {
         try {
@@ -78,25 +59,17 @@
         javascript = props.javascript || javascript;
 
 
-        if(tapiocaFoxGL) {
-            tapiocaFoxGL.newProgram();
-
-            tapiocaFoxGL.stop?.();
-
-            tapiocaFoxGL.optimizeViewPort();
-            tapiocaFoxGL.initProgram(vertex_shader, fragment_shader);
-
-            evalJavaScript(javascript);
-
-            tapiocaFoxGL.start?.();
+        if(foxGL) {
+            foxGL.newProgram();
+            foxGL.run(vertex_shader, fragment_shader, javascript);
         }
     });
 
-    onMount(() => {
+    onMount(async () => {
         try {
             const glNative = canvas.getContext('webgl2')!;
 
-            tapiocaFoxGL = {
+            foxGL = {
                 gl: glNative,
                 canvas: canvas,
                 program: glNative.createProgram(),
@@ -107,6 +80,9 @@
                 start: null,
                 stop: null,
                 statusDict: statusDict,
+                vertex_shader: '',
+                fragment_shader: '',
+                javascript: '',
 
                 onStart: function(start) {
                     this.start = start;
@@ -172,7 +148,29 @@
                     });
                     gl.deleteProgram(this.program);
                     this.program = gl.createProgram();
+                },
 
+                reset: function() {
+                    this.newProgram();
+                    this.stop?.();
+                    this.optimizeViewPort();
+                    this.startTime = Date.now();
+                    this.lastRenderTime = 0;
+                    this.initProgram(this.vertex_shader, this.fragment_shader);
+                    evalJavaScript(this.javascript);
+                    this.start?.();
+                },
+
+                run: function(vertex_shader: string, fragment_shader: string, javascript: string) {
+                    this.vertex_shader = vertex_shader;
+                    this.fragment_shader = fragment_shader;
+                    this.javascript = javascript;
+
+                    this.stop?.();
+                    this.optimizeViewPort();
+                    this.initProgram(this.vertex_shader, this.fragment_shader);
+                    evalJavaScript(this.javascript);
+                    this.start?.();
                 },
 
                 reportStatus: function(key, status) {
@@ -182,7 +180,7 @@
             };
 
             const resizeObserver = new ResizeObserver(entries => {
-                tapiocaFoxGL.optimizeViewPort();
+                foxGL.optimizeViewPort();
             });
             resizeObserver.observe(canvas);
 
@@ -258,15 +256,9 @@
                 console.warn('GLSL canvas WebGL context lost!');
             });
 
-            tapiocaFoxGL.stop?.();
+            onglinit(foxGL);
 
-            tapiocaFoxGL.optimizeViewPort();
-            tapiocaFoxGL.initProgram(vertex_shader, fragment_shader);
-
-            evalJavaScript(javascript);
-
-            tapiocaFoxGL.start?.();
-
+            foxGL.run(vertex_shader, fragment_shader, javascript);
         }
         catch (error) {
             console.trace(error);
