@@ -1,5 +1,5 @@
 <script lang="ts">
-  let {names = [], values = [], inline_icons=[], dividers=[], selected_value, key_name='chip_selected', callback = () => {}} = $props();
+  let {names = [], values = [], inline_icons=[], dividers=[], selected_value, key_name='chip_selected', sticky=false, callback = () => {}} = $props();
   import { goto } from '$app/navigation';
   import { page } from '$app/state';
 
@@ -22,6 +22,7 @@
   inline_icons={inline_icons}
   dividers={dividers}
   selected_value={selected_value}
+  sticky={sticky}
   callback={(value: any) => {
     const default_behaviour = callback(value);
     if ((default_behaviour == null || default_behaviour) && typeof window !== "undefined") {
