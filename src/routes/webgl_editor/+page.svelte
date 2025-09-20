@@ -13,6 +13,8 @@
     import { page } from '$app/state';
     import storage from '$lib/store'
 
+    import version from '$lib/version';
+
     import reset_icon from '$lib/assets/icons/reset.svg';
     import play_icon from '$lib/assets/icons/play.svg';
     import share_icon from '$lib/assets/icons/share.svg';
@@ -335,6 +337,7 @@
             bind:this={javascript_editor} 
             class="editor-container">
             </div>
+            <p class="annotation">Site version: ({version})</p>
         </div>
     </div>
     <div bind:this={editor_layout_right} class="right">

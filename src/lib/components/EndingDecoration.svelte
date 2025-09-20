@@ -1,6 +1,5 @@
 <script>
     import tapiocafox from '$lib/assets/tapiocafox_small.png';
-    import version from '$lib/version';
 </script>
 <div 
     style:display="flex"
@@ -18,6 +17,6 @@
             <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
         </button>
         <p style:margin="0"
-        style:font-size="xx-small">Copyright © {new Date().getFullYear()} TapiocaFox. ({version})</p>
+        style:font-size="xx-small">Copyright © {new Date().getFullYear()} TapiocaFox.</p>
     </div>
 </div>
