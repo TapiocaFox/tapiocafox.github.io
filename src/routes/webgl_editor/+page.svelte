@@ -8,7 +8,8 @@
     import { indentUnit } from "@codemirror/language";
     import { javascript } from "@codemirror/lang-javascript";
     import { indentWithTab } from "@codemirror/commands";
-    import { Prec } from "@codemirror/state";
+    import { Prec, Compartment } from "@codemirror/state";
+    import { linter, type Diagnostic } from "@codemirror/lint";
     import { onMount } from 'svelte';
     import { page } from '$app/state';
     import storage from '$lib/store'
@@ -72,6 +73,24 @@
     let js_src = $state(default_js);
     const selected_index = $state(`view_${$viewModeStorage}`);
 
+    const keymapExtension = keymap.of([indentWithTab]);
+    const saveKeymapExtension = Prec.highest(keymap.of([{
+        key: "Mod-s",
+        run({ state }) {
+            // console.log(state.doc.toString()); 
+            snapshot();
+            return true;
+        }
+    }, 
+    {
+        key: "Mod-r",
+        run({ state }) {
+            reset();
+            return true;
+        }
+    }]));
+    const indentUnitExtension = indentUnit.of('    ');
+    const errorLinterCompartment = new Compartment();
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
@@ -90,40 +109,38 @@
         // clears all query parameters
         // goto(page.url.pathname, { replaceState: true });
 
-        const keymapExtension = keymap.of([indentWithTab]);
-        const saveKeymapExtension = Prec.highest(keymap.of([{
-            key: "Mod-s",
-            run({ state }) {
-                // console.log(state.doc.toString()); 
-                snapshot();
-                return true;
-            }
-        }, 
-        {
-            key: "Mod-r",
-            run({ state }) {
-                reset();
-                return true;
-            }
-        }]));
-        const indentUnitExtension = indentUnit.of('    ');
-
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, glsl(), 
+            keymapExtension, 
+            saveKeymapExtension, 
+            indentUnitExtension,
+            EditorView.lineWrapping,
+            errorLinterCompartment.of([])]
         })
 
         fragmentShaderEditorView = new EditorView({
             parent: fragment_shader_editor,
             doc: frag_shader_src,
-            extensions: [basicSetup, glsl(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, glsl(), 
+            keymapExtension, 
+            saveKeymapExtension, 
+            indentUnitExtension, 
+            EditorView.lineWrapping,
+            errorLinterCompartment.of([])]
         })
 
         javascriptEditorView = new EditorView({
             parent: javascript_editor,
             doc: js_src,
-            extensions: [basicSetup, javascript(), keymapExtension, saveKeymapExtension, indentUnitExtension, EditorView.lineWrapping]
+            extensions: [basicSetup, 
+            javascript(), 
+            keymapExtension, 
+            saveKeymapExtension, 
+            indentUnitExtension, 
+            EditorView.lineWrapping,
+            errorLinterCompartment.of([])]
         })
 
         refreshLoop();
@@ -136,13 +153,22 @@
 
     function refresh() {
         const vert_shader_editor_src = vertexShaderEditorView.state.doc.toString();
-        if(vert_shader_editor_src!=vert_shader_src) vert_shader_src = vert_shader_editor_src;
+        if(vert_shader_editor_src!=vert_shader_src) {
+            clearErrors(vertexShaderEditorView);
+            vert_shader_src = vert_shader_editor_src;
+        }
 
         const frag_shader_editor_src = fragmentShaderEditorView.state.doc.toString();
-        if(frag_shader_editor_src!=frag_shader_src) frag_shader_src = frag_shader_editor_src;
+        if(frag_shader_editor_src!=frag_shader_src) {
+            clearErrors(fragmentShaderEditorView);
+            frag_shader_src = frag_shader_editor_src;
+        }
 
         const js_editor_src = javascriptEditorView.state.doc.toString();
-        if(js_editor_src!=js_src) js_src = js_editor_src;
+        if(js_editor_src!=js_src) {
+            clearErrors(javascriptEditorView);
+            js_src = js_editor_src;
+        }
         // console.log('run');
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
@@ -223,6 +249,110 @@
     async function onGLInit(foxGL_:TapiocaFoxGLContext) {
         foxGL = foxGL_;
     }
+
+    function createShaderLinter(type: string, errorLog: string) {
+        return linter(view => {
+            const diagnostics: Diagnostic[] = [];
+            const regex = /ERROR:\s+0:(\d+):\s+(.*)/g;
+            let match;
+            while ((match = regex.exec(errorLog)) !== null) {
+                const [, lineStr, message] = match;
+                const line = parseInt(lineStr, 10) - 1;
+
+                let targetView: EditorView;
+                if (type === "vert") targetView = vertexShaderEditorView;
+                else if (type === "frag") targetView = fragmentShaderEditorView;
+                else continue;
+
+                const lineFrom = targetView.state.doc.line(line + 1).from;
+                const lineTo = targetView.state.doc.line(line + 1).to;
+
+                diagnostics.push({
+                    from: lineFrom,
+                    to: lineTo,
+                    severity: "error",
+                    message,
+                });
+            }
+            return diagnostics;
+        });
+    }
+
+    function createEvalLinter(error: Error | null) {
+        return linter((view: EditorView) => {
+            const diagnostics: Diagnostic[] = [];
+            if (!error) return diagnostics;
+
+            // Use stack trace if available, otherwise message
+            const stack = error.stack ?? error.message;
+            const regex = /<anonymous>:(\d+):(\d+)/;
+            const match = stack.match(regex);
+
+            if (match) {
+                const line = parseInt(match[1], 10) - 1;  // 0-based
+                const col = parseInt(match[2], 10) - 1;
+                const message = error.message;
+
+                const lineInfo = view.state.doc.line(line + 1);
+                const from = Math.min(lineInfo.from + col, lineInfo.to);
+                const to = lineInfo.to;
+
+                diagnostics.push({
+                    from,
+                    to,
+                    severity: "error",
+                    message,
+                });
+            } else {
+                // fallback: show whole-doc error if no line info
+                diagnostics.push({
+                    from: 0,
+                    to: 0,
+                    severity: "error",
+                    message: error.message,
+                });
+            }
+
+            return diagnostics;
+        });
+    }
+
+    async function onError(type: string, error: any) {
+        // console.log(error)
+        // console.trace(error);
+
+        if(type === 'vert' || type === 'frag') {
+            let view: EditorView;
+            if (type === "vert") view = vertexShaderEditorView;
+            else if (type === "frag") view = fragmentShaderEditorView;
+            else return;
+
+            const linterExtension = createShaderLinter(type, error);
+
+            view.dispatch({
+                effects: errorLinterCompartment.reconfigure(linterExtension)
+            });
+        }
+        else if(type === 'js') {
+            const stack = error.stack ?? error.message;
+            console.log('js', stack);
+            const linterExtension = createEvalLinter(error);
+
+            javascriptEditorView.dispatch({
+                effects: errorLinterCompartment.reconfigure(linterExtension)
+            });
+        }
+        else console.trace(error);
+    }
+
+    async function clearErrors(view: EditorView) {
+        view.dispatch({
+            effects: errorLinterCompartment.reconfigure(
+                linter(() => [])
+            )
+        });
+    }
+
 </script>
 <svelte:window on:beforeunload={beforeUnload}/>
 <style>
@@ -342,7 +472,7 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
-            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit}/>
+            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit} onerror={onError}/>
             <div class="info-container">
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
                 {#if $snapshotsStorage.length == 0}

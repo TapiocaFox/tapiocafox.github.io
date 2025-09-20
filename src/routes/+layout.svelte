@@ -27,8 +27,8 @@
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
+	<a href="/webgl_editor">[GL Edit]</a>
 	<a href="/patio">[Patio]</a>
-	<!-- <a href="/glsl">[GLSL]</a> -->
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
 	<!-- <button class="no-style" onclick={()=>{}}>[☾]</button> -->
 

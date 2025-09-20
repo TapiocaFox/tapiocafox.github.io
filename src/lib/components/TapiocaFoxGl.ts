@@ -10,15 +10,17 @@ export interface TapiocaFoxGLContext {
     fragment_shader: string, // Do not access this inside the snippet.
     javascript: string, // Do not access this inside the snippet.
 
-    onStart: (start: () => void) => void,
-    onStop: (stop: () => void) => void,
+    onStart: (start: () => Promise<void>) => void,
+    onStop: (stop: () => Promise<void>) => void,
     render: () => void,
     reportStatus: (key: string, status: string) => void,
-    start: (() => void) | null, // Do not run this inside the snippet.
-    stop: (() => void) | null, // Do not run this inside the snippet.
+    invokeStart: (() => Promise<void>) | null, // Do not run this inside the snippet.
+    invokeStop: (() => Promise<void>) | null, // Do not run this inside the snippet.
     optimizeViewPort: () => void, // Do not run this inside the snippet.
     initProgram: (vertexShader: string, fragmentShader: string) => void, // Do not run this inside the snippet.
     newProgram: () => void, // Do not run this inside the snippet.
     reset: () => void, // Do not run this inside the snippet.
+    start: () => void, // Do not run this inside the snippet.
+    stop: () => void, // Do not run this inside the snippet.
     run: (vertex_shader: string, fragment_shader: string, javascript: string) => void, // Do not run this inside the snippet.
 }

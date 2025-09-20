@@ -10,7 +10,7 @@
     // console.log(`default_js: ${default_js}`);
 
     const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {} } = props;
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -42,7 +42,7 @@
             eval(javascript);
         }
         catch(error) {
-            console.trace(error);
+            onerror('js', error);
         } 
     }
 
@@ -77,19 +77,37 @@
                 lastRenderTime: 0,
                 devicePixelRatio: window.devicePixelRatio || 1,
                 // animate: null,
-                start: null,
-                stop: null,
+                invokeStart: null,
+                invokeStop: null,
                 statusDict: statusDict,
                 vertex_shader: '',
                 fragment_shader: '',
                 javascript: '',
 
                 onStart: function(start) {
-                    this.start = start;
+                    this.invokeStart = start;
                 },
 
                 onStop: function(stop) {
-                    this.stop = stop;
+                    this.invokeStop = stop;
+                },
+
+                start: async function() {
+                    try {
+                        await this.invokeStart?.();
+                    }
+                    catch(error: any) {
+                        onerror('js', error);
+                    }
+                },
+
+                stop: async function() {
+                    try {
+                        await this.invokeStop?.();
+                    }
+                    catch(error: any) {
+                        onerror('js', error);
+                    }
                 },
 
                 optimizeViewPort: function() {
@@ -111,12 +129,25 @@
                         const shader = gl.createShader(type)!;
                         gl.shaderSource(shader, src);
                         gl.compileShader(shader);
-                        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS))
-                            throw `Cannot compile shader: ${gl.getShaderInfoLog(shader)}`;
+                        const infoLog = gl.getShaderInfoLog(shader); // For safari.
+                        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS) || infoLog?.trim().length)
+                            throw `Cannot compile shader: ${infoLog}`;
                         gl.attachShader(this.program, shader);
                     };
-                    addShader(gl.VERTEX_SHADER, vertexShader);
-                    addShader(gl.FRAGMENT_SHADER, fragmentShader);
+
+                    try {
+                        addShader(gl.VERTEX_SHADER, vertexShader);
+                    }
+                    catch(error) {
+                        onerror('vert', error);
+                    }
+                    try {
+                        addShader(gl.FRAGMENT_SHADER, fragmentShader);
+                    }
+                    catch(error) {
+                        onerror('frag', error);
+                    }
+
                     gl.linkProgram(this.program);
                     if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
                         throw `Cannot link program:\n${gl.getProgramInfoLog(this.program)}`;
@@ -153,14 +184,14 @@
                 reset: function() {
                     const gl = this.gl;
                     this.newProgram();
-                    this.stop?.();
+                    this.stop();
                     this.optimizeViewPort();
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
                     this.lastRenderTime = 0;
                     this.initProgram(this.vertex_shader, this.fragment_shader);
                     evalJavaScript(this.javascript);
-                    this.start?.();
+                    this.start();
                 },
 
                 run: function(vertex_shader: string, fragment_shader: string, javascript: string) {
@@ -168,11 +199,11 @@
                     this.fragment_shader = fragment_shader;
                     this.javascript = javascript;
 
-                    this.stop?.();
+                    this.stop();
                     this.optimizeViewPort();
                     this.initProgram(this.vertex_shader, this.fragment_shader);
                     evalJavaScript(this.javascript);
-                    this.start?.();
+                    this.start();
                 },
 
                 reportStatus: function(key, status) {
