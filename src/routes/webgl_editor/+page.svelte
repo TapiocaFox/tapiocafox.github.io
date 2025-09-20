@@ -10,6 +10,7 @@
     import { indentWithTab } from "@codemirror/commands";
     import { Prec, Compartment } from "@codemirror/state";
     import { linter, type Diagnostic } from "@codemirror/lint";
+    import { createShaderLinter, createEvalLinter } from './linters';
     import { onMount } from 'svelte';
     import { page } from '$app/state';
     import storage from '$lib/store'
@@ -48,8 +49,6 @@
     let fragmentShaderEditorView: EditorView;
     let javascriptEditorView: EditorView;
 
-
-
     let foxGL: TapiocaFoxGLContext;
 
     const refreshInterval = 500;
@@ -66,6 +65,7 @@
     const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
 
     let view_mode = $state($viewModeStorage);
+    let javascript_error = $state(null);
     // let view_mode = $state('js');
     // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
@@ -167,6 +167,7 @@
         const js_editor_src = javascriptEditorView.state.doc.toString();
         if(js_editor_src!=js_src) {
             clearErrors(javascriptEditorView);
+            javascript_error = null;
             js_src = js_editor_src;
         }
         // console.log('run');
@@ -250,73 +251,6 @@
         foxGL = foxGL_;
     }
 
-    function createShaderLinter(type: string, errorLog: string) {
-        return linter(view => {
-            const diagnostics: Diagnostic[] = [];
-            const regex = /ERROR:\s+0:(\d+):\s+(.*)/g;
-            let match;
-            while ((match = regex.exec(errorLog)) !== null) {
-                const [, lineStr, message] = match;
-                const line = parseInt(lineStr, 10) - 1;
-
-                let targetView: EditorView;
-                if (type === "vert") targetView = vertexShaderEditorView;
-                else if (type === "frag") targetView = fragmentShaderEditorView;
-                else continue;
-
-                const lineFrom = targetView.state.doc.line(line + 1).from;
-                const lineTo = targetView.state.doc.line(line + 1).to;
-
-                diagnostics.push({
-                    from: lineFrom,
-                    to: lineTo,
-                    severity: "error",
-                    message,
-                });
-            }
-            return diagnostics;
-        });
-    }
-
-    function createEvalLinter(error: Error | null) {
-        return linter((view: EditorView) => {
-            const diagnostics: Diagnostic[] = [];
-            if (!error) return diagnostics;
-
-            // Use stack trace if available, otherwise message
-            const stack = error.stack ?? error.message;
-            const regex = /<anonymous>:(\d+):(\d+)/;
-            const match = stack.match(regex);
-
-            if (match) {
-                const line = parseInt(match[1], 10) - 1;  // 0-based
-                const col = parseInt(match[2], 10) - 1;
-                const message = error.message;
-
-                const lineInfo = view.state.doc.line(line + 1);
-                const from = Math.min(lineInfo.from + col, lineInfo.to);
-                const to = lineInfo.to;
-
-                diagnostics.push({
-                    from,
-                    to,
-                    severity: "error",
-                    message,
-                });
-            } else {
-                // fallback: show whole-doc error if no line info
-                diagnostics.push({
-                    from: 0,
-                    to: 0,
-                    severity: "error",
-                    message: error.message,
-                });
-            }
-
-            return diagnostics;
-        });
-    }
-
     async function onError(type: string, error: any) {
         // console.log(error)
         // console.trace(error);
@@ -327,15 +261,15 @@
             else if (type === "frag") view = fragmentShaderEditorView;
             else return;
 
-            const linterExtension = createShaderLinter(type, error);
+            const linterExtension = createShaderLinter(error);
 
             view.dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)
             });
         }
         else if(type === 'js') {
-            const stack = error.stack ?? error.message;
-            console.log('js', stack);
+            // console.log('JavaScript Error', error);
+            javascript_error = error.toString();
             const linterExtension = createEvalLinter(error);
 
             javascriptEditorView.dispatch({
@@ -439,7 +373,7 @@
         return true;
     }}
 />
-<p class="annotation">WebGL 2 with my own conventions. Open web console to see bug reports.</p>
+<p class="annotation">This is a WebGL 2 editor with my own conventions. Open web console to see bug reports.</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -462,6 +396,9 @@
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
+            {#if javascript_error != null}
+            <p class="annotation" style:color="red">{javascript_error}</p>
+            {/if}
             <div 
             style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
             bind:this={javascript_editor} 
