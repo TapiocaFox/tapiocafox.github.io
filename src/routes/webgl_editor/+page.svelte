@@ -96,6 +96,13 @@
                 snapshot();
                 return true;
             }
+        }, 
+        {
+            key: "Mod-r",
+            run({ state }) {
+                reset();
+                return true;
+            }
         }]));
         const indentUnitExtension = indentUnit.of('    ');
 
@@ -262,7 +269,7 @@
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['Reset', 'Snapshot', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
+    names={['Reset (R)', 'Snapshot (S)', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
     values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     selected_value={selected_index}
@@ -306,7 +313,7 @@
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
             <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader <img class="inline-glyph" src={vertex_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>To reset to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}
             bind:this={vertex_shader_editor} 
@@ -314,7 +321,7 @@
             </div>
 
             <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To reset to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}
             bind:this={fragment_shader_editor} 
@@ -322,7 +329,7 @@
             </div>
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To reset to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
             <div 
             style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
             bind:this={javascript_editor} 
@@ -336,7 +343,7 @@
             <div class="info-container">
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
                 {#if $snapshotsStorage.length == 0}
-                <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p>
+                <!-- <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p> -->
                 {:else}
                 <table style:width="100%">
                     <tbody>
@@ -358,6 +365,7 @@
                     </tbody>
                 </table>
                 {/if}
+                <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p>
             </div>
         </div>
     </div>
