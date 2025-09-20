@@ -56,7 +56,7 @@ function animate() {
 // Register listeners on start.
 foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.width);
-    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 1);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);

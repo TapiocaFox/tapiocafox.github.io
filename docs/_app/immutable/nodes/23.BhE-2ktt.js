@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as $,az as F,f as h,e as x,a as d,b as O,s as a,aw as N,o as e,ax as H,ay as B,c as u,r as c,g as I}from"../chunks/DcY2r8uD.js";import{i as b}from"../chunks/DRCWUU-w.js";import{e as G,i as k}from"../chunks/DZPicCFZ.js";import{C as Z}from"../chunks/C3uKOEJo.js";import{H as J}from"../chunks/B0ZeF5TF.js";import{e as R,T as p}from"../chunks/CY9cQKCZ.js";import{d as s}from"../chunks/Dt_FDJKa.js";import{d as X,m as M}from"../chunks/BwFQz9x_.js";import{a as Y,b as K,r as Q}from"../chunks/BtcG8Acq.js";import{g as ee}from"../chunks/DjCmQUn2.js";const D=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import{p as $,az as F,f as h,e as x,a as d,b as O,s as a,aw as N,o as e,ax as H,ay as B,c as u,r as c,g as I}from"../chunks/DcY2r8uD.js";import{i as b}from"../chunks/DRCWUU-w.js";import{e as G,i as k}from"../chunks/DZPicCFZ.js";import{C as Z}from"../chunks/C3uKOEJo.js";import{H as J}from"../chunks/B0ZeF5TF.js";import{e as R,T as p}from"../chunks/Bh9IRSpi.js";import{d as s}from"../chunks/Dt_FDJKa.js";import{d as X,m as M}from"../chunks/BwFQz9x_.js";import{a as Y,b as K,r as Q}from"../chunks/BtcG8Acq.js";import{g as ee}from"../chunks/CUX6VNu2.js";const D=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -372,7 +372,7 @@ function animate() {
 // Register listeners on start.
 foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.width);
-    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 1);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.width.toFixed(1)})\`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
