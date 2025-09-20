@@ -14,7 +14,7 @@
 
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
-    // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+    // import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
 </script>
 <style>
     .sqaure_item {

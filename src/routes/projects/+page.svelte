@@ -13,10 +13,10 @@
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
-    import default_vert from '$lib/assets/glsl_shaders/default.vert?raw';
-    import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
-    import spiral from '$lib/assets/glsl_shaders/radiant.frag?raw';
-    import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
+    import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
+    import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
+    import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
+    import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
@@ -51,7 +51,7 @@
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
     <h2><a href="/projects/graphics">Graphics</a></h2>
-    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">Learn more</a>.</p>
+    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/webgl/practice_1" target="_blank">Learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>

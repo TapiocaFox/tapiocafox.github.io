@@ -3,18 +3,22 @@
 
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
-    import alter_green_red_frag from '$lib/assets/glsl_shaders/alter_green_red.frag?raw';
+    import alter_green_red_frag from '$lib/assets/webgl/practice_1/alter_green_red.frag?raw';
 
-    import default_vert_shader from '$lib/assets/glsl_shaders/default.vert?raw';
-    import default_frag_shader from '$lib/assets/glsl_shaders/default.frag?raw';
-    import sin from '$lib/assets/glsl_shaders/sin.frag?raw';
-    import mouse from '$lib/assets/glsl_shaders/mouse.frag?raw';
-    import adhesive from '$lib/assets/glsl_shaders/adhesive.frag?raw';
-    import balls from '$lib/assets/glsl_shaders/balls.frag?raw';
-    import fiber from '$lib/assets/glsl_shaders/fiber.frag?raw';
-    import radiant from '$lib/assets/glsl_shaders/radiant.frag?raw';
-    import array from '$lib/assets/glsl_shaders/array.frag?raw';
-    import snoise from '$lib/assets/glsl_shaders/snoise.frag?raw';
+    import default_vert_shader from '$lib/assets/webgl/practice_1/default.vert?raw';
+    import default_frag_shader from '$lib/assets/webgl/practice_1/default.frag?raw';
+    import sin from '$lib/assets/webgl/practice_1/sin.frag?raw';
+    import mouse from '$lib/assets/webgl/practice_1/mouse.frag?raw';
+    import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
+    import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
+    import fiber from '$lib/assets/webgl/practice_1/fiber.frag?raw';
+    import radiant from '$lib/assets/webgl/practice_1/radiant.frag?raw';
+    import array from '$lib/assets/webgl/practice_1/array.frag?raw';
+    import snoise from '$lib/assets/webgl/practice_1/snoise.frag?raw';
+
+    import ball_vert from '$lib/assets/webgl/practice_2/ball.vert?raw';
+    import ball_frag from '$lib/assets/webgl/practice_2/ball.frag?raw';
+    import ball_js from '$lib/assets/webgl/practice_2/ball.js?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -22,15 +26,15 @@
     
     let selected_category = $state('all');
 
-    let shaders_1 = $state([
+    let practice_1 = $state([
         {
-            vert_shader: default_vert_shader,
-            frag_shader: default_frag_shader,
+            vert: default_vert_shader,
+            frag: default_frag_shader,
             categories: []
         },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: adhesive,
+            vert: default_vert_shader,
+            frag: adhesive,
             categories: ['distortion']
         },
         // {
@@ -38,31 +42,41 @@
         //     categories: ['debug']
         // },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: balls,
+            vert: default_vert_shader,
+            frag: balls,
             categories: []
         },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: fiber,
+            vert: default_vert_shader,
+            frag: fiber,
             categories: ['distortion']
         },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: array,
+            vert: default_vert_shader,
+            frag: array,
             categories: []
         },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: radiant,
+            vert: default_vert_shader,
+            frag: radiant,
             categories: ['noise']
         },
         {
-            vert_shader: default_vert_shader,
-            frag_shader: snoise,
+            vert: default_vert_shader,
+            frag: snoise,
             categories: ['noise']
         }
     ]);
+
+    let practice_2 = $state([
+        {
+            vert: ball_vert,
+            frag: ball_frag,
+            js: ball_js,
+            categories: []
+        }
+    ]);
+
 </script>
 <style>
     .shader_item {
@@ -114,16 +128,32 @@
 </div>
 {/if}
 
-{#if shaders_1.filter((shader) => {
-    return selected_category =='all' || shader.categories.includes(selected_category);
+{#if practice_1.filter((practice) => {
+    return selected_category =='all' || practice.categories.includes(selected_category);
 }).length > 0}
 <h3>Practice One</h3>
 <p class="annotation">Abstract fragment shader patterns animated over time. (Part of assignment one.)</p>
 <div class="flex_grid gallery">
-    {#each shaders_1 as shader}
-        {#if selected_category =='all' || shader.categories.includes(selected_category)} 
+    {#each practice_1 as practice}
+        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
         <div class="item shader_item">
-            <TapiocaFoxWebGL vertex_shader={shader.vert_shader} fragment_shader={shader.frag_shader}/>
+            <TapiocaFoxWebGL vertex_shader={practice.vert} fragment_shader={practice.frag}/>
+        </div>
+        {/if}
+    {/each}
+</div>
+{/if}
+
+{#if practice_2.filter((practice) => {
+    return selected_category =='all' || practice.categories.includes(selected_category);
+}).length > 0}
+<h3>Practice Two</h3>
+<p class="annotation">Raytracing of balls. (Part of assignment two.)</p>
+<div class="flex_grid gallery">
+    {#each practice_2 as practice}
+        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
+        <div class="item shader_item">
+            <TapiocaFoxWebGL vertex_shader={practice.vert} fragment_shader={practice.frag} javascript={practice.js}/>
         </div>
         {/if}
     {/each}

@@ -3,7 +3,7 @@
     import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
-    // import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+    // import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
     import karaoke_icon from '$lib/assets/icons/karaoke.svg';
     import eye_icon from '$lib/assets/icons/eye.svg';
     import picture_icon from '$lib/assets/icons/picture.svg';

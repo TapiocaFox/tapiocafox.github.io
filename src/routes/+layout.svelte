@@ -3,8 +3,8 @@
 
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
 	
-	import default_vert from '$lib/assets/glsl_shaders/default.vert?raw';
-    import fiber_bg from '$lib/assets/glsl_shaders/fiber_bg.frag?raw';
+	import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
+    import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
 
 	let { children } = $props();
 </script>
@@ -27,7 +27,7 @@
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
 	<a href="/artworks">[Artworks]</a>
-	<a href="/webgl_editor">[GL Edit]</a>
+	<a href="/webgl_editor">[GLEdit]</a>
 	<a href="/patio">[Patio]</a>
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
 	<!-- <button class="no-style" onclick={()=>{}}>[☾]</button> -->

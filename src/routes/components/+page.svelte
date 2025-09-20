@@ -8,7 +8,7 @@
   import GlslCanvasThree from '$lib/components/GlslCanvasThree.svelte';
   import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
 
-  import mouse_frag from '$lib/assets/glsl_shaders/mouse.frag?raw';
+  import mouse_frag from '$lib/assets/webgl/practice_1/mouse.frag?raw';
 
   let chip_selected_value = $state(-1);
   let grid_item_num = $state(12);
