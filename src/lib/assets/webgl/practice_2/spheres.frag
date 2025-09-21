@@ -7,13 +7,13 @@ precision highp float;
 uniform float uTime;
 uniform vec3 uViewPoint;
 
-#define MAX_BALLS 64
+#define MAX_SPHERES 64
 #define MAX_LIGHTS 64
 
 uniform int NS;
 uniform int NL;
-uniform vec4 uS[MAX_BALLS];
-uniform vec3 uC[MAX_BALLS],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
+uniform vec4 uS[MAX_SPHERES];
+uniform vec3 uC[MAX_SPHERES],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
 
 in  vec3 vPos;
 out vec4 fragColor;
