@@ -475,7 +475,7 @@
             bind:this={vertex_shader_editor} 
             class="editor-container">
             </div>
-            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
+            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
 
             <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
@@ -484,7 +484,7 @@
             bind:this={fragment_shader_editor} 
             class="editor-container">
             </div>
-            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
+            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
@@ -496,7 +496,7 @@
             bind:this={javascript_editor} 
             class="editor-container">
             </div>
-            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
+            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
 
             <p class="annotation">Site version: ({version})</p>
         </div>
