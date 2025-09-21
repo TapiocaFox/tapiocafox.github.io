@@ -62,6 +62,7 @@
 
     const snapshotsStorage = storage<Snapshot[]>('webgl_editor_snapshot', []);
     const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
+    const lastSnapshot = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
 
     let view_mode = $state($viewModeStorage);
     let javascript_error = $state<string | null>(null);
@@ -174,22 +175,35 @@
     const indentUnitExtension = indentUnit.of('    ');
     const errorLinterCompartment = new Compartment();
 
+    const override_message = 'Are you sure you want to override your last state?';
+
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
-        
-        const url_vert = page.url.searchParams.get("vert");
-        if(url_vert) vert_shader_src = url_vert;
-        const url_frag = page.url.searchParams.get("frag");
-        if(url_frag) frag_shader_src = url_frag;
-        const url_js = page.url.searchParams.get("js");
-        if(url_js && url_js!=js_src) {
-            const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
-            if(use_url_js) js_src = url_js
-        };
 
+        const snapshot = $lastSnapshot;
+
+        const url_vert = page.url.searchParams.get("vert");
+        const url_frag = page.url.searchParams.get("frag");
+        const url_js = page.url.searchParams.get("js");
+
+        if((url_vert!=null || url_frag!=null || url_js!=null) && confirm(override_message)) {
+            if(url_vert) vert_shader_src = url_vert;
+            if(url_frag) frag_shader_src = url_frag;
+            if(url_js && url_js!=js_src) {
+                const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
+                if(use_url_js) js_src = url_js;
+            };
+        }
+        else if(snapshot != null) {
+            vert_shader_src = snapshot.vert;
+            frag_shader_src = snapshot.frag;
+            js_src = snapshot.js;
+        }
+        
         // clears all query parameters
         // goto(page.url.pathname, { replaceState: true });
+        history.replaceState(history.state, '', page.url.pathname);
 
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
@@ -280,9 +294,8 @@
         alert('The URL has been copied to your clipboard!');
     }
 
-    function snapshot() {
-        snapshotsStorage.update((snapshots) => {
-            const newSnapshot: Snapshot = {
+    function newSnapshot() {
+        const newSnapshot: Snapshot = {
                 name: new Date().toISOString().slice(0, 19),
                 timestamp: Date.now(),
                 img: foxGL.canvas.toDataURL('image/png'),
@@ -290,7 +303,12 @@
                 frag: frag_shader_src,
                 js: js_src
             };
-            return [...snapshots, newSnapshot]; // append the new snapshot
+        return newSnapshot;
+    }
+
+    function snapshot() {
+        snapshotsStorage.update((snapshots) => {
+            return [...snapshots, newSnapshot()]; // append the new snapshot
         });
     }
 
@@ -335,16 +353,32 @@
         });
     }
 
-    const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
+    // const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
+    // const leave_message = 'Do you want to save the current state?';
 
     function beforeUnload() {
-        return leave_message;
+        lastSnapshot.set(newSnapshot());
+        // return leave_message;
+        // if (confirm(leave_message)) {
+        //     // cancel();
+        //     lastSnapshot.set(newSnapshot());
+        // }
+        // else {
+        //     lastSnapshot.set(newSnapshot());
+        // }
+        return null;
     };
 
     beforeNavigate(({ cancel }) => {
-        if (!confirm(leave_message)) {
-            cancel();
-        }
+        lastSnapshot.set(newSnapshot());
+        // if (confirm(leave_message)) {
+        //     // cancel();
+        //     lastSnapshot.set(newSnapshot());
+        // }
+        // else {
+        //     lastSnapshot.set(newSnapshot());
+        // }
+        // lastSnapshot.set(newSnapshot());
     });
 
     function setEditorValue(view: EditorView, value: string) {
