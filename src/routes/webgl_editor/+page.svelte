@@ -420,7 +420,7 @@
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['Reset | R', 'Snapshot | S', 'Share', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'Javascript | 4']}
+    names={['Reset | R', 'Snapshot | S', 'Share', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
     values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     bind:selected_value={selected_value}
