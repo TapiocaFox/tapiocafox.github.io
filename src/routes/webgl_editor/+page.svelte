@@ -5,7 +5,7 @@
     
     import { tick } from 'svelte';
     import { EditorView, basicSetup } from "codemirror";
-    import { keymap } from '@codemirror/view';
+    import { keymap, type KeyBinding } from '@codemirror/view';
     import { indentUnit } from "@codemirror/language";
     import { javascript } from "@codemirror/lang-javascript";
     import { indentWithTab } from "@codemirror/commands";
@@ -101,24 +101,16 @@
 
 
     const keymapExtension = keymap.of([indentWithTab]);
-    const modKeymapExtension = Prec.highest(keymap.of([{
-            key: "Mod-s",
-            run({ state }) {
+    const modS: KeyBinding["run"] = ({ state }) => {
                 // console.log(state.doc.toString()); 
                 snapshot();
                 return true;
             }
-        }, 
-        {
-            key: "Mod-r",
-            run({ state }) {
+    const modR: KeyBinding["run"] = ({ state }) => {
                 reset();
                 return true;
-            }
-        }, 
-        {
-            key: "Mod-1",
-            run({ state }) {
+            };
+    const mod1: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_all';
                 view_mode = 'all';
                 viewModeStorage.set('all');
@@ -129,10 +121,7 @@
                 });
                 return true;
             }
-        }, 
-        {
-            key: "Mod-2",
-            run({ state }) {
+    const mod2: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_vert';
                 view_mode = 'vert';
                 viewModeStorage.set('vert');
@@ -143,10 +132,7 @@
                 });
                 return true;
             }
-        }, 
-        {
-            key: "Mod-3",
-            run({ state }) {
+    const mod3: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_frag';
                 view_mode = 'frag';
                 viewModeStorage.set('frag');
@@ -157,10 +143,7 @@
                 });
                 return true;
             }
-        }, 
-        {
-            key: "Mod-4",
-            run({ state }) {
+    const mod4: KeyBinding["run"]  = ({ state }) => {
                 selected_value = 'view_js';
                 view_mode = 'js';
                 viewModeStorage.set('js');
@@ -171,6 +154,54 @@
                 });
                 return true;
             }
+    const modKeymapExtension = Prec.highest(keymap.of([
+        {
+            key: "Mod-s",
+            run: modS
+        }, 
+        {
+            key: "Ctrl-s",
+            run: modS
+        }, 
+        {
+            key: "Mod-r",
+            run: modR
+        }, 
+        {
+            key: "Ctrl-r",
+            run: modR
+        }, 
+        {
+            key: "Mod-1",
+            run: mod1
+        }, 
+        {
+            key: "Ctrl-1",
+            run: mod1
+        }, 
+        {
+            key: "Mod-2",
+            run: mod2
+        }, 
+        {
+            key: "Ctrl-2",
+            run: mod2
+        }, 
+        {
+            key: "Mod-3",
+            run: mod3
+        }, 
+        {
+            key: "Ctrl-3",
+            run: mod3
+        }, 
+        {
+            key: "Mod-4",
+            run: mod4
+        }, 
+        {
+            key: "Ctrl-4",
+            run: mod4
         }
     ]));
     const indentUnitExtension = indentUnit.of('    ');
@@ -540,7 +571,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with my own conventions. Open web console to see bug reports.</p>
+<p class="annotation">This is a simple WebGL 2 editor with my own conventions. (Ctrl+Key or ⌘+Key for shortcuts)</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
