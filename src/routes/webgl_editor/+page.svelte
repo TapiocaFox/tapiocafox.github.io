@@ -533,7 +533,7 @@
 <input type="file" accept={`.${extension}`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none" />
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['Reset | R', 'Snapshot | S', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
+    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
     values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     bind:selected_value={selected_value}
