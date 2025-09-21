@@ -381,7 +381,7 @@
                     loadSnapshot(snapshot);
                 } catch (err) {
                     console.error("Failed to parse snapshot:", err);
-                    alert("Invalid .${extension} file");
+                    alert(`Invalid .${extension} file`);
                 }
             };
             reader.readAsText(file);
@@ -531,7 +531,7 @@
     }
     
 </style>
-<input type="file" accept={`.${extension}`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none" />
+<input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
     names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
