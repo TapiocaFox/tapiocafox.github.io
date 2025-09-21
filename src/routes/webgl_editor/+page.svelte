@@ -354,15 +354,15 @@
     }
 
     // const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
-    // const leave_message = 'Do you want to save the current state?';
+    const leave_message = 'Do you want to save the current state?';
 
     function beforeUnload() {
-        lastSnapshot.set(newSnapshot());
+        // lastSnapshot.set(newSnapshot());
         // return leave_message;
-        // if (confirm(leave_message)) {
-        //     // cancel();
-        //     lastSnapshot.set(newSnapshot());
-        // }
+        if (confirm(leave_message)) {
+            // cancel();
+            lastSnapshot.set(newSnapshot());
+        }
         // else {
         //     lastSnapshot.set(newSnapshot());
         // }
@@ -370,11 +370,11 @@
     };
 
     beforeNavigate(({ cancel }) => {
-        lastSnapshot.set(newSnapshot());
-        // if (confirm(leave_message)) {
-        //     // cancel();
-        //     lastSnapshot.set(newSnapshot());
-        // }
+        // lastSnapshot.set(newSnapshot());
+        if (confirm(leave_message)) {
+            // cancel();
+            lastSnapshot.set(newSnapshot());
+        }
         // else {
         //     lastSnapshot.set(newSnapshot());
         // }
