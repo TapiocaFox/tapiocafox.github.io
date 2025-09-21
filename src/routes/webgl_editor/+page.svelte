@@ -321,7 +321,7 @@
     function downloadSnapshot(snapshot: Snapshot) {
         const json = JSON.stringify(snapshot, null, 2);
 
-        const blob = new Blob([json], { type: "application/json" });
+        const blob = new Blob([json], { type: "text/plain" });
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement("a");
