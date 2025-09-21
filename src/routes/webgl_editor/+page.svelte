@@ -360,7 +360,7 @@
     }
 
     // const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
-    const leave_message = 'Do you want to save the current state?';
+    const leave_message = 'Do you want to override the last state?';
 
     function beforeUnload() {
         // lastSnapshot.set(newSnapshot());
