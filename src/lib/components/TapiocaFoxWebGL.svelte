@@ -189,6 +189,10 @@
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
                     this.lastRenderTime = 0;
+                    const statusDict = this.statusDict;
+                    for (const key in statusDict) {
+                        delete statusDict[key];
+                    }
                     this.initProgram(this.vertex_shader, this.fragment_shader);
                     evalJavaScript(this.javascript);
                     this.start();

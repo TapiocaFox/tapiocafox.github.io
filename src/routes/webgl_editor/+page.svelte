@@ -73,6 +73,8 @@
     let js_src = $state(default_js);
     let selected_value = $state(`view_${$viewModeStorage}`);
 
+    let mounted = $state(false);
+
     function scrollToTop() {
         document.body.scrollTop = 0; // For Safari
         document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
@@ -224,6 +226,7 @@
         })
 
         refreshLoop();
+        mounted = true;
     });
 
     const refreshLoop = () => {
@@ -537,7 +540,9 @@
     </div>
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
+            {#if mounted}
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit} onerror={onError}/>
+            {/if}
             <div class="info-container">
                 {#if error_message != null}
                 <p class="annotation" style:width="auto" style:color="red">{error_message}</p>
