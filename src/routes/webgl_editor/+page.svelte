@@ -14,12 +14,16 @@
     import { createShaderLinter, createEvalLinter } from './linters';
     import { onMount } from 'svelte';
     import { page } from '$app/state';
+
+    import { type Snapshot } from './snapshot';
     import storage from '$lib/store'
 
     import version from '$lib/version';
 
     import reset_icon from '$lib/assets/icons/reset.svg';
     import play_icon from '$lib/assets/icons/play.svg';
+    import import_icon from '$lib/assets/icons/import.svg';
+    import download_icon from '$lib/assets/icons/download.svg';
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
@@ -51,17 +55,11 @@
     let javascriptEditorView: EditorView;
 
     let foxGL: TapiocaFoxGLContext;
+    let importSnapshotInput: HTMLInputElement;
 
     const refreshInterval = 500;
 
-    type Snapshot = {
-        name: string;
-        timestamp: number;
-        img:string;
-        vert: string;
-        frag: string;
-        js: string;
-    };
+
     const snapshotsStorage = storage<Snapshot[]>('webgl_editor_snapshot', []);
     const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
 
@@ -91,6 +89,10 @@
             x: "nearest",  // only scroll horizontally if needed
             }),
         });
+    }
+
+    function openSnapshotFilePicker() {
+        importSnapshotInput.click();
     }
 
 
@@ -262,6 +264,14 @@
         alert('The URL has been copied to your clipboard!');
     }
 
+    function downloadSnapshot(snapshot: Snapshot) {
+        const json = JSON.stringify(snapshot, null, 2);
+        const a = document.createElement("a");
+        a.href = "data:application/json;charset=utf-8," + encodeURIComponent(json);
+        a.download = `${snapshot.name}.tgl`;
+        a.click();
+    }
+
     function shareSnapshot(snapshot: Snapshot) {
         navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(snapshot.vert)}&frag=${encodeURIComponent(snapshot.frag)}&js=${encodeURIComponent(snapshot.js)}`);
         alert('The URL has been copied to your clipboard!');
@@ -270,7 +280,7 @@
     function snapshot() {
         snapshotsStorage.update((snapshots) => {
             const newSnapshot: Snapshot = {
-                name: new Date().toISOString(),
+                name: new Date().toISOString().slice(0, 19),
                 timestamp: Date.now(),
                 img: foxGL.canvas.toDataURL('image/png'),
                 vert: vert_shader_src,
@@ -289,6 +299,25 @@
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
         setEditorValue(javascriptEditorView, snapshot.js);
         // foxGL.reset();
+    }
+
+    function importSnapshot(e: Event) {
+        const input = e.target as HTMLInputElement;
+        if (input.files && input.files[0]) {
+            const file = input.files[0];
+
+            const reader = new FileReader();
+            reader.onload = () => {
+                try {
+                    const snapshot: Snapshot = JSON.parse(reader.result as string);
+                    loadSnapshot(snapshot);
+                } catch (err) {
+                    console.error("Failed to parse snapshot:", err);
+                    alert("Invalid .tgl file");
+                }
+            };
+            reader.readAsText(file);
+        }
     }
 
     function deleteSnapshot(snapshot: Snapshot) {
@@ -418,11 +447,12 @@
     }
     
 </style>
+<input type="file" accept=".tgl" bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none" />
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['Reset | R', 'Snapshot | S', 'Share', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
-    values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
-    inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
+    names={['Reset | R', 'Snapshot | S', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
+    values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js']}
+    inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     bind:selected_value={selected_value}
     dividers={['view_all']}
     sticky={true}
@@ -433,6 +463,10 @@
         }
         else if(value == 'share') {
             share();
+            return false;
+        }
+        else if (value == 'import') {
+            openSnapshotFilePicker();
             return false;
         }
         else if (value == 'snapshot') {
@@ -520,6 +554,9 @@
                                 loadSnapshot(snapshot);
                             }}>{snapshot.name}</button></td>
                             <td style:white-space="nowrap">
+                                <button class="no-style" onclick={() => {
+                                    downloadSnapshot(snapshot);
+                                }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
                                 <button class="no-style" onclick={() => {
                                     shareSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Share" src={share_icon}/></button>
