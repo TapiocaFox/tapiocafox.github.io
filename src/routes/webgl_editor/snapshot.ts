@@ -6,3 +6,5 @@ export type Snapshot = {
     frag: string;
     js: string;
 };
+
+export const extension: string = 'fgl';

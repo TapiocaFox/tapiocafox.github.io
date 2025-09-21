@@ -15,7 +15,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
-    import { type Snapshot } from './snapshot';
+    import { type Snapshot, extension } from './snapshot';
     import storage from '$lib/store'
 
     import version from '$lib/version';
@@ -268,7 +268,7 @@
         const json = JSON.stringify(snapshot, null, 2);
         const a = document.createElement("a");
         a.href = "data:application/json;charset=utf-8," + encodeURIComponent(json);
-        a.download = `${snapshot.name}.tgl`;
+        a.download = `${snapshot.name}.${extension}`;
         a.click();
     }
 
@@ -313,7 +313,7 @@
                     loadSnapshot(snapshot);
                 } catch (err) {
                     console.error("Failed to parse snapshot:", err);
-                    alert("Invalid .tgl file");
+                    alert("Invalid .${extension} file");
                 }
             };
             reader.readAsText(file);
@@ -447,7 +447,7 @@
     }
     
 </style>
-<input type="file" accept=".tgl" bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none" />
+<input type="file" accept={`.${extension}`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none" />
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
     names={['Reset | R', 'Snapshot | S', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
