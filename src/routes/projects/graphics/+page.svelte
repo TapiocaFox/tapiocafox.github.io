@@ -16,9 +16,9 @@
     import array from '$lib/assets/webgl/practice_1/array.frag?raw';
     import snoise from '$lib/assets/webgl/practice_1/snoise.frag?raw';
 
-    import ball_vert from '$lib/assets/webgl/practice_2/ball.vert?raw';
-    import ball_frag from '$lib/assets/webgl/practice_2/ball.frag?raw';
-    import ball_js from '$lib/assets/webgl/practice_2/ball.js?raw';
+    import spheres_vert from '$lib/assets/webgl/practice_2/spheres.vert?raw';
+    import spheres_frag from '$lib/assets/webgl/practice_2/spheres.frag?raw';
+    import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -70,9 +70,9 @@
 
     let practice_2 = $state([
         {
-            vert: ball_vert,
-            frag: ball_frag,
-            js: ball_js,
+            vert: spheres_vert,
+            frag: spheres_frag,
+            js: spheres_js,
             categories: []
         }
     ]);
@@ -131,6 +131,7 @@
 {#if practice_1.filter((practice) => {
     return selected_category =='all' || practice.categories.includes(selected_category);
 }).length > 0}
+<!-- <hr class="dashed"> -->
 <h3>Practice One</h3>
 <p class="annotation">Abstract fragment shader patterns animated over time. (Part of assignment one.)</p>
 <div class="flex_grid gallery">
@@ -147,8 +148,9 @@
 {#if practice_2.filter((practice) => {
     return selected_category =='all' || practice.categories.includes(selected_category);
 }).length > 0}
+<!-- <hr class="dashed"> -->
 <h3>Practice Two</h3>
-<p class="annotation">Raytracing of balls. (Part of assignment two.)</p>
+<p class="annotation">Raytracing of spheres. (Part of assignment two.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 

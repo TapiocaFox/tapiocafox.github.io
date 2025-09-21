@@ -1,6 +1,8 @@
 <script lang="ts">
-  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=null, callback = () => {}, selectable = true, sticky=false} = $props();
-  let selected_index = $state(values.indexOf(selected_value));
+  let {names = [], values = [], inline_icons=[], dividers=[], selected_value=$bindable(null), callback = () => {}, selectable = true, sticky=false} = $props();
+  let selected_index = $derived(values.indexOf(selected_value));
+  // whenever selected_value changes, update selected_index
+    // $: selected_index = values.indexOf(selected_value);
 </script>
 <style>
     div.chip-container {
@@ -91,7 +93,7 @@
         {#if dividers.includes(values[index])}<div class="divider"></div>{/if}{#if selectable && selected_index == index}
             <button class="selected" onclick={() => {
                 const default_behaviour = callback(values[index]);
-                if(default_behaviour==null||default_behaviour) selected_index = index;
+                if(default_behaviour==null||default_behaviour) selected_value = values[index];
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph inverted" alt="Inline Icon" src={inline_icons[index]}>
@@ -101,7 +103,7 @@
         {:else}
             <button class="" onclick={() => {
                 const default_behaviour = callback(values[index]);
-                if(default_behaviour==null||default_behaviour) selected_index = index;
+                if(default_behaviour==null||default_behaviour) selected_value = values[index];
             }}><span class="text">
                 {#if inline_icons.length>0 && inline_icons[index]!=null}
                     <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>

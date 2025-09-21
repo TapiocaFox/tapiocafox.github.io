@@ -3,6 +3,7 @@
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     
+    import { tick } from 'svelte';
     import { EditorView, basicSetup } from "codemirror";
     import { keymap } from '@codemirror/view';
     import { indentUnit } from "@codemirror/language";
@@ -65,30 +66,107 @@
     const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
 
     let view_mode = $state($viewModeStorage);
-    let javascript_error = $state(null);
+    let javascript_error = $state<string | null>(null);
+    let error_message = $state<string | null>(null);
     // let view_mode = $state('js');
     // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
     let js_src = $state(default_js);
-    const selected_index = $state(`view_${$viewModeStorage}`);
+    let selected_value = $state(`view_${$viewModeStorage}`);
+
+    function scrollToTop() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    }
+
+    function scrollToEditorCursor(view: EditorView) {
+        if (!view) return;
+
+        const pos = view.state.selection.main.head;
+
+        view.dispatch({
+            effects: EditorView.scrollIntoView(pos, {
+            y: "center",   // center vertically
+            x: "nearest",  // only scroll horizontally if needed
+            }),
+        });
+    }
+
 
     const keymapExtension = keymap.of([indentWithTab]);
-    const saveKeymapExtension = Prec.highest(keymap.of([{
-        key: "Mod-s",
-        run({ state }) {
-            // console.log(state.doc.toString()); 
-            snapshot();
-            return true;
+    const modKeymapExtension = Prec.highest(keymap.of([{
+            key: "Mod-s",
+            run({ state }) {
+                // console.log(state.doc.toString()); 
+                snapshot();
+                return true;
+            }
+        }, 
+        {
+            key: "Mod-r",
+            run({ state }) {
+                reset();
+                return true;
+            }
+        }, 
+        {
+            key: "Mod-1",
+            run({ state }) {
+                selected_value = 'view_all';
+                view_mode = 'all';
+                viewModeStorage.set('all');
+                // scrollToTop();
+                tick().then(() => {
+                    scrollToEditorCursor(vertexShaderEditorView);
+                    vertexShaderEditorView.focus();
+                });
+                return true;
+            }
+        }, 
+        {
+            key: "Mod-2",
+            run({ state }) {
+                selected_value = 'view_vert';
+                view_mode = 'vert';
+                viewModeStorage.set('vert');
+                // scrollToTop();
+                tick().then(() => {
+                    scrollToEditorCursor(vertexShaderEditorView);
+                    vertexShaderEditorView.focus();
+                });
+                return true;
+            }
+        }, 
+        {
+            key: "Mod-3",
+            run({ state }) {
+                selected_value = 'view_frag';
+                view_mode = 'frag';
+                viewModeStorage.set('frag');
+                // scrollToTop();
+                tick().then(() => {
+                    scrollToEditorCursor(fragmentShaderEditorView);
+                    fragmentShaderEditorView.focus();
+                });
+                return true;
+            }
+        }, 
+        {
+            key: "Mod-4",
+            run({ state }) {
+                selected_value = 'view_js';
+                view_mode = 'js';
+                viewModeStorage.set('js');
+                // scrollToTop();
+                tick().then(() => {
+                    scrollToEditorCursor(javascriptEditorView);
+                    javascriptEditorView.focus();
+                });
+                return true;
+            }
         }
-    }, 
-    {
-        key: "Mod-r",
-        run({ state }) {
-            reset();
-            return true;
-        }
-    }]));
+    ]));
     const indentUnitExtension = indentUnit.of('    ');
     const errorLinterCompartment = new Compartment();
 
@@ -114,7 +192,7 @@
             doc: vert_shader_src,
             extensions: [basicSetup, glsl(), 
             keymapExtension, 
-            saveKeymapExtension, 
+            modKeymapExtension, 
             indentUnitExtension,
             EditorView.lineWrapping,
             errorLinterCompartment.of([])]
@@ -125,7 +203,7 @@
             doc: frag_shader_src,
             extensions: [basicSetup, glsl(), 
             keymapExtension, 
-            saveKeymapExtension, 
+            modKeymapExtension, 
             indentUnitExtension, 
             EditorView.lineWrapping,
             errorLinterCompartment.of([])]
@@ -137,7 +215,7 @@
             extensions: [basicSetup, 
             javascript(), 
             keymapExtension, 
-            saveKeymapExtension, 
+            modKeymapExtension, 
             indentUnitExtension, 
             EditorView.lineWrapping,
             errorLinterCompartment.of([])]
@@ -257,8 +335,14 @@
 
         if(type === 'vert' || type === 'frag') {
             let view: EditorView;
-            if (type === "vert") view = vertexShaderEditorView;
-            else if (type === "frag") view = fragmentShaderEditorView;
+            if (type === "vert") {
+                // error_message = `Vertex shader error: ${error}`;
+                view = vertexShaderEditorView;
+            }
+            else if (type === "frag") {
+                // error_message = `Fragment shader error: ${error}`;
+                view = fragmentShaderEditorView;
+            }
             else return;
 
             const linterExtension = createShaderLinter(error);
@@ -270,6 +354,7 @@
         else if(type === 'js') {
             // console.log('JavaScript Error', error);
             javascript_error = error.toString();
+            // error_message = `JavaScript shader error: ${javascript_error}`;
             const linterExtension = createEvalLinter(error);
 
             javascriptEditorView.dispatch({
@@ -335,10 +420,10 @@
 </style>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['Reset (R)', 'Snapshot (S)', 'Share', 'All', 'Vertex', 'Fragment', 'Javascript']}
+    names={['Reset | R', 'Snapshot | S', 'Share', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'Javascript | 4']}
     values={['reset', 'snapshot', 'share', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, share_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
-    selected_value={selected_index}
+    bind:selected_value={selected_value}
     dividers={['view_all']}
     sticky={true}
     callback={(value: any) => {
@@ -357,18 +442,23 @@
         else if(value == 'view_all') {
             view_mode = 'all';
             viewModeStorage.set('all');
+            scrollToTop();
         }
         else if(value == 'view_vert') {
             view_mode = 'vert';
             viewModeStorage.set('vert');
+            scrollToTop();
         }
         else if(value == 'view_frag') {
             view_mode = 'frag';
             viewModeStorage.set('frag');
+            scrollToTop();
         }
         else if(value == 'view_js') {
             view_mode = 'js';
             viewModeStorage.set('js');
+            scrollToTop();
+
         }
         return true;
     }}
@@ -385,6 +475,7 @@
             bind:this={vertex_shader_editor} 
             class="editor-container">
             </div>
+            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
 
             <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
@@ -393,6 +484,7 @@
             bind:this={fragment_shader_editor} 
             class="editor-container">
             </div>
+            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
             <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
@@ -404,6 +496,8 @@
             bind:this={javascript_editor} 
             class="editor-container">
             </div>
+            <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
+
             <p class="annotation">Site version: ({version})</p>
         </div>
     </div>
@@ -411,6 +505,9 @@
         <div class="canvas-container">
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit} onerror={onError}/>
             <div class="info-container">
+                {#if error_message != null}
+                <p class="annotation" style:width="auto" style:color="red">{error_message}</p>
+                {/if}
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
                 {#if $snapshotsStorage.length == 0}
                 <!-- <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p> -->
