@@ -571,7 +571,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with my own conventions. (Ctrl+Key or ⌘+Key for shortcuts)</p>
+<p class="annotation">This is a simple WebGL 2 editor with my own conventions.</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -645,7 +645,7 @@
                     </tbody>
                 </table>
                 {/if}
-                <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p>
+                <p class="annotation">Saved source codes will be listed here.<br>(Shortcuts: Ctrl+Key or ⌘+Key)</p>
             </div>
         </div>
     </div>
