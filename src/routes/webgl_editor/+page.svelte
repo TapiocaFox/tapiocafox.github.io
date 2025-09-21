@@ -75,6 +75,7 @@
     let selected_value = $state(`view_${$viewModeStorage}`);
 
     let mounted = $state(false);
+    let anything_changed = false;
 
     function scrollToTop() {
         document.body.scrollTop = 0; // For Safari
@@ -187,13 +188,14 @@
         const url_frag = page.url.searchParams.get("frag");
         const url_js = page.url.searchParams.get("js");
 
-        if((url_vert!=null || url_frag!=null || url_js!=null) && confirm(override_message)) {
+        if((url_vert!=null || url_frag!=null || url_js!=null)) {
             if(url_vert) vert_shader_src = url_vert;
             if(url_frag) frag_shader_src = url_frag;
             if(url_js && url_js!=js_src) {
                 const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
                 if(use_url_js) js_src = url_js;
             };
+            anything_changed = true;
         }
         else if(snapshot != null) {
             vert_shader_src = snapshot.vert;
@@ -248,17 +250,20 @@
         setTimeout(refreshLoop, refreshInterval);
     };
 
+
     function refresh() {
         const vert_shader_editor_src = vertexShaderEditorView.state.doc.toString();
         if(vert_shader_editor_src!=vert_shader_src) {
             clearErrors(vertexShaderEditorView);
             vert_shader_src = vert_shader_editor_src;
+            anything_changed = true;
         }
 
         const frag_shader_editor_src = fragmentShaderEditorView.state.doc.toString();
         if(frag_shader_editor_src!=frag_shader_src) {
             clearErrors(fragmentShaderEditorView);
             frag_shader_src = frag_shader_editor_src;
+            anything_changed = true;
         }
 
         const js_editor_src = javascriptEditorView.state.doc.toString();
@@ -266,6 +271,7 @@
             clearErrors(javascriptEditorView);
             javascript_error = null;
             js_src = js_editor_src;
+            anything_changed = true;
         }
         // console.log('run');
         // console.log(vert_shader_src);
@@ -359,7 +365,7 @@
     function beforeUnload() {
         // lastSnapshot.set(newSnapshot());
         // return leave_message;
-        if (confirm(leave_message)) {
+        if (anything_changed&&confirm(leave_message)) {
             // cancel();
             lastSnapshot.set(newSnapshot());
         }
@@ -371,7 +377,7 @@
 
     beforeNavigate(({ cancel }) => {
         // lastSnapshot.set(newSnapshot());
-        if (confirm(leave_message)) {
+        if (anything_changed&&confirm(leave_message)) {
             // cancel();
             lastSnapshot.set(newSnapshot());
         }
