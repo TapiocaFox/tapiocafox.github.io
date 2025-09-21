@@ -321,7 +321,8 @@
     function downloadSnapshot(snapshot: Snapshot) {
         const json = JSON.stringify(snapshot, null, 2);
 
-        const blob = new Blob([json], { type: "text/plain" });
+        // Use a neutral "binary" type so Safari won't meddle with the extension
+        const blob = new Blob([json], { type: "application/octet-stream" });
         const url = URL.createObjectURL(blob);
 
         const a = document.createElement("a");
