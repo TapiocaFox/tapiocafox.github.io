@@ -23,8 +23,9 @@
   import bulb_icon from '$lib/assets/icons/bulb.svg';
   import stack_icon from '$lib/assets/icons/stack.svg';
   import blueprint_icon from '$lib/assets/icons/blueprint.svg';
-  // import sword_icon from '$lib/assets/icons/sword.svg';
   import grid_icon from '$lib/assets/icons/grid.svg';
+  // import sword_icon from '$lib/assets/icons/sword.svg';
+  // import grid_icon from '$lib/assets/icons/grid.svg';
   import person_icon from '$lib/assets/icons/person.svg';
   import pen_swirl_icon from '$lib/assets/icons/pen-swirl.svg';
 

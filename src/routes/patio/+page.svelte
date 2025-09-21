@@ -20,7 +20,7 @@
   names={['Karaoke', 'Retina', 'Pictures']} 
   values={['music', 'videos', 'pictures', 'portals', 'other']}
   dividers={['pictures']}
-  inline_icons={[null, null, picture_icon]}
+  inline_icons={[karaoke_icon, eye_icon, picture_icon]}
   selected_value={selected_category}
   callback={(value: any) => {
     // console.log(value, value == 'photos');
