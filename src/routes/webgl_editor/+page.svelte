@@ -320,10 +320,19 @@
 
     function downloadSnapshot(snapshot: Snapshot) {
         const json = JSON.stringify(snapshot, null, 2);
+
+        const blob = new Blob([json], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+
         const a = document.createElement("a");
-        a.href = "data:application/json;charset=utf-8," + encodeURIComponent(json);
+        a.href = url;
         a.download = `${snapshot.name}.${extension}`;
+
+        document.body.appendChild(a);
         a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url);
     }
 
     function shareSnapshot(snapshot: Snapshot) {
@@ -645,7 +654,7 @@
                     </tbody>
                 </table>
                 {/if}
-                <p class="annotation">Saved source codes will be listed here.<br>(Shortcuts: Ctrl+Key or ⌘+Key)</p>
+                <p class="annotation">Saved states will be listed here.<br>(Shortcuts: Ctrl+Key or ⌘+Key)</p>
             </div>
         </div>
     </div>
