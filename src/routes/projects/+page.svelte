@@ -33,6 +33,7 @@
 <ChipsWithUrlState 
   names={['All categories', 'Highlights', 'Ongoing', 'Other']} 
   values={['all', 'highlights', 'ongoing', 'other']}
+  dividers={['highlights']}
   selected_value={selected_category}
   callback={(value: any) => {
     selected_category = value;

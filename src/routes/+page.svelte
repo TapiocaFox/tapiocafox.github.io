@@ -43,8 +43,8 @@
             alt="Profile"
             style:border-radius="var(--sharper-radius)"
             style:margin="1rem 0"
-            style:width="125px"
-            style:height="125px"/>
+            style:width="128px"
+            style:height="128px"/>
         </div>
         <div class="description">
             <div>
