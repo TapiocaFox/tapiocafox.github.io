@@ -26,7 +26,7 @@
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
 	<!-- <a href="/components">[Components]</a> -->
 	<a href="/projects">[Projects]</a>
-	<a href="/webgl_editor">[WebGL]</a>
+	<a href="/webgl_editor">[FoxGL]</a>
 	<a href="/artworks">[Artworks]</a>
 	<a href="/patio">[Patio]</a>
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
