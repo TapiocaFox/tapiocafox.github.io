@@ -1,3 +1,5 @@
+import { writable } from "svelte/store";
+
 export type Snapshot = {
     name: string;
     timestamp: number;
@@ -8,3 +10,5 @@ export type Snapshot = {
 };
 
 export const extension: string = 'fgl';
+
+export const nextSnapshot = writable(null);

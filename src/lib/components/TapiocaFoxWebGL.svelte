@@ -6,6 +6,7 @@
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from './TapiocaFoxGl';
+    import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
 
@@ -313,7 +314,15 @@
 
 
     function clickEditButton() {
-        goto(`/webgl_editor/?vert=${encodeURIComponent(vertex_shader)}&frag=${encodeURIComponent(fragment_shader)}&js=${encodeURIComponent(javascript)}`);
+        nextSnapshot.set({
+            name: '',
+            timestamp: 0,
+            img: '',
+            vert: vertex_shader,
+            frag: fragment_shader,
+            js: javascript
+        });
+        goto(`/webgl_editor/`);
     }
     
 </script>

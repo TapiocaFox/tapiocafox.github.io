@@ -15,7 +15,7 @@
     import { onMount } from 'svelte';
     import { page } from '$app/state';
 
-    import { type Snapshot, extension } from './snapshot';
+    import { type Snapshot, nextSnapshot, extension } from './snapshot';
     import storage from '$lib/store'
 
     import version from '$lib/version';
@@ -213,7 +213,7 @@
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         const glsl = browserRenderMod.glsl;
 
-        const snapshot = $lastSnapshot;
+        // const snapshot = $lastSnapshot;
 
         const url_vert = page.url.searchParams.get("vert");
         const url_frag = page.url.searchParams.get("frag");
@@ -227,16 +227,23 @@
                 if(use_url_js) js_src = url_js;
             };
             anything_changed = true;
+            history.replaceState(history.state, '', page.url.pathname);
         }
-        else if(snapshot != null) {
-            vert_shader_src = snapshot.vert;
-            frag_shader_src = snapshot.frag;
-            js_src = snapshot.js;
+        else if($nextSnapshot != null) {
+            vert_shader_src = $nextSnapshot.vert;
+            frag_shader_src = $nextSnapshot.frag;
+            js_src = $nextSnapshot.js;
+            anything_changed = true;
+            nextSnapshot.set(null);
+        }
+        else if($lastSnapshot != null) {
+            vert_shader_src = $lastSnapshot.vert;
+            frag_shader_src = $lastSnapshot.frag;
+            js_src = $lastSnapshot.js;
         }
         
         // clears all query parameters
         // goto(page.url.pathname, { replaceState: true });
-        history.replaceState(history.state, '', page.url.pathname);
 
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
