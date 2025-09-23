@@ -607,7 +607,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             
             <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack. To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>.</p>
+            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack.</p>
             {#if javascript_error != null}
             <p class="annotation" style:color="red">{javascript_error}</p>
             {/if}
