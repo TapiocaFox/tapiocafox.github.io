@@ -403,9 +403,10 @@
     // const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
     const leave_message = 'Do you want to save and override as the last state?';
 
-    function beforeUnload() {
+    function beforeUnload(event: BeforeUnloadEvent) {
         // lastSnapshot.set(newSnapshot());
         // return leave_message;
+        event.preventDefault();
         if (anything_changed&&confirm(leave_message)) {
             // cancel();
             lastSnapshot.set(newSnapshot());
@@ -413,7 +414,8 @@
         // else {
         //     lastSnapshot.set(newSnapshot());
         // }
-        return null;
+        
+        // return null;
     };
 
     beforeNavigate(({ cancel }) => {
@@ -486,7 +488,7 @@
     }
 
 </script>
-<svelte:window on:beforeunload={beforeUnload}/>
+<svelte:window onbeforeunload={beforeUnload}/>
 <style>
     div.editor-layout {
         display: flex;
@@ -534,7 +536,7 @@
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vertex | 2', 'Fragment | 3', 'JavaScript | 4']}
+    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4']}
     values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js']}
     inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
     bind:selected_value={selected_value}

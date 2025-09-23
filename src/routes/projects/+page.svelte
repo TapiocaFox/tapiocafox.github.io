@@ -18,6 +18,10 @@
     import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
+    import reflective_spheres_vert from '$lib/assets/webgl/practice_2/reflective_spheres.vert?raw';
+    import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
+    import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
+
     import github_icon from '$lib/assets/icons/github.svg';
     import google_play_icon from '$lib/assets/icons/google_play.svg';
     import discord_icon from '$lib/assets/icons/discord.svg';
@@ -57,6 +61,7 @@
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={balls}/>
+        <GlslCanvas mode='preview' vertex_shader={reflective_spheres_vert} fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/>
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={spiral}/>
     </div>
 </div>

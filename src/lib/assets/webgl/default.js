@@ -34,8 +34,8 @@ const onpointermove = async event => {
 };
 
 const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
-    foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
+    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
 });
 
 // Render per animation frame.
@@ -50,8 +50,8 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
-    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.width);
-    foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.width.toFixed(1)})`);
+    gl.uniform2f(gl.getUniformLocation(program, 'u_resolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('u_resolution', `u_resolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     window.addEventListener('resize', onresize);

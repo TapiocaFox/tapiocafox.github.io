@@ -19,6 +19,9 @@
     import spheres_vert from '$lib/assets/webgl/practice_2/spheres.vert?raw';
     import spheres_frag from '$lib/assets/webgl/practice_2/spheres.frag?raw';
     import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
+    import reflective_spheres_vert from '$lib/assets/webgl/practice_2/reflective_spheres.vert?raw';
+    import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
+    import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -74,7 +77,13 @@
             frag: spheres_frag,
             js: spheres_js,
             categories: []
-        }
+        },
+        {
+            vert: reflective_spheres_vert,
+            frag: reflective_spheres_frag,
+            js: reflective_spheres_js,
+            categories: []
+        },
     ]);
 
 </script>
@@ -133,7 +142,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice One</h3>
-<p class="annotation">Abstract fragment shader patterns animated over time. (Part of assignment one.)</p>
+<p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p>
 <div class="flex_grid gallery">
     {#each practice_1 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
@@ -150,7 +159,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice Two</h3>
-<p class="annotation">Raytracing of spheres. (Part of assignment two.)</p>
+<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
