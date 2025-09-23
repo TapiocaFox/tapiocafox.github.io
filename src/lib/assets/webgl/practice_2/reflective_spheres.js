@@ -23,7 +23,7 @@ const program = foxGL.program;
 const canvas = foxGL.canvas;
 let destroyed = false;
 
-const NS = 3;
+const NS = 4;
 const NL = 3;
 
 const PI = 3.141592653589793;
@@ -77,6 +77,8 @@ function animate() {
     const s = Math.sin(deg);
     const s_thrid = Math.sin(2*uTime);
     const c_thrid = Math.cos(uTime);
+    const s_fourth = Math.sin(2*(uTime-.33*PI));
+    const c_fourth = Math.cos(uTime-.33*PI);
     const c = Math.cos(deg);
 
     // Spheres.
@@ -93,7 +95,8 @@ function animate() {
     }
     gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ -.4*s,0,-.4*c,.35,
                               .4*s,0,.4*c,.35,
-                               thridSphere].flat());
+                               thridSphere,
+                              .7*c_fourth,.7*s_fourth,.1,.225].flat());
     // Spheres' colors.
     let thridSphereC = [.5,1,.5];
     if(enlarge) {
@@ -105,7 +108,8 @@ function animate() {
     }
     gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 1,.2,.2,
                              .25,.5,1,
-                              thridSphereC].flat());
+                              thridSphereC,
+                             0.2,0.,0.].flat());
     // Lights.
     gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ normalize([1,1,1]),
                              normalize([-1,-1,-.5]),

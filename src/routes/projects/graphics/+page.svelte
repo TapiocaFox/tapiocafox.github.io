@@ -82,7 +82,7 @@
             vert: reflective_spheres_vert,
             frag: reflective_spheres_frag,
             js: reflective_spheres_js,
-            categories: []
+            categories: ['noise']
         },
     ]);
 
