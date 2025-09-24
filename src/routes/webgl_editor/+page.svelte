@@ -60,11 +60,11 @@
     const refreshInterval = 500;
 
 
-    const snapshotsStorage = storage<Snapshot[]>('webgl_editor_snapshot', []);
-    const viewModeStorage = storage<string>('webgl_editor_view_mode', 'all');
-    const lastSnapshot = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
+    const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
+    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'all');
+    const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
 
-    let view_mode = $state($viewModeStorage);
+    let view_mode = $derived($viewModeStorage);
     let javascript_error = $state<string | null>(null);
     let error_message = $state<string | null>(null);
     // let view_mode = $state('js');
@@ -72,7 +72,7 @@
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
     let js_src = $state(default_js);
-    let selected_value = $state(`view_${$viewModeStorage}`);
+    let selected_value = $derived(`view_${$viewModeStorage}`);
 
     let mounted = $state(false);
     let anything_changed = false;
@@ -211,6 +211,7 @@
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
+        await lastSnapshotReady;
         const glsl = browserRenderMod.glsl;
 
         // const snapshot = $lastSnapshot;

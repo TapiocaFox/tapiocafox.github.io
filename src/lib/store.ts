@@ -2,32 +2,29 @@
 
 import { browser } from '$app/environment';
 import type { Writable } from 'svelte/store';
-import { writable, get } from 'svelte/store'
+import { writable } from 'svelte/store';
+import { get as idbGet, set as idbSet, del as idbDel } from 'idb-keyval';
 
-const storage = <T>(key: string, initValue: T): Writable<T> => {
-    const store = writable(initValue);
-    if (!browser) return store;
 
-    const storedValueStr = localStorage.getItem(key);
-    if (storedValueStr != null) store.set(JSON.parse(storedValueStr));
+export const storage = <T>(key: string, initValue: T) => {
+    const store = writable<T>(initValue);
 
-    store.subscribe((val) => {
-        if (val == null) {
-            localStorage.removeItem(key);
-        } else {
-            localStorage.setItem(key, JSON.stringify(val));
-        }
+    if (!browser) return { store, ready: Promise.resolve() };
+
+    let resolveReady: () => void;
+    const ready = new Promise<void>((resolve) => (resolveReady = resolve));
+
+    idbGet<T>(key).then((storedValue) => {
+        if (storedValue !== undefined) store.set(storedValue);
+        resolveReady!();
     });
 
-    window.addEventListener('storage', () => {
-        const storedValueStr = localStorage.getItem(key);
-        if (storedValueStr == null) return;
-
-        const localValue: T = JSON.parse(storedValueStr)
-        if (localValue !== get(store)) store.set(localValue);
+    store.subscribe((val: T | null) => {
+        if (val == null) idbDel(key);
+        else idbSet(key, val);
     });
 
-    return store;
-}
+    return { store, ready };
+};
 
-export default storage
+export default storage;

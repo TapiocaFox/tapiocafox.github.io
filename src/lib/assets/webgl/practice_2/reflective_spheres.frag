@@ -230,6 +230,6 @@ void main() {
         }
     }
     
-    fragColor = vec4(sqrt(F.rgb), F.a);
+    fragColor = vec4(pow(F.rgb, vec3(1.0/2.2)), F.a);
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
 }
