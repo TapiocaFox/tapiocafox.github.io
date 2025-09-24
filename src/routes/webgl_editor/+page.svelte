@@ -591,7 +591,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with a little bits of Fox's spices.</p>
+<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices.</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
