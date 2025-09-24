@@ -80,9 +80,9 @@
 
     div.divider {
         display: inline-block;
-        border-left: 1px solid black;
+        border-right: 1px solid black;
         height: 1em;
-        width: 1px;
+        /* width: 1px; */
         /* margin-left: .25em; */
         margin-right: calc(.5em - 1px);
         vertical-align: middle;
