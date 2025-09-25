@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as X,aF as N,f as h,e as g,a as u,b as Z,s as o,ay as $,o as e,az as Y,aw as K,c,r as i,g as R}from"../chunks/Dxy-1hnp.js";import{i as S}from"../chunks/BwbxmXUg.js";import{e as M,i as F}from"../chunks/CWPwvf75.js";import{C as J}from"../chunks/C1MJhBKe.js";import{H as Q}from"../chunks/Dp6Xk5f_.js";import{e as E,T as x}from"../chunks/B-EhnTfP.js";import{d as v}from"../chunks/Dt_FDJKa.js";import{m as k}from"../chunks/DbXFAmff.js";import{a as ee,r as ne,b as te}from"../chunks/B0Okte5W.js";import{g as oe}from"../chunks/BFLcjsqX.js";const ie=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as H,aF as R,f as h,e as g,a as u,b as V,s as r,ay as X,o as e,az as Z,aw as $,c as m,r as s,g as M}from"../chunks/Dxy-1hnp.js";import{i as S}from"../chunks/BwbxmXUg.js";import{e as G,i as N}from"../chunks/CWPwvf75.js";import{C as Y}from"../chunks/C1MJhBKe.js";import{H as K}from"../chunks/Dp6Xk5f_.js";import{e as E,T as f}from"../chunks/CdbO3hNG.js";import{d as c}from"../chunks/Dt_FDJKa.js";import{m as F}from"../chunks/DbXFAmff.js";import{a as J,b as Q,r as ee}from"../chunks/oQyP-IGq.js";import{g as ne}from"../chunks/WEferFd0.js";const te=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -9,7 +9,7 @@ out vec3 vPos;
 void main() {
     gl_Position = vec4(position, 1.);
     vPos = position;
-}`,re=`#version 300 es
+}`,oe=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -256,7 +256,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,se=`// Author: TapiocaFox
+}`,ie=`// Author: TapiocaFox
 // Title:  Reflective Spheres
 
 // Reference to foxGL (Only exposed APIs):
@@ -328,15 +328,16 @@ function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
     const uTime = (Date.now() - foxGL.startTime) / 1000;
+    const RATIO_TIME = 0.66;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
 
-    const deg = 0.25*PI*Math.sin(uTime);
+    const deg = 0.25*PI*Math.sin(RATIO_TIME*uTime);
     const s = Math.sin(deg);
-    const s_thrid = Math.sin(2*uTime);
-    const c_thrid = Math.cos(uTime);
-    const s_fourth = Math.sin(2*(uTime-.33*PI));
-    const c_fourth = Math.cos(uTime-.33*PI);
+    const s_thrid = Math.sin(2*RATIO_TIME*uTime);
+    const c_thrid = Math.cos(RATIO_TIME*uTime);
+    const s_fourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
+    const c_fourth = Math.cos(RATIO_TIME*uTime-.33*PI);
     const c = Math.cos(deg);
 
     // Spheres.
@@ -406,7 +407,7 @@ foxGL.onStop(async () => {
     window.removeEventListener('resize', onresize);
 });
 
-// console.log('JavaScript exited.');`,W=`#ifdef GL_ES
+// console.log('JavaScript exited.');`,k=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -437,7 +438,7 @@ void main() {
     vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
 
     gl_FragColor = vec4(color,1.0);
-}`,ae=`// Author: TapiocaFox
+}`,re=`// Author: TapiocaFox
 // Title: Fiber
 
 #ifdef GL_ES
@@ -487,7 +488,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     gl_FragColor = vec4(color,1.0);
-}`,ce=`// Author: TapiocaFox
+}`,se=`// Author: TapiocaFox
 // Title: Array
 
 #ifdef GL_ES
@@ -540,9 +541,8 @@ void main() {
         -smoothstep(-size_half_width+size_edge, -size_half_width-size_edge, -st_block);
     float z_block = min(z_st_block.x, z_st_block.y);
     
-    
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,ve=`// Author: TapiocaFox
+}`,ae=`// Author: TapiocaFox
 // Title: Colorful Snoise
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
@@ -667,4 +667,4 @@ void main() {
     color = mix(color, vec3(0.), pct_noise_b);
 
     gl_FragColor = vec4(color,1.0);
-}`,le="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var me=h('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),de=h('<div class="item shader_item svelte-ahq8ot"><!></div>'),ue=h('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),xe=h('<div class="item shader_item svelte-ahq8ot"><!></div>'),_e=h('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),fe=h("<!> <!>  <!> <!> <!>",1);function Ie(q,D){X(D,!0);let r=Y("all"),C=N([{vert:v,frag:ee,categories:["distortion"]},{vert:v,frag:ae,categories:["distortion"]},{vert:v,frag:ce,categories:[]},{vert:v,frag:ne,categories:["noise"]}]),z=N([{vert:ie,frag:re,js:se,categories:["noise"]}]);var w=fe(),b=g(w);Q(b,{text:"Graphics"});var P=o(b,2);{let t=K(()=>[null,null,null,le,E,E]);J(P,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(t)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(r)},callback:n=>{n=="editor"?oe("/webgl_editor"):$(r,n,!0)}})}var I=o(P,2);{var A=t=>{var n=me(),l=o(g(n),4),_=c(l),a=c(_);x(a,{get vertex_shader(){return v},get fragment_shader(){return k}}),i(_);var d=o(_,2),y=c(d);x(y,{get vertex_shader(){return v},get fragment_shader(){return W}}),i(d),i(l);var p=o(l,6),s=c(p),m=c(s);x(m,{get vertex_shader(){return v},get fragment_shader(){return k},mode:"preview"}),i(s);var f=o(s,2),O=c(f);x(O,{get vertex_shader(){return v},get fragment_shader(){return W},mode:"preview"}),i(f);var L=o(f,2),H=c(L);x(H,{get vertex_shader(){return v},get fragment_shader(){return ve},mode:"preview"}),i(L);var G=o(L,2),V=c(G);x(V,{get vertex_shader(){return v},get fragment_shader(){return te},mode:"preview"}),i(G),i(p),u(t,n)};S(I,t=>{e(r)=="debug"&&t(A)})}var T=o(I,2);{var B=t=>{var n=ue(),l=o(g(n),4);M(l,21,()=>C,F,(_,a)=>{var d=R(),y=g(d);{var p=s=>{var m=de(),f=c(m);x(f,{get vertex_shader(){return e(a).vert},get fragment_shader(){return e(a).frag}}),i(m),u(s,m)};S(y,s=>{(e(r)=="all"||e(a).categories.includes(e(r)))&&s(p)})}u(_,d)}),i(l),u(t,n)};S(T,t=>{C.filter(n=>e(r)=="all"||n.categories.includes(e(r))).length>0&&t(B)})}var U=o(T,2);{var j=t=>{var n=_e(),l=o(g(n),4);M(l,21,()=>z,F,(_,a)=>{var d=R(),y=g(d);{var p=s=>{var m=xe(),f=c(m);x(f,{get vertex_shader(){return e(a).vert},get fragment_shader(){return e(a).frag},get javascript(){return e(a).js}}),i(m),u(s,m)};S(y,s=>{(e(r)=="all"||e(a).categories.includes(e(r)))&&s(p)})}u(_,d)}),i(l),u(t,n)};S(U,t=>{z.filter(n=>e(r)=="all"||n.categories.includes(e(r))).length>0&&t(j)})}u(q,w),Z()}export{Ie as component};
+}`,ce="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var ve=h('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),le=h('<div class="item shader_item svelte-ahq8ot"><!></div>'),me=h('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),de=h('<div class="item shader_item svelte-ahq8ot"><!></div>'),ue=h('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),xe=h("<!> <!>  <!> <!> <!>",1);function be(A,O){H(O,!0);let o=Z("all"),L=R([{vert:c,frag:J,categories:["distortion"]},{vert:c,frag:Q,categories:[]},{vert:c,frag:re,categories:["distortion"]},{vert:c,frag:se,categories:[]},{vert:c,frag:ee,categories:["noise"]}]),C=R([{vert:te,frag:oe,js:ie,categories:["noise"]}]);var z=xe(),w=g(z);K(w,{text:"Graphics"});var b=r(w,2);{let t=$(()=>[null,null,null,ce,E,E]);Y(b,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(t)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(o)},callback:n=>{n=="editor"?ne("/webgl_editor"):X(o,n,!0)}})}var P=r(b,2);{var W=t=>{var n=ve(),v=r(g(n),4),x=m(v),a=m(x);f(a,{get vertex_shader(){return c},get fragment_shader(){return F}}),s(x);var d=r(x,2),y=m(d);f(y,{get vertex_shader(){return c},get fragment_shader(){return k}}),s(d),s(v);var p=r(v,6),i=m(p),l=m(i);f(l,{get vertex_shader(){return c},get fragment_shader(){return F},mode:"preview"}),s(i);var _=r(i,2),U=m(_);f(U,{get vertex_shader(){return c},get fragment_shader(){return k},mode:"preview"}),s(_);var T=r(_,2),j=m(T);f(j,{get vertex_shader(){return c},get fragment_shader(){return ae},mode:"preview"}),s(T),s(p),u(t,n)};S(P,t=>{e(o)=="debug"&&t(W)})}var I=r(P,2);{var D=t=>{var n=me(),v=r(g(n),4);G(v,21,()=>L,N,(x,a)=>{var d=M(),y=g(d);{var p=i=>{var l=le(),_=m(l);f(_,{get vertex_shader(){return e(a).vert},get fragment_shader(){return e(a).frag}}),s(l),u(i,l)};S(y,i=>{(e(o)=="all"||e(a).categories.includes(e(o)))&&i(p)})}u(x,d)}),s(v),u(t,n)};S(I,t=>{L.filter(n=>e(o)=="all"||n.categories.includes(e(o))).length>0&&t(D)})}var q=r(I,2);{var B=t=>{var n=ue(),v=r(g(n),4);G(v,21,()=>C,N,(x,a)=>{var d=M(),y=g(d);{var p=i=>{var l=de(),_=m(l);f(_,{get vertex_shader(){return e(a).vert},get fragment_shader(){return e(a).frag},get javascript(){return e(a).js}}),s(l),u(i,l)};S(y,i=>{(e(o)=="all"||e(a).categories.includes(e(o)))&&i(p)})}u(x,d)}),s(v),u(t,n)};S(q,t=>{C.filter(n=>e(o)=="all"||n.categories.includes(e(o))).length>0&&t(B)})}u(A,z),V()}export{be as component};

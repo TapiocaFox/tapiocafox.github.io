@@ -70,15 +70,16 @@ function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
     const uTime = (Date.now() - foxGL.startTime) / 1000;
+    const RATIO_TIME = 0.66;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
 
-    const deg = 0.25*PI*Math.sin(uTime);
+    const deg = 0.25*PI*Math.sin(RATIO_TIME*uTime);
     const s = Math.sin(deg);
-    const s_thrid = Math.sin(2*uTime);
-    const c_thrid = Math.cos(uTime);
-    const s_fourth = Math.sin(2*(uTime-.33*PI));
-    const c_fourth = Math.cos(uTime-.33*PI);
+    const s_thrid = Math.sin(2*RATIO_TIME*uTime);
+    const c_thrid = Math.cos(RATIO_TIME*uTime);
+    const s_fourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
+    const c_fourth = Math.cos(RATIO_TIME*uTime-.33*PI);
     const c = Math.cos(deg);
 
     // Spheres.

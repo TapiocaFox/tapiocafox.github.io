@@ -337,9 +337,10 @@
         border: 1px dotted var(--fox-background-color);
         color: white;
         cursor: crosshair;
+        /* border-radius: var(--sharper-radius); */
     }
     canvas.glsl.preview {
-        max-height: calc(var(--compact-width) * 0.25);
+        max-height: calc(var(--compact-width) * 0.25 - 2px);
         width: 100%;
         margin-right: var(--preview-row-gap);
     }

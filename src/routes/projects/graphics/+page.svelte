@@ -44,11 +44,11 @@
         //     shader: mouse,
         //     categories: ['debug']
         // },
-        // {
-        //     vert: default_vert_shader,
-        //     frag: balls,
-        //     categories: []
-        // },
+        {
+            vert: default_vert_shader,
+            frag: balls,
+            categories: []
+        },
         {
             vert: default_vert_shader,
             frag: fiber,
@@ -143,9 +143,9 @@
     <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} mode="preview"/>
     </div>
-    <div class="item shader_item">
+    <!-- <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
-    </div>
+    </div> -->
 </div>
 {/if}
 

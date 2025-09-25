@@ -10,7 +10,7 @@ precision mediump float;
 #define t_delay 0.05
 #define num_balls 16
 #define PI 3.1415926535897932
-
+#define ratio_time 0.66
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -26,7 +26,7 @@ void main() {
     	st.x *= u_resolution.x/u_resolution.y;
         
         for(int j=0; j<3; j++) {
-            float u_time_ch = u_time+(.5*sin(u_time+3.*float(i+1)))-float(3-j)*t_delay;
+            float u_time_ch = ratio_time*u_time+(.5*sin(ratio_time*u_time+3.*float(i+1)))-float(3-j)*t_delay;
         	// float u_time_ch = u_time-float(j)*t_delay;
 
 
