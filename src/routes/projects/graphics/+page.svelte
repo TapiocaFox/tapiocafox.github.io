@@ -127,6 +127,9 @@
     <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
     </div>
+    <div class="item shader_item">
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls}/>
+    </div>
 </div>
 <h3>Debug (Preview mode)</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
@@ -139,6 +142,9 @@
     </div>
     <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} mode="preview"/>
+    </div>
+    <div class="item shader_item">
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
     </div>
 </div>
 {/if}
