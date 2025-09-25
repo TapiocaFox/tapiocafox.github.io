@@ -30,11 +30,11 @@
     let selected_category = $state('all');
 
     let practice_1 = $state([
-        {
-            vert: default_vert_shader,
-            frag: default_frag_shader,
-            categories: []
-        },
+        // {
+        //     vert: default_vert_shader,
+        //     frag: default_frag_shader,
+        //     categories: []
+        // },
         {
             vert: default_vert_shader,
             frag: adhesive,
@@ -64,11 +64,11 @@
             frag: radiant,
             categories: ['noise']
         },
-        {
-            vert: default_vert_shader,
-            frag: snoise,
-            categories: ['noise']
-        }
+        // {
+        //     vert: default_vert_shader,
+        //     frag: snoise,
+        //     categories: ['noise']
+        // }
     ]);
 
     let practice_2 = $state([
@@ -124,6 +124,9 @@
     <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin}/>
     </div>
+    <div class="item shader_item">
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
+    </div>
 </div>
 <h3>Debug (Preview mode)</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
@@ -133,6 +136,9 @@
     </div>
     <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} mode="preview"/>
+    </div>
+    <div class="item shader_item">
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} mode="preview"/>
     </div>
 </div>
 {/if}

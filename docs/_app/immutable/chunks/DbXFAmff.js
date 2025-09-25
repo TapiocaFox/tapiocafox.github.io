@@ -1,19 +1,4 @@
-const o=`#ifdef GL_ES
-precision mediump float;
-#endif
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy;
-    st.x *= u_resolution.x/u_resolution.y;    
-    vec3 color = vec3(0.);
-    color = vec3(st.x,st.y,abs(sin(u_time)));
-
-    gl_FragColor = vec4(color,1.0);
-}`,n=`// Author: TapiocaFox
+const o=`// Author: TapiocaFox
 // Title: Mouse
 
 #ifdef GL_ES
@@ -55,4 +40,4 @@ void main() {
     vec3 color = mix(vec3(1.), color_grid, pct_grid);
     color = mix(color, color_point, pct);
     gl_FragColor = vec4(color,1.0);
-}`;export{o as d,n as m};
+}`;export{o as m};

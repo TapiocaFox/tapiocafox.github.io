@@ -171,6 +171,7 @@ uniform vec3 uViewPoint;
 #define SPEED_SIN 10.
 #define SCALE_SIN .015
 #define LOWER_BOUND_SIN .8
+#define SIZE_SHRINK_MOUSE 1.
 
 uniform int NS;
 uniform int NL;
@@ -388,7 +389,19 @@ void main() {
     }
     
     fragColor = vec4(pow(F.rgb, vec3(1.0/2.2)), F.a);
+
+    vec4 colorBg = vec4(0.);
+    colorBg = vec4(.5*sin(PI*(.25*vPos.x-uTime))+.5,.5*sin(PI*(.4*vPos.y-uTime))+.5,.5*sin(PI*uTime)+.5, 1.);
+    
+    float pctNoiseW = snoise(vec4(.8*SIZE_SHRINK_MOUSE*vPos.xy-vec2(.33*uTime), 0.7*uTime, 0.));
+    float pctNoiseB = 2.*snoise(vec4(.9*SIZE_SHRINK_MOUSE*vPos.xy-vec2(.33*uTime), 0.5*uTime, 0.));
+    
+    colorBg = mix(colorBg, vec4(1.), .25*pctNoiseW);    
+    colorBg = mix(colorBg, vec4(0., 0., 0., 1.), pctNoiseB);
+    colorBg = mix(vec4(0.,0.,0.,1.),colorBg,.15);
+
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
+    fragColor = mix(colorBg,fragColor,F.a);
 }`,r=`// Author: TapiocaFox
 // Title:  Reflective Spheres
 
