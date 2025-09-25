@@ -60,7 +60,7 @@
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>
-        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={balls}/>
+        <!-- <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={balls}/> -->
         <GlslCanvas mode='preview' vertex_shader={reflective_spheres_vert} fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/>
         <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={spiral}/>
     </div>

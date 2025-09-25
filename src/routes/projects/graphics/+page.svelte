@@ -44,11 +44,11 @@
         //     shader: mouse,
         //     categories: ['debug']
         // },
-        {
-            vert: default_vert_shader,
-            frag: balls,
-            categories: []
-        },
+        // {
+        //     vert: default_vert_shader,
+        //     frag: balls,
+        //     categories: []
+        // },
         {
             vert: default_vert_shader,
             frag: fiber,

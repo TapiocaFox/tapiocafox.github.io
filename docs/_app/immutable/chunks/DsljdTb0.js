@@ -1,52 +1,4 @@
-const n=`
-// Author: TapiocaFox
-// Title: Balls
-
-#ifdef GL_ES
-precision mediump float;
-#endif
-
-#define p_radius 0.2
-#define t_delay 0.05
-#define num_balls 16
-#define PI 3.1415926535897932
-
-
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
-
-vec3 l_directional = normalize(vec3(1., 1., 2.));
-vec3 l_ambient = vec3(0.7,0.78,0.92);
-
-void main() {
-	vec4 color = vec4(0., 0., 0., 1.);
-    for(int i=0; i<num_balls; i++) {
-        vec2 st = gl_FragCoord.xy/u_resolution*2.-1.;
-    	st.x *= u_resolution.x/u_resolution.y;
-        
-        for(int j=0; j<3; j++) {
-            float u_time_ch = u_time+(.5*sin(u_time+3.*float(i+1)))-float(3-j)*t_delay;
-        	// float u_time_ch = u_time-float(j)*t_delay;
-
-
-            vec2 st_ch = st;
-            st_ch.x -= sin(.5*u_time_ch+float(i));    
-            st_ch.y -= sin(2.*u_time_ch+float(i));
-
-            float z = sqrt(p_radius*p_radius-st_ch.x*st_ch.x-st_ch.y*st_ch.y);
-
-            vec3 stp = vec3(st_ch, z);
-
-            if(z>0.) {
-                float diffuse = dot(normalize(stp), l_directional);
-                color[j] = l_ambient[j]+diffuse;
-                color[3] = 1.;
-            }
-        }
-    }
-	gl_FragColor = color;
-}`,e=`// Author: TapiocaFox
+const n=`// Author: TapiocaFox
 // Title: Radiant
 
 #ifdef GL_ES
@@ -104,7 +56,7 @@ void main() {
 	
     
     gl_FragColor = vec4(color,1.0);
-}`,t=`// Author: TapiocaFox
+}`,e=`// Author: TapiocaFox
 // Title: Adhesive
 
 #ifdef GL_ES
@@ -144,7 +96,7 @@ void main() {
     else {
         gl_FragColor = vec4(0.,0.,0.,1.0);
     }
-}`,o=`#version 300 es
+}`,t=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -155,7 +107,7 @@ out vec3 vPos;
 void main() {
     gl_Position = vec4(position, 1.);
     vPos = position;
-}`,i=`#version 300 es
+}`,o=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -402,7 +354,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     fragColor = mix(colorBg,fragColor,F.a);
-}`,r=`// Author: TapiocaFox
+}`,i=`// Author: TapiocaFox
 // Title:  Reflective Spheres
 
 // Reference to foxGL (Only exposed APIs):
@@ -552,4 +504,4 @@ foxGL.onStop(async () => {
     window.removeEventListener('resize', onresize);
 });
 
-// console.log('JavaScript exited.');`;export{t as a,n as b,r as c,i as d,o as e,e as r};
+// console.log('JavaScript exited.');`;export{e as a,i as b,o as c,t as d,n as r};
