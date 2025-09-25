@@ -9,6 +9,7 @@ precision mediump float;
 #define gap 0.1
 #define half_stroke_size 0.02
 #define deg_r 0.2
+#define ratio_time 0.66
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -34,13 +35,13 @@ void main() {
     st = st*rot;
     st -= .5*st_mouse;
 	
-    st.x -= sin(3.*st.x-.5*PI*u_time);      
-    st.x -= sin(3.*st.y-.5*PI*u_time);    
-    st.y -= sin(3.*st.y+.5*PI*u_time);
-    st.y -= sin(3.*st.x+.5*PI*u_time);
+    st.x -= sin(3.*st.x-.5*PI*ratio_time*u_time);      
+    st.x -= sin(3.*st.y-.5*PI*ratio_time*u_time);    
+    st.y -= sin(3.*st.y+.5*PI*ratio_time*u_time);
+    st.y -= sin(3.*st.x+.5*PI*ratio_time*u_time);
     
     vec3 color = vec3(0.);
-    color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
+    color = vec3(abs(.25*sin(st.x+.95*PI*ratio_time*u_time)+.75),abs(.25*sin(st.y+.75*PI*ratio_time*u_time)+.75),abs(.25*sin(.5*PI*ratio_time*u_time)+.75));
     
     float pct = calc_bg(st);
     

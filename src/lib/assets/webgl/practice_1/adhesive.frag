@@ -7,6 +7,7 @@ precision mediump float;
 
 #define PI 3.14159265358979
 #define radius 0.75
+#define ratio_time 0.66
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -19,10 +20,10 @@ void main() {
     float r = radius;
     vec3 light = vec3(1., 1., 2.);
     
-    st.x += sin(5.*st.x+PI*u_time);      
-    st.x += sin(5.*st.y-PI*u_time);    
-    st.y += sin(5.*st.y+PI*u_time);
-    st.y += sin(5.*st.x+PI*u_time);    
+    st.x += sin(5.*st.x+PI*ratio_time*u_time);      
+    st.x += sin(5.*st.y-PI*ratio_time*u_time);    
+    st.y += sin(5.*st.y+PI*ratio_time*u_time);
+    st.y += sin(5.*st.x+PI*ratio_time*u_time);    
 
 
     float z = sqrt(r*r - st.x*st.x - st.y*st.y);
@@ -31,8 +32,8 @@ void main() {
     
     if(stp.p>0.) {
     	vec3 color = vec3(0.);
-    	color = vec3(st.x,st.y,abs(sin(u_time)));
-        float diffuse = step(abs(sin(u_time)),dot(stp, light));
+    	color = vec3(st.x,st.y,abs(sin(ratio_time*u_time)));
+        float diffuse = step(abs(sin(ratio_time*u_time)),dot(stp, light));
         gl_FragColor = vec4(vec3(diffuse)+color,1.0);
     }
     else {

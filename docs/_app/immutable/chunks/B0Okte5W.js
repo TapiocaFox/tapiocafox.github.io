@@ -84,14 +84,14 @@ void main() {
     vec3 color = vec3(1.);
     
     for(int i=0; i<3; i++) {
-        float x = u_time;
+        float x = .75*u_time;
         float tremor = d_shift*mix(sin(x), mix(sin(5.*x), mix(sin(5.*x), sin(12.*x), .9), .5), .2);
-        float u_time_ch = u_time+tremor*float(i);
+        float u_time_ch = .75*u_time+tremor*float(i);
         // float u_time_ch = u_time;
         
         float d = distance(st, vec2(0.));
         mat2 rot;
-        float r = sin(freq_rotate*PI*(d-u_time))-atan_mouse;
+        float r = sin(freq_rotate*PI*(d-.75*u_time))-atan_mouse;
         rot[0] = vec2(cos(r), -sin(r));    
         rot[1] = vec2(sin(r), cos(r));
         vec2 st_new = rot*st;
@@ -113,6 +113,7 @@ precision mediump float;
 
 #define PI 3.14159265358979
 #define radius 0.75
+#define ratio_time 0.66
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -125,10 +126,10 @@ void main() {
     float r = radius;
     vec3 light = vec3(1., 1., 2.);
     
-    st.x += sin(5.*st.x+PI*u_time);      
-    st.x += sin(5.*st.y-PI*u_time);    
-    st.y += sin(5.*st.y+PI*u_time);
-    st.y += sin(5.*st.x+PI*u_time);    
+    st.x += sin(5.*st.x+PI*ratio_time*u_time);      
+    st.x += sin(5.*st.y-PI*ratio_time*u_time);    
+    st.y += sin(5.*st.y+PI*ratio_time*u_time);
+    st.y += sin(5.*st.x+PI*ratio_time*u_time);    
 
 
     float z = sqrt(r*r - st.x*st.x - st.y*st.y);
@@ -137,8 +138,8 @@ void main() {
     
     if(stp.p>0.) {
     	vec3 color = vec3(0.);
-    	color = vec3(st.x,st.y,abs(sin(u_time)));
-        float diffuse = step(abs(sin(u_time)),dot(stp, light));
+    	color = vec3(st.x,st.y,abs(sin(ratio_time*u_time)));
+        float diffuse = step(abs(sin(ratio_time*u_time)),dot(stp, light));
         gl_FragColor = vec4(vec3(diffuse)+color,1.0);
     }
     else {

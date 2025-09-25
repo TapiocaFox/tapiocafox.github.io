@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as X,aF as N,f as h,e as g,a as u,b as Z,s as o,ay as $,o as e,az as Y,aw as K,c,r as i,g as R}from"../chunks/Dxy-1hnp.js";import{i as S}from"../chunks/BwbxmXUg.js";import{e as M,i as F}from"../chunks/CWPwvf75.js";import{C as J}from"../chunks/C1MJhBKe.js";import{H as Q}from"../chunks/Dp6Xk5f_.js";import{e as E,T as x}from"../chunks/CiFZlLRN.js";import{d as v}from"../chunks/Dt_FDJKa.js";import{m as k}from"../chunks/DbXFAmff.js";import{a as ee,r as ne,b as te}from"../chunks/BtcG8Acq.js";import{g as oe}from"../chunks/DX40r1Dm.js";const ie=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as X,aF as N,f as h,e as g,a as u,b as Z,s as o,ay as $,o as e,az as Y,aw as K,c,r as i,g as R}from"../chunks/Dxy-1hnp.js";import{i as S}from"../chunks/BwbxmXUg.js";import{e as M,i as F}from"../chunks/CWPwvf75.js";import{C as J}from"../chunks/C1MJhBKe.js";import{H as Q}from"../chunks/Dp6Xk5f_.js";import{e as E,T as x}from"../chunks/B-EhnTfP.js";import{d as v}from"../chunks/Dt_FDJKa.js";import{m as k}from"../chunks/DbXFAmff.js";import{a as ee,r as ne,b as te}from"../chunks/B0Okte5W.js";import{g as oe}from"../chunks/BFLcjsqX.js";const ie=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -448,6 +448,7 @@ precision mediump float;
 #define gap 0.1
 #define half_stroke_size 0.02
 #define deg_r 0.2
+#define ratio_time 0.66
 
 uniform vec2 u_resolution;
 uniform vec2 u_mouse;
@@ -473,13 +474,13 @@ void main() {
     st = st*rot;
     st -= .5*st_mouse;
 	
-    st.x -= sin(3.*st.x-.5*PI*u_time);      
-    st.x -= sin(3.*st.y-.5*PI*u_time);    
-    st.y -= sin(3.*st.y+.5*PI*u_time);
-    st.y -= sin(3.*st.x+.5*PI*u_time);
+    st.x -= sin(3.*st.x-.5*PI*ratio_time*u_time);      
+    st.x -= sin(3.*st.y-.5*PI*ratio_time*u_time);    
+    st.y -= sin(3.*st.y+.5*PI*ratio_time*u_time);
+    st.y -= sin(3.*st.x+.5*PI*ratio_time*u_time);
     
     vec3 color = vec3(0.);
-    color = vec3(abs(.25*sin(st.x+.95*PI*u_time)+.75),abs(.25*sin(st.y+.75*PI*u_time)+.75),abs(.25*sin(.5*PI*u_time)+.75));
+    color = vec3(abs(.25*sin(st.x+.95*PI*ratio_time*u_time)+.75),abs(.25*sin(st.y+.75*PI*ratio_time*u_time)+.75),abs(.25*sin(.5*PI*ratio_time*u_time)+.75));
     
     float pct = calc_bg(st);
     
@@ -501,7 +502,7 @@ precision mediump float;
 #define scale_rot .5
 #define scale_deg_r -0.01
 #define ratio_rot_interval 0.25
-
+#define ratio_time 0.66
 
 
 uniform vec2 u_resolution;
@@ -520,7 +521,7 @@ void main() {
     vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
     st.x *= u_resolution.x/u_resolution.y;
     
-    float deg_r = scale_deg_r*sin(ratio_rot_interval*u_time)+rot_base;
+    float deg_r = scale_deg_r*sin(ratio_rot_interval*ratio_time*u_time)+rot_base;
     mat2 rot2d;
     rot2d[0] = vec2(cos(deg_r), -sin(deg_r));    
     rot2d[1] = vec2(sin(deg_r), cos(deg_r));
@@ -528,7 +529,7 @@ void main() {
     st = rot2d*st;
     
     vec3 color = vec3(0.);
-    color = vec3(.5*sin(PI*(.25*st.x-u_time))+.5,.5*sin(PI*(.4*st.y-u_time))+.5,.5*sin(PI*u_time)+.5);
+    color = vec3(.5*sin(PI*(.25*st.x-ratio_time*u_time))+.5,.5*sin(PI*(.4*st.y-ratio_time*u_time))+.5,.5*sin(PI*ratio_time*u_time)+.5);
     
     vec2 st_block = st;
     st_block = mod(st_block-size_half_interval, 2.*size_half_interval)-size_half_interval;
