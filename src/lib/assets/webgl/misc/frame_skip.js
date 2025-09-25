@@ -25,6 +25,7 @@ let destroyed = false;
 let firstFrameRendered = false;
 let frameCount = 0;
 const frameSkip = 2;
+let doNotSkip = false;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -34,6 +35,11 @@ const onpointermove = async event => {
     const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
     foxGL.reportStatus('uMouse', `uMouse: (${uMouse_x.toFixed(1)}, ${uMouse_y.toFixed(1)})`);
+    doNotSkip = true;
+};
+
+const onpointerleave = async event => {
+    doNotSkip = false;
 };
 
 const resizeObserver = new ResizeObserver(entries => {
@@ -48,7 +54,7 @@ function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
     frameCount++;
-    if(firstFrameRendered && frameCount%frameSkip!=0) return;
+    if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) return;
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
@@ -62,6 +68,7 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerleave', onpointerleave);
     window.addEventListener('resize', onresize);
 });
 
@@ -70,6 +77,7 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
+    canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
 });
 
