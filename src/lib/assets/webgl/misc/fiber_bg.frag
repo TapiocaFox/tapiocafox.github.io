@@ -9,7 +9,7 @@ precision highp float;
 #define GAP 0.1
 #define SIZE_HALF_STROKE 0.0075
 #define DEG_ROTATION 0.4125
-#define SIZE_UNIT 1200.*1.
+#define PIXELS_PER_UNIT 1200.*1.
 
 #define TIME_RATIO_DISTORT 0.25
 #define TIME_RATIO_NOISE 0.25
@@ -120,7 +120,7 @@ float calcBackground(vec2 st) {
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/SIZE_UNIT*2.-1.;
+    vec2 st = gl_FragCoord.xy/PIXELS_PER_UNIT*2.-1.;
 
     mat2 rot;
     rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
