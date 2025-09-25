@@ -24,7 +24,9 @@ const canvas = foxGL.canvas;
 let destroyed = false;
 let firstFrameRendered = false;
 let frameCount = 0;
-const frameSkip = 2;
+let skippedFrameCount = 0;
+const frameSkip = 3;
+const frameSkipSkip = 3;
 let doNotSkip = false;
 
 // Declare listeners.
@@ -54,7 +56,10 @@ function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
     frameCount++;
-    if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) return;
+    if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
+        skippedFrameCount++;
+        if(skippedFrameCount%frameSkipSkip==0) return;
+    }
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
