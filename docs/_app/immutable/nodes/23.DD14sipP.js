@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as B,aF as G,f as h,e as p,a as d,b as Z,s as o,ay as J,o as e,az as Y,aw as K,c as v,r,g as R}from"../chunks/Dxy-1hnp.js";import{i as L}from"../chunks/BwbxmXUg.js";import{e as k,i as M}from"../chunks/CWPwvf75.js";import{C as Q}from"../chunks/C1MJhBKe.js";import{H as ee}from"../chunks/Dp6Xk5f_.js";import{e as A,T as _}from"../chunks/bRzvgi4F.js";import{d as i}from"../chunks/Dt_FDJKa.js";import{m as N}from"../chunks/DbXFAmff.js";import{a as ne,b as te,e as oe,r as re,c as se,d as ie}from"../chunks/SBKDeHmm.js";import{g as ae}from"../chunks/CAIlfPBU.js";const q=`#ifdef GL_ES
+import"../chunks/DsnmJJEf.js";import{p as B,aF as G,f as h,e as p,a as d,b as Z,s as o,ay as J,o as e,az as Y,aw as K,c as v,r,g as R}from"../chunks/Dxy-1hnp.js";import{i as L}from"../chunks/BwbxmXUg.js";import{e as k,i as M}from"../chunks/CWPwvf75.js";import{C as Q}from"../chunks/C1MJhBKe.js";import{H as ee}from"../chunks/Dp6Xk5f_.js";import{e as A,T as _}from"../chunks/Bu0G2uTA.js";import{d as i}from"../chunks/Dt_FDJKa.js";import{m as N}from"../chunks/DbXFAmff.js";import{a as ne,b as te,e as oe,r as re,c as se,d as ie}from"../chunks/SBKDeHmm.js";import{g as ae}from"../chunks/CwMnpwho.js";const q=`#ifdef GL_ES
 precision mediump float;
 #endif
 
@@ -336,6 +336,7 @@ void main() {
    }
 
    fragColor = vec4(sqrt(F.rgb), F.a);
+   fragColor = mix(vec4(0.,0.,0.,1.),fragColor, F.a);
 }`,ue=`// Author: TapiocaFox
 // Title:  Perlin Spheres
 
