@@ -72,12 +72,12 @@
     ]);
 
     let practice_2 = $state([
-        {
-            vert: spheres_vert,
-            frag: spheres_frag,
-            js: spheres_js,
-            categories: []
-        },
+        // {
+        //     vert: spheres_vert,
+        //     frag: spheres_frag,
+        //     js: spheres_js,
+        //     categories: []
+        // },
         {
             vert: reflective_spheres_vert,
             frag: reflective_spheres_frag,

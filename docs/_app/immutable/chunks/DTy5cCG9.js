@@ -552,4 +552,4 @@ foxGL.onStop(async () => {
     window.removeEventListener('resize', onresize);
 });
 
-// console.log('JavaScript exited.');`;export{t as a,n as b,i as c,o as d,e,r};
+// console.log('JavaScript exited.');`;export{t as a,n as b,r as c,i as d,o as e,e as r};
