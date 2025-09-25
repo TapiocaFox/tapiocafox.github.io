@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as V,aH as A,f as _,e as h,a as m,b as X,s,aA as Y,o as e,aB as K,aw as I,c as l,r as a,g as G}from"../chunks/DZkZtCze.js";import{i as L}from"../chunks/BqN49_Ip.js";import{e as O,i as F}from"../chunks/WbT_Ytci.js";import{C as J}from"../chunks/eUtxoRL_.js";import{H as Q}from"../chunks/CSR3d7US.js";import{d as p,e as N,T as f,a as ee}from"../chunks/DLWY1oqe.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as ne,b as te,r as oe}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/aRAzcBm7.js";const re=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as V,aH as A,f as _,e as h,a as m,b as X,s,aA as Y,o as e,aB as K,aw as I,c as l,r as a,g as G}from"../chunks/DZkZtCze.js";import{i as L}from"../chunks/BqN49_Ip.js";import{e as O,i as F}from"../chunks/WbT_Ytci.js";import{C as J}from"../chunks/eUtxoRL_.js";import{H as Q}from"../chunks/CSR3d7US.js";import{d as p,e as N,T as f,a as ee}from"../chunks/jx4551zt.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as ne,b as te,r as oe}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/BaPcPiKT.js";const re=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -305,7 +305,7 @@ const onpointermove = async event => {
 
 const onclick = async event => {
     enlarge = !enlarge;
-    foxGL.reportStatus('enlarge', \`enlarge: \${enlarge}\`);
+    foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`);
 };
 
 const pointerleave = async event => {
@@ -385,7 +385,7 @@ function animate() {
 // Register listeners on start.
 foxGL.onStart(async () => {
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`);
-    foxGL.reportStatus('enlarge', \`enlarge: \${enlarge}\`);
+    foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`);
     gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
     gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);

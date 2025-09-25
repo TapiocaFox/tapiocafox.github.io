@@ -47,7 +47,7 @@ const onpointermove = async event => {
 
 const onclick = async event => {
     enlarge = !enlarge;
-    foxGL.reportStatus('enlarge', `enlarge: ${enlarge}`);
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
 };
 
 const pointerleave = async event => {
@@ -127,7 +127,7 @@ function animate() {
 // Register listeners on start.
 foxGL.onStart(async () => {
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`);
-    foxGL.reportStatus('enlarge', `enlarge: ${enlarge}`);
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
     gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
     gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
