@@ -27,6 +27,7 @@
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
+    import box_icon from '$lib/assets/icons/box.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -211,6 +212,7 @@
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
+        const nextSnapshotStatic = $nextSnapshot;
         await lastSnapshotReady;
         const glsl = browserRenderMod.glsl;
 
@@ -231,9 +233,10 @@
             history.replaceState(history.state, '', page.url.pathname);
         }
         else if($nextSnapshot != null) {
-            vert_shader_src = $nextSnapshot.vert;
-            frag_shader_src = $nextSnapshot.frag;
-            js_src = $nextSnapshot.js;
+            const snapshot: Snapshot = $nextSnapshot;
+            vert_shader_src = snapshot.vert;
+            frag_shader_src = snapshot.frag;
+            js_src = snapshot.js;
             anything_changed = true;
             nextSnapshot.set(null);
         }
@@ -544,9 +547,9 @@
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4']}
-    values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js']}
-    inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon]}
+    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4', 'Assets']}
+    values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js', 'view_assets']}
+    inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon, box_icon]}
     bind:selected_value={selected_value}
     dividers={['view_all']}
     sticky={true}
@@ -588,10 +591,16 @@
             scrollToTop();
 
         }
+        else if(value == 'view_assets') {
+            view_mode = 'assets';
+            viewModeStorage.set('assets');
+            scrollToTop();
+
+        }
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices.</p>
+<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental, your data might be lost!)</p>
 <hr class="dashed" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -617,6 +626,11 @@
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
                 <div bind:this={javascript_editor} class="editor-container"></div>
+            </div>
+
+            <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
+                <h3>Textures <img class="inline-glyph" src={box_icon}/></h3>
+                <p class="annotation">(Under construction.)</p>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
