@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Passive uTime
+// Title:  Passive Render
 
 // Reference to foxGL (Only exposed APIs):
 // export interface TapiocaFoxGLContext {

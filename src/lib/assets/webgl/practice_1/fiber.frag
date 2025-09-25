@@ -7,7 +7,7 @@ precision highp float;
 
 #define PI 3.14159265358979
 #define GAP 0.1
-#define HALF_STROKE_SIZE 0.02
+#define SIZE_HALF_STROKE 0.02
 #define DEG_ROTATION 0.2
 #define RATIO_TIME 0.66
 
@@ -20,7 +20,7 @@ uniform float uTime;
 
 float calcBackground(vec2 st) {
     vec2 stMod = mod(st, GAP);
-    vec2 pctSt = smoothstep(GAP-HALF_STROKE_SIZE, GAP, stMod) + smoothstep(-HALF_STROKE_SIZE, 0., -stMod);
+    vec2 pctSt = smoothstep(GAP-SIZE_HALF_STROKE, GAP, stMod) + smoothstep(-SIZE_HALF_STROKE, 0., -stMod);
     return max(pctSt.x, pctSt.y);
 }
 

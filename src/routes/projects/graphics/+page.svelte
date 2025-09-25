@@ -8,7 +8,7 @@
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
-    import passive_utime_js from '$lib/assets/webgl/misc/passive_utime.js?raw';
+    import frame_skip_js from '$lib/assets/webgl/misc/frame_skip.js?raw';
     
     import mouse from '$lib/assets/webgl/misc/mouse.frag?raw';
     import snoise from '$lib/assets/webgl/misc/snoise.frag?raw';
@@ -42,7 +42,7 @@
         {
             vert: default_vert_shader,
             frag: adhesive,
-            js: passive_utime_js,
+            js: frame_skip_js,
             categories: ['distortion']
         },
         // {
@@ -51,22 +51,22 @@
         // },
         {
             frag: balls,
-            js: passive_utime_js,
+            js: frame_skip_js,
             categories: []
         },
         {
             frag: fiber,
-            js: passive_utime_js,
+            js: frame_skip_js,
             categories: ['distortion']
         },
         {
             frag: array,
-            js: passive_utime_js,
+            js: frame_skip_js,
             categories: []
         },
         {
             frag: radiant,
-            js: passive_utime_js,
+            js: frame_skip_js,
             categories: ['noise']
         },
         // {
@@ -124,10 +124,10 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_utime_js}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={frame_skip_js}/>
     </div>
     <div class="item shader_item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={passive_utime_js}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js}/>
     </div>
     <!-- <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
@@ -140,13 +140,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item shader_item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_utime_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={frame_skip_js} mode="preview"/>
     </div>
     <div class="item shader_item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={passive_utime_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js} mode="preview"/>
     </div>
     <div class="item shader_item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} javascript={passive_utime_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} javascript={frame_skip_js} mode="preview"/>
     </div>
     <!-- <div class="item shader_item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
