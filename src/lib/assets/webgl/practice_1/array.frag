@@ -51,6 +51,5 @@ void main() {
         -smoothstep(-size_half_width+size_edge, -size_half_width-size_edge, -st_block);
     float z_block = min(z_st_block.x, z_st_block.y);
     
-    
     gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
 }
