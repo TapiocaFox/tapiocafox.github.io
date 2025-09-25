@@ -29,7 +29,7 @@
     import edit_icon from '$lib/assets/icons/edit.svg';
     // import info_icon from '$lib/assets/icons/info.svg';
 
-    // import decoration from '$lib/assets/mejiro.png';
+    import decoration from '$lib/assets/tea.png';
 
     let selected_category = $state('all');
 </script>
@@ -125,4 +125,4 @@
 </div>
 {/if}
 
-<!-- <ArtDecoration src={decoration}/> -->
+<ArtDecoration src={decoration}/>
