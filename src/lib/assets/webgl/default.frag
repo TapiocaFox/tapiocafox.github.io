@@ -3,9 +3,7 @@
 // Author: TapiocaFox
 // Title:  Default
 
-#ifdef GL_ES
 precision highp float;
-#endif
 
 #define PI 3.1415926535897932384
 #define half_stroke 0.015

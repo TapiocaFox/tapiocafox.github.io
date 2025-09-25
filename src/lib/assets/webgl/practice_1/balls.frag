@@ -1,49 +1,51 @@
+#version 300 es
 
 // Author: TapiocaFox
 // Title: Balls
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
-#define p_radius 0.2
-#define t_delay 0.05
-#define num_balls 16
+#define P_RADIUS 0.2
+#define TIME_DELAY 0.05
+#define NUM_BALLS 16
 #define PI 3.1415926535897932
-#define ratio_time 0.66
+#define RATIO_TIME 0.66
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+in  vec3 vPos;
+out vec4 fragColor;
 
-vec3 l_directional = normalize(vec3(1., 1., 2.));
-vec3 l_ambient = vec3(0.7,0.78,0.92);
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
+
+vec3 lightDirectional = normalize(vec3(1., 1., 2.));
+vec3 lightAmbient = vec3(0.7,0.78,0.92);
 
 void main() {
 	vec4 color = vec4(0., 0., 0., 1.);
-    for(int i=0; i<num_balls; i++) {
-        vec2 st = gl_FragCoord.xy/u_resolution*2.-1.;
-    	st.x *= u_resolution.x/u_resolution.y;
+    for(int i=0; i<NUM_BALLS; i++) {
+        vec2 st = vPos.xy;
+    	st.x *= uResolution.x/uResolution.y;
         
         for(int j=0; j<3; j++) {
-            float u_time_ch = ratio_time*u_time+(.5*sin(ratio_time*u_time+3.*float(i+1)))-float(3-j)*t_delay;
-        	// float u_time_ch = u_time-float(j)*t_delay;
+            float uTimeInChannel = RATIO_TIME*uTime+(.5*sin(RATIO_TIME*uTime+3.*float(i+1)))-float(3-j)*TIME_DELAY;
+        	// float uTimeInChannel = uTime-float(j)*TIME_DELAY;
 
 
-            vec2 st_ch = st;
-            st_ch.x -= sin(.5*u_time_ch+float(i));    
-            st_ch.y -= sin(2.*u_time_ch+float(i));
+            vec2 stInChannel = st;
+            stInChannel.x -= sin(.5*uTimeInChannel+float(i));    
+            stInChannel.y -= sin(2.*uTimeInChannel+float(i));
 
-            float z = sqrt(p_radius*p_radius-st_ch.x*st_ch.x-st_ch.y*st_ch.y);
+            float z = sqrt(P_RADIUS*P_RADIUS-stInChannel.x*stInChannel.x-stInChannel.y*stInChannel.y);
 
-            vec3 stp = vec3(st_ch, z);
+            vec3 stp = vec3(stInChannel, z);
 
             if(z>0.) {
-                float diffuse = dot(normalize(stp), l_directional);
-                color[j] = l_ambient[j]+diffuse;
+                float diffuse = dot(normalize(stp), lightDirectional);
+                color[j] = lightAmbient[j]+diffuse;
                 color[3] = 1.;
             }
         }
     }
-	gl_FragColor = color;
+	fragColor = color;
 }

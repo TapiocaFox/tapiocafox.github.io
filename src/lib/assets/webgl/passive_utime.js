@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Default
+// Title:  Passive uTime
 
 // Reference to foxGL (Only exposed APIs):
 // export interface TapiocaFoxGLContext {
@@ -22,6 +22,8 @@ const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
 let destroyed = false;
+let animateOrNot = false;
+let firstFrameRendered = false;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -31,6 +33,14 @@ const onpointermove = async event => {
     const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
     foxGL.reportStatus('uMouse', `uMouse: (${uMouse_x.toFixed(1)}, ${uMouse_y.toFixed(1)})`);
+    if(!animateOrNot) {
+        animateOrNot = true;
+        animate();
+    }
+};
+
+const onpointerleave = async event => {
+    animateOrNot = false;
 };
 
 const resizeObserver = new ResizeObserver(entries => {
@@ -41,19 +51,23 @@ const resizeObserver = new ResizeObserver(entries => {
 // Render per animation frame.
 function animate() {
     if(destroyed) return;
+    if(firstFrameRendered && !animateOrNot) return;
     requestAnimationFrame(animate);
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
     foxGL.render();
+    firstFrameRendered = true;
 }
 
 // Register listeners on start.
 foxGL.onStart(async () => {
+    firstFrameRendered = false;
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerleave', onpointerleave);
     window.addEventListener('resize', onresize);
     animate();
 });
@@ -63,6 +77,7 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
+    canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
 });
 

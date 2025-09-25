@@ -372,7 +372,7 @@
         }
     }
 
-    div.code-block {
+    div.status-block {
         display: none;
         position: fixed;
         min-width: 100px;
@@ -384,16 +384,16 @@
         z-index: 99;
         text-align: left;
     }
-    div.code-block.visible {
+    div.status-block.visible {
         display: block !important;
     }
-    div.code-block > :first-child {
+    div.status-block > :first-child {
         margin-top: 0;
     }
-    div.code-block > :last-child {
+    div.status-block > :last-child {
         margin-bottom: 0;
     }
-    div.code-block > pre {
+    div.status-block > pre {
         white-space: pre-wrap;
         text-overflow: ellipsis;
         overflow: hidden; 
@@ -432,15 +432,15 @@
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 
 
-<div class="code-block {display_code_block ? 'visible' : ''}" 
+<div class="status-block {display_code_block ? 'visible' : ''}" 
     bind:this={code_block}>
-    {#if mode != 'in-editor'}
+    <!-- {#if mode != 'in-editor'}
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{props.vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{props.fragment_shader}</pre>
-    {:else}
+    {:else} -->
     <h3>Rendering Status</h3>
     <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br>{status}{/each}{/if}</p>
-    {/if}
+    <!-- {/if} -->
 </div>

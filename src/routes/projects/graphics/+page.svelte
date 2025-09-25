@@ -5,8 +5,11 @@
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     import alter_green_red_frag from '$lib/assets/webgl/practice_1/alter_green_red.frag?raw';
 
-    import default_vert_shader from '$lib/assets/webgl/practice_1/default.vert?raw';
-    import default_frag_shader from '$lib/assets/webgl/practice_1/default.frag?raw';
+    import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
+    import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
+    import default_js from '$lib/assets/webgl/default.js?raw';
+    import passive_utime_js from '$lib/assets/webgl/passive_utime.js?raw';
+    
     import sin from '$lib/assets/webgl/practice_1/sin.frag?raw';
     import mouse from '$lib/assets/webgl/practice_1/mouse.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
@@ -38,6 +41,7 @@
         {
             vert: default_vert_shader,
             frag: adhesive,
+            js: passive_utime_js,
             categories: ['distortion']
         },
         // {
@@ -45,23 +49,23 @@
         //     categories: ['debug']
         // },
         {
-            vert: default_vert_shader,
             frag: balls,
+            js: passive_utime_js,
             categories: []
         },
         {
-            vert: default_vert_shader,
             frag: fiber,
+            js: passive_utime_js,
             categories: ['distortion']
         },
         {
-            vert: default_vert_shader,
             frag: array,
+            js: passive_utime_js,
             categories: []
         },
         {
-            vert: default_vert_shader,
             frag: radiant,
+            js: passive_utime_js,
             categories: ['noise']
         },
         // {
@@ -159,7 +163,11 @@
     {#each practice_1 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
         <div class="item shader_item">
-            <TapiocaFoxWebGL vertex_shader={practice.vert} fragment_shader={practice.frag}/>
+            <TapiocaFoxWebGL 
+            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
+            fragment_shader={practice.frag}
+            javascript={practice.js?practice.js:default_js}
+            />
         </div>
         {/if}
     {/each}

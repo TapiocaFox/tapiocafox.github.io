@@ -1,29 +1,32 @@
+#version 300 es
+
 // Author: TapiocaFox
 // Title: Adhesive
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
 #define PI 3.14159265358979
-#define radius 0.75
-#define ratio_time 0.66
+#define RADIUS 0.75
+#define RATIO_TIME 0.66
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+in  vec3 vPos;
+out vec4 fragColor;
+
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
 
 void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy * 2. - 1.;
-    st.x *= u_resolution.x/u_resolution.y;
+    vec2 st = vPos.xy;
+    st.x *= uResolution.x/uResolution.y;
     
-    float r = radius;
+    float r = RADIUS;
     vec3 light = vec3(1., 1., 2.);
     
-    st.x += sin(5.*st.x+PI*ratio_time*u_time);      
-    st.x += sin(5.*st.y-PI*ratio_time*u_time);    
-    st.y += sin(5.*st.y+PI*ratio_time*u_time);
-    st.y += sin(5.*st.x+PI*ratio_time*u_time);    
+    st.x += sin(5.*st.x+PI*RATIO_TIME*uTime);      
+    st.x += sin(5.*st.y-PI*RATIO_TIME*uTime);    
+    st.y += sin(5.*st.y+PI*RATIO_TIME*uTime);
+    st.y += sin(5.*st.x+PI*RATIO_TIME*uTime);    
 
 
     float z = sqrt(r*r - st.x*st.x - st.y*st.y);
@@ -32,11 +35,11 @@ void main() {
     
     if(stp.p>0.) {
     	vec3 color = vec3(0.);
-    	color = vec3(st.x,st.y,abs(sin(ratio_time*u_time)));
-        float diffuse = step(abs(sin(ratio_time*u_time)),dot(stp, light));
-        gl_FragColor = vec4(vec3(diffuse)+color,1.0);
+    	color = vec3(st.x,st.y,abs(sin(RATIO_TIME*uTime)));
+        float diffuse = step(abs(sin(RATIO_TIME*uTime)),dot(stp, light));
+        fragColor = vec4(vec3(diffuse)+color,1.0);
     }
     else {
-        gl_FragColor = vec4(0.,0.,0.,1.0);
+        fragColor = vec4(0.,0.,0.,1.0);
     }
 }
