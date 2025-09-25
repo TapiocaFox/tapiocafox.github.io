@@ -244,5 +244,5 @@ void main() {
     colorBg = mix(vec4(0.,0.,0.,1.),colorBg,.15);
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
-    fragColor = mix(colorBg,fragColor,F.a);
+    // fragColor = mix(colorBg,fragColor,F.a);
 }
