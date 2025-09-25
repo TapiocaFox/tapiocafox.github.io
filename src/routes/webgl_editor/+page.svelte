@@ -514,8 +514,8 @@
         /* width: 100%; */
     }
 
-    div.editor-layout > div.left > .master-container :first-child {
-        /* margin-top: 1rem; */
+    div.editor-layout > div.left > .master-container > div.row {
+        display: block;
     }
     
     div.editor-layout > div.right {
@@ -596,34 +596,29 @@
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
-            <h3 style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>Vertex Shader <img class="inline-glyph" src={vertex_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
-            <div 
-            style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}
-            bind:this={vertex_shader_editor} 
-            class="editor-container">
+            <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
+                <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
+                <p class="annotation">To set source to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
+                <div bind:this={vertex_shader_editor} class="editor-container"></div>
             </div>
-            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
 
-            <h3 style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>Fragment Shader <img class="inline-glyph" src={fragment_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
-            <div 
-            style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}
-            bind:this={fragment_shader_editor} 
-            class="editor-container">
+            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
+            <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
+                <h3>Fragment Shader <img alt="Fragment" class="inline-glyph" src={fragment_icon}/></h3>
+                <p class="annotation">To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
+                <div bind:this={fragment_shader_editor} class="editor-container"></div>
             </div>
+
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
-            
-            <h3 style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-            <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack.</p>
-            {#if javascript_error != null}
-            <p class="annotation" style:color="red">{javascript_error}</p>
-            {/if}
-            <div 
-            style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}
-            bind:this={javascript_editor} 
-            class="editor-container">
+            <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
+                <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
+                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack.</p>
+                {#if javascript_error != null}
+                <p class="annotation" style:color="red">{javascript_error}</p>
+                {/if}
+                <div bind:this={javascript_editor} class="editor-container"></div>
             </div>
+
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
 
             <p class="annotation">Site version: ({version})</p>
