@@ -631,6 +631,8 @@
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
                 <h3>Textures <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
+                <h3>Objects <img class="inline-glyph" src={box_icon}/></h3>
+                <p class="annotation">(Under construction.)</p>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
