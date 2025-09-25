@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import { onMount, tick } from 'svelte';
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
@@ -11,7 +11,7 @@
     // console.log(`default_js: ${default_js}`);
 
     const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
 
     var canvas: HTMLCanvasElement;
     var code_block: HTMLDivElement;
@@ -23,7 +23,7 @@
     let statusDict = $state({});
 
     const code_block_division_percentage = 0.5;
-    const pointer_offset = 56;
+    const pointer_offset = 32;
     const background_mode_shrink_by = 2;
 
     function shrink(value: number, shrink_by: number) {
@@ -36,16 +36,7 @@
 
     let foxGL: TapiocaFoxGLContext;
 
-    function evalJavaScript(javascript: string) {
-        try {
-            // console.log('Eval', javascript);
-            // eval(props.javascript);
-            eval(javascript);
-        }
-        catch(error) {
-            onerror('js', error);
-        } 
-    }
+
 
 
 
@@ -61,8 +52,10 @@
 
 
         if(foxGL) {
+            // console.log('Something changed and foxGL exists, re-setup and run.');
             foxGL.newProgram();
-            foxGL.run(vertex_shader, fragment_shader, javascript);
+            foxGL.setup(vertex_shader, fragment_shader, javascript);
+            foxGL.run();
         }
     });
 
@@ -111,7 +104,7 @@
                     }
                 },
 
-                optimizeViewPort: function() {
+                optimizeViewPort: async function() {
                     const gl = this.gl;
                     const width  = Math.floor(this.canvas.clientWidth * this.devicePixelRatio);
                     const height = Math.floor(this.canvas.clientHeight * this.devicePixelRatio);
@@ -121,6 +114,7 @@
                         this.canvas.height = height;
                         gl.viewport(0, 0, width, height);
                     }
+                    await tick();
                 },
 
                 initProgram: function (vertexShader: string, fragmentShader: string) {
@@ -161,6 +155,17 @@
                     gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
                 },
 
+                evalJavaScript: function () {
+                    try {
+                        // console.log('Eval', javascript);
+                        // eval(props.javascript);
+                        eval(javascript);
+                    }
+                    catch(error) {
+                        onerror('js', error);
+                    } 
+                },
+
                 render: function() {
                     const gl = this.gl;
                     const timeNow = Date.now();
@@ -182,11 +187,11 @@
                     this.program = gl.createProgram();
                 },
 
-                reset: function() {
+                reset: async function() {
                     const gl = this.gl;
                     this.newProgram();
-                    this.stop();
-                    this.optimizeViewPort();
+                    await this.stop();
+                    await this.optimizeViewPort();
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
                     this.lastRenderTime = 0;
@@ -195,20 +200,22 @@
                         delete statusDict[key];
                     }
                     this.initProgram(this.vertex_shader, this.fragment_shader);
-                    evalJavaScript(this.javascript);
-                    this.start();
+                    this.evalJavaScript();
+                    await this.start();
                 },
 
-                run: function(vertex_shader: string, fragment_shader: string, javascript: string) {
+                setup: function(vertex_shader: string, fragment_shader: string, javascript: string) {
                     this.vertex_shader = vertex_shader;
                     this.fragment_shader = fragment_shader;
                     this.javascript = javascript;
+                },
 
-                    this.stop();
-                    this.optimizeViewPort();
+                run: async function() {
+                    await this.stop();
+                    await this.optimizeViewPort();
                     this.initProgram(this.vertex_shader, this.fragment_shader);
-                    evalJavaScript(this.javascript);
-                    this.start();
+                    this.evalJavaScript();
+                    await this.start();
                 },
 
                 reportStatus: function(key, status) {
@@ -294,9 +301,9 @@
                 console.warn('GLSL canvas WebGL context lost!');
             });
 
-            onglinit(foxGL);
-
-            foxGL.run(vertex_shader, fragment_shader, javascript);
+            const runOnGlInit = await onglinit(foxGL);
+            foxGL.setup(vertex_shader, fragment_shader, javascript);
+            if(runOnGlInit) foxGL.run();
         }
         catch (error) {
             console.trace(error);
@@ -340,7 +347,9 @@
         /* border-radius: var(--sharper-radius); */
     }
     canvas.glsl.preview {
-        max-height: calc(var(--compact-width) * 0.25 - 2px);
+        max-height: calc(var(--compact-widcth) * 0.25);
+        box-sizing: border-box;
+        /* max-height: calc(var(--compact-widcth) * 0.25); */
         width: 100%;
         margin-right: var(--preview-row-gap);
     }
@@ -362,6 +371,7 @@
         
         canvas.glsl.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
+            box-sizing: border-box;
             width: auto;
             margin-right: 8px;
         }

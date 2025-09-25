@@ -1,22 +1,23 @@
+#version 300 es
+
 // Author: TapiocaFox
 // Title: Radiant
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
 #define PI 3.1415926535897932
-#define size_shrink 2.
-#define size_shrink_mouse 1.
-#define freq_polar 5.
-#define freq_rotate 0.4
-#define t_delay .075
-#define d_shift .2
+#define SIZE_SHRINK 2.
+#define SIZE_SHRINK_MOUSE 1.
+#define FREQ_POLAR 5.
+#define FREQ_ROTATE 0.4
+#define DISTANCE_TREMOR .2
 
+in  vec3 vPos;
+out vec4 fragColor;
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
 
 float random (vec2 st) {
     return fract(sin(dot(st.xy,
@@ -25,35 +26,35 @@ float random (vec2 st) {
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy*2. -1.;
-    st.x *= u_resolution.x/u_resolution.y;
-    vec2 st_mouse = u_mouse/u_resolution.xy *2. - 1.;
-    st_mouse.x *= u_resolution.x/u_resolution.y;
+    vec2 st = vPos.xy;
+    st.x *= uResolution.x/uResolution.y;
+    vec2 st_mouse = uMouse/uResolution.xy *2. - 1.;
+    st_mouse.x *= uResolution.x/uResolution.y;
     
     float atan_mouse = atan(st_mouse.x, st_mouse.y);
-    float shrink_mouse = 1./(size_shrink_mouse*distance(st_mouse, vec2(0.)));
+    float shrink_mouse = 1./(SIZE_SHRINK_MOUSE*distance(st_mouse, vec2(0.)));
     
     vec3 color = vec3(1.);
     
     for(int i=0; i<3; i++) {
-        float x = .75*u_time;
-        float tremor = d_shift*mix(sin(x), mix(sin(5.*x), mix(sin(5.*x), sin(12.*x), .9), .5), .2);
-        float u_time_ch = .75*u_time+tremor*float(i);
-        // float u_time_ch = u_time;
+        float x = .75*uTime;
+        float tremor = DISTANCE_TREMOR*mix(sin(x), mix(sin(5.*x), mix(sin(5.*x), sin(12.*x), .9), .5), .2);
+        float uTimeChannel = .75*uTime+tremor*float(i);
+        // float uTimeChannel = uTime;
         
         float d = distance(st, vec2(0.));
         mat2 rot;
-        float r = sin(freq_rotate*PI*(d-.75*u_time))-atan_mouse;
+        float r = sin(FREQ_ROTATE*PI*(d-.75*uTime))-atan_mouse;
         rot[0] = vec2(cos(r), -sin(r));    
         rot[1] = vec2(sin(r), cos(r));
         vec2 st_new = rot*st;
 
         // d -= 1.*tremor;
-        float pct = sin(freq_polar*atan(st_new.x, st_new.y))*sin((size_shrink)*PI*(shrink_mouse*d-u_time_ch))*.5+.5;
+        float pct = sin(FREQ_POLAR*atan(st_new.x, st_new.y))*sin((SIZE_SHRINK)*PI*(shrink_mouse*d-uTimeChannel))*.5+.5;
         pct = mix(0., pct, .5*random(st_new)+.5);
         color[i] = pct;
     }
 	
     
-    gl_FragColor = vec4(color,1.0);
+    fragColor = vec4(color,1.0);
 }

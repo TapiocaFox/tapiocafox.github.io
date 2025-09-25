@@ -1,51 +1,54 @@
+#version 300 es
+
 // Author: TapiocaFox
 // Title: Fiber
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
 #define PI 3.14159265358979
-#define gap 0.1
-#define half_stroke_size 0.02
-#define deg_r 0.2
-#define ratio_time 0.66
+#define GAP 0.1
+#define HALF_STROKE_SIZE 0.02
+#define DEG_ROTATION 0.2
+#define RATIO_TIME 0.66
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+in  vec3 vPos;
+out vec4 fragColor;
 
-float calc_bg(vec2 st) {
-    vec2 mod_st = mod(st, gap);
-    vec2 pct_st = smoothstep(gap-half_stroke_size, gap, mod_st) + smoothstep(-half_stroke_size, 0., -mod_st);
-    return max(pct_st.x, pct_st.y);
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
+
+float calcBackground(vec2 st) {
+    vec2 stMod = mod(st, GAP);
+    vec2 pctSt = smoothstep(GAP-HALF_STROKE_SIZE, GAP, stMod) + smoothstep(-HALF_STROKE_SIZE, 0., -stMod);
+    return max(pctSt.x, pctSt.y);
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
-    st.x *= u_resolution.x/u_resolution.y;
+    vec2 st = gl_FragCoord.xy/uResolution.xy*2.-1.;
+    st.x *= uResolution.x/uResolution.y;
 
-    vec2 st_mouse = u_mouse / u_resolution.xy * 2. - 1.;
-    st_mouse.x *= u_resolution.x/u_resolution.y;
+    vec2 stMouse = uMouse / uResolution.xy * 2. - 1.;
+    stMouse.x *= uResolution.x/uResolution.y;
     
     mat2 rot;
-    rot[0] = vec2(cos(deg_r), -sin(deg_r));    
-    rot[1] = vec2(sin(deg_r), cos(deg_r));
+    rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
+    rot[1] = vec2(sin(DEG_ROTATION), cos(DEG_ROTATION));
     
     st = st*rot;
-    st -= .5*st_mouse;
+    st -= .5*stMouse;
 	
-    st.x -= sin(3.*st.x-.5*PI*ratio_time*u_time);      
-    st.x -= sin(3.*st.y-.5*PI*ratio_time*u_time);    
-    st.y -= sin(3.*st.y+.5*PI*ratio_time*u_time);
-    st.y -= sin(3.*st.x+.5*PI*ratio_time*u_time);
+    st.x -= sin(3.*st.x-.5*PI*RATIO_TIME*uTime);      
+    st.x -= sin(3.*st.y-.5*PI*RATIO_TIME*uTime);    
+    st.y -= sin(3.*st.y+.5*PI*RATIO_TIME*uTime);
+    st.y -= sin(3.*st.x+.5*PI*RATIO_TIME*uTime);
     
     vec3 color = vec3(0.);
-    color = vec3(abs(.25*sin(st.x+.95*PI*ratio_time*u_time)+.75),abs(.25*sin(st.y+.75*PI*ratio_time*u_time)+.75),abs(.25*sin(.5*PI*ratio_time*u_time)+.75));
+    color = vec3(abs(.25*sin(st.x+.95*PI*RATIO_TIME*uTime)+.75),abs(.25*sin(st.y+.75*PI*RATIO_TIME*uTime)+.75),abs(.25*sin(.5*PI*RATIO_TIME*uTime)+.75));
     
-    float pct = calc_bg(st);
+    float pct = calcBackground(st);
     
     color = mix(vec3(0.), color, pct);
 
-    gl_FragColor = vec4(color,1.0);
+    fragColor = vec4(color,1.0);
 }

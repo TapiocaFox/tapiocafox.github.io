@@ -1,8 +1,8 @@
 <script lang="ts">
     import { onMount } from 'svelte';
     import * as THREE from 'three';
-    import default_vert_shader from '$lib/assets/webgl/practice_1/default_three.vert?raw';
-    import default_frag_shader from '$lib/assets/webgl/practice_1/default.frag?raw';
+    import default_vert_shader from '$lib/assets/webgl/default_three.vert?raw';
+    import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     // import { min } from 'three/tsl';
     import { goto } from '$app/navigation';

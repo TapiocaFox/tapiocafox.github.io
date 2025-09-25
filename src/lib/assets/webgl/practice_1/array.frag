@@ -1,24 +1,26 @@
+#version 300 es
+
 // Author: TapiocaFox
 // Title: Array
 
-#ifdef GL_ES
-precision mediump float;
-#endif
+precision highp float;
 
-#define size_half_width .025
-#define size_edge .005
-#define size_half_interval .05
+#define SIZE_HALF_WIDTH .025
+#define SIZE_EDGE .005
+#define SIZE_HALF_INTERVAL .05
 #define PI 3.14159265358979
-#define rot_base -.005
-#define scale_rot .5
-#define scale_deg_r -0.01
-#define ratio_rot_interval 0.25
-#define ratio_time 0.66
+#define DEG_BASE -.005
+#define SCALE_ROTATION_DEGREE .5
+#define SCALE_DEGREE -0.01
+#define RATIO_ROTATION_INTERVAL 0.25
+#define RATIO_TIME 0.66
 
+in  vec3 vPos;
+out vec4 fragColor;
 
-uniform vec2 u_resolution;
-uniform vec2 u_mouse;
-uniform float u_time;
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
 
 vec3 rot3d(vec3 stp, float alpha, float beta, float gamma) {
     mat3 rot;
@@ -29,27 +31,27 @@ vec3 rot3d(vec3 stp, float alpha, float beta, float gamma) {
 }
 
 void main() {
-    vec2 st = gl_FragCoord.xy/u_resolution.xy*2.-1.;
-    st.x *= u_resolution.x/u_resolution.y;
+    vec2 st = vPos.xy;
+    st.x *= uResolution.x/uResolution.y;
     
-    float deg_r = scale_deg_r*sin(ratio_rot_interval*ratio_time*u_time)+rot_base;
+    float degree = SCALE_DEGREE*sin(RATIO_ROTATION_INTERVAL*RATIO_TIME*uTime)+DEG_BASE;
     mat2 rot2d;
-    rot2d[0] = vec2(cos(deg_r), -sin(deg_r));    
-    rot2d[1] = vec2(sin(deg_r), cos(deg_r));
+    rot2d[0] = vec2(cos(degree), -sin(degree));    
+    rot2d[1] = vec2(sin(degree), cos(degree));
     
     st = rot2d*st;
     
     vec3 color = vec3(0.);
-    color = vec3(.5*sin(PI*(.25*st.x-ratio_time*u_time))+.5,.5*sin(PI*(.4*st.y-ratio_time*u_time))+.5,.5*sin(PI*ratio_time*u_time)+.5);
+    color = vec3(.5*sin(PI*(.25*st.x-RATIO_TIME*uTime))+.5,.5*sin(PI*(.4*st.y-RATIO_TIME*uTime))+.5,.5*sin(PI*RATIO_TIME*uTime)+.5);
     
-    vec2 st_block = st;
-    st_block = mod(st_block-size_half_interval, 2.*size_half_interval)-size_half_interval;
+    vec2 stBlock = st;
+    stBlock = mod(stBlock-SIZE_HALF_INTERVAL, 2.*SIZE_HALF_INTERVAL)-SIZE_HALF_INTERVAL;
     
-    st_block = rot3d(vec3(st_block, 0.), scale_rot*PI*color.x-PI*.12, scale_rot*PI*color.y-PI*.2, scale_rot*PI*color.z-PI*.2).st;
+    stBlock = rot3d(vec3(stBlock, 0.), SCALE_ROTATION_DEGREE*PI*color.x-PI*.12, SCALE_ROTATION_DEGREE*PI*color.y-PI*.2, SCALE_ROTATION_DEGREE*PI*color.z-PI*.2).st;
     
-    vec2 z_st_block = smoothstep(-size_half_width-size_edge, -size_half_width+size_edge, st_block)
-        -smoothstep(-size_half_width+size_edge, -size_half_width-size_edge, -st_block);
-    float z_block = min(z_st_block.x, z_st_block.y);
+    vec2 z_stBlock = smoothstep(-SIZE_HALF_WIDTH-SIZE_EDGE, -SIZE_HALF_WIDTH+SIZE_EDGE, stBlock)
+        -smoothstep(-SIZE_HALF_WIDTH+SIZE_EDGE, -SIZE_HALF_WIDTH-SIZE_EDGE, -stBlock);
+    float z_block = min(z_stBlock.x, z_stBlock.y);
     
-    gl_FragColor = vec4(mix(vec3(0.), color, z_block),1.0);
+    fragColor = vec4(mix(vec3(0.), color, z_block),1.0);
 }

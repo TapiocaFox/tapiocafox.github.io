@@ -3,8 +3,8 @@
 
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
 	
-	import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
-    import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
+	// import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
+    import fiber_bg_frag from '$lib/assets/webgl/misc/fiber_bg.frag?raw';
 
 	let { children } = $props();
 </script>
@@ -19,7 +19,7 @@
   	@import 'main.css';
 </style>
 
-<TapiocaFoxWebGL mode='background' show_code_block={false} vertex_shader={default_vert} fragment_shader={fiber_bg}/>
+<!-- <TapiocaFoxWebGL mode='background' show_code_block={false} fragment_shader={fiber_bg_frag}/> -->
 
 <nav id="main-nav">
 	<a href="/">&gt; <span style:font-weight="bold" style:color="var(--fox-secondary-color)">Tapioca</span><span style:font-weight="bold" style:color="var(--fox-primary-color)">Fox</span></a>

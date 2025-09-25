@@ -283,8 +283,14 @@
             errorLinterCompartment.of([])]
         })
 
-        refreshLoop();
+        
         mounted = true;
+        await tick();
+        // setTimeout(() => {
+        //     foxGL.run();
+        // }, 1);
+        await foxGL.run();
+        refreshLoop();
     });
 
     const refreshLoop = () => {
@@ -453,6 +459,7 @@
 
     async function onGLInit(foxGL_:TapiocaFoxGLContext) {
         foxGL = foxGL_;
+        return false;
     }
 
     async function onError(type: string, error: any) {

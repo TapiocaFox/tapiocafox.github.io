@@ -13,7 +13,7 @@
     import note_g_editor from '$lib/assets/projects/note_g_editor.png';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
-    import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
+    // import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
     import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
     import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
@@ -59,10 +59,10 @@
     <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/webgl/practice_1" target="_blank">Learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
-        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={adhesive}/>
-        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={balls}/>
-        <!-- <GlslCanvas mode='preview' vertex_shader={reflective_spheres_vert} fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/> -->
-        <GlslCanvas mode='preview' vertex_shader={default_vert} fragment_shader={spiral}/>
+        <GlslCanvas mode='preview' fragment_shader={adhesive}/>
+        <GlslCanvas mode='preview' fragment_shader={balls}/>
+        <!-- <GlslCanvas mode='preview' fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/> -->
+        <GlslCanvas mode='preview' fragment_shader={spiral}/>
     </div>
 </div>
 {/if}
