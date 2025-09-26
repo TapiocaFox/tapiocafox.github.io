@@ -9,7 +9,6 @@
 	import border_collie from '$lib/assets/sketchings/border_collie.png';
 	import canids from '$lib/assets/sketchings/canids.png';
 	import fox_girl from '$lib/assets/sketchings/fox_girl.png';
-	import vampire from '$lib/assets/sketchings/vampire.png';
 	import demon_in_suit from '$lib/assets/sketchings/demon_in_suit.jpg';
 	import birdies from '$lib/assets/sketchings/birdies.jpg';
 	import miku from '$lib/assets/sketchings/miku.jpg';
@@ -52,8 +51,6 @@
 <p class="annotation compact">And practice always makes things better.</p>
 <img class="sketching" alt="Fox girl" src={fox_girl}/>
 <p class="annotation compact">I am not into furry. But one day I woke up with this idea.</p>
-<img class="sketching" alt="The vampire" src={vampire}/>
-<p class="annotation compact">It is techniquely not a sketch, but I don't know where to put it. I feel high while drawing this.</p>
 <img class="sketching" alt="Demon in suit" src={demon_in_suit}/>
 <p class="annotation compact">Try to draw something evil but also civilised.</p>
 <img class="sketching" alt="Birdes" src={birdies}/>

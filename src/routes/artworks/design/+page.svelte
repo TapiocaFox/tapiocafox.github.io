@@ -20,6 +20,7 @@
 	import goto_and_play_1 from '$lib/assets/design/goto_and_play_1.jpg';
 	import goto_and_play_2 from '$lib/assets/design/goto_and_play_2.jpg';
 	import nsf_icon from '$lib/assets/icons/nsf.png';
+	import vampire from '$lib/assets/design/vampire.png';
 
 	let selected_category = $state('posters');
 </script>
@@ -60,6 +61,8 @@
 <p class="annotation compact">Nationalism has its utility purpose in Taiwanese geopolitics. Because we are constantly in threat, very diverse and easliy influenced due to a rather weak cultural rooting.</p>
 <img class="design" alt="NSF" src={nsf}/>
 <p class="annotation compact">A poster for the content management system (CMS) <a href="https://github.com/NOOXY-research/NoService" target="_blank">"<img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService"</a> written from scratch.</p>
+<img class="design" alt="The vampire" src={vampire}/>
+<p class="annotation compact">I feel high while drawing this.</p>
 <img class="design" alt="Nara Cat" src={nala_cat}/>
 <p class="annotation compact">This is <a href="https://www.facebook.com/nalacatshow" target="_blank">nala cat</a>. I used this color palette without knowing transgenderism. The palette just comes out naturally.</p>
 
