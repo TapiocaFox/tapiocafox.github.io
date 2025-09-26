@@ -11,7 +11,7 @@ export interface TapiocaFoxGLContext {
     setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string) => void,
 
-    // Do not access things below.
+    // Do not access the things below.
     statusTitle: string,
     statusDict: Record<string, string>,
     vertexShader: string,
