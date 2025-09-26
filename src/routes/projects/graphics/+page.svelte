@@ -21,10 +21,8 @@
     import radiant from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import array from '$lib/assets/webgl/practice_1/array.frag?raw';
 
-    import spheres_vert from '$lib/assets/webgl/practice_2/spheres.vert?raw';
     import spheres_frag from '$lib/assets/webgl/practice_2/spheres.frag?raw';
     import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
-    import reflective_spheres_vert from '$lib/assets/webgl/practice_2/reflective_spheres.vert?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
 
@@ -34,14 +32,20 @@
     
     let selected_category = $state('all');
 
-    let practice_1 = $state([
+    type Practice = {
+        vert?: string,
+        frag?: string,
+        js?: string,
+        categories: string[]
+    };
+
+    let practice_1 = $state<Array<Practice>>([
         // {
         //     vert: default_vert_shader,
         //     frag: default_frag_shader,
         //     categories: []
         // },
         {
-            vert: default_vert_shader,
             frag: adhesive,
             categories: ['distortion']
         },
@@ -74,15 +78,13 @@
         // }
     ]);
 
-    let practice_2 = $state([
-        // {
-        //     vert: spheres_vert,
-        //     frag: spheres_frag,
-        //     js: spheres_js,
-        //     categories: []
-        // },
+    let practice_2 = $state<Array<Practice>>([
         {
-            vert: reflective_spheres_vert,
+            frag: spheres_frag,
+            js: spheres_js,
+            categories: []
+        },
+        {
             frag: reflective_spheres_frag,
             js: reflective_spheres_js,
             categories: ['noise']
@@ -164,7 +166,7 @@
         <div class="item shader_item">
             <TapiocaFoxWebGL 
             vertex_shader={practice.vert?practice.vert:default_vert_shader} 
-            fragment_shader={practice.frag}
+            fragment_shader={practice.frag?practice.frag:default_frag_shader}
             javascript={practice.js?practice.js:default_js}
             />
         </div>
@@ -183,7 +185,11 @@
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
         <div class="item shader_item">
-            <TapiocaFoxWebGL vertex_shader={practice.vert} fragment_shader={practice.frag} javascript={practice.js}/>
+            <TapiocaFoxWebGL 
+            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
+            fragment_shader={practice.frag?practice.frag:default_frag_shader}
+            javascript={practice.js?practice.js:default_js}
+            />
         </div>
         {/if}
     {/each}

@@ -16,8 +16,6 @@
 //     reportStatus: (key: string, status: string) => void,
 // }
 
-// console.log('JavaScript entered.');
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -51,8 +49,18 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    // Set status title.
     foxGL.setStatusTitle('Default Renderer');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
@@ -67,5 +75,3 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     window.removeEventListener('resize', onresize);
 });
-
-// console.log('JavaScript exited.');

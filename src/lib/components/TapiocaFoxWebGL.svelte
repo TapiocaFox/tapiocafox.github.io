@@ -149,12 +149,6 @@
                     if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
                         throw `Cannot link program:\n${gl.getProgramInfoLog(this.program)}`;
                     gl.useProgram(this.program);
-                    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-                    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
-
-                    const position = gl.getAttribLocation(this.program, 'position');
-                    gl.enableVertexAttribArray(position);
-                    gl.vertexAttribPointer(position, 3, gl.FLOAT, false, 0, 0);
                 },
 
                 evalJavaScript: function () {

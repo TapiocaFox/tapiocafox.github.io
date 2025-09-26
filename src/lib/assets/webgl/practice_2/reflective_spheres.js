@@ -15,8 +15,6 @@
 //     reportStatus: (key: string, status: string) => void,
 // }
 
-// console.log('JavaScript entered.');
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -126,9 +124,19 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
+    // Set status title.
     foxGL.setStatusTitle('Reflective Spheres');
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`);
     foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
     gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
     gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
@@ -151,5 +159,3 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointerleave', pointerleave);
     window.removeEventListener('resize', onresize);
 });
-
-// console.log('JavaScript exited.');

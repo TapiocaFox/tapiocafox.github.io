@@ -1,15 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as V,aJ as G,f as _,e as h,a as m,b as X,s,k as Y,i as e,j as K,aA as I,c as l,r as a,g as A}from"../chunks/ug66gb1C.js";import{i as L}from"../chunks/CkVXaSfc.js";import{e as O,i as F}from"../chunks/9Fe9rX9w.js";import{C as J}from"../chunks/BwVEZHM4.js";import{H as Q}from"../chunks/DSCYYZAn.js";import{d as p,e as N,T as f,a as ee}from"../chunks/CzyMrzrr.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as ne,b as te,r as oe}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/BOep4icX.js";const re=`#version 300 es
-
-// Author: TapiocaFox
-// Title:  Reflective Spheres
-
-in  vec3 position;
-out vec3 vPos;
-
-void main() {
-    gl_Position = vec4(position, 1.);
-    vPos = position;
-}`,se=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as Y,aJ as G,f as S,e as L,a as m,b as K,s,k as J,i as e,j as Q,aA as g,c as l,r as a,g as z}from"../chunks/ug66gb1C.js";import{i as E}from"../chunks/CkVXaSfc.js";import{e as O,i as N}from"../chunks/9Fe9rX9w.js";import{C as ee}from"../chunks/BwVEZHM4.js";import{H as ne}from"../chunks/DSCYYZAn.js";import{e as D,T as x,d as p,a as B,b as k}from"../chunks/BRdA1rWj.js";import{m as H}from"../chunks/8p4Ra2kK.js";import{a as te,b as oe,r as re}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/CvHmu0Qi.js";const se=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -274,8 +263,6 @@ void main() {
 //     reportStatus: (key: string, status: string) => void,
 // }
 
-// console.log('JavaScript entered.');
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -385,9 +372,19 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
+    // Set status title.
     foxGL.setStatusTitle('Reflective Spheres');
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`);
     foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`);
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
     gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
     gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
@@ -409,9 +406,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
     window.removeEventListener('resize', onresize);
-});
-
-// console.log('JavaScript exited.');`,T=`// Author: TapiocaFox
+});`,I=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Reference to foxGL (Only exposed APIs):
@@ -427,8 +422,6 @@ foxGL.onStop(async () => {
 //     render: () => void,
 //     reportStatus: (key: string, status: string) => void,
 // }
-
-// console.log('JavaScript entered.');
 
 // Init variables.
 const gl = foxGL.gl;
@@ -482,8 +475,18 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    // Set status title.
     foxGL.setStatusTitle('Frame Skip Renderer');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
@@ -498,9 +501,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});
-
-// console.log('JavaScript exited.');`,k=`// Author: TapiocaFox
+});`,U=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Reference to foxGL (Only exposed APIs):
@@ -516,8 +517,6 @@ foxGL.onStop(async () => {
 //     render: () => void,
 //     reportStatus: (key: string, status: string) => void,
 // }
-
-// console.log('JavaScript entered.');
 
 // Init variables.
 const gl = foxGL.gl;
@@ -566,8 +565,18 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    // Set status title.
     foxGL.setStatusTitle('Passive Renderer');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
@@ -582,9 +591,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});
-
-// console.log('JavaScript exited.');`,ce=`#version 300 es
+});`,ce=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -712,7 +719,7 @@ void main() {
     color = mix(color, vec3(0.), pctNoiseB);
 
     fragColor = vec4(color,1.0);
-}`,H=`#version 300 es
+}`,W=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Sin
@@ -859,4 +866,177 @@ void main() {
     float z_block = min(z_stBlock.x, z_stBlock.y);
     
     fragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,ue="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var me=_('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),de=_('<div class="item shader_item svelte-ahq8ot"><!></div>'),xe=_('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),pe=_('<div class="item shader_item svelte-ahq8ot"><!></div>'),fe=_('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),ge=_("<!> <!>  <!> <!> <!>",1);function Pe(B,W){V(W,!0);let i=K("all"),E=G([{vert:p,frag:ne,categories:["distortion"]},{frag:te,categories:[]},{frag:ve,js:T,categories:["distortion"]},{frag:le,js:T,categories:[]},{frag:oe,categories:["noise"]}]),C=G([{vert:re,frag:se,js:ae,categories:["noise"]}]);var P=ge(),w=h(P);Q(w,{text:"Graphics"});var b=s(w,2);{let t=I(()=>[null,null,null,ue,N,N]);J(b,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(t)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(i)},callback:n=>{n=="editor"?ie("/webgl_editor"):Y(i,n,!0)}})}var M=s(b,2);{var Z=t=>{var n=me(),c=s(h(n),4),d=l(c),o=l(d);f(o,{get vertex_shader(){return p},get fragment_shader(){return D},get javascript(){return k}}),a(d);var u=s(d,2),S=l(u);f(S,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return T}}),a(u),a(c);var g=s(c,6),r=l(g),v=l(r);f(v,{get vertex_shader(){return p},get fragment_shader(){return D},get javascript(){return k},mode:"preview"}),a(r);var x=s(r,2),R=l(x);f(R,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return T},mode:"preview"}),a(x);var y=s(x,2),q=l(y);f(q,{get vertex_shader(){return p},get fragment_shader(){return ce},get javascript(){return T},mode:"preview"}),a(y),a(g),m(t,n)};L(M,t=>{e(i)=="debug"&&t(Z)})}var z=s(M,2);{var j=t=>{var n=xe(),c=s(h(n),4);O(c,21,()=>E,F,(d,o)=>{var u=A(),S=h(u);{var g=r=>{var v=de(),x=l(v);{let R=I(()=>e(o).vert?e(o).vert:p),y=I(()=>e(o).js?e(o).js:ee);f(x,{get vertex_shader(){return e(R)},get fragment_shader(){return e(o).frag},get javascript(){return e(y)}})}a(v),m(r,v)};L(S,r=>{(e(i)=="all"||e(o).categories.includes(e(i)))&&r(g)})}m(d,u)}),a(c),m(t,n)};L(z,t=>{E.filter(n=>e(i)=="all"||n.categories.includes(e(i))).length>0&&t(j)})}var U=s(z,2);{var $=t=>{var n=fe(),c=s(h(n),4);O(c,21,()=>C,F,(d,o)=>{var u=A(),S=h(u);{var g=r=>{var v=pe(),x=l(v);f(x,{get vertex_shader(){return e(o).vert},get fragment_shader(){return e(o).frag},get javascript(){return e(o).js}}),a(v),m(r,v)};L(S,r=>{(e(i)=="all"||e(o).categories.includes(e(i)))&&r(g)})}m(d,u)}),a(c),m(t,n)};L(U,t=>{C.filter(n=>e(i)=="all"||n.categories.includes(e(i))).length>0&&t($)})}m(B,P),X()}export{Pe as component};
+}`,ue=`#version 300 es
+
+// Author: TapiocaFox
+// Title:  Perlin Spheres
+
+precision highp float;
+uniform float uTime;
+uniform vec3 uViewPoint;
+
+#define MAX_SPHERES 64
+#define MAX_LIGHTS 64
+
+uniform int NS;
+uniform int NL;
+uniform vec4 uS[MAX_SPHERES];
+uniform vec3 uC[MAX_SPHERES],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
+
+in  vec3 vPos;
+out vec4 fragColor;
+
+vec2 raySphere(vec3 V, vec3 W, vec4 S) {
+   V -= S.xyz;
+   float b = dot(V, W);
+   float d = b * b - dot(V, V) + S.w * S.w;
+   if (d < 0.)
+      return vec2(1001.,1000.);
+   return vec2(-b - sqrt(d), -b + sqrt(d));
+}
+
+bool inShadow(vec3 P, vec3 L) {
+   for (int i = 0 ; i < NS ; i++) {
+      vec2 tt = raySphere(P, L, uS[i]);
+      if (tt.x < tt.y && tt.x > 0.)
+         return true;
+   }
+   return false;
+}
+
+vec3 shadeSphere(vec4 S, vec3 P, vec3 C) {
+   vec3 N = (P - S.xyz) / S.w;
+
+   vec3 shade = vec3(.1);
+
+   // shade *= .5 + .5 * sin(20. * N.y);
+
+   for (int l = 0 ; l < NL ; l++)
+      if (! inShadow(P, uL[l]))
+         shade += uLC[l] * max(0., dot(N, uL[l]));
+   return C * shade;
+}
+
+void main() {
+   vec4 F = vec4(0.);
+   vec3 V = uViewPoint;
+   vec3 W = normalize(vPos-V);
+   float t = 100.;
+
+   for (int i = 0 ; i < NS ; i++) {
+      vec2 tt = raySphere(V, W, uS[i]);
+      if (tt.x < tt.y && tt.x > 0. && tt.x < t) {
+         t = tt.x;
+	 vec3 P = V + t * W;
+         F = vec4(shadeSphere(uS[i],P,uC[i]),1.);
+      }
+   }
+
+   fragColor = vec4(sqrt(F.rgb), F.a);
+   fragColor = mix(vec4(0.,0.,0.,1.),fragColor, F.a);
+}`,me=`// Author: TapiocaFox
+// Title:  Perlin Spheres
+
+// Reference to foxGL (Only exposed APIs):
+// export interface TapiocaFoxGLContext {
+//     gl: WebGL2RenderingContext,
+//     canvas: HTMLCanvasElement,
+//     program: WebGLProgram,
+//     startTime: number,
+//     lastRenderTime: number,
+//     devicePixelRatio: number,
+//     onStart: (start: () => void) => void,
+//     onStop: (stop: () => void) => void,
+//     render: () => void,
+//     reportStatus: (key: string, status: string) => void,
+// }
+
+// Init variables.
+const gl = foxGL.gl;
+const program = foxGL.program;
+const canvas = foxGL.canvas;
+let destroyed = false;
+
+const NS = 3;
+const NL = 3;
+
+// Declare listeners.
+const onpointermove = async event => {
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasHeight = canvasRect.bottom - canvasRect.top;
+    const uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouse_x.toFixed(1)}, \${uMouse_y.toFixed(1)})\`);
+};
+
+const resizeObserver = new ResizeObserver(entries => {
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+});
+
+// Math.
+const normalize = v => {
+   let s = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
+   return [ v[0]/s, v[1]/s, v[2]/s ];
+}
+
+// Render per animation frame.
+function animate() {
+    if(destroyed) return;
+    requestAnimationFrame(animate);
+    const uTime = (Date.now() - foxGL.startTime) / 1000;
+    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+
+    
+    let s = Math.sin(uTime);
+    const c = Math.cos(uTime);
+    
+    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ -.3*s,0,0,.4,
+                              .3*s,0,.3,.4,
+                              .7*c,.7*s,.0,.2 ]);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 1,.5,.5,
+                             .5,.7,1,
+                             .5,1,.5 ]);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ normalize([1,1,1]),
+                             normalize([-1,-1,-.5]),
+                             normalize([0,-1,0])
+			   ].flat());
+
+    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [ .5,.7,1,
+                              .2,.15,.1,
+			      .5,0,0 ]);
+    foxGL.render();
+}
+
+// Register listeners on start.
+foxGL.onStart(async () => {
+    // Set status title.
+    foxGL.setStatusTitle('Spheres');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
+    gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 5);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    resizeObserver.observe(canvas);
+    canvas.addEventListener('pointermove', onpointermove);
+    window.addEventListener('resize', onresize);
+    animate();
+});
+
+// Deregister listeners on stop.
+foxGL.onStop(async () => {
+    destroyed = true;
+    resizeObserver.disconnect();
+    canvas.removeEventListener('pointermove', onpointermove);
+    window.removeEventListener('resize', onresize);
+});`,de="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var fe=S('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),ge=S('<div class="item shader_item svelte-ahq8ot"><!></div>'),xe=S('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),pe=S('<div class="item shader_item svelte-ahq8ot"><!></div>'),he=S('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),_e=S("<!> <!>  <!> <!> <!>",1);function Ce($,V){Y(V,!0);let r=Q("all"),b=G([{frag:te,categories:["distortion"]},{frag:oe,categories:[]},{frag:ve,js:I,categories:["distortion"]},{frag:le,js:I,categories:[]},{frag:re,categories:["noise"]}]),P=G([{frag:ue,js:me,categories:[]},{frag:se,js:ae,categories:["noise"]}]);var A=_e(),C=L(A);ne(C,{text:"Graphics"});var w=s(C,2);{let o=g(()=>[null,null,null,de,D,D]);ee(w,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(r)},callback:t=>{t=="editor"?ie("/webgl_editor"):J(r,t,!0)}})}var M=s(w,2);{var j=o=>{var t=fe(),c=s(L(t),4),d=l(c),n=l(d);x(n,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return U}}),a(d);var u=s(d,2),R=l(u);x(R,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I}}),a(u),a(c);var h=s(c,6),i=l(h),v=l(i);x(v,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return U},mode:"preview"}),a(i);var f=s(i,2),T=l(f);x(T,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I},mode:"preview"}),a(f);var _=s(f,2),y=l(_);x(y,{get vertex_shader(){return p},get fragment_shader(){return ce},get javascript(){return I},mode:"preview"}),a(_),a(h),m(o,t)};E(M,o=>{e(r)=="debug"&&o(j)})}var F=s(M,2);{var Z=o=>{var t=xe(),c=s(L(t),4);O(c,21,()=>b,N,(d,n)=>{var u=z(),R=L(u);{var h=i=>{var v=ge(),f=l(v);{let T=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:k),y=g(()=>e(n).js?e(n).js:B);x(f,{get vertex_shader(){return e(T)},get fragment_shader(){return e(_)},get javascript(){return e(y)}})}a(v),m(i,v)};E(R,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(d,u)}),a(c),m(o,t)};E(F,o=>{b.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(Z)})}var q=s(F,2);{var X=o=>{var t=he(),c=s(L(t),4);O(c,21,()=>P,N,(d,n)=>{var u=z(),R=L(u);{var h=i=>{var v=pe(),f=l(v);{let T=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:k),y=g(()=>e(n).js?e(n).js:B);x(f,{get vertex_shader(){return e(T)},get fragment_shader(){return e(_)},get javascript(){return e(y)}})}a(v),m(i,v)};E(R,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(d,u)}),a(c),m(o,t)};E(q,o=>{P.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(X)})}m($,A),K()}export{Ce as component};

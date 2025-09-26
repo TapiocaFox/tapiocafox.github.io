@@ -18,7 +18,6 @@
     import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
-    import reflective_spheres_vert from '$lib/assets/webgl/practice_2/reflective_spheres.vert?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
 
