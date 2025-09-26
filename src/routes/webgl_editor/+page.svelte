@@ -293,7 +293,7 @@
         // setTimeout(() => {
         //     foxGL.run();
         // }, 1);
-        await foxGL.run();
+        // await foxGL.run();
         refreshLoop();
     });
 
@@ -463,7 +463,7 @@
 
     async function onGLInit(foxGL_:TapiocaFoxGLContext) {
         foxGL = foxGL_;
-        return false;
+        return true;
     }
 
     async function onError(type: string, error: any) {

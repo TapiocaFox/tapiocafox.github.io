@@ -55,8 +55,8 @@
         if(foxGL) {
             // console.log('Something changed and foxGL exists, re-setup and run.');
             foxGL.newProgram();
-            foxGL.setup(vertex_shader, fragment_shader, javascript);
-            foxGL.run();
+            foxGL.setShadersAndScript(vertex_shader, fragment_shader, javascript);
+            foxGL.refreshShadersAndScript();
         }
     });
 
@@ -137,12 +137,14 @@
                     }
                     catch(error) {
                         onerror('vert', error);
+                        throw error;
                     }
                     try {
                         addShader(gl.FRAGMENT_SHADER, fragmentShader);
                     }
                     catch(error) {
                         onerror('frag', error);
+                        throw error;
                     }
 
                     gl.linkProgram(this.program);
@@ -200,13 +202,13 @@
                     await this.start();
                 },
 
-                setup: function(vertex_shader: string, fragment_shader: string, javascript: string) {
+                setShadersAndScript: function(vertex_shader: string, fragment_shader: string, javascript: string) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
                     this.javascript = javascript;
                 },
 
-                run: async function() {
+                refreshShadersAndScript: async function() {
                     await this.stop();
                     await this.optimizeViewPort();
                     this.initProgram(this.vertexShader, this.fragmentShader);
@@ -301,9 +303,9 @@
                 console.warn('GLSL canvas WebGL context lost!');
             });
 
-            const runOnGlInit = await onglinit(foxGL);
-            foxGL.setup(vertex_shader, fragment_shader, javascript);
-            if(runOnGlInit) foxGL.run();
+            const refreshOnGlInit = await onglinit(foxGL);
+            foxGL.setShadersAndScript(vertex_shader, fragment_shader, javascript);
+            if(refreshOnGlInit) foxGL.refreshShadersAndScript();
         }
         catch (error) {
             console.trace(error);
