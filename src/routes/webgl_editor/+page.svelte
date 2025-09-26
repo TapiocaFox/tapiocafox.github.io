@@ -489,10 +489,10 @@
             });
         }
         else if(type === 'js') {
-            // console.log('JavaScript Error', error);
+            console.log('JavaScript Error', error);
             javascript_error = error.toString();
             // error_message = `JavaScript shader error: ${javascript_error}`;
-            const linterExtension = createEvalLinter(error);
+            const linterExtension = createEvalLinter(error, js_src);
 
             javascriptEditorView.dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)

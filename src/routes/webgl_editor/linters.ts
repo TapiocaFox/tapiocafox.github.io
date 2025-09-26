@@ -1,3 +1,4 @@
+import * as acorn from "acorn";
 import { EditorView } from "codemirror";    
 import { linter, type Diagnostic } from "@codemirror/lint";
 
@@ -25,10 +26,33 @@ export function createShaderLinter(errorLog: string) {
     });
 }
 
-export function createEvalLinter(error: Error | null) {
+export function createEvalLinter(error: Error | null, code: string) {
     return linter((view: EditorView) => {
         const diagnostics: Diagnostic[] = [];
         if (!error) return diagnostics;
+
+        // --- Try Acorn parse for syntax/declaration errors ---
+        try {
+            acorn.parse(code, { ecmaVersion: "latest" });
+        } catch (parseErr: any) {
+            // Acorn gives {loc: {line, column}}
+            console.log('Acorn parse error', parseErr);
+            if (parseErr.loc) {
+                const line = parseErr.loc.line - 1; // 0-based
+                const col = parseErr.loc.column;
+
+                const lineInfo = view.state.doc.line(line + 1);
+                const from = Math.min(lineInfo.from + col, lineInfo.to);
+
+                diagnostics.push({
+                from,
+                to: lineInfo.to,
+                severity: "error",
+                message: parseErr.message,
+                });
+                return diagnostics;
+            }
+        }
 
         // Use stack trace if available, otherwise message
         const stack = error.stack ?? error.message;
