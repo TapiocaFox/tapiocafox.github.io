@@ -113,7 +113,7 @@ float snoise(vec3 v) {
                                 dot(p2,x2), dot(p3,x3) ) );
 }
 
-float calcBackground(vec2 st) {
+float calc_background(vec2 st) {
     vec2 stMod = mod(st, GAP);
     vec2 pctSt = smoothstep(GAP-SIZE_HALF_STROKE, GAP, stMod) + smoothstep(-SIZE_HALF_STROKE, 0., -stMod);
     return max(pctSt.x, pctSt.y);
@@ -140,7 +140,7 @@ void main() {
     // color = vec4(0., 0., 0., .5);
     // color = vec3(abs(.25*sin(st.x+.95*PI*uTime)+.75),abs(.25*sin(st.y+.75*PI*uTime)+.75),abs(.25*sin(.5*PI*uTime)+.75));
     
-    float pct = calcBackground(st);
+    float pct = calc_background(st);
     
     color = mix(vec4(0., 0., 0., 0.), color, pct);
     color = mix(vec4(0., 0., 0., 0.), color, pctNoise);

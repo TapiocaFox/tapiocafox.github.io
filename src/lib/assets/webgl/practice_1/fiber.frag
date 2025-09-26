@@ -18,7 +18,7 @@ uniform vec2 uResolution;
 uniform vec2 uMouse;
 uniform float uTime;
 
-float calcBackground(vec2 st) {
+float calc_background(vec2 st) {
     vec2 stMod = mod(st, GAP);
     vec2 pctSt = smoothstep(GAP-SIZE_HALF_STROKE, GAP, stMod) + smoothstep(-SIZE_HALF_STROKE, 0., -stMod);
     return max(pctSt.x, pctSt.y);
@@ -46,7 +46,7 @@ void main() {
     vec3 color = vec3(0.);
     color = vec3(abs(.25*sin(st.x+.95*PI*RATIO_TIME*uTime)+.75),abs(.25*sin(st.y+.75*PI*RATIO_TIME*uTime)+.75),abs(.25*sin(.5*PI*RATIO_TIME*uTime)+.75));
     
-    float pct = calcBackground(st);
+    float pct = calc_background(st);
     
     color = mix(vec3(0.), color, pct);
 

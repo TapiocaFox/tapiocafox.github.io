@@ -18,7 +18,7 @@
     /* --secondary-functional-color: DarkMagenta; */
     --secondary-functional-text-color: white;
 
-    --primary-backgroud-color: rgb(240, 240, 240);
+    --primary-backgroud-color: #f0f0f0;
 
     --border-color: rgb(180, 180, 180);
 
@@ -156,6 +156,8 @@
         width: auto;
         max-width: var(--compact-width);
         background-color: var(--primary-backgroud-color);
+        background-image: url('/src/lib/assets/card_noise.svg');
+        background-size: cover;
         transition: var(--normal-transition);
         border-radius: var(--normal-radius);
         padding: 1em 1em;
