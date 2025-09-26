@@ -368,6 +368,7 @@
         height: 100%;
         width: 100%;
         border: none;
+        cursor: unset;
     }
     @media (max-width: 768px) {
         canvas.glsl {
@@ -421,7 +422,7 @@
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 
 
-<div class="floating-block {display_status_block ? 'visible' : ''}" 
+<div class="floating-block {(display_status_block && mode != "background") ? 'visible' : ''}" 
     bind:this={status_block}>
     <!-- {#if mode != 'in-editor'}
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
