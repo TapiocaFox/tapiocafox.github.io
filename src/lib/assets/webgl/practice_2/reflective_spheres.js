@@ -5,14 +5,12 @@
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
-let destroyed = false;
 
+const PI = 3.141592653589793;
 const NS = 4;
 const NL = 3;
 
-const PI = 3.141592653589793;
-// const NL = 0;
-
+let destroyed = false;
 let usePointer = false;
 let enlarge = false;
 let uMouse_x = 0;

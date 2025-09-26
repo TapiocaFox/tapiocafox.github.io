@@ -5,12 +5,14 @@
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
+
+const frameSkip = 3;
+const frameSkipSkip = 5;
+
 let destroyed = false;
 let firstFrameRendered = false;
 let frameCount = 0;
 let skippedFrameCount = 0;
-const frameSkip = 3;
-const frameSkipSkip = 5;
 let doNotSkip = false;
 
 // Declare listeners.

@@ -5,6 +5,7 @@
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
+
 let destroyed = false;
 let animateOrNot = false;
 let firstFrameRendered = false;

@@ -5,10 +5,11 @@
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
-let destroyed = false;
 
 const NS = 3;
 const NL = 3;
+
+let destroyed = false;
 
 // Declare listeners.
 const onpointermove = async event => {
