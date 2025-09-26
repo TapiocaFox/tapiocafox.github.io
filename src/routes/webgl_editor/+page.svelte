@@ -653,7 +653,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <span id="foxgl-definition" class="underline">interface definition</span>. Be careful of Cross Site Scripting (XSS) attack.</p>
+                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <span id="foxgl-definition" class="underline">interface definition</span>. Be careful of the Cross Site Scripting (XSS) attack.</p>
                 {#if javascript_error != null}
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
