@@ -12,10 +12,10 @@ let destroyed = false;
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouse_x.toFixed(1)}, ${uMouse_y.toFixed(1)})`);
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
 
 const resizeObserver = new ResizeObserver(entries => {

@@ -25,6 +25,8 @@
     import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
+    import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
+    import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -88,6 +90,11 @@
             frag: reflective_spheres_frag,
             js: reflective_spheres_js,
             categories: ['noise']
+        },
+        {
+            frag: phong_frag,
+            js: phong_js,
+            categories: []
         },
     ]);
 
@@ -180,7 +187,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice Two</h3>
-<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p>
+<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 

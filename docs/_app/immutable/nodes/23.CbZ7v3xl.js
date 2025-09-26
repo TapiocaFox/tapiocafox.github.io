@@ -261,18 +261,18 @@ const NL = 3;
 let destroyed = false;
 let usePointer = false;
 let enlarge = false;
-let uMouse_x = 0;
-let uMouse_y = 0;
+let uMouseX = 0;
+let uMouseY = 0;
 
 // Declare listeners.
 const onpointermove = async event => {
     usePointer = true;
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouse_x.toFixed(1)}, \${uMouse_y.toFixed(1)})\`);
+    uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
 };
 
 const onclick = async event => {
@@ -315,8 +315,8 @@ function animate() {
     // Spheres.
     const thridSphere = [.7*c_thrid,.7*s_thrid,.1,.225];
     if(usePointer) {
-        thridSphere[0] = 2*(uMouse_x/canvas.width)-1;
-        thridSphere[1] = 2*(uMouse_y/canvas.height)-1;
+        thridSphere[0] = 2*(uMouseX/canvas.width)-1;
+        thridSphere[1] = 2*(uMouseY/canvas.height)-1;
     }
     if(enlarge) {
         thridSphere[3] = .275;
@@ -414,10 +414,10 @@ let doNotSkip = false;
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouse_x.toFixed(1)}, \${uMouse_y.toFixed(1)})\`);
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
     doNotSkip = true;
 };
 
@@ -495,10 +495,10 @@ let firstFrameRendered = false;
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouse_x.toFixed(1)}, \${uMouse_y.toFixed(1)})\`);
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
     if(!animateOrNot) {
         animateOrNot = true;
         animate();
@@ -919,10 +919,10 @@ let destroyed = false;
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouse_x.toFixed(1)}, \${uMouse_y.toFixed(1)})\`);
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
 };
 
 const resizeObserver = new ResizeObserver(entries => {

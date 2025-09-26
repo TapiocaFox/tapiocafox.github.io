@@ -13,18 +13,18 @@ const NL = 3;
 let destroyed = false;
 let usePointer = false;
 let enlarge = false;
-let uMouse_x = 0;
-let uMouse_y = 0;
+let uMouseX = 0;
+let uMouseY = 0;
 
 // Declare listeners.
 const onpointermove = async event => {
     usePointer = true;
     const canvasRect = canvas.getBoundingClientRect();
     const canvasHeight = canvasRect.bottom - canvasRect.top;
-    uMouse_x = devicePixelRatio*(event.clientX-canvasRect.left);
-    uMouse_y = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouse_x, uMouse_y);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouse_x.toFixed(1)}, ${uMouse_y.toFixed(1)})`);
+    uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
 
 const onclick = async event => {
@@ -56,53 +56,45 @@ function animate() {
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
 
-    const deg = 0.25*PI*Math.sin(RATIO_TIME*uTime);
-    const s = Math.sin(deg);
-    const s_thrid = Math.sin(2*RATIO_TIME*uTime);
-    const c_thrid = Math.cos(RATIO_TIME*uTime);
-    const s_fourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
-    const c_fourth = Math.cos(RATIO_TIME*uTime-.33*PI);
-    const c = Math.cos(deg);
+    const degRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
+    
+    const sinRot = Math.sin(degRotation);
+    const cosRot = Math.cos(degRotation);
+
+    const sinThird = Math.sin(2*RATIO_TIME*uTime);
+    const cosThird = Math.cos(RATIO_TIME*uTime);
+    const sinFourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
+    const cosFourth = Math.cos(RATIO_TIME*uTime-.33*PI);
 
     // Spheres.
-    const thridSphere = [.7*c_thrid,.7*s_thrid,.1,.225];
-    if(usePointer) {
-        thridSphere[0] = 2*(uMouse_x/canvas.width)-1;
-        thridSphere[1] = 2*(uMouse_y/canvas.height)-1;
-    }
-    if(enlarge) {
-        thridSphere[3] = .275;
-    }
-    else {
-        thridSphere[3] = .225;
-    }
-    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ -.4*s,0,-.4*c,.35,
-                              .4*s,0,.4*c,.35,
-                               thridSphere,
-                              .7*c_fourth,.7*s_fourth,.1,.225].flat());
+    const thridSphere = [usePointer?2*(uMouseX/canvas.width)-1:.7*cosThird,
+                         usePointer?2*(uMouseY/canvas.height)-1:.7*sinThird,
+                         .1,enlarge?.275:.225];
+    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ 
+        [-.4*sinRot,0,-.4*cosRot,.35],
+        [.4*sinRot,0,.4*cosRot,.35],
+        thridSphere,
+        [.7*cosFourth,.7*sinFourth,.1,.225]
+    ].flat());
     // Spheres' colors.
-    let thridSphereC = [.5,1,.5];
-    if(enlarge) {
-        thridSphereC = [1,1,1];
-    }
-    else {
-        thridSphereC = [1,1,1];
-        // thridSphereC = [.5,1,.5];
-    }
-    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 1,.2,.2,
-                             .25,.5,1,
-                              thridSphereC,
-                             0.2,0.,0.].flat());
+    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 
+        [1,.2,.2],
+        [.25,.5,1],
+        [1,1,1],
+        [.2,0.,0.]
+    ].flat());
     // Lights.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ normalize([1,1,1]),
-                             normalize([-1,-1,-.5]),
-                             normalize([0,-1,0])
-			   ].flat());
-
+    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ 
+        normalize([1,1,1]),
+        normalize([-1,-1,-.5]),
+        normalize([0,-1,0])
+    ].flat());
     // Lights' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [ .5,.7,1,
-                              .2,.15,.1,
-			      .5,0,0 ]);
+    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
+        [.5,.7,1],
+        [.2,.15,.1],
+        [.5,0,0]
+    ].flat());
     foxGL.render();
 }
 
