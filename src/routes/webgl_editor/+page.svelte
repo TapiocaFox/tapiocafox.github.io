@@ -3,6 +3,7 @@
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     import PointerBlock from '$lib/components/PointerBlock.svelte';
+	import EndingDecoration from '$lib/components/EndingDecoration.svelte';
     
 
     import { tick } from 'svelte';
@@ -661,13 +662,16 @@
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
                 <h3>Textures <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
+                <hr class="dashed" style:margin-bottom="0">
                 <h3>Objects <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
+                <hr class="dashed" style:margin-bottom="0">
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
 
             <p class="annotation">Site version: ({version})</p>
+            <EndingDecoration/>
         </div>
     </div>
     <div bind:this={editor_layout_right} class="right">
@@ -691,7 +695,7 @@
                                 loadSnapshot(snapshot);
                             }}>{snapshot.name}</button>
                             <PointerBlock elementId={`snap-img-${snapshot.timestamp}`}>
-                                <p class="annotation">Snapshot: {snapshot.name}<br>{timeAgo(new Date(snapshot.timestamp))}</p>
+                                <p class="annotation">Snapshot: {snapshot.name}<br>Time: {timeAgo(new Date(snapshot.timestamp))}</p>
                                 <img alt="Preview" src={snapshot.img} style:max-height="300px"/>
                             </PointerBlock>
                             </td>

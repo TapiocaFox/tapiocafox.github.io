@@ -1,0 +1,1 @@
+import"./DsnmJJEf.js";import{f as o,t as e,a as s}from"./ug66gb1C.js";import{s as i}from"./DR0UNYFV.js";var m=o('<img alt="Decoration" class="decoration svelte-1qacuvv"/>');function n(a,r){var t=m();e(()=>i(t,"src",r.src)),s(a,t)}export{n as A};
