@@ -1,4 +1,5 @@
 <script lang="ts">
+  import PointerBlock from '$lib/components/PointerBlock.svelte';
   import BackButton from '$lib/components/BackButton.svelte';
   import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
   import EndingDecoration from '$lib/components/EndingDecoration.svelte';
@@ -66,12 +67,13 @@
   <h2>Lorem Ipsum</h2>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <div class="preview-row">
-    <img alt="Lena" class="preview" src={lena}/>
-
+    <img id="lena-img" alt="Lena" class="preview" src={lena}/>
+    <PointerBlock elementId="lena-img">
+      <h3>Lenna</h3>
+      <p>Lenna (or Lena) is a standard test image used in the field of digital image processing, starting in 1973. It is a picture of the Swedish model Lena Forsén, shot by photographer Dwight Hooker and cropped from the centerfold of the November 1972 issue of Playboy magazine. The image has attracted controversy in recent years because of its subject matter, and many journals have deemed it inappropriate and discouraged its use, while others have banned it from publication outright. Forsén herself has called for it to be retired, saying "It's time I retired from tech."</p>
+    </PointerBlock>
     <TapiocaFoxWebGL mode="preview"/>
     <TapiocaFoxWebGL mode="preview" fragment_shader={mouse_frag}/>
-
-    
   </div>
   <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>

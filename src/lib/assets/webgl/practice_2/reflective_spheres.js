@@ -126,6 +126,7 @@ function animate() {
 
 // Register listeners on start.
 foxGL.onStart(async () => {
+    foxGL.setStatusTitle('Reflective Spheres');
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`);
     foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
     gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);

@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Frame Skip
+// Title:  Frame Skip Renderer
 
 // Reference to foxGL (Only exposed APIs):
 // export interface TapiocaFoxGLContext {
@@ -70,6 +70,7 @@ function animate() {
 // Register listeners on start.
 foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.setStatusTitle('Frame Skip Renderer');
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);

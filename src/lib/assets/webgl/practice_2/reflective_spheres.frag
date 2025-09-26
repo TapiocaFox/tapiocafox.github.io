@@ -5,8 +5,6 @@
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
 precision highp float;
-uniform float uTime;
-uniform vec3 uViewPoint;
 
 #define MAX_SPHERES 64
 #define MAX_LIGHTS 64
@@ -21,6 +19,9 @@ uniform int NL;
 uniform vec2 uMouse;
 uniform vec4 uS[MAX_SPHERES];
 uniform vec3 uC[MAX_SPHERES],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
+
+uniform float uTime;
+uniform vec3 uViewPoint;
 
 in  vec3 vPos;
 out vec4 fragColor;

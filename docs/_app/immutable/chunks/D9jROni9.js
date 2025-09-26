@@ -1,0 +1,1 @@
+import{z as k,A as t,k as S,B as b,S as h}from"./BWHokgS3.js";function u(r,i){return r===i||r?.[h]===i}function T(r={},i,a,A){return k(()=>{var f,s;return t(()=>{f=s,s=[],S(()=>{r!==a(...s)&&(i(r,...s),f&&u(a(...f),r)&&i(null,...f))})}),()=>{b(()=>{s&&u(a(...s),r)&&i(null,...s)})}}),r}export{T as b};

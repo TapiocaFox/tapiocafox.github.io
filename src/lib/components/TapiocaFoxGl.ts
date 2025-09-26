@@ -5,14 +5,16 @@ export interface TapiocaFoxGLContext {
     startTime: number,
     lastRenderTime: number,
     devicePixelRatio: number,
+    statusTitle: string, // Do not access this inside the snippet.
     statusDict: Record<string, string>, // Do not access this inside the snippet.
-    vertex_shader: string, // Do not access this inside the snippet.
-    fragment_shader: string, // Do not access this inside the snippet.
+    vertexShader: string, // Do not access this inside the snippet.
+    fragmentShader: string, // Do not access this inside the snippet.
     javascript: string, // Do not access this inside the snippet.
 
     onStart: (start: () => Promise<void>) => void,
     onStop: (stop: () => Promise<void>) => void,
     render: () => void,
+    setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string) => void,
     invokeStart: (() => Promise<void>) | null, // Do not run this inside the snippet.
     invokeStop: (() => Promise<void>) | null, // Do not run this inside the snippet.
@@ -23,6 +25,6 @@ export interface TapiocaFoxGLContext {
     reset: () => Promise<void>, // Do not run this inside the snippet.
     start: () => void, // Do not run this inside the snippet.
     stop: () => void, // Do not run this inside the snippet.
-    setup: (vertex_shader: string, fragment_shader: string, javascript: string) => void, // Do not run this inside the snippet.
+    setup: (vertexShader: string, fragmentShader: string, javascript: string) => void, // Do not run this inside the snippet.
     run: () => Promise<void>, // Do not run this inside the snippet.
 }

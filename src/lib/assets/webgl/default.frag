@@ -1,12 +1,12 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title:  Default
+// Title:  Default Fragment Shader
 
 precision highp float;
 
 #define PI 3.1415926535897932384
-#define half_stroke 0.015
+#define SIZE_HALF_STROKE 0.015
 
 in  vec3 vPos;
 out vec4 fragColor;
@@ -16,7 +16,7 @@ uniform vec2 uMouse;
 uniform float uTime;
 
 float plot_xy(vec3 stp, float y_at_x) {
-    return smoothstep(y_at_x-half_stroke, y_at_x, stp.y) - smoothstep(y_at_x, y_at_x+half_stroke, stp.y);
+    return smoothstep(y_at_x-SIZE_HALF_STROKE, y_at_x, stp.y) - smoothstep(y_at_x, y_at_x+SIZE_HALF_STROKE, stp.y);
 }
 
 void main() {

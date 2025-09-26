@@ -11,18 +11,19 @@
     // console.log(`default_js: ${default_js}`);
 
     const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_code_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
+    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
 
     var canvas: HTMLCanvasElement;
-    var code_block: HTMLDivElement;
+    var status_block: HTMLDivElement;
     var edit_button: HTMLButtonElement;
 
-    let display_code_block = $state(false);
+    let display_status_block = $state(false);
     let display_edit_button = $state(false);
     let fps = $state(0);
+    let statusTitle = $state('Rendering Status');
     let statusDict = $state({});
 
-    const code_block_division_percentage = 0.5;
+    const status_block_division_percentage = 0.5;
     const pointer_offset = 32;
     const background_mode_shrink_by = 2;
 
@@ -73,9 +74,10 @@
                 // animate: null,
                 invokeStart: null,
                 invokeStop: null,
+                statusTitle: statusTitle,
                 statusDict: statusDict,
-                vertex_shader: '',
-                fragment_shader: '',
+                vertexShader: '',
+                fragmentShader: '',
                 javascript: '',
 
                 onStart: function(start) {
@@ -199,23 +201,27 @@
                     for (const key in statusDict) {
                         delete statusDict[key];
                     }
-                    this.initProgram(this.vertex_shader, this.fragment_shader);
+                    this.initProgram(this.vertexShader, this.fragmentShader);
                     this.evalJavaScript();
                     await this.start();
                 },
 
                 setup: function(vertex_shader: string, fragment_shader: string, javascript: string) {
-                    this.vertex_shader = vertex_shader;
-                    this.fragment_shader = fragment_shader;
+                    this.vertexShader = vertex_shader;
+                    this.fragmentShader = fragment_shader;
                     this.javascript = javascript;
                 },
 
                 run: async function() {
                     await this.stop();
                     await this.optimizeViewPort();
-                    this.initProgram(this.vertex_shader, this.fragment_shader);
+                    this.initProgram(this.vertexShader, this.fragmentShader);
                     this.evalJavaScript();
                     await this.start();
+                },
+
+                setStatusTitle: function(title: string) {
+                    statusTitle = title;
                 },
 
                 reportStatus: function(key, status) {
@@ -237,8 +243,8 @@
                 const canvasRect = canvas.getBoundingClientRect();
                 const canvasHeight = canvasRect.bottom - canvasRect.top;
 
-                if(show_code_block) {
-                    display_code_block = true;
+                if(show_status_block) {
+                    display_status_block = true;
                     if(mode == 'default') display_edit_button = true;
 
                     const { clientX, clientY } = event;
@@ -246,8 +252,8 @@
                     const windowWidth = window.innerWidth;
                     const windowHeight = window.innerHeight;
 
-                    const codeBlockWidth = code_block.offsetWidth;
-                    const codeBlockHeight = code_block.offsetHeight;
+                    const statusBlockWidth = status_block.offsetWidth;
+                    const statusBlockHeight = status_block.offsetHeight;
 
                     // if(mode == 'in-editor') {
                     //     pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
@@ -255,37 +261,37 @@
                         // console.log(canvasHeight, event.clientY, canvasRect.top);
                     // }
 
-                    if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*code_block_division_percentage) {
-                        code_block.animate({
-                            left:`${Math.min(clientX+pointer_offset, windowWidth-codeBlockWidth)}px`,
-                            top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
+                    if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*status_block_division_percentage) {
+                        status_block.animate({
+                            left:`${Math.min(clientX+pointer_offset, windowWidth-statusBlockWidth)}px`,
+                            top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
                         }, {fill: "forwards"});
                         edit_button.animate({
                             left:`${canvasRect.left}px`,
                             top: `${canvasRect.bottom+4}px`
-                        }, {fill: "forwards"})
+                        }, {fill: "forwards"});
                     }
                     else {
-                        code_block.animate({
+                        status_block.animate({
                             right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
-                            top: `${Math.min(clientY+pointer_offset, windowHeight-codeBlockHeight)}px`
+                            top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
                         }, {fill: "forwards"});
                         edit_button.animate({
                             right:`${windowWidth-canvasRect.right}px`,
                             top: `${canvasRect.bottom+4}px`
-                        }, {fill: "forwards"})
+                        }, {fill: "forwards"});
                     }
                 }
             });
 
             canvas.addEventListener('pointerleave', async (event) => {
-                display_code_block = false;
+                display_status_block = false;
                 if(edit_button == null) return;
 
                 const canvasRect = canvas.getBoundingClientRect();
                 const editButtonRect = edit_button.getBoundingClientRect();
 
-                if(show_code_block) {
+                if(show_status_block) {
                     const { clientX, clientY } = event;
                     if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
                         display_edit_button = true;
@@ -381,33 +387,6 @@
             max-height: 300px !important;
         }
     }
-
-    div.status-block {
-        display: none;
-        position: fixed;
-        min-width: 100px;
-        max-height: 90vh;
-        border: 1px solid var(--fox-background-color);
-        background-color: rgba(255, 255, 255, 0.95);
-        padding: 1em;
-        max-width: 480px;
-        z-index: 99;
-        text-align: left;
-    }
-    div.status-block.visible {
-        display: block !important;
-    }
-    div.status-block > :first-child {
-        margin-top: 0;
-    }
-    div.status-block > :last-child {
-        margin-bottom: 0;
-    }
-    div.status-block > pre {
-        white-space: pre-wrap;
-        text-overflow: ellipsis;
-        overflow: hidden; 
-    }
     
     button.edit {
         display: none;
@@ -442,15 +421,15 @@
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 
 
-<div class="status-block {display_code_block ? 'visible' : ''}" 
-    bind:this={code_block}>
+<div class="floating-block {display_status_block ? 'visible' : ''}" 
+    bind:this={status_block}>
     <!-- {#if mode != 'in-editor'}
     <h4>Vertex shader (FPS: {Math.round(fps)})</h4>
     <pre>{props.vertex_shader}</pre>
     <h4>Fragment shader</h4>
     <pre>{props.fragment_shader}</pre>
     {:else} -->
-    <h3>Rendering Status</h3>
+    <h3>{statusTitle}</h3>
     <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br>{status}{/each}{/if}</p>
     <!-- {/if} -->
 </div>

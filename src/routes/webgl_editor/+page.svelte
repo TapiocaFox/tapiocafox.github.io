@@ -2,7 +2,9 @@
 <script lang="ts">
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
+    import PointerBlock from '$lib/components/PointerBlock.svelte';
     
+
     import { tick } from 'svelte';
     import { EditorView, basicSetup } from "codemirror";
     import { keymap, type KeyBinding } from '@codemirror/view';
@@ -505,6 +507,27 @@
         });
     }
 
+    function timeAgo(date: Date) {
+        const seconds = Math.floor((Date.now() - date.getTime()) / 1000);
+
+        const intervals = [
+            { label: 'year', seconds: 31536000 },
+            { label: 'month', seconds: 2592000 },
+            { label: 'day', seconds: 86400 },
+            { label: 'hour', seconds: 3600 },
+            { label: 'minute', seconds: 60 },
+            { label: 'second', seconds: 1 },
+        ];
+
+        for (const i of intervals) {
+            const count = Math.floor(seconds / i.seconds);
+            if (count >= 1) {
+            return `${count} ${i.label}${count > 1 ? 's' : ''} ago`;
+            }
+        }
+        return 'just now';
+    }
+
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
 <style>
@@ -664,9 +687,14 @@
                     <tbody>
                         {#each $snapshotsStorage.toSorted((item)=>{return item.timestamp}).reverse() as snapshot}
                         <tr>
-                            <td style:white-space="nowrap"><img class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
+                            <td style:white-space="nowrap"><img id={`snap-img-${snapshot.timestamp}`} class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
                                 loadSnapshot(snapshot);
-                            }}>{snapshot.name}</button></td>
+                            }}>{snapshot.name}</button>
+                            <PointerBlock elementId={`snap-img-${snapshot.timestamp}`}>
+                                <p class="annotation">Snapshot: {snapshot.name}<br>{timeAgo(new Date(snapshot.timestamp))}</p>
+                                <img alt="Preview" src={snapshot.img} style:max-height="300px"/>
+                            </PointerBlock>
+                            </td>
                             <td style:white-space="nowrap">
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
