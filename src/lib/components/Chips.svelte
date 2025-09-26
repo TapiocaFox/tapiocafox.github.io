@@ -17,7 +17,7 @@
     div.chip-container.sticky {
         position: sticky;
         top: calc(var(--main-nav-height) + var(--page-offset));
-        z-index: 99;
+        z-index: var(--large-z-index);
     }
 
     /* div.chip-container.sticky:stuck {

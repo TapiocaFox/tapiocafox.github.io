@@ -1,20 +1,6 @@
 // Author: TapiocaFox
 // Title:  Reflective Spheres
 
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -122,7 +108,7 @@ function animate() {
     foxGL.render();
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Reflective Spheres');
@@ -142,6 +128,8 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 3);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
@@ -150,8 +138,9 @@ foxGL.onStart(async () => {
     animate();
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);

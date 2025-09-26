@@ -356,7 +356,7 @@
 
     canvas.glsl.background {
         position: fixed;
-        z-index: -99;
+        z-index: calc(-1 * var(--large-z-index));
         top: 0;
         left: 0;
         height: 100%;

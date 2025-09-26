@@ -44,6 +44,8 @@
 
     --preview-row-gap: .65em;
 
+    --large-z-index: 99;
+
     @media (max-width: 768px) {
         --page-offset: 12px;
     }
@@ -114,7 +116,7 @@
 
   	#main-nav {
         position: sticky;
-        z-index: 99;
+        z-index: var(--large-z-index);
         top: 0;
 		background-color: var(--fox-background-color);
 		/* background-color: black; */
@@ -310,7 +312,7 @@
     }
     div.flex_grid > .gallery_item:hover {
         transform: scale(1.25);
-        z-index: 99;
+        z-index: var(--large-z-index);
     }
     @media (max-width: 768px) {
         div.flex_grid.gallery {
@@ -357,7 +359,7 @@
         height: calc(100vh - 0.5rem - var(--main-nav-font-size)) !important;
     }
 
-    a {
+    a, span.underline {
         color: inherit;
         border-bottom: 1px dotted dimgray;
         border-bottom-width: 1px;
@@ -455,14 +457,18 @@
         min-width: 100px;
         max-height: 90vh;
         border: 1px solid var(--fox-background-color);
-        background-color: rgba(255, 255, 255, 0.95);
+        /* border: 1px solid white; */
+        background: rgba(255, 255, 255, 0.95);
+        /* background: white; */
         padding: 1em;
-        max-width: 480px;
-        z-index: 99;
+        max-width: var(--compact-width);
+        z-index: var(--large-z-index);
         text-align: left;
     }
+
     div.floating-block.visible {
         display: block !important;
+        /* background: white; */
     }
     div.floating-block > :first-child {
         margin-top: 0;

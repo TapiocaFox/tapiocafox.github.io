@@ -260,7 +260,7 @@
         background-color: rgba(255, 255, 255, 0.95);
         padding: 1em;
         max-width: 480px;
-        z-index: 99;
+        z-index: var(--large-z-index);
         text-align: left;
     }
     div.code-block.visible {

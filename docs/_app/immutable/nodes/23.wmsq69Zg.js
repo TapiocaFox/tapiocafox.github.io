@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as Y,aJ as G,f as S,e as L,a as m,b as K,s,k as J,i as e,j as Q,aA as g,c as l,r as a,g as z}from"../chunks/ug66gb1C.js";import{i as E}from"../chunks/CkVXaSfc.js";import{e as O,i as N}from"../chunks/9Fe9rX9w.js";import{C as ee}from"../chunks/BwVEZHM4.js";import{H as ne}from"../chunks/DSCYYZAn.js";import{e as D,T as x,d as p,a as B,b as k}from"../chunks/BRdA1rWj.js";import{m as H}from"../chunks/8p4Ra2kK.js";import{a as te,b as oe,r as re}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/CvHmu0Qi.js";const se=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as Y,aJ as z,f as L,e as S,a as m,b as K,s,k as J,i as e,j as Q,aA as g,c as l,r as a,g as G}from"../chunks/ug66gb1C.js";import{i as E}from"../chunks/CkVXaSfc.js";import{e as N,i as O}from"../chunks/9Fe9rX9w.js";import{C as ee}from"../chunks/BLcuZv8E.js";import{H as ne}from"../chunks/DSCYYZAn.js";import{e as D,T as x,d as p,a as B,b as U}from"../chunks/CzvzGi0P.js";import{m as k}from"../chunks/8p4Ra2kK.js";import{a as te,b as oe,r as re}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/CXhcfEP8.js";const se=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -249,20 +249,6 @@ void main() {
 }`,ae=`// Author: TapiocaFox
 // Title:  Reflective Spheres
 
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -370,7 +356,7 @@ function animate() {
     foxGL.render();
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Reflective Spheres');
@@ -390,6 +376,8 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 3);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
@@ -398,8 +386,9 @@ foxGL.onStart(async () => {
     animate();
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
@@ -408,20 +397,6 @@ foxGL.onStop(async () => {
     window.removeEventListener('resize', onresize);
 });`,I=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
-
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
 
 // Init variables.
 const gl = foxGL.gl;
@@ -473,7 +448,7 @@ function animate() {
     firstFrameRendered = true;
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Frame Skip Renderer');
@@ -488,35 +463,24 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
     window.addEventListener('resize', onresize);
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});`,U=`// Author: TapiocaFox
+});`,H=`// Author: TapiocaFox
 // Title:  Passive Renderer
-
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
 
 // Init variables.
 const gl = foxGL.gl;
@@ -563,7 +527,7 @@ function animate() {
     firstFrameRendered = true;
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Passive Renderer');
@@ -578,14 +542,17 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
     window.addEventListener('resize', onresize);
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
@@ -937,20 +904,6 @@ void main() {
 }`,me=`// Author: TapiocaFox
 // Title:  Perlin Spheres
 
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -1010,7 +963,7 @@ function animate() {
     foxGL.render();
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Spheres');
@@ -1027,16 +980,19 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 5);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     window.addEventListener('resize', onresize);
     animate();
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     window.removeEventListener('resize', onresize);
-});`,de="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var fe=S('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),ge=S('<div class="item shader_item svelte-ahq8ot"><!></div>'),xe=S('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),pe=S('<div class="item shader_item svelte-ahq8ot"><!></div>'),he=S('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),_e=S("<!> <!>  <!> <!> <!>",1);function Ce($,V){Y(V,!0);let r=Q("all"),b=G([{frag:te,categories:["distortion"]},{frag:oe,categories:[]},{frag:ve,js:I,categories:["distortion"]},{frag:le,js:I,categories:[]},{frag:re,categories:["noise"]}]),P=G([{frag:ue,js:me,categories:[]},{frag:se,js:ae,categories:["noise"]}]);var A=_e(),C=L(A);ne(C,{text:"Graphics"});var w=s(C,2);{let o=g(()=>[null,null,null,de,D,D]);ee(w,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(r)},callback:t=>{t=="editor"?ie("/webgl_editor"):J(r,t,!0)}})}var M=s(w,2);{var j=o=>{var t=fe(),c=s(L(t),4),d=l(c),n=l(d);x(n,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return U}}),a(d);var u=s(d,2),R=l(u);x(R,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I}}),a(u),a(c);var h=s(c,6),i=l(h),v=l(i);x(v,{get vertex_shader(){return p},get fragment_shader(){return H},get javascript(){return U},mode:"preview"}),a(i);var f=s(i,2),T=l(f);x(T,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I},mode:"preview"}),a(f);var _=s(f,2),y=l(_);x(y,{get vertex_shader(){return p},get fragment_shader(){return ce},get javascript(){return I},mode:"preview"}),a(_),a(h),m(o,t)};E(M,o=>{e(r)=="debug"&&o(j)})}var F=s(M,2);{var Z=o=>{var t=xe(),c=s(L(t),4);O(c,21,()=>b,N,(d,n)=>{var u=z(),R=L(u);{var h=i=>{var v=ge(),f=l(v);{let T=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:k),y=g(()=>e(n).js?e(n).js:B);x(f,{get vertex_shader(){return e(T)},get fragment_shader(){return e(_)},get javascript(){return e(y)}})}a(v),m(i,v)};E(R,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(d,u)}),a(c),m(o,t)};E(F,o=>{b.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(Z)})}var q=s(F,2);{var X=o=>{var t=he(),c=s(L(t),4);O(c,21,()=>P,N,(d,n)=>{var u=z(),R=L(u);{var h=i=>{var v=pe(),f=l(v);{let T=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:k),y=g(()=>e(n).js?e(n).js:B);x(f,{get vertex_shader(){return e(T)},get fragment_shader(){return e(_)},get javascript(){return e(y)}})}a(v),m(i,v)};E(R,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(d,u)}),a(c),m(o,t)};E(q,o=>{P.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(X)})}m($,A),K()}export{Ce as component};
+});`,fe="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var de=L('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),ge=L('<div class="item shader_item svelte-ahq8ot"><!></div>'),xe=L('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),pe=L('<div class="item shader_item svelte-ahq8ot"><!></div>'),he=L('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p> <div class="flex_grid gallery"></div>',1),_e=L("<!> <!>  <!> <!> <!>",1);function Ce($,V){Y(V,!0);let r=Q("all"),A=z([{frag:te,categories:["distortion"]},{frag:oe,categories:[]},{frag:ve,js:I,categories:["distortion"]},{frag:le,js:I,categories:[]},{frag:re,categories:["noise"]}]),P=z([{frag:ue,js:me,categories:[]},{frag:se,js:ae,categories:["noise"]}]);var b=_e(),C=S(b);ne(C,{text:"Graphics"});var w=s(C,2);{let o=g(()=>[null,null,null,fe,D,D]);ee(w,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return e(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return e(r)},callback:t=>{t=="editor"?ie("/webgl_editor"):J(r,t,!0)}})}var M=s(w,2);{var j=o=>{var t=de(),c=s(S(t),4),f=l(c),n=l(f);x(n,{get vertex_shader(){return p},get fragment_shader(){return k},get javascript(){return H}}),a(f);var u=s(f,2),y=l(u);x(y,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I}}),a(u),a(c);var h=s(c,6),i=l(h),v=l(i);x(v,{get vertex_shader(){return p},get fragment_shader(){return k},get javascript(){return H},mode:"preview"}),a(i);var d=s(i,2),R=l(d);x(R,{get vertex_shader(){return p},get fragment_shader(){return W},get javascript(){return I},mode:"preview"}),a(d);var _=s(d,2),T=l(_);x(T,{get vertex_shader(){return p},get fragment_shader(){return ce},get javascript(){return I},mode:"preview"}),a(_),a(h),m(o,t)};E(M,o=>{e(r)=="debug"&&o(j)})}var F=s(M,2);{var Z=o=>{var t=xe(),c=s(S(t),4);N(c,21,()=>A,O,(f,n)=>{var u=G(),y=S(u);{var h=i=>{var v=ge(),d=l(v);{let R=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:U),T=g(()=>e(n).js?e(n).js:B);x(d,{get vertex_shader(){return e(R)},get fragment_shader(){return e(_)},get javascript(){return e(T)}})}a(v),m(i,v)};E(y,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(f,u)}),a(c),m(o,t)};E(F,o=>{A.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(Z)})}var q=s(F,2);{var X=o=>{var t=he(),c=s(S(t),4);N(c,21,()=>P,O,(f,n)=>{var u=G(),y=S(u);{var h=i=>{var v=pe(),d=l(v);{let R=g(()=>e(n).vert?e(n).vert:p),_=g(()=>e(n).frag?e(n).frag:U),T=g(()=>e(n).js?e(n).js:B);x(d,{get vertex_shader(){return e(R)},get fragment_shader(){return e(_)},get javascript(){return e(T)}})}a(v),m(i,v)};E(y,i=>{(e(r)=="all"||e(n).categories.includes(e(r)))&&i(h)})}m(f,u)}),a(c),m(o,t)};E(q,o=>{P.filter(t=>e(r)=="all"||t.categories.includes(e(r))).length>0&&o(X)})}m($,b),K()}export{Ce as component};

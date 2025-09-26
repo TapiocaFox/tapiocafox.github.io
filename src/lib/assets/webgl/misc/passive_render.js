@@ -1,20 +1,6 @@
 // Author: TapiocaFox
 // Title:  Passive Renderer
 
-// Reference to foxGL (Only exposed APIs):
-// export interface TapiocaFoxGLContext {
-//     gl: WebGL2RenderingContext,
-//     canvas: HTMLCanvasElement,
-//     program: WebGLProgram,
-//     startTime: number,
-//     lastRenderTime: number,
-//     devicePixelRatio: number,
-//     onStart: (start: () => void) => void,
-//     onStop: (stop: () => void) => void,
-//     render: () => void,
-//     reportStatus: (key: string, status: string) => void,
-// }
-
 // Init variables.
 const gl = foxGL.gl;
 const program = foxGL.program;
@@ -60,7 +46,7 @@ function animate() {
     firstFrameRendered = true;
 }
 
-// Register listeners on start.
+// Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Passive Renderer');
@@ -75,14 +61,17 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    
+    // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
     window.addEventListener('resize', onresize);
 });
 
-// Deregister listeners on stop.
+// Stop lifecycle.
 foxGL.onStop(async () => {
+    // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);

@@ -44,7 +44,8 @@
     // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGl';
-    import TapiocaFoxWebGl from '$lib/components/TapiocaFoxWebGL.svelte';
+
+    import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGl.ts?raw';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -652,7 +653,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Be careful of what is pasted. It could be a Cross Site Scripting (XSS) attack.</p>
+                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <span id="foxgl-definition" class="underline">interface definition</span>. Be careful of Cross Site Scripting (XSS) attack.</p>
                 {#if javascript_error != null}
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
@@ -720,3 +721,7 @@
         </div>
     </div>
 </div>
+<PointerBlock elementId="foxgl-definition">
+    <h3>TapiocaFoxGLContext</h3>
+    <pre>{TapiocaFoxGLContextRaw}</pre>
+</PointerBlock>
