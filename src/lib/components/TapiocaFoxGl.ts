@@ -26,6 +26,6 @@ export interface TapiocaFoxGLContext {
     reset: () => Promise<void>,
     start: () => void,
     stop: () => void,
-    setup: (vertexShader: string, fragmentShader: string, javascript: string) => void,
-    run: () => Promise<void>,
+    setShadersAndScript: (vertexShader: string, fragmentShader: string, javascript: string) => void,
+    refreshShadersAndScript: () => Promise<void>,
 }
