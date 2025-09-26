@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as Y,aJ as z,f as L,e as S,a as m,b as K,s,k as J,i as e,j as Q,aA as g,c as l,r as a,g as G}from"../chunks/ug66gb1C.js";import{i as E}from"../chunks/CkVXaSfc.js";import{e as N,i as O}from"../chunks/9Fe9rX9w.js";import{C as ee}from"../chunks/BLcuZv8E.js";import{H as ne}from"../chunks/DSCYYZAn.js";import{e as D,T as x,d as p,a as B,b as U}from"../chunks/0WKmKdur.js";import{m as k}from"../chunks/8p4Ra2kK.js";import{a as te,b as oe,r as re}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/DH7JUNAi.js";const se=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as Y,aJ as z,f as L,e as S,a as m,b as K,s,k as J,i as e,j as Q,aA as g,c as l,r as a,g as G}from"../chunks/ug66gb1C.js";import{i as E}from"../chunks/CkVXaSfc.js";import{e as N,i as O}from"../chunks/9Fe9rX9w.js";import{C as ee}from"../chunks/BLcuZv8E.js";import{H as ne}from"../chunks/DSCYYZAn.js";import{e as D,T as x,d as p,a as B,b as U}from"../chunks/CfSbFrSU.js";import{m as k}from"../chunks/8p4Ra2kK.js";import{a as te,b as oe,r as re}from"../chunks/K1sOCa-h.js";import{g as ie}from"../chunks/QBFrbB2I.js";const se=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -253,14 +253,12 @@ void main() {
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
-let destroyed = false;
 
+const PI = 3.141592653589793;
 const NS = 4;
 const NL = 3;
 
-const PI = 3.141592653589793;
-// const NL = 0;
-
+let destroyed = false;
 let usePointer = false;
 let enlarge = false;
 let uMouse_x = 0;
@@ -402,12 +400,14 @@ foxGL.onStop(async () => {
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
+
+const frameSkip = 3;
+const frameSkipSkip = 5;
+
 let destroyed = false;
 let firstFrameRendered = false;
 let frameCount = 0;
 let skippedFrameCount = 0;
-const frameSkip = 3;
-const frameSkipSkip = 5;
 let doNotSkip = false;
 
 // Declare listeners.
@@ -486,6 +486,7 @@ foxGL.onStop(async () => {
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
+
 let destroyed = false;
 let animateOrNot = false;
 let firstFrameRendered = false;
@@ -908,10 +909,11 @@ void main() {
 const gl = foxGL.gl;
 const program = foxGL.program;
 const canvas = foxGL.canvas;
-let destroyed = false;
 
 const NS = 3;
 const NL = 3;
+
+let destroyed = false;
 
 // Declare listeners.
 const onpointermove = async event => {
