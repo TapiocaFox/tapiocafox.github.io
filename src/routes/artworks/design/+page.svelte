@@ -1,4 +1,5 @@
 <script lang="ts">
+	import PointerBlock from '$lib/components/PointerBlock.svelte';
 	import Chips from '$lib/components/Chips.svelte';
 	import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
 	import phone_1 from '$lib/assets/design/phone_1.png';
@@ -106,8 +107,22 @@
 <img class="design" alt="Daijishō Wallpaper" src={daijishou_wallpaper}/>
 <p class="annotation compact">Guideline for people to design <a href="https://daijishou.github.io/Gallery/" target="_blank">wallpeper pack</a> for Daijishō. (The whiter the area the more you want to put things that attract eyeballs.)</p>
 <img class="design" alt="NOOXY" src={nooxy}/>
-<p class="annotation compact">This was my personal website during undergrad to manage a minecraft server for math majors. I was fortunate to get feedbacks to bring more improvements. And later developed a content management system (CMS) mentioned in <a href="/projects">projects</a>. Our dorms had Gigabit network because we are part of the internet backbone.</p>
-{/if}
+<p class="annotation compact">This was my <span id="personal-website" class="underline">personal website</span> (early stage) during undergrad to manage a minecraft server for math majors. I was fortunate to get feedbacks to bring more improvements. And later developed a content management system (CMS) mentioned in <a href="/projects">projects</a>. Our dorms had Gigabit network because we are part of the internet backbone.</p>
+<PointerBlock elementId="personal-website">
+<pre>
 
+ ███▄    █  ▄████▄  ▄▄▄█████▓ █    ██     ▄▄▄       ███▄ ▄███▓
+ ██ ▀█   █ ▒██▀ ▀█  ▓  ██▒ ▓▒ ██  ▓██▒   ▒████▄    ▓██▒▀█▀ ██▒
+▓██  ▀█ ██▒▒▓█    ▄ ▒ ▓██░ ▒░▓██  ▒██░   ▒██  ▀█▄  ▓██    ▓██░
+▓██▒  ▐▌██▒▒▓▓▄ ▄██▒░ ▓██▓ ░ ▓▓█  ░██░   ░██▄▄▄▄██ ▒██    ▒██ 
+▒██░   ▓██░▒ ▓███▀ ░  ▒██▒ ░ ▒▒█████▓     ▓█   ▓██▒▒██▒   ░██▒
+░ ▒░   ▒ ▒ ░ ░▒ ▒  ░  ▒ ░░   ░▒▓▒ ▒ ▒     ▒▒   ▓▒█░░ ▒░   ░  ░
+░ ░░   ░ ▒░  ░  ▒       ░    ░░▒░ ░ ░      ▒   ▒▒ ░░  ░      ░
+   ░   ░ ░ ░          ░       ░░░ ░ ░      ░   ▒   ░      ░   
+         ░ ░ ░                  ░              ░  ░       ░   
+           ░                                                  
+</pre>
+</PointerBlock>
+{/if}
 <!-- <ArtDecoration/> -->
 
