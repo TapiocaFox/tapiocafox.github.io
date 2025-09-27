@@ -167,6 +167,7 @@
         margin: 1.15rem 0 1.3rem 0;
         color: rgb(54, 54, 54);
         font-size: 94.5%;
+        box-sizing: border-box;
         /* filter: drop-shadow(0 0.5rem 0.5rem lightgrey); */
     }
     /* div.card h1, h2, h3, h4, h5 {
@@ -462,6 +463,7 @@
         /* background: white; */
         padding: 1em;
         max-width: var(--compact-width);
+        box-sizing: border-box;
         z-index: var(--large-z-index);
         text-align: left;
     }

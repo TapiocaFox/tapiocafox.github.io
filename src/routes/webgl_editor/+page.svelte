@@ -680,7 +680,7 @@
             {#if mounted}
             <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit} onerror={onError}/>
             {/if}
-            <div class="info-container">
+            <div class="info-container card">
                 {#if error_message != null}
                 <p class="annotation" style:width="auto" style:color="red">{error_message}</p>
                 {/if}
