@@ -1,5 +1,6 @@
 :root {
     --compact-width: 660px;
+    /* --compact-width: 660px; */
     --normal-radius: 8px;
     --sharper-radius: 4px;
 
@@ -19,14 +20,15 @@
     --secondary-functional-text-color: white;
 
     --primary-backgroud-color: #f0f0f0;
+    /* --primary-backgroud-color: #f0f0f0; */
 
     --border-color: rgb(180, 180, 180);
 
     --media-max-width: 768px;
     --shrink-card-img: 0.8;
 
-    --background-color: #fefefc;
-    --background-dot-color: rgb(240, 240, 240);
+    --background-color: #fcfcfb;
+    --background-dot-color: rgb(230, 230, 230);
     /* --background-dot-color: whitesmoke; */
     --background-dot-size: 1px;      /* diameter of dot */
     --background-dot-gap: 8px;      /* distance between dot centers */
@@ -58,7 +60,7 @@
     body {
         margin: 0px;
         font-family: SF Pro Display, SF Pro Icons, Helvetica Neue, Helvetica, Arial, sans-serif;
-        background-color: var(--background-color);
+        background: var(--background-color);
         background-image: var(--background-dot-image);
         background-size: var(--background-dot-gap) var(--background-dot-gap);
         /* mask-image: radial-gradient(circle, #000 0 calc(var(--background-dot-size)/2), transparent calc(var(--background-dot-size)/2 + 0.25px)); */
