@@ -106,7 +106,7 @@
 <img class="design" alt="Daijishō Wallpaper" src={daijishou_wallpaper}/>
 <p class="annotation compact">Guideline for people to design <a href="https://daijishou.github.io/Gallery/" target="_blank">wallpeper pack</a> for Daijishō. (The whiter the area the more you want to put things that attract eyeballs.)</p>
 <img class="design" alt="NOOXY" src={nooxy}/>
-<p class="annotation compact">This was my personal website during undergrad. Managed a minecraft server for math majors, and later developed a content management system (CMS) mentioned in <a href="/projects">projects</a>. At the time our dorm have Gigabit network. Since NCTU's infrastructure is part of Taiwanese internet backbone.</p>
+<p class="annotation compact">This was my personal website during undergrad. Managed a minecraft server for math majors, and later developed a content management system (CMS) mentioned in <a href="/projects">projects</a>. I was fortunate to get a lots of feedbacks at the time to bring more improvements. At the time our dorm have Gigabit network. Since NCTU's infrastructure is part of Taiwanese internet backbone.</p>
 {/if}
 
 <!-- <ArtDecoration/> -->
