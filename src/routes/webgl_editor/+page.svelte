@@ -723,7 +723,7 @@
 
                                 <button class="no-style" onclick={() => {
                                     snapshotInNewTab.set(snapshot);
-                                    window.open('/webgl_editor/', '_blank', 'noopener,noreferrer');
+                                    window.open('/webgl_editor', '_blank', 'noopener,noreferrer');
                                 }}><img class="inline-glyph" alt="New Tab" src={new_tab_icon}/></button>
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);

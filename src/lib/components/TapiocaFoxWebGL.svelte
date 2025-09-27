@@ -331,7 +331,7 @@
             frag: fragment_shader,
             js: javascript
         });
-        goto(`/webgl_editor/`);
+        goto(`/webgl_editor`);
     }
     
 </script>
