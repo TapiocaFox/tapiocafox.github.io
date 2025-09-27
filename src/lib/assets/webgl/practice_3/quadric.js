@@ -58,6 +58,21 @@ const qTubeZ = [1,0,0,0,
                  0,0,0,0,
                  0,0,0,-.25];
 
+const qConeX = [-1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qConeY = [1,0,0,0,
+                 0,-1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qConeZ = [1,0,0,0,
+                 0,1,0,0,
+                 0,0,-1,0,
+                 0,0,0,0];
+
 // Declare listeners.
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
@@ -99,7 +114,7 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 5);
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, qTubeX);
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, qSphere);
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
