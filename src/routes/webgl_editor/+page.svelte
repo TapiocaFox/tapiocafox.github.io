@@ -574,6 +574,15 @@
         display: block;
         width: 100%;
     }
+
+    table.snapshot {
+        width: 100%;
+    }
+
+    td.glyphs {
+        width: 1px;
+        white-space: nowrap;
+    }
     
 </style>
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
@@ -688,7 +697,7 @@
                 {#if $snapshotsStorage.length == 0}
                 <!-- <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p> -->
                 {:else}
-                <table style:width="100%">
+                <table class="snapshot" style:width="100%">
                     <tbody>
                         {#each $snapshotsStorage.toSorted((item)=>{return item.timestamp}).reverse() as snapshot}
                         <tr>
@@ -700,7 +709,7 @@
                                 <img alt="Preview" src={snapshot.img} style:max-height="300px"/>
                             </PointerBlock>
                             </td>
-                            <td style:white-space="nowrap">
+                            <td class="glyphs">
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
