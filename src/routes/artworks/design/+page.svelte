@@ -17,8 +17,10 @@
 	import daijishou from '$lib/assets/design/daijishou.png';
 	import tna_wallpaper from '$lib/assets/design/tna_wallpaper.png';
 	import nala_cat from '$lib/assets/design/nala_cat.png';
+	import donuts from '$lib/assets/design/donuts.png';
 	import goto_and_play_1 from '$lib/assets/design/goto_and_play_1.jpg';
 	import goto_and_play_2 from '$lib/assets/design/goto_and_play_2.jpg';
+	import nooxy from '$lib/assets/design/nooxy.png';
 	import nsf_icon from '$lib/assets/icons/nsf.png';
 	import vampire from '$lib/assets/design/vampire.png';
 
@@ -63,9 +65,10 @@
 <p class="annotation compact">A poster for the content management system (CMS) <a href="https://github.com/NOOXY-research/NoService" target="_blank">"<img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService"</a> written from scratch.</p>
 <img class="design" alt="The vampire" src={vampire}/>
 <p class="annotation compact">I feel high while drawing this.</p>
+<img class="design" alt="Guru Donuts" src={donuts}/>
+<p class="annotation compact">This is the <a href="https://music.apple.com/us/album/donuts/1579957195?i=1579957279" target="_blank">theme music</a> of the making of these <a href="https://youtube.com/playlist?list=PLjEaoINr3zgEPv5y--4MKpciLaoQYZB1Z&si=coiWaHRukeLmpfQ8" target="_blank">guru donuts</a>.</p>
 <img class="design" alt="Nara Cat" src={nala_cat}/>
 <p class="annotation compact">This is <a href="https://www.facebook.com/nalacatshow" target="_blank">nala cat</a>. I used this color palette without knowing transgenderism. The palette just comes out naturally.</p>
-
 {/if}
 
 
@@ -102,8 +105,8 @@
 <p class="annotation compact">The actual UI for RetroAchievements.</p>
 <img class="design" alt="Daijishō Wallpaper" src={daijishou_wallpaper}/>
 <p class="annotation compact">Guideline for people to design <a href="https://daijishou.github.io/Gallery/" target="_blank">wallpeper pack</a> for Daijishō. (The whiter the area the more you want to put things that attract eyeballs.)</p>
-
-
+<img class="design" alt="NOOXY" src={nooxy}/>
+<p class="annotation compact">This was my personal website during undergrad. Managed a minecraft server for math majors, and later developed a content management system (CMS) mentioned in <a href="/projects">projects</a>. At the time our dorm have Gigabit network. Since NCTU's infrastructure is part of Taiwanese internet backbone.</p>
 {/if}
 
 <!-- <ArtDecoration/> -->
