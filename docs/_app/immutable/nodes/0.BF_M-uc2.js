@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{f as p,e as a,a as i,$ as I,n as x,t as h,s as n,c as v,r as m,d as E}from"../chunks/ug66gb1C.js";import{h as g}from"../chunks/DsL9tyMt.js";import{s as O}from"../chunks/BRX-bt-X.js";import{s as b}from"../chunks/DR0UNYFV.js";import{s as l}from"../chunks/CkfM7VC9.js";import{T as A}from"../chunks/BKaCHoXI.js";const z=!0,k=Object.freeze(Object.defineProperty({__proto__:null,prerender:z},Symbol.toStringTag,{value:"Module"})),R=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,D=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{f as p,e as a,a as i,$ as I,n as x,t as h,s as n,c as v,r as m,d as E}from"../chunks/ug66gb1C.js";import{h as g}from"../chunks/DsL9tyMt.js";import{s as O}from"../chunks/BRX-bt-X.js";import{s as b}from"../chunks/DR0UNYFV.js";import{s as l}from"../chunks/CkfM7VC9.js";import{T as A}from"../chunks/D2V_qYEo.js";const z=!0,k=Object.freeze(Object.defineProperty({__proto__:null,prerender:z},Symbol.toStringTag,{value:"Module"})),R=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,D=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber Bakcground
