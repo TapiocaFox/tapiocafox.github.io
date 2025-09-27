@@ -28,6 +28,10 @@
     import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
     import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
 
+
+    import quadric_frag from '$lib/assets/webgl/practice_3/quadric.frag?raw';
+    import quadric_js from '$lib/assets/webgl/practice_3/quadric.js?raw';
+
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
     import { goto } from '$app/navigation';
@@ -96,6 +100,14 @@
             js: phong_js,
             categories: []
         },
+    ]);
+
+    let practice_3 = $state<Array<Practice>>([
+        {
+            frag: quadric_frag,
+            js: quadric_js,
+            categories: []
+        }
     ]);
 
 </script>
@@ -190,6 +202,26 @@
 <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
+        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
+        <div class="item shader_item">
+            <TapiocaFoxWebGL 
+            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
+            fragment_shader={practice.frag?practice.frag:default_frag_shader}
+            javascript={practice.js?practice.js:default_js}
+            />
+        </div>
+        {/if}
+    {/each}
+</div>
+{/if}
+{#if practice_3.filter((practice) => {
+    return selected_category =='all' || practice.categories.includes(selected_category);
+}).length > 0}
+<!-- <hr class="dashed"> -->
+<h3>Practice Three</h3>
+<p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p>
+<div class="flex_grid gallery">
+    {#each practice_3 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
         <div class="item shader_item">
             <TapiocaFoxWebGL 
