@@ -27,6 +27,7 @@
     import play_icon from '$lib/assets/icons/play.svg';
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
+    import new_tab_icon from '$lib/assets/icons/window.svg';
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
@@ -68,6 +69,7 @@
     const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
     const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'all');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
+    const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
     let view_mode = $derived($viewModeStorage);
     let javascript_error = $state<string | null>(null);
@@ -216,8 +218,8 @@
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
-        const nextSnapshotStatic = $nextSnapshot;
         await lastSnapshotReady;
+        await snapshotInNewTabReady;
         const glsl = browserRenderMod.glsl;
 
         // const snapshot = $lastSnapshot;
@@ -243,6 +245,14 @@
             js_src = snapshot.js;
             anything_changed = true;
             nextSnapshot.set(null);
+        }
+        else if($snapshotInNewTab != null) {
+            const snapshot: Snapshot = $snapshotInNewTab;
+            vert_shader_src = snapshot.vert;
+            frag_shader_src = snapshot.frag;
+            js_src = snapshot.js;
+            anything_changed = true;
+            snapshotInNewTab.set(null);
         }
         else if($lastSnapshot != null) {
             vert_shader_src = $lastSnapshot.vert;
@@ -710,6 +720,11 @@
                             </PointerBlock>
                             </td>
                             <td class="glyphs">
+
+                                <button class="no-style" onclick={() => {
+                                    snapshotInNewTab.set(snapshot);
+                                    window.open('/webgl_editor/', '_blank', 'noopener,noreferrer');
+                                }}><img class="inline-glyph" alt="New Tab" src={new_tab_icon}/></button>
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
