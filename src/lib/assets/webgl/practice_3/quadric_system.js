@@ -8,6 +8,11 @@ const canvas = foxGL.canvas;
 
 let destroyed = false;
 
+const qGlobal = [0,0,0,0,
+                 0,0,0,0,
+                 0,0,0,0,
+                 0,0,0,-1];
+
 const qSphere = [1,0,0,0,
                  0,1,0,0,
                  0,0,1,0,
@@ -141,6 +146,22 @@ const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
     return newSystem;
 }
 
+// Predefined systems.
+const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
+const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
+const coneSystem = [qConeX, qxm(qSlabX,translate(1,0,0)), qGlobal]; // Real cone
+const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
+const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
+const sphereSystem = [qSphere, qGlobal, qGlobal];
+
+const systems = [
+    cubeSystem,
+    hourglassSystem,
+    coneSystem,
+    cylinderSystem,
+    noseSystem,
+    sphereSystem,
+]
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -151,6 +172,11 @@ const onpointermove = async event => {
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
+
+let systemIndex = 0;
+const onclick = async event => {
+    systemIndex = (systemIndex+1)%systems.length;
+}
 
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
@@ -183,14 +209,14 @@ function animate() {
     transform = mxm(transform,rotateY(uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
-    const system = [qSlabX, qSlabY, qSlabZ]; // Cube
+    // const system = [qSlabX, qSlabY, qSlabZ]; // Cube
     // const system = [qSlabX, qConeX]; // Hourglass
     // const system = [qConeX, qxm(qSlabX,translate(1,0,0))]; // Real cone
     // const system = [qTubeX, qSlabX]; // Cylinder
     // const system = [qParabX, qSlabX]; // Nose
     // const system = [qSphere];
     
-    const finalQSystem = qsxm(system, transform).flat();
+    const finalQSystem = qsxm(systems[systemIndex], transform).flat();
     gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQSystem);
     
     foxGL.render();
@@ -200,6 +226,7 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Quadric Surface (System)');
+    foxGL.reportStatus('Tips', 'Click to change systems (shapes).');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -216,6 +243,7 @@ foxGL.onStart(async () => {
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('click', onclick);
     window.addEventListener('resize', onresize);
     animate();
 });
@@ -226,5 +254,6 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
+    canvas.removeEventListener('click', onclick);
     window.removeEventListener('resize', onresize);
 });
