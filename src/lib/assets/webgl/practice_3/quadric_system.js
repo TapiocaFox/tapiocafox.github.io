@@ -183,7 +183,7 @@ function animate() {
     transform = mxm(transform,rotateY(uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
-    // const system = [qSlabX, qSlabY, qSlabZ]; // Cube
+    const system = [qSlabX, qSlabY, qSlabZ]; // Cube
     // const system = [qSlabX, qConeX]; // Hourglass
     // const system = [qConeX, qxm(qSlabX,translate(1,0,0))]; // Real cone
     // const system = [qTubeX, qSlabX]; // Cylinder
