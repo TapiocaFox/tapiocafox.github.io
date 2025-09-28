@@ -34,7 +34,7 @@ vec3 phong(vec3 N, vec3 L, vec3 W,vec3 diffuse, vec4 specular) {
     vec3 shade = vec3(0.);
     shade += diffuse * max(0., dot(L,N)); // Diffuse.
     vec3 reflection = 2.*N*dot(N,L)-L;
-    shade += specular.xyz * pow(max(0., dot(reflection, W)), specular.w); // Specular.
+    shade += specular.xyz * pow(max(0., dot(-reflection, W)), specular.w); // Specular.
     return shade;
 }
 
