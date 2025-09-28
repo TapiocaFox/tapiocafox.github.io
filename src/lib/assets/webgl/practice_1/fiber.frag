@@ -8,7 +8,7 @@ precision highp float;
 #define PI 3.14159265358979
 #define GAP 0.1
 #define SIZE_HALF_STROKE 0.02
-#define DEG_ROTATION 0.2
+#define RADIAN_ROTATION 0.2
 #define RATIO_TIME 0.66
 
 in  vec3 vPos;
@@ -32,8 +32,8 @@ void main() {
     stMouse.x *= uResolution.x/uResolution.y;
     
     mat2 rot;
-    rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
-    rot[1] = vec2(sin(DEG_ROTATION), cos(DEG_ROTATION));
+    rot[0] = vec2(cos(RADIAN_ROTATION), -sin(RADIAN_ROTATION));    
+    rot[1] = vec2(sin(RADIAN_ROTATION), cos(RADIAN_ROTATION));
     
     st = st*rot;
     st -= .5*stMouse;

@@ -8,7 +8,7 @@ precision highp float;
 #define PI 3.14159265358979
 #define GAP 0.1
 #define SIZE_HALF_STROKE 0.0075
-#define DEG_ROTATION 0.4125
+#define RADIAN_ROTATION 0.4125
 #define PIXELS_PER_UNIT 1200.*1.
 
 #define TIME_RATIO_DISTORT 0.25
@@ -123,8 +123,8 @@ void main() {
     vec2 st = gl_FragCoord.xy/PIXELS_PER_UNIT*2.-1.;
 
     mat2 rot;
-    rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
-    rot[1] = vec2(sin(DEG_ROTATION), cos(DEG_ROTATION));
+    rot[0] = vec2(cos(RADIAN_ROTATION), -sin(RADIAN_ROTATION));    
+    rot[1] = vec2(sin(RADIAN_ROTATION), cos(RADIAN_ROTATION));
     
     st = st*rot;
 

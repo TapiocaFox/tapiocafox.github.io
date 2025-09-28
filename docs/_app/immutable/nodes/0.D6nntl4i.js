@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{f as p,e as a,a as i,$ as I,n as x,t as h,s as n,c as v,r as m,d as E}from"../chunks/ug66gb1C.js";import{h as g}from"../chunks/DsL9tyMt.js";import{s as O}from"../chunks/BRX-bt-X.js";import{s as b}from"../chunks/DR0UNYFV.js";import{s as l}from"../chunks/CkfM7VC9.js";import{T as A}from"../chunks/DXP2P1jq.js";const z=!0,k=Object.freeze(Object.defineProperty({__proto__:null,prerender:z},Symbol.toStringTag,{value:"Module"})),R=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,D=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{f as p,e as a,a as i,$ as u,n as x,t as A,s as n,c as v,r as m,d as h}from"../chunks/ug66gb1C.js";import{h as g}from"../chunks/DsL9tyMt.js";import{s as O}from"../chunks/BRX-bt-X.js";import{s as E}from"../chunks/DR0UNYFV.js";import{s as l}from"../chunks/CkfM7VC9.js";import{T as R}from"../chunks/3GLiZReM.js";const b=!0,j=Object.freeze(Object.defineProperty({__proto__:null,prerender:b},Symbol.toStringTag,{value:"Module"})),z=""+new URL("../assets/favicon.BNVdPBgQ.ico",import.meta.url).href,D=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber Bakcground
@@ -8,7 +8,7 @@ precision highp float;
 #define PI 3.14159265358979
 #define GAP 0.1
 #define SIZE_HALF_STROKE 0.0075
-#define DEG_ROTATION 0.4125
+#define RADIAN_ROTATION 0.4125
 #define PIXELS_PER_UNIT 1200.*1.
 
 #define TIME_RATIO_DISTORT 0.25
@@ -123,8 +123,8 @@ void main() {
     vec2 st = gl_FragCoord.xy/PIXELS_PER_UNIT*2.-1.;
 
     mat2 rot;
-    rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
-    rot[1] = vec2(sin(DEG_ROTATION), cos(DEG_ROTATION));
+    rot[0] = vec2(cos(RADIAN_ROTATION), -sin(RADIAN_ROTATION));    
+    rot[1] = vec2(sin(RADIAN_ROTATION), cos(RADIAN_ROTATION));
     
     st = st*rot;
 
@@ -148,4 +148,4 @@ void main() {
 
     fragColor = color;
     // gl_FragColor = vec4(1.,1,.1,.1.);
-}`;var P=p('<link rel="icon"/> <meta name="theme-color" content="var(--fox-background-color)"/>',1),S=p('<!> <nav id="main-nav"><a href="/">&gt; <span>Tapioca</span><span>Fox</span></a>  <a href="/projects">[Projects]</a> <a href="/webgl_editor">[FoxGL]</a> <a href="/artworks">[Artworks]</a> <a href="/patio">[Patio]</a></nav> <!>',1);function j(_,T){var o=S();g(y=>{var s=P();I.title="TapiocaFox";var u=a(s);x(2),h(()=>b(u,"href",R)),i(y,s)});var t=a(o);A(t,{mode:"background",show_code_block:!1,get fragment_shader(){return D}});var e=n(t,2),r=v(e),c=n(v(r));l(c,"",{},{"font-weight":"bold",color:"var(--fox-secondary-color)"});var d=n(c);l(d,"",{},{"font-weight":"bold",color:"var(--fox-primary-color)"}),m(r),x(8),m(e);var f=n(e,2);O(f,()=>T.children??E),i(_,o)}export{j as component,k as universal};
+}`;var N=p('<link rel="icon"/> <meta name="theme-color" content="var(--fox-background-color)"/>',1),P=p('<!> <nav id="main-nav"><a href="/">&gt; <span>Tapioca</span><span>Fox</span></a>  <a href="/projects">[Projects]</a> <a href="/webgl_editor">[FoxGL]</a> <a href="/artworks">[Artworks]</a> <a href="/patio">[Patio]</a></nav> <!>',1);function G(_,T){var o=P();g(y=>{var s=N();u.title="TapiocaFox";var I=a(s);x(2),A(()=>E(I,"href",z)),i(y,s)});var t=a(o);R(t,{mode:"background",show_code_block:!1,get fragment_shader(){return D}});var e=n(t,2),r=v(e),c=n(v(r));l(c,"",{},{"font-weight":"bold",color:"var(--fox-secondary-color)"});var d=n(c);l(d,"",{},{"font-weight":"bold",color:"var(--fox-primary-color)"}),m(r),x(8),m(e);var f=n(e,2);O(f,()=>T.children??h),i(_,o)}export{G as component,j as universal};

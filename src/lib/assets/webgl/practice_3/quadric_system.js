@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Quadric Surface
+// Title:  Quadric Surface (System)
 
 // Init variables.
 const gl = foxGL.gl;
@@ -102,7 +102,7 @@ const scale = (x,y,z) => [x,0,0,0,
                           0,0,0,1];
 
 // Matrix operations.
-let mxm = (a,b) => {
+const mxm = (a,b) => {
    let m = [];
    for (let c = 0 ; c < 16 ; c += 4)
        for (let r = 0 ; r < 4 ; r++)
@@ -110,12 +110,12 @@ let mxm = (a,b) => {
    return m;
 }
 
-let transpose = m => [ m[0],m[4],m[ 8],m[12],
+const transpose = m => [ m[0],m[4],m[ 8],m[12],
                        m[1],m[5],m[ 9],m[13],
                        m[2],m[6],m[10],m[14],
                        m[3],m[7],m[11],m[15] ];
 
-let inverse = src => {
+const inverse = src => {
    let dst = [], det = 0, cofactor = (c, r) => {
       let s = (i, j) => src[c+i & 3 | (r+j & 3) << 2];
       return (c+r&1?-1:1)*((s(1,1)*(s(2,2)*s(3,3)-s(3,2)*s(2,3)))
@@ -128,10 +128,19 @@ let inverse = src => {
    return dst;
 }
 
-let qxm = (Q,M) => {
+const qxm = (Q,M) => {
    let MI = inverse(M);
    return mxm(transpose(MI), mxm(Q, MI));
 }
+
+const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
+    let newSystem = [];
+    for(let n=0; n<QS.length; n++) {
+        newSystem.push(qxm(QS[n],M));
+    }
+    return newSystem;
+}
+
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -163,13 +172,22 @@ function animate() {
 
     const sinTranslation = Math.sin(uTime);
     const cosTranslation = Math.cos(.5*uTime);
-    const translationScale = .25;
-    const translateX = translationScale*cosTranslation;
-    const translateY = translationScale*sinTranslation;
+    const transaltionScale = .5;
+    const translateX = transaltionScale*sinTranslation;
+    const translateY = transaltionScale*cosTranslation;
+
+    let transform = scale(.4,.4,.4);
+    transform = mxm(transform,translate(translateX,translateY,0));
+    transform = mxm(transform,scale(breath,breath,breath));
+    transform = mxm(transform,rotateX(uTime));
+    transform = mxm(transform,rotateY(uTime));
+    // transform = mxm(transform,rotateZ(uTime));
     
-    const finalQ = qxm(qSphere, mxm(translate(translateX,translateY,0),scale(breath,breath,breath)));
-    // const finalQ = qxm(qSphere, translate(0,0,0));
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQ);
+    const system = [qSlabX, qSlabY, qSlabZ];
+    // const system = [qSphere];
+    
+    const finalQSystem = qsxm(system, transform).flat();
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQSystem);
     
     foxGL.render();
 }
@@ -177,7 +195,7 @@ function animate() {
 // Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
-    foxGL.setStatusTitle('Quadric Surface');
+    foxGL.setStatusTitle('Quadric Surface (System)');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

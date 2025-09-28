@@ -10,8 +10,8 @@ precision highp float;
 #define SIZE_HALF_INTERVAL .05
 #define PI 3.14159265358979
 #define DEG_BASE -.005
-#define SCALE_ROTATION_DEGREE .5
-#define SCALE_DEGREE -0.01
+#define SCALE_ROTATION_RADIAN .5
+#define SCALE_RADIAN -0.01
 #define RATIO_ROTATION_INTERVAL 0.25
 #define RATIO_TIME 0.66
 
@@ -34,10 +34,10 @@ void main() {
     vec2 st = vPos.xy;
     st.x *= uResolution.x/uResolution.y;
     
-    float degree = SCALE_DEGREE*sin(RATIO_ROTATION_INTERVAL*RATIO_TIME*uTime)+DEG_BASE;
+    float radian = SCALE_RADIAN*sin(RATIO_ROTATION_INTERVAL*RATIO_TIME*uTime)+DEG_BASE;
     mat2 rot2d;
-    rot2d[0] = vec2(cos(degree), -sin(degree));    
-    rot2d[1] = vec2(sin(degree), cos(degree));
+    rot2d[0] = vec2(cos(radian), -sin(radian));    
+    rot2d[1] = vec2(sin(radian), cos(radian));
     
     st = rot2d*st;
     
@@ -47,7 +47,7 @@ void main() {
     vec2 stBlock = st;
     stBlock = mod(stBlock-SIZE_HALF_INTERVAL, 2.*SIZE_HALF_INTERVAL)-SIZE_HALF_INTERVAL;
     
-    stBlock = rot3d(vec3(stBlock, 0.), SCALE_ROTATION_DEGREE*PI*color.x-PI*.12, SCALE_ROTATION_DEGREE*PI*color.y-PI*.2, SCALE_ROTATION_DEGREE*PI*color.z-PI*.2).st;
+    stBlock = rot3d(vec3(stBlock, 0.), SCALE_ROTATION_RADIAN*PI*color.x-PI*.12, SCALE_ROTATION_RADIAN*PI*color.y-PI*.2, SCALE_ROTATION_RADIAN*PI*color.z-PI*.2).st;
     
     vec2 z_stBlock = smoothstep(-SIZE_HALF_WIDTH-SIZE_EDGE, -SIZE_HALF_WIDTH+SIZE_EDGE, stBlock)
         -smoothstep(-SIZE_HALF_WIDTH+SIZE_EDGE, -SIZE_HALF_WIDTH-SIZE_EDGE, -stBlock);

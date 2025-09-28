@@ -56,10 +56,10 @@ function animate() {
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
 
-    const degRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
+    const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
     
-    const sinRot = Math.sin(degRotation);
-    const cosRot = Math.cos(degRotation);
+    const sinRot = Math.sin(radianRotation);
+    const cosRot = Math.cos(radianRotation);
 
     const sinThird = Math.sin(2*RATIO_TIME*uTime);
     const cosThird = Math.cos(RATIO_TIME*uTime);

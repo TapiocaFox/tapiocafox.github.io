@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as E,f as R,e as h,a as u,b as nn,s,k as en,i as n,j as tn,aA as f,c as m,r as c,g as b}from"../chunks/ug66gb1C.js";import{i as P}from"../chunks/CkVXaSfc.js";import{e as I,i as w}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as B,T as L,d as S,a as z,b as F}from"../chunks/DXP2P1jq.js";import{m as H}from"../chunks/8p4Ra2kK.js";import{a as an,b as sn,r as cn}from"../chunks/K1sOCa-h.js";import{g as vn}from"../chunks/D3kQ26gr.js";const ln=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as P,f as y,e as h,a as u,b as nn,s,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as L,a as w,b as E}from"../chunks/3GLiZReM.js";import{m as B}from"../chunks/8p4Ra2kK.js";import{a as an,b as sn,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/B5XYfFka.js";const vn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -304,10 +304,10 @@ function animate() {
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
 
-    const degRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
+    const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
     
-    const sinRot = Math.sin(degRotation);
-    const cosRot = Math.cos(degRotation);
+    const sinRot = Math.sin(radianRotation);
+    const cosRot = Math.cos(radianRotation);
 
     const sinThird = Math.sin(2*RATIO_TIME*uTime);
     const cosThird = Math.cos(RATIO_TIME*uTime);
@@ -471,7 +471,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});`,q=`// Author: TapiocaFox
+});`,U=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Init variables.
@@ -551,7 +551,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});`,fn=`#version 300 es
+});`,mn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -717,7 +717,7 @@ void main() {
     vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
 
     fragColor = vec4(color,1.0);
-}`,mn=`#version 300 es
+}`,fn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber
@@ -727,7 +727,7 @@ precision highp float;
 #define PI 3.14159265358979
 #define GAP 0.1
 #define SIZE_HALF_STROKE 0.02
-#define DEG_ROTATION 0.2
+#define RADIAN_ROTATION 0.2
 #define RATIO_TIME 0.66
 
 in  vec3 vPos;
@@ -751,8 +751,8 @@ void main() {
     stMouse.x *= uResolution.x/uResolution.y;
     
     mat2 rot;
-    rot[0] = vec2(cos(DEG_ROTATION), -sin(DEG_ROTATION));    
-    rot[1] = vec2(sin(DEG_ROTATION), cos(DEG_ROTATION));
+    rot[0] = vec2(cos(RADIAN_ROTATION), -sin(RADIAN_ROTATION));    
+    rot[1] = vec2(sin(RADIAN_ROTATION), cos(RADIAN_ROTATION));
     
     st = st*rot;
     st -= .5*stMouse;
@@ -782,8 +782,8 @@ precision highp float;
 #define SIZE_HALF_INTERVAL .05
 #define PI 3.14159265358979
 #define DEG_BASE -.005
-#define SCALE_ROTATION_DEGREE .5
-#define SCALE_DEGREE -0.01
+#define SCALE_ROTATION_RADIAN .5
+#define SCALE_RADIAN -0.01
 #define RATIO_ROTATION_INTERVAL 0.25
 #define RATIO_TIME 0.66
 
@@ -806,10 +806,10 @@ void main() {
     vec2 st = vPos.xy;
     st.x *= uResolution.x/uResolution.y;
     
-    float degree = SCALE_DEGREE*sin(RATIO_ROTATION_INTERVAL*RATIO_TIME*uTime)+DEG_BASE;
+    float radian = SCALE_RADIAN*sin(RATIO_ROTATION_INTERVAL*RATIO_TIME*uTime)+DEG_BASE;
     mat2 rot2d;
-    rot2d[0] = vec2(cos(degree), -sin(degree));    
-    rot2d[1] = vec2(sin(degree), cos(degree));
+    rot2d[0] = vec2(cos(radian), -sin(radian));    
+    rot2d[1] = vec2(sin(radian), cos(radian));
     
     st = rot2d*st;
     
@@ -819,7 +819,7 @@ void main() {
     vec2 stBlock = st;
     stBlock = mod(stBlock-SIZE_HALF_INTERVAL, 2.*SIZE_HALF_INTERVAL)-SIZE_HALF_INTERVAL;
     
-    stBlock = rot3d(vec3(stBlock, 0.), SCALE_ROTATION_DEGREE*PI*color.x-PI*.12, SCALE_ROTATION_DEGREE*PI*color.y-PI*.2, SCALE_ROTATION_DEGREE*PI*color.z-PI*.2).st;
+    stBlock = rot3d(vec3(stBlock, 0.), SCALE_ROTATION_RADIAN*PI*color.x-PI*.12, SCALE_ROTATION_RADIAN*PI*color.y-PI*.2, SCALE_ROTATION_RADIAN*PI*color.z-PI*.2).st;
     
     vec2 z_stBlock = smoothstep(-SIZE_HALF_WIDTH-SIZE_EDGE, -SIZE_HALF_WIDTH+SIZE_EDGE, stBlock)
         -smoothstep(-SIZE_HALF_WIDTH+SIZE_EDGE, -SIZE_HALF_WIDTH-SIZE_EDGE, -stBlock);
@@ -1177,7 +1177,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
     window.removeEventListener('resize', onresize);
-});`,Ln=`#version 300 es
+});`,Sn=`#version 300 es
 
 // Author: Ken Perlin
 // Title:  Quadric Surface
@@ -1266,7 +1266,7 @@ void main() {
       fragColor = vec4(c,c,c, 1.);
    }
 
-}`,Sn=`// Author: TapiocaFox
+}`,Ln=`// Author: TapiocaFox
 // Title:  Quadric Surface
 
 // Init variables.
@@ -1297,34 +1297,34 @@ const qParabZ = [1,0,0,0,
                  0,0,0,0];
 
 const qSlabX = [1,0,0,0,
-                 0,0,0,0,
-                 0,0,0,0,
-                 0,0,0,-1];
+                0,0,0,0,
+                0,0,0,0,
+                0,0,0,-1];
 
 const qSlabY = [0,0,0,0,
-                 0,1,0,0,
-                 0,0,0,0,
-                 0,0,0,-1];
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-1];
 
 const qSlabZ = [0,0,0,0,
-                 0,0,0,0,
-                 0,0,1,0,
-                 0,0,0,-1];
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-1];
 
 const qTubeX = [0,0,0,0,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,-.25];
+                0,1,0,0,
+                0,0,1,0,
+                0,0,0,-.25];
 
 const qTubeY = [1,0,0,0,
-                 0,0,0,0,
-                 0,0,1,0,
-                 0,0,0,-.25];
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-.25];
 
 const qTubeZ = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,0,0,
-                 0,0,0,-.25];
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-.25];
 
 const qConeX = [-1,0,0,0,
                  0,1,0,0,
@@ -1332,14 +1332,74 @@ const qConeX = [-1,0,0,0,
                  0,0,0,0];
 
 const qConeY = [1,0,0,0,
-                 0,-1,0,0,
-                 0,0,1,0,
-                 0,0,0,0];
+                0,-1,0,0,
+                0,0,1,0,
+                0,0,0,0];
 
 const qConeZ = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,-1,0,
-                 0,0,0,0];
+                0,1,0,0,
+                0,0,-1,0,
+                0,0,0,0];
+
+// Transformations. Column major.
+// Row.
+const rotateX = r => [1,0,0,0,
+                      0,Math.cos(r),Math.sin(r),0,
+                      0,-Math.sin(r),Math.cos(r),0,
+                      0,0,0,1];
+// Pitch.
+const rotateY = r => [Math.cos(r),0,-Math.sin(r),0,
+                      0,1,0,0,
+                      Math.sin(r),0,Math.cos(r),0,
+                      0,0,0,1];
+// Yaw.
+const rotateZ = r => [Math.cos(r),Math.sin(r),0,0,
+                      -Math.sin(r),Math.cos(r),0,0,
+                      0,0,1,0,
+                      0,0,0,1];
+// Translate.
+const translate = (x,y,z) => [1,0,0,0,
+                              0,1,0,0,
+                              0,0,1,0,
+                              x,y,z,1];
+
+// Scale.
+const scale = (x,y,z) => [x,0,0,0,
+                          0,y,0,0,
+                          0,0,z,0,
+                          0,0,0,1];
+
+// Matrix operations.
+let mxm = (a,b) => {
+   let m = [];
+   for (let c = 0 ; c < 16 ; c += 4)
+       for (let r = 0 ; r < 4 ; r++)
+          m.push(a[r]*b[c]+a[r+4]*b[c+1]+a[r+8]*b[c+2]+a[r+12]*b[c+3]);
+   return m;
+}
+
+let transpose = m => [ m[0],m[4],m[ 8],m[12],
+                       m[1],m[5],m[ 9],m[13],
+                       m[2],m[6],m[10],m[14],
+                       m[3],m[7],m[11],m[15] ];
+
+let inverse = src => {
+   let dst = [], det = 0, cofactor = (c, r) => {
+      let s = (i, j) => src[c+i & 3 | (r+j & 3) << 2];
+      return (c+r&1?-1:1)*((s(1,1)*(s(2,2)*s(3,3)-s(3,2)*s(2,3)))
+                         - (s(2,1)*(s(1,2)*s(3,3)-s(3,2)*s(1,3)))
+                         + (s(3,1)*(s(1,2)*s(2,3)-s(2,2)*s(1,3))) );
+   }
+   for (let n = 0 ; n < 16 ; n++) dst.push(cofactor(n >> 2, n & 3));
+   for (let n = 0 ; n <  4 ; n++) det += src[n] * dst[n << 2];
+   for (let n = 0 ; n < 16 ; n++) dst[n] /= det;
+   return dst;
+}
+
+let qxm = (Q,M) => {
+   let MI = inverse(M);
+   return mxm(transpose(MI), mxm(Q, MI));
+}
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -1363,6 +1423,22 @@ function animate() {
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+
+    // const sinValue = Math.sin(2*uTime);
+    const cosScale = Math.cos(2*uTime);
+    const scaleSize = 0.05;
+    const breath = 1+scaleSize*cosScale;
+
+    const sinTranslation = Math.sin(uTime);
+    const cosTranslation = Math.cos(.5*uTime);
+    const translationScale = .25;
+    const translateX = translationScale*cosTranslation;
+    const translateY = translationScale*sinTranslation;
+    
+    const finalQ = qxm(qSphere, mxm(translate(translateX,translateY,0),scale(breath,breath,breath)));
+    // const finalQ = qxm(qSphere, translate(0,0,0));
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQ);
+    
     foxGL.render();
 }
 
@@ -1381,8 +1457,7 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 5);
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, qSphere);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
@@ -1398,4 +1473,340 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     window.removeEventListener('resize', onresize);
-});`,Rn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var yn=R('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),_n=R('<div class="item shader_item svelte-ahq8ot"><!></div>'),Tn=R('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),Pn=R('<div class="item shader_item svelte-ahq8ot"><!></div>'),An=R('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p> <div class="flex_grid gallery"></div>',1),En=R('<div class="item shader_item svelte-ahq8ot"><!></div>'),bn=R('<h3>Practice Three</h3> <p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p> <div class="flex_grid gallery"></div>',1),In=R("<!> <!>  <!> <!> <!> <!>",1);function Wn($,k){J(k,!0);let r=tn("all"),M=E([{frag:an,categories:["distortion"]},{frag:sn,categories:[]},{frag:mn,js:A,categories:["distortion"]},{frag:gn,js:A,categories:[]},{frag:cn,categories:["noise"]}]),C=E([{frag:dn,js:xn,categories:[]},{frag:ln,js:un,categories:["noise"]},{frag:pn,js:hn,categories:[]}]),G=E([{frag:Ln,js:Sn,categories:[]}]);var N=In(),O=h(N);rn(O,{text:"Graphics"});var D=s(O,2);{let o=f(()=>[null,null,null,Rn,B,B]);on(D,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return n(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return n(r)},callback:t=>{t=="editor"?vn("/webgl_editor"):en(r,t,!0)}})}var V=s(D,2);{var Y=o=>{var t=yn(),v=s(h(t),4),g=m(v),e=m(g);L(e,{get vertex_shader(){return S},get fragment_shader(){return H},get javascript(){return q}}),c(g);var l=s(g,2),y=m(l);L(y,{get vertex_shader(){return S},get fragment_shader(){return X},get javascript(){return A}}),c(l),c(v);var x=s(v,6),i=m(x),a=m(i);L(a,{get vertex_shader(){return S},get fragment_shader(){return H},get javascript(){return q},mode:"preview"}),c(i);var d=s(i,2),_=m(d);L(_,{get vertex_shader(){return S},get fragment_shader(){return X},get javascript(){return A},mode:"preview"}),c(d);var p=s(d,2),T=m(p);L(T,{get vertex_shader(){return S},get fragment_shader(){return fn},get javascript(){return A},mode:"preview"}),c(p),c(x),u(o,t)};P(V,o=>{n(r)=="debug"&&o(Y)})}var W=s(V,2);{var Q=o=>{var t=Tn(),v=s(h(t),4);I(v,21,()=>M,w,(g,e)=>{var l=b(),y=h(l);{var x=i=>{var a=_n(),d=m(a);{let _=f(()=>n(e).vert?n(e).vert:S),p=f(()=>n(e).frag?n(e).frag:F),T=f(()=>n(e).js?n(e).js:z);L(d,{get vertex_shader(){return n(_)},get fragment_shader(){return n(p)},get javascript(){return n(T)}})}c(a),u(i,a)};P(y,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,l)}),c(v),u(o,t)};P(W,o=>{M.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(Q)})}var U=s(W,2);{var j=o=>{var t=An(),v=s(h(t),4);I(v,21,()=>C,w,(g,e)=>{var l=b(),y=h(l);{var x=i=>{var a=Pn(),d=m(a);{let _=f(()=>n(e).vert?n(e).vert:S),p=f(()=>n(e).frag?n(e).frag:F),T=f(()=>n(e).js?n(e).js:z);L(d,{get vertex_shader(){return n(_)},get fragment_shader(){return n(p)},get javascript(){return n(T)}})}c(a),u(i,a)};P(y,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,l)}),c(v),u(o,t)};P(U,o=>{C.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(j)})}var Z=s(U,2);{var K=o=>{var t=bn(),v=s(h(t),4);I(v,21,()=>G,w,(g,e)=>{var l=b(),y=h(l);{var x=i=>{var a=En(),d=m(a);{let _=f(()=>n(e).vert?n(e).vert:S),p=f(()=>n(e).frag?n(e).frag:F),T=f(()=>n(e).js?n(e).js:z);L(d,{get vertex_shader(){return n(_)},get fragment_shader(){return n(p)},get javascript(){return n(T)}})}c(a),u(i,a)};P(y,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,l)}),c(v),u(o,t)};P(Z,o=>{G.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(K)})}u($,N),nn()}export{Wn as component};
+});`,yn=`#version 300 es
+
+// Author: Ken Perlin
+// Title:  Quadric Surface (System)
+
+precision highp float;
+uniform float uTime;
+uniform vec3 uViewPoint;
+uniform mat4 uQ[3];
+
+in  vec3 vPos;
+out vec4 fragColor;
+
+vec3 rayEq(vec3 V, vec3 W, mat4 Q) {
+
+   float A = Q[0].x, B = Q[1].x+Q[0].y, C = Q[2].x+Q[0].z, D = Q[3].x+Q[0].w,
+                     E = Q[1].y       , F = Q[2].y+Q[1].z, G = Q[3].y+Q[1].w,
+                                        H = Q[2].z       , I = Q[3].z+Q[2].w,
+                                                           J = Q[3].w       ;
+
+   float a = A * W.x * W.x +
+             B * W.x * W.y +
+             C * W.z * W.x +
+             E * W.y * W.y +
+             F * W.y * W.z +
+             H * W.z * W.z ;
+
+   float b = 2. * A * V.x * W.x +
+                  B * (W.x * V.y + V.y * W.x) +
+                  C * (V.z * W.x + V.x * W.z) +
+                  D * W.x +
+             2. * E * V.y * W.y +
+                  F * (V.y * W.z + V.z * W.y) +
+                  G * W.y +
+             2. * H * V.z * W.z +
+                  I * W.z;
+
+   float c = A * V.x * V.x +
+             B * V.x * V.y +
+             C * V.z * V.x +
+             D * V.x       +
+             E * V.y * V.y +
+             F * V.y * V.z +
+             G * V.y       +
+             H * V.z * V.z +
+             I * V.z       +
+             J;
+
+   return vec3(a,b,c);
+}
+
+vec2 findRoots(vec3 eq) {
+   float a = eq.x, b = eq.y, c = eq.z;
+   vec2 t = vec2(-1.);
+   float discr = b * b - 4. * a * c;
+   if (discr >= 0.)
+      t = vec2(-b - sqrt(discr), -b + sqrt(discr)) / (2. * a);
+   return t;
+}
+
+vec3 normalQ(mat4 Q, vec3 P) {
+
+   float A = Q[0].x, B = Q[1].x+Q[0].y, C = Q[2].x+Q[0].z, D = Q[3].x+Q[0].w,
+                     E = Q[1].y       , F = Q[2].y+Q[1].z, G = Q[3].y+Q[1].w,
+                                        H = Q[2].z       , I = Q[3].z+Q[2].w,
+                                                           J = Q[3].w       ;
+
+   return normalize(vec3(2. * A * P.x + C * P.z + B * P.y + D,
+                         2. * E * P.y + F * P.z + B * P.x + G,
+                         2. * H * P.z + F * P.y + C * P.x + I));
+}
+
+void main() {
+   fragColor = vec4(0.);
+
+   vec3 V = uViewPoint;
+   vec3 W = normalize(vPos-V);
+
+   vec3 color1 = vec3(0.);
+   vec2 tI1 = vec2(-1.,1000.);
+   for (int i = 0 ; i < 3 ; i++) {
+      vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
+      if (tQ.x > tI1.x) {
+         vec3 N = normalQ(uQ[i], V + tQ.x * W);
+         color1 = vec3(.1 + max(0., dot(N, vec3(.5))));
+	 tI1.x = tQ.x;
+      }
+      if (tQ.y < tI1.y)
+         tI1.y = tQ.y;
+   }
+
+   if (tI1.x > 0. && tI1.x < tI1.y)
+      fragColor = vec4(sqrt(color1), 1.);
+/*
+   vec3 color2 = vec3(0.);
+   vec2 tI2 = vec2(-1.,1000.);
+   for (int i = 3 ; i < 6 ; i++) {
+      vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
+      if (tQ.x > tI2.x) {
+         vec3 N = normalQ(uQ[i], V + tQ.x * W);
+         color2 = vec3(.1 + max(0., dot(N, vec3(.5))));
+	 tI2.x = tQ.x;
+      }
+      if (tQ.y < tI2.y)
+         tI2.y = tQ.y;
+   }
+
+
+   if (tI2.x > 0. && tI2.x < tI2.y && tI2.x < tI1.x)
+      fragColor = vec4(sqrt(color2), 1.);
+*/
+}`,Rn=`// Author: TapiocaFox
+// Title:  Quadric Surface (System)
+
+// Init variables.
+const gl = foxGL.gl;
+const program = foxGL.program;
+const canvas = foxGL.canvas;
+
+let destroyed = false;
+
+const qSphere = [1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,-.25];
+
+const qParabX = [0,0,0,1,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qParabY = [1,0,0,0,
+                 0,0,0,1,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qParabZ = [1,0,0,0,
+                 0,1,0,0,
+                 0,0,0,1,
+                 0,0,0,0];
+
+const qSlabX = [1,0,0,0,
+                0,0,0,0,
+                0,0,0,0,
+                0,0,0,-1];
+
+const qSlabY = [0,0,0,0,
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-1];
+
+const qSlabZ = [0,0,0,0,
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-1];
+
+const qTubeX = [0,0,0,0,
+                0,1,0,0,
+                0,0,1,0,
+                0,0,0,-.25];
+
+const qTubeY = [1,0,0,0,
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-.25];
+
+const qTubeZ = [1,0,0,0,
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-.25];
+
+const qConeX = [-1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qConeY = [1,0,0,0,
+                0,-1,0,0,
+                0,0,1,0,
+                0,0,0,0];
+
+const qConeZ = [1,0,0,0,
+                0,1,0,0,
+                0,0,-1,0,
+                0,0,0,0];
+
+// Transformations. Column major.
+// Row.
+const rotateX = r => [1,0,0,0,
+                      0,Math.cos(r),Math.sin(r),0,
+                      0,-Math.sin(r),Math.cos(r),0,
+                      0,0,0,1];
+// Pitch.
+const rotateY = r => [Math.cos(r),0,-Math.sin(r),0,
+                      0,1,0,0,
+                      Math.sin(r),0,Math.cos(r),0,
+                      0,0,0,1];
+// Yaw.
+const rotateZ = r => [Math.cos(r),Math.sin(r),0,0,
+                      -Math.sin(r),Math.cos(r),0,0,
+                      0,0,1,0,
+                      0,0,0,1];
+// Translate.
+const translate = (x,y,z) => [1,0,0,0,
+                              0,1,0,0,
+                              0,0,1,0,
+                              x,y,z,1];
+
+// Scale.
+const scale = (x,y,z) => [x,0,0,0,
+                          0,y,0,0,
+                          0,0,z,0,
+                          0,0,0,1];
+
+// Matrix operations.
+const mxm = (a,b) => {
+   let m = [];
+   for (let c = 0 ; c < 16 ; c += 4)
+       for (let r = 0 ; r < 4 ; r++)
+          m.push(a[r]*b[c]+a[r+4]*b[c+1]+a[r+8]*b[c+2]+a[r+12]*b[c+3]);
+   return m;
+}
+
+const transpose = m => [ m[0],m[4],m[ 8],m[12],
+                       m[1],m[5],m[ 9],m[13],
+                       m[2],m[6],m[10],m[14],
+                       m[3],m[7],m[11],m[15] ];
+
+const inverse = src => {
+   let dst = [], det = 0, cofactor = (c, r) => {
+      let s = (i, j) => src[c+i & 3 | (r+j & 3) << 2];
+      return (c+r&1?-1:1)*((s(1,1)*(s(2,2)*s(3,3)-s(3,2)*s(2,3)))
+                         - (s(2,1)*(s(1,2)*s(3,3)-s(3,2)*s(1,3)))
+                         + (s(3,1)*(s(1,2)*s(2,3)-s(2,2)*s(1,3))) );
+   }
+   for (let n = 0 ; n < 16 ; n++) dst.push(cofactor(n >> 2, n & 3));
+   for (let n = 0 ; n <  4 ; n++) det += src[n] * dst[n << 2];
+   for (let n = 0 ; n < 16 ; n++) dst[n] /= det;
+   return dst;
+}
+
+const qxm = (Q,M) => {
+   let MI = inverse(M);
+   return mxm(transpose(MI), mxm(Q, MI));
+}
+
+const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
+    let newSystem = [];
+    for(let n=0; n<QS.length; n++) {
+        newSystem.push(qxm(QS[n],M));
+    }
+    return newSystem;
+}
+
+
+// Declare listeners.
+const onpointermove = async event => {
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasHeight = canvasRect.bottom - canvasRect.top;
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+};
+
+const resizeObserver = new ResizeObserver(entries => {
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+});
+
+// Render per animation frame.
+function animate() {
+    if(destroyed) return;
+    requestAnimationFrame(animate);
+    const uTime = (Date.now() - foxGL.startTime) / 1000;
+    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+
+    // const sinValue = Math.sin(2*uTime);
+    const cosScale = Math.cos(2*uTime);
+    const scaleSize = 0.05;
+    const breath = 1+scaleSize*cosScale;
+
+    const sinTranslation = Math.sin(uTime);
+    const cosTranslation = Math.cos(.5*uTime);
+    const transaltionScale = .5;
+    const translateX = transaltionScale*sinTranslation;
+    const translateY = transaltionScale*cosTranslation;
+
+    let transform = scale(.4,.4,.4);
+    transform = mxm(transform,translate(translateX,translateY,0));
+    transform = mxm(transform,scale(breath,breath,breath));
+    transform = mxm(transform,rotateX(uTime));
+    transform = mxm(transform,rotateY(uTime));
+    // transform = mxm(transform,rotateZ(uTime));
+    
+    const system = [qSlabX, qSlabY, qSlabZ];
+    // const system = [qSphere];
+    
+    const finalQSystem = qsxm(system, transform).flat();
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQSystem);
+    
+    foxGL.render();
+}
+
+// Start lifecycle.
+foxGL.onStart(async () => {
+    // Set status title.
+    foxGL.setStatusTitle('Quadric Surface (System)');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+    
+    // Register listeners on start.
+    resizeObserver.observe(canvas);
+    canvas.addEventListener('pointermove', onpointermove);
+    window.addEventListener('resize', onresize);
+    animate();
+});
+
+// Stop lifecycle.
+foxGL.onStop(async () => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    resizeObserver.disconnect();
+    canvas.removeEventListener('pointermove', onpointermove);
+    window.removeEventListener('resize', onresize);
+});`,Tn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var _n=y('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),bn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),An=y('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),Pn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),In=y('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p> <div class="flex_grid gallery"></div>',1),zn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),Mn=y('<h3>Practice Three</h3> <p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p> <div class="flex_grid gallery"></div>',1),wn=y("<!> <!>  <!> <!> <!> <!>",1);function Dn(H,Y){J(Y,!0);let r=tn("all"),F=P([{frag:an,categories:["distortion"]},{frag:sn,categories:[]},{frag:fn,js:A,categories:["distortion"]},{frag:gn,js:A,categories:[]},{frag:cn,categories:["noise"]}]),C=P([{frag:dn,js:xn,categories:[]},{frag:vn,js:un,categories:["noise"]},{frag:pn,js:hn,categories:[]}]),G=P([{frag:Sn,js:Ln,categories:[]},{frag:yn,js:Rn,categories:[]}]);var N=wn(),V=h(N);rn(V,{text:"Graphics"});var Q=s(V,2);{let o=m(()=>[null,null,null,Tn,D,D]);on(Q,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return n(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return n(r)},callback:t=>{t=="editor"?ln("/webgl_editor"):en(r,t,!0)}})}var W=s(Q,2);{var $=o=>{var t=_n(),l=s(h(t),4),g=f(l),e=f(g);S(e,{get vertex_shader(){return L},get fragment_shader(){return B},get javascript(){return U}}),c(g);var v=s(g,2),R=f(v);S(R,{get vertex_shader(){return L},get fragment_shader(){return X},get javascript(){return A}}),c(v),c(l);var x=s(l,6),i=f(x),a=f(i);S(a,{get vertex_shader(){return L},get fragment_shader(){return B},get javascript(){return U},mode:"preview"}),c(i);var d=s(i,2),T=f(d);S(T,{get vertex_shader(){return L},get fragment_shader(){return X},get javascript(){return A},mode:"preview"}),c(d);var p=s(d,2),_=f(p);S(_,{get vertex_shader(){return L},get fragment_shader(){return mn},get javascript(){return A},mode:"preview"}),c(p),c(x),u(o,t)};b(W,o=>{n(r)=="debug"&&o($)})}var O=s(W,2);{var k=o=>{var t=An(),l=s(h(t),4);z(l,21,()=>F,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=bn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(O,o=>{F.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(k)})}var q=s(O,2);{var j=o=>{var t=In(),l=s(h(t),4);z(l,21,()=>C,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=Pn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(q,o=>{C.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(j)})}var Z=s(q,2);{var K=o=>{var t=Mn(),l=s(h(t),4);z(l,21,()=>G,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=zn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(Z,o=>{G.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(K)})}u(H,N),nn()}export{Dn as component};

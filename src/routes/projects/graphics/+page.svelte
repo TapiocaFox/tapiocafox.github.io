@@ -31,6 +31,8 @@
 
     import quadric_frag from '$lib/assets/webgl/practice_3/quadric.frag?raw';
     import quadric_js from '$lib/assets/webgl/practice_3/quadric.js?raw';
+    import quadric_system_frag from '$lib/assets/webgl/practice_3/quadric_system.frag?raw';
+    import quadric_system_js from '$lib/assets/webgl/practice_3/quadric_system.js?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -106,6 +108,11 @@
         {
             frag: quadric_frag,
             js: quadric_js,
+            categories: []
+        },
+        {
+            frag: quadric_system_frag,
+            js: quadric_system_js,
             categories: []
         }
     ]);
