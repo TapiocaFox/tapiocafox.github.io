@@ -49,11 +49,11 @@
   }}
 />
 {#if selected_category == "colored"}
-<p class="annotation">Artworks that come with awesome colors <img class="inline-glyph" alt="Palette" src={palette_icon}/>.</p>
+<p class="annotation">Artworks that come with awesome <img class="inline-glyph" alt="Palette" src={palette_icon}/>colors.</p>
 {:else if selected_category == "animals"}
-<p class="annotation">Artworks that come with goofy animals <img class="inline-glyph" alt="Animal" src={android_icon}/>.</p>
+<p class="annotation">Artworks that come with goofy <img class="inline-glyph" alt="Animal" src={android_icon}/>animals.</p>
 {:else}
-<p class="annotation">Collection of my artworks. Some with tidbits <img class="inline-glyph" alt="Tibits" src={bulb_icon}/>.</p>
+<p class="annotation">Collection of my artworks. Some with <img class="inline-glyph" alt="Tibits" src={bulb_icon}/>tidbits.</p>
 {/if}
 
 {#if selected_category=="all"}
