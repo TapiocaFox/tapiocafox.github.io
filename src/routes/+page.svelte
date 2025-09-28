@@ -51,13 +51,13 @@
                 <h3 style:margin-block-end="0.0em">Yves Chen</h3>
                 <p class="bold-annotation">
                     <img class="inline-glyph" alt="GitHub" src={github_icon}/>
-                    <a href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
+                    <a class="no-glyph" href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     <img class="inline-glyph" alt="Email" src={email_icon}/>
                     <a href="mailto:contact@tapiocafox.com?subject=Email%20From%20tapiocafox.com">contact@tapiocafox.com</a><br>
                     <img class="inline-glyph" alt="Resume" src={resume_icon}/>
-                    <a href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view" target="_blank">Resume</a>
+                    <a class="no-glyph" href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view" target="_blank">Resume</a>
                     <img class="inline-glyph" alt="LinkedIn" src={linkedin_icon}/>
-                    <a href="https://www.linkedin.com/in/yves-chen-991949161/" target="_blank">LinkedIn</a><br>
+                    <a class="no-glyph" href="https://www.linkedin.com/in/yves-chen-991949161/" target="_blank">LinkedIn</a><br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>

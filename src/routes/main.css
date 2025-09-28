@@ -392,6 +392,10 @@
         mask: url("/src/lib/assets/icons/external.svg") no-repeat center / contain;
     }
 
+    a.no-glyph[target="_blank"]::after {
+        content: unset;
+    }
+
     p.annotation {
         color: dimgrey;
         font-size: small;
