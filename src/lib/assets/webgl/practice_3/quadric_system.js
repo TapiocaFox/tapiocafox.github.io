@@ -11,7 +11,7 @@ let destroyed = false;
 const qSphere = [1,0,0,0,
                  0,1,0,0,
                  0,0,1,0,
-                 0,0,0,-.25];
+                 0,0,0,-1];
 
 const qParabX = [0,0,0,1,
                  0,1,0,0,
@@ -46,17 +46,17 @@ const qSlabZ = [0,0,0,0,
 const qTubeX = [0,0,0,0,
                 0,1,0,0,
                 0,0,1,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qTubeY = [1,0,0,0,
                 0,0,0,0,
                 0,0,1,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qTubeZ = [1,0,0,0,
                 0,1,0,0,
                 0,0,0,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qConeX = [-1,0,0,0,
                  0,1,0,0,
@@ -176,14 +176,18 @@ function animate() {
     const translateX = transaltionScale*sinTranslation;
     const translateY = transaltionScale*cosTranslation;
 
-    let transform = scale(.4,.4,.4);
+    let transform = scale(.33,.33,.33);
     transform = mxm(transform,translate(translateX,translateY,0));
     transform = mxm(transform,scale(breath,breath,breath));
     transform = mxm(transform,rotateX(uTime));
     transform = mxm(transform,rotateY(uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
-    const system = [qSlabX, qSlabY, qSlabZ];
+    // const system = [qSlabX, qSlabY, qSlabZ]; // Cube
+    // const system = [qSlabX, qConeX]; // Hourglass
+    // const system = [qConeX, qxm(qSlabX,translate(1,0,0))]; // Real cone
+    // const system = [qTubeX, qSlabX]; // Cylinder
+    // const system = [qParabX, qSlabX]; // Nose
     // const system = [qSphere];
     
     const finalQSystem = qsxm(system, transform).flat();

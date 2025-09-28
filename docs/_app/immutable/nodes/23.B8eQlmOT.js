@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as P,f as y,e as h,a as u,b as nn,s,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as L,a as w,b as E}from"../chunks/3GLiZReM.js";import{m as B}from"../chunks/8p4Ra2kK.js";import{a as an,b as sn,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/B5XYfFka.js";const vn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as P,f as L,e as h,a as u,b as nn,s,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as E}from"../chunks/CTX4Pt0n.js";import{m as X}from"../chunks/8p4Ra2kK.js";import{a as an,b as sn,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/yxKlmbVx.js";const vn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -471,7 +471,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
     window.removeEventListener('resize', onresize);
-});`,U=`// Author: TapiocaFox
+});`,B=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Init variables.
@@ -679,7 +679,7 @@ void main() {
     color = mix(color, vec3(0.), pctNoiseB);
 
     fragColor = vec4(color,1.0);
-}`,X=`#version 300 es
+}`,U=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Sin
@@ -1266,7 +1266,7 @@ void main() {
       fragColor = vec4(c,c,c, 1.);
    }
 
-}`,Ln=`// Author: TapiocaFox
+}`,yn=`// Author: TapiocaFox
 // Title:  Quadric Surface
 
 // Init variables.
@@ -1473,7 +1473,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     window.removeEventListener('resize', onresize);
-});`,yn=`#version 300 es
+});`,Ln=`#version 300 es
 
 // Author: Ken Perlin
 // Title:  Quadric Surface (System)
@@ -1597,7 +1597,7 @@ let destroyed = false;
 const qSphere = [1,0,0,0,
                  0,1,0,0,
                  0,0,1,0,
-                 0,0,0,-.25];
+                 0,0,0,-1];
 
 const qParabX = [0,0,0,1,
                  0,1,0,0,
@@ -1632,17 +1632,17 @@ const qSlabZ = [0,0,0,0,
 const qTubeX = [0,0,0,0,
                 0,1,0,0,
                 0,0,1,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qTubeY = [1,0,0,0,
                 0,0,0,0,
                 0,0,1,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qTubeZ = [1,0,0,0,
                 0,1,0,0,
                 0,0,0,0,
-                0,0,0,-.25];
+                0,0,0,-1];
 
 const qConeX = [-1,0,0,0,
                  0,1,0,0,
@@ -1762,14 +1762,18 @@ function animate() {
     const translateX = transaltionScale*sinTranslation;
     const translateY = transaltionScale*cosTranslation;
 
-    let transform = scale(.4,.4,.4);
+    let transform = scale(.33,.33,.33);
     transform = mxm(transform,translate(translateX,translateY,0));
     transform = mxm(transform,scale(breath,breath,breath));
     transform = mxm(transform,rotateX(uTime));
     transform = mxm(transform,rotateY(uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
-    const system = [qSlabX, qSlabY, qSlabZ];
+    // const system = [qSlabX, qSlabY, qSlabZ]; // Cube
+    // const system = [qSlabX, qConeX]; // Hourglass
+    // const system = [qConeX, qxm(qSlabX,translate(1,0,0))]; // Real cone
+    // const system = [qTubeX, qSlabX]; // Cylinder
+    // const system = [qParabX, qSlabX]; // Nose
     // const system = [qSphere];
     
     const finalQSystem = qsxm(system, transform).flat();
@@ -1809,4 +1813,4 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     window.removeEventListener('resize', onresize);
-});`,Tn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var _n=y('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),bn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),An=y('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),Pn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),In=y('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p> <div class="flex_grid gallery"></div>',1),zn=y('<div class="item shader_item svelte-ahq8ot"><!></div>'),Mn=y('<h3>Practice Three</h3> <p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p> <div class="flex_grid gallery"></div>',1),wn=y("<!> <!>  <!> <!> <!> <!>",1);function Dn(H,Y){J(Y,!0);let r=tn("all"),F=P([{frag:an,categories:["distortion"]},{frag:sn,categories:[]},{frag:fn,js:A,categories:["distortion"]},{frag:gn,js:A,categories:[]},{frag:cn,categories:["noise"]}]),C=P([{frag:dn,js:xn,categories:[]},{frag:vn,js:un,categories:["noise"]},{frag:pn,js:hn,categories:[]}]),G=P([{frag:Sn,js:Ln,categories:[]},{frag:yn,js:Rn,categories:[]}]);var N=wn(),V=h(N);rn(V,{text:"Graphics"});var Q=s(V,2);{let o=m(()=>[null,null,null,Tn,D,D]);on(Q,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return n(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return n(r)},callback:t=>{t=="editor"?ln("/webgl_editor"):en(r,t,!0)}})}var W=s(Q,2);{var $=o=>{var t=_n(),l=s(h(t),4),g=f(l),e=f(g);S(e,{get vertex_shader(){return L},get fragment_shader(){return B},get javascript(){return U}}),c(g);var v=s(g,2),R=f(v);S(R,{get vertex_shader(){return L},get fragment_shader(){return X},get javascript(){return A}}),c(v),c(l);var x=s(l,6),i=f(x),a=f(i);S(a,{get vertex_shader(){return L},get fragment_shader(){return B},get javascript(){return U},mode:"preview"}),c(i);var d=s(i,2),T=f(d);S(T,{get vertex_shader(){return L},get fragment_shader(){return X},get javascript(){return A},mode:"preview"}),c(d);var p=s(d,2),_=f(p);S(_,{get vertex_shader(){return L},get fragment_shader(){return mn},get javascript(){return A},mode:"preview"}),c(p),c(x),u(o,t)};b(W,o=>{n(r)=="debug"&&o($)})}var O=s(W,2);{var k=o=>{var t=An(),l=s(h(t),4);z(l,21,()=>F,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=bn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(O,o=>{F.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(k)})}var q=s(O,2);{var j=o=>{var t=In(),l=s(h(t),4);z(l,21,()=>C,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=Pn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(q,o=>{C.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(j)})}var Z=s(q,2);{var K=o=>{var t=Mn(),l=s(h(t),4);z(l,21,()=>G,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=zn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:L),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(Z,o=>{G.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(K)})}u(H,N),nn()}export{Dn as component};
+});`,Tn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var _n=L('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div> <div class="item shader_item svelte-ahq8ot"><!></div></div>',1),bn=L('<div class="item shader_item svelte-ahq8ot"><!></div>'),An=L('<h3>Practice One</h3> <p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p> <div class="flex_grid gallery"></div>',1),Pn=L('<div class="item shader_item svelte-ahq8ot"><!></div>'),In=L('<h3>Practice Two</h3> <p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p> <div class="flex_grid gallery"></div>',1),zn=L('<div class="item shader_item svelte-ahq8ot"><!></div>'),Mn=L('<h3>Practice Three</h3> <p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p> <div class="flex_grid gallery"></div>',1),wn=L("<!> <!>  <!> <!> <!> <!>",1);function Dn(H,Y){J(Y,!0);let r=tn("all"),F=P([{frag:an,categories:["distortion"]},{frag:sn,categories:[]},{frag:fn,js:A,categories:["distortion"]},{frag:gn,js:A,categories:[]},{frag:cn,categories:["noise"]}]),C=P([{frag:dn,js:xn,categories:[]},{frag:vn,js:un,categories:["noise"]},{frag:pn,js:hn,categories:[]}]),G=P([{frag:Sn,js:yn,categories:[]},{frag:Ln,js:Rn,categories:[]}]);var N=wn(),V=h(N);rn(V,{text:"Graphics"});var Q=s(V,2);{let o=m(()=>[null,null,null,Tn,D,D]);on(Q,{names:["All categories","Noise","Distortion","Debug","Editor"],get inline_icons(){return n(o)},values:["all","noise","distortion","debug","editor"],dividers:["debug"],get selected_value(){return n(r)},callback:t=>{t=="editor"?ln("/webgl_editor"):en(r,t,!0)}})}var q=s(Q,2);{var $=o=>{var t=_n(),l=s(h(t),4),g=f(l),e=f(g);S(e,{get vertex_shader(){return y},get fragment_shader(){return X},get javascript(){return B}}),c(g);var v=s(g,2),R=f(v);S(R,{get vertex_shader(){return y},get fragment_shader(){return U},get javascript(){return A}}),c(v),c(l);var x=s(l,6),i=f(x),a=f(i);S(a,{get vertex_shader(){return y},get fragment_shader(){return X},get javascript(){return B},mode:"preview"}),c(i);var d=s(i,2),T=f(d);S(T,{get vertex_shader(){return y},get fragment_shader(){return U},get javascript(){return A},mode:"preview"}),c(d);var p=s(d,2),_=f(p);S(_,{get vertex_shader(){return y},get fragment_shader(){return mn},get javascript(){return A},mode:"preview"}),c(p),c(x),u(o,t)};b(q,o=>{n(r)=="debug"&&o($)})}var W=s(q,2);{var k=o=>{var t=An(),l=s(h(t),4);z(l,21,()=>F,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=bn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:y),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(W,o=>{F.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(k)})}var O=s(W,2);{var j=o=>{var t=In(),l=s(h(t),4);z(l,21,()=>C,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=Pn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:y),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(O,o=>{C.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(j)})}var Z=s(O,2);{var K=o=>{var t=Mn(),l=s(h(t),4);z(l,21,()=>G,M,(g,e)=>{var v=I(),R=h(v);{var x=i=>{var a=zn(),d=f(a);{let T=m(()=>n(e).vert?n(e).vert:y),p=m(()=>n(e).frag?n(e).frag:E),_=m(()=>n(e).js?n(e).js:w);S(d,{get vertex_shader(){return n(T)},get fragment_shader(){return n(p)},get javascript(){return n(_)}})}c(a),u(i,a)};b(R,i=>{(n(r)=="all"||n(e).categories.includes(n(r)))&&i(x)})}u(g,v)}),c(l),u(o,t)};b(Z,o=>{G.filter(t=>n(r)=="all"||t.categories.includes(n(r))).length>0&&o(K)})}u(H,N),nn()}export{Dn as component};
