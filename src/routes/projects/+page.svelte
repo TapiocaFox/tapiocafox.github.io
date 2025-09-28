@@ -55,7 +55,7 @@
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
     <h2><a href="/projects/graphics">Graphics</a></h2>
-    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C, <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/webgl/practice_1" target="_blank">learn more</a>.</p>
+    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C, <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/GLSL_Shaders" target="_blank">learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' fragment_shader={adhesive}/>
@@ -79,7 +79,7 @@
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
     <h2><a href="https://github.com/NOOXY-research/Talksy" target="_blank">Talksy</a></h2>
-    <p>A <span class="emphasize">full stack chatting software</span>. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> provides realtime chat, channel management, permission control, authentication and more features. The service is built on top of "<a href="https://github.com/NOOXY-research/NoService" target="_blank"><img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService</a>", <span class="emphasize">a content management system (CMS) written from scratch</span>.</p>
+    <p>A <span class="emphasize">full stack chatting software</span>. Written in React.js with a <a href="https://github.com/NOOXY-research/NoTalk" target="_blank">microservice</a> provides realtime chat, channel management, permission control, authentication and more features. The service is built on top of <a href="https://github.com/NOOXY-research/NoService" target="_blank"><img class="inline-glyph" alt="NoService" src={nsf_icon}/>NoService</a>, <span class="emphasize">a content management system (CMS) written from scratch</span>.</p>
     <p>It was used by my university's radio station "goto&Play". Embeded as a chatting bubble binded to a channel. Admins have fine-grained control through the UI as shown. Users can also access the interface, but only with the channels where the permissions are granted.</p>
     <div class="preview-row">
         <img class="preview-large outlined" alt="Talksy Poster" src={talksy_poster}/>
