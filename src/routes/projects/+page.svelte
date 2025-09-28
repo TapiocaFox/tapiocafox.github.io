@@ -55,7 +55,7 @@
 {#if selected_category=="all" || selected_category=='ongoing'}
 <div class="card">
     <h2><a href="/projects/graphics">Graphics</a></h2>
-    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C. <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/webgl/practice_1" target="_blank">Learn more</a>.</p>
+    <p>Personal practice of WebGL with the <a href="/webgl_editor"><img class="inline-glyph" alt="Editor" src={edit_icon}/>online editor</a> written with CodeMirror by myself. GLSL is a special OpenGL Shading Language with syntax similar to C, <a href="https://developer.mozilla.org/en-US/docs/Games/Techniques/3D_on_the_web/webgl/practice_1" target="_blank">learn more</a>.</p>
     <div class="preview-row">
         <!-- <GlslCanvas mode='preview'/> -->
         <GlslCanvas mode='preview' fragment_shader={adhesive}/>

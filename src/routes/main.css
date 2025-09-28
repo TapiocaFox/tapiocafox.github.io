@@ -370,10 +370,26 @@
         text-decoration-line: none;
     }
 
-    a[target="_blank"]::after {
-        /* content: " ⧉"; */
+    /* a[target="_blank"]::after {
+        content: " ⧉";
         font-size: small;
         color: grey;
+    } */
+
+
+    a[target="_blank"]::after {
+        content: "";
+        display: inline-block;
+        width: 0.66em;
+        height: 0.66em;
+        margin-left: 0.05em;
+        vertical-align: -0.125em;
+        line-height: 1;
+
+        /* Use mask so the icon inherits text color */
+        background-color: currentColor;
+        /* opacity: 0.66; */
+        mask: url("/src/lib/assets/icons/external.svg") no-repeat center / contain;
     }
 
     p.annotation {

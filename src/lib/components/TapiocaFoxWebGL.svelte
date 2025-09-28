@@ -38,9 +38,6 @@
     let foxGL: TapiocaFoxGLContext;
 
 
-
-
-
     $effect (() => {
         // console.log('Something changed:');
         // console.log(props.vertex_shader);
@@ -297,6 +294,11 @@
                     }
                 }
             });
+
+            document.addEventListener('scroll', async (event) => {
+                display_status_block = false;
+                display_edit_button = false;
+            }, true);
 
             canvas.addEventListener('webglcontextlost', async (error) => {
                 error.preventDefault();
