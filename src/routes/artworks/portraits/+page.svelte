@@ -23,4 +23,4 @@
 <img class="portrait" alt="Lin Yi-Bing" src={lin_yi_bing}/>
 <p class="annotation compact">Prof. Lin Yi-Bing (林一平), he was the vice president of my undergrade university NCTU. He is a very insightful person, who also enjoys sketching and other forms of arts. He was very insisting in his own belief; having a lots of pride, but also a very open-minded person. I was invited into his lab, wrote me a recommandation letter as well.</p>
 <img class="portrait" alt="stubbs" src={stubbs}/>
-<p class="annotation compact">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". We chatted on Discord, he is very good at communicating and connecting people and developers from different backgrounds. He has a very sweet family and seems to live in the woods? He ALSO wrote me a recommandation letter.</p>
+<p class="annotation compact">Mr. Stubbs, the founder and the manager of the largest retro gamming community "Retro Handhelds". He is very good at communicating and connecting people and developers from different backgrounds. Has a very sweet family and seems to live in the woods? He kindly wrote me a recommandation letter as well.</p>
