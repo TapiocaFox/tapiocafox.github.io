@@ -57,7 +57,7 @@ function animate() {
 
     // Spheres.
     gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [
-        [0,0,0,.4]
+        [0,0,0,.45]
     ].flat());
     
     // Spheres' lighting.
@@ -68,7 +68,7 @@ function animate() {
         [ 0,0,.4 ]
     ].flat());
     gl.uniform4fv(gl.getUniformLocation(program, 'uSpecular'), [
-        [ 0,1,1,1.5 ]
+        [ 1,1,1,1.5 ]
     ].flat());
     
     // Lights.
