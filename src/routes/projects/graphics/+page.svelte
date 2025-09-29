@@ -90,12 +90,12 @@
         {
             frag: spheres_frag,
             js: spheres_js,
-            categories: []
+            categories: ['raycasting']
         },
         {
             frag: reflective_spheres_frag,
             js: reflective_spheres_js,
-            categories: ['noise']
+            categories: ['noise','raycasting']
         },
     ]);
 
@@ -104,17 +104,17 @@
         {
             frag: phong_frag,
             js: phong_js,
-            categories: []
+            categories: ['raycasting']
         },
         {
             frag: quadric_frag,
             js: quadric_js,
-            categories: []
+            categories: ['raycasting']
         },
         {
             frag: quadric_system_frag,
             js: quadric_system_js,
-            categories: []
+            categories: ['raycasting']
         }
     ]);
 
@@ -129,9 +129,9 @@
 </style>
 <HeaderWithBackButton text="Graphics"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion', 'Debug', 'Editor']}
-  inline_icons={[null, null, null, debug_icon, edit_icon, edit_icon]}
-  values={['all', 'noise', 'distortion', 'debug', 'editor']}
+  names={['All categories', 'Noise', 'Distortion', 'Ray casting', 'Debug', 'Editor']}
+  inline_icons={[null, null, null, null, debug_icon, edit_icon, edit_icon]}
+  values={['all', 'noise', 'distortion', 'raycasting', 'debug', 'editor']}
   dividers={['debug']}
   selected_value={selected_category}
   callback={(value: any) => {
@@ -144,8 +144,8 @@
     else selected_category = value;
   }}
 />
-<!-- <hr style:margin-top="1em" class="dashed"> -->
-<!-- <p class="annotation">These are my personal practice of GLSL. You can try it yourself in <img class="inline-glyph" alt="Edit" src={edit_icon}/><a href="/glsl/editor">the editor</a>.</p> -->
+<!-- <p class="annotation">These are my personal practice of WebGL.</p> -->
+<!-- <hr style:margin-top="1em" class="dotted"> -->
 {#if selected_category == 'debug'}
 <h3>Debug</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
@@ -207,7 +207,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice Two</h3>
-<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment.)</p>
+<p class="annotation">Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 

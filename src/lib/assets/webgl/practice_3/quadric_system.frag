@@ -120,7 +120,7 @@ void main() {
     if (tI1.x > 0. && tI1.x < tI1.y)
         fragColor = vec4(sqrt(color1), 1.);
     else
-        fragColor = vec4(0.0,0.0,0.,1.);
+        fragColor = vec4(.225,.2,.2,1.);
 /*
    vec3 color2 = vec3(0.);
    vec2 tI2 = vec2(-1.,1000.);

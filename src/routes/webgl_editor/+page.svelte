@@ -652,7 +652,7 @@
     }}
 />
 <p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental, your data might be lost!)</p>
-<hr class="dashed" style:margin-bottom="0">
+<hr class="dotted" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
