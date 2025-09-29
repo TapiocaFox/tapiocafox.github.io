@@ -62,4 +62,5 @@ void main() {
     }
     
     fragColor = vec4(sqrt(F.rgb), F.a);
+    fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
 }

@@ -62,13 +62,13 @@ function animate() {
     
     // Spheres' lighting.
     gl.uniform3fv(gl.getUniformLocation(program, 'uAmbient'), [
-        [ 0,0,.1 ]
+        [ 0,0,.4 ]
     ].flat());
     gl.uniform3fv(gl.getUniformLocation(program, 'uDiffuse'), [
-        [ 0,0,.1 ]
+        [ 0,0,.4 ]
     ].flat());
     gl.uniform4fv(gl.getUniformLocation(program, 'uSpecular'), [
-        [ 1,1,1,20 ]
+        [ 0,1,1,1.5 ]
     ].flat());
     
     // Lights.
