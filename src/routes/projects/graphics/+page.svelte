@@ -97,14 +97,15 @@
             js: reflective_spheres_js,
             categories: ['noise']
         },
+    ]);
+
+    let practice_3 = $state<Array<Practice>>([
+
         {
             frag: phong_frag,
             js: phong_js,
             categories: []
         },
-    ]);
-
-    let practice_3 = $state<Array<Practice>>([
         {
             frag: quadric_frag,
             js: quadric_js,
@@ -206,7 +207,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice Two</h3>
-<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two and three.)</p>
+<p class="annotation">Raytracing of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment.)</p>
 <div class="flex_grid gallery">
     {#each practice_2 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
@@ -226,7 +227,7 @@
 }).length > 0}
 <!-- <hr class="dashed"> -->
 <h3>Practice Three</h3>
-<p class="annotation">Quadric surfaces and transformations. (Part of assignment three.)</p>
+<p class="annotation">Phong reflection, quadric surfaces and transformations. (Part of assignment three.)</p>
 <div class="flex_grid gallery">
     {#each practice_3 as practice}
         {#if selected_category =='all' || practice.categories.includes(selected_category)} 
