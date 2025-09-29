@@ -68,7 +68,7 @@ function animate() {
         [ 0,0,.4 ]
     ].flat());
     gl.uniform4fv(gl.getUniformLocation(program, 'uSpecular'), [
-        [ 1,1,1,1.5 ]
+        [ .5,1,1,1.1 ]
     ].flat());
     
     // Lights.
