@@ -25,6 +25,8 @@
     import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
+    import phong_reflective_spheres_frag from '$lib/assets/webgl/practice_2/phong_reflective_spheres.frag?raw';
+    import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
     import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
     import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
 
@@ -95,6 +97,11 @@
         {
             frag: reflective_spheres_frag,
             js: reflective_spheres_js,
+            categories: ['noise','raycasting']
+        },
+        {
+            frag: phong_reflective_spheres_frag,
+            js: phong_reflective_spheres_js,
             categories: ['noise','raycasting']
         },
     ]);

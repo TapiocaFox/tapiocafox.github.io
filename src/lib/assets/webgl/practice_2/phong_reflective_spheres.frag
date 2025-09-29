@@ -1,0 +1,264 @@
+#version 300 es
+
+// Author: TapiocaFox
+// Title:  Reflective Spheres
+// Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
+
+precision highp float;
+
+#define MAX_SPHERES 64
+#define MAX_LIGHTS 64
+#define PI 3.141592653589793238
+#define SPEED_SIN 10.
+#define SCALE_SIN .015
+#define LOWER_BOUND_SIN .8
+#define SIZE_SHRINK_MOUSE 1.
+
+uniform int NS;
+uniform int NL;
+uniform vec2 uMouse;
+uniform vec4 uS[MAX_SPHERES];
+uniform vec3 uC[MAX_SPHERES],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
+
+uniform float uTime;
+uniform vec3 uViewPoint;
+
+in  vec3 vPos;
+out vec4 fragColor;
+
+vec4 mod289(vec4 x) {
+  return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+float mod289(float x) {
+  return x - floor(x * (1.0 / 289.0)) * 289.0; }
+
+vec4 permute(vec4 x) {
+     return mod289(((x*34.0)+10.0)*x);
+}
+
+float permute(float x) {
+     return mod289(((x*34.0)+10.0)*x);
+}
+
+vec4 taylorInvSqrt(vec4 r)
+{
+  return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+float taylorInvSqrt(float r)
+{
+  return 1.79284291400159 - 0.85373472095314 * r;
+}
+
+vec4 grad4(float j, vec4 ip)
+  {
+  const vec4 ones = vec4(1.0, 1.0, 1.0, -1.0);
+  vec4 p,s;
+
+  p.xyz = floor( fract (vec3(j) * ip.xyz) * 7.0) * ip.z - 1.0;
+  p.w = 1.5 - dot(abs(p.xyz), ones.xyz);
+  s = vec4(lessThan(p, vec4(0.0)));
+  p.xyz = p.xyz + (s.xyz*2.0 - 1.0) * s.www; 
+
+  return p;
+  }
+						
+// (sqrt(5) - 1)/4 = F4, used once below
+#define F4 0.309016994374947451
+
+float snoise(vec4 v)
+  {
+  const vec4  C = vec4( 0.138196601125011,  // (5 - sqrt(5))/20  G4
+                        0.276393202250021,  // 2 * G4
+                        0.414589803375032,  // 3 * G4
+                       -0.447213595499958); // -1 + 4 * G4
+
+// First corner
+  vec4 i  = floor(v + dot(v, vec4(F4)) );
+  vec4 x0 = v -   i + dot(i, C.xxxx);
+
+// Other corners
+
+// Rank sorting originally contributed by Bill Licea-Kane, AMD (formerly ATI)
+  vec4 i0;
+  vec3 isX = step( x0.yzw, x0.xxx );
+  vec3 isYZ = step( x0.zww, x0.yyz );
+//  i0.x = dot( isX, vec3( 1.0 ) );
+  i0.x = isX.x + isX.y + isX.z;
+  i0.yzw = 1.0 - isX;
+//  i0.y += dot( isYZ.xy, vec2( 1.0 ) );
+  i0.y += isYZ.x + isYZ.y;
+  i0.zw += 1.0 - isYZ.xy;
+  i0.z += isYZ.z;
+  i0.w += 1.0 - isYZ.z;
+
+  // i0 now contains the unique values 0,1,2,3 in each channel
+  vec4 i3 = clamp( i0, 0.0, 1.0 );
+  vec4 i2 = clamp( i0-1.0, 0.0, 1.0 );
+  vec4 i1 = clamp( i0-2.0, 0.0, 1.0 );
+
+  //  x0 = x0 - 0.0 + 0.0 * C.xxxx
+  //  x1 = x0 - i1  + 1.0 * C.xxxx
+  //  x2 = x0 - i2  + 2.0 * C.xxxx
+  //  x3 = x0 - i3  + 3.0 * C.xxxx
+  //  x4 = x0 - 1.0 + 4.0 * C.xxxx
+  vec4 x1 = x0 - i1 + C.xxxx;
+  vec4 x2 = x0 - i2 + C.yyyy;
+  vec4 x3 = x0 - i3 + C.zzzz;
+  vec4 x4 = x0 + C.wwww;
+
+// Permutations
+  i = mod289(i); 
+  float j0 = permute( permute( permute( permute(i.w) + i.z) + i.y) + i.x);
+  vec4 j1 = permute( permute( permute( permute (
+             i.w + vec4(i1.w, i2.w, i3.w, 1.0 ))
+           + i.z + vec4(i1.z, i2.z, i3.z, 1.0 ))
+           + i.y + vec4(i1.y, i2.y, i3.y, 1.0 ))
+           + i.x + vec4(i1.x, i2.x, i3.x, 1.0 ));
+
+// Gradients: 7x7x6 points over a cube, mapped onto a 4-cross polytope
+// 7*7*6 = 294, which is close to the ring size 17*17 = 289.
+  vec4 ip = vec4(1.0/294.0, 1.0/49.0, 1.0/7.0, 0.0) ;
+
+  vec4 p0 = grad4(j0,   ip);
+  vec4 p1 = grad4(j1.x, ip);
+  vec4 p2 = grad4(j1.y, ip);
+  vec4 p3 = grad4(j1.z, ip);
+  vec4 p4 = grad4(j1.w, ip);
+
+// Normalise gradients
+  vec4 norm = taylorInvSqrt(vec4(dot(p0,p0), dot(p1,p1), dot(p2, p2), dot(p3,p3)));
+  p0 *= norm.x;
+  p1 *= norm.y;
+  p2 *= norm.z;
+  p3 *= norm.w;
+  p4 *= taylorInvSqrt(dot(p4,p4));
+
+// Mix contributions from the five corners
+  vec3 m0 = max(0.57 - vec3(dot(x0,x0), dot(x1,x1), dot(x2,x2)), 0.0);
+  vec2 m1 = max(0.57 - vec2(dot(x3,x3), dot(x4,x4)            ), 0.0);
+  m0 = m0 * m0;
+  m1 = m1 * m1;
+  return 60.1 * ( dot(m0*m0, vec3( dot( p0, x0 ), dot( p1, x1 ), dot( p2, x2 )))
+               + dot(m1*m1, vec2( dot( p3, x3 ), dot( p4, x4 ) ) ) ) ;
+
+  }
+
+vec2 raySphere(vec3 V, vec3 W, vec4 S) {
+    V -= S.xyz;
+    float b = dot(V, W);
+    float d = b * b - dot(V, V) + S.w * S.w;
+    if (d < 0.)
+        return vec2(1001.,1000.);
+    return vec2(-b - sqrt(d), -b + sqrt(d));
+}
+
+bool inShadow(vec3 P, vec3 L) {
+    for (int i = 0 ; i < NS ; i++) {
+        vec2 tt = raySphere(P, L, uS[i]);
+        if (tt.x < tt.y && tt.x > 0.)
+            return true;
+    }
+    return false;
+}
+
+vec3 phong(vec3 N, vec3 L, vec3 W,vec3 diffuse, vec4 specular) {
+    vec3 shade = vec3(0.);
+    shade += diffuse * max(0., dot(L,N)); // Diffuse.
+    vec3 reflection = 2.*N*dot(N,L)-L;
+    shade += specular.xyz * pow(max(0., dot(-reflection, W)), specular.w); // Specular.
+    return shade;
+}
+
+vec3 shadeSphereDirectly(int i, vec3 P, vec3 W) {
+    vec4 S = uS[i];
+    vec3 C = uC[i];
+    vec3 N = (P - S.xyz) / S.w;
+    
+    vec3 shade = vec3(.1);
+
+    vec3 step = vec3(1.3, 1.7, 2.1);
+    // vec3 step = vec3(0., 0., 0.);
+    float shift = float(5*i);
+    float n = snoise(vec4(P, shift+0.3*uTime));
+    n += 0.5 * snoise(vec4(P* 2.0 - step, shift+0.3*uTime));
+    n += 0.25 * snoise(vec4(P* 4.0 - 2.0 * step, shift+0.3*uTime));
+    n += 0.125 * snoise(vec4(P* 8.0 - 3.0 * step, shift+0.3*uTime));
+    n += 0.0625 * snoise(vec4(P* 16.0 - 4.0 * step, shift+0.3*uTime));
+    n += 0.03125 * snoise(vec4(P* 32.0 - 5.0 * step, shift+0.3*uTime));
+    shade = shade+max(min(.5*n, .25), -.75);
+    // shade += n;
+    
+    // shade *= sin(20. * N.y - PI*uTime);
+    shade *= (1.-LOWER_BOUND_SIN)*(.5 + .5 * sin(1./SCALE_SIN * N.y - SPEED_SIN*PI*uTime*float(2 * (i & 1) - 1)))+LOWER_BOUND_SIN;
+    // shade *= 1.;
+    
+    // Direct light source.
+    for (int l = 0 ; l < NL ; l++)
+        if (! inShadow(P, uL[l])) {
+            // shade += uLC[l] * max(0., dot(N, uL[l])); // No phong.
+            shade += uLC[l] * phong(N,uL[l],W,C,vec4(vec3(.33), 30));
+        }
+    
+    return shade;
+}
+
+vec3 shadeSphere(int i, vec3 P, vec3 W) {
+    vec4 S = uS[i];
+    vec3 C = uC[i];
+    vec3 N = (P - S.xyz) / S.w;
+    
+    vec3 directShade = shadeSphereDirectly(i,P,W);
+
+    // Glow from other spheres.
+    vec3 reflectiveShade = vec3(0.);
+    float t = 100.;
+    vec3 WR = reflect(W, N);
+    for (int l = 0 ; l < NS ; l++) {
+        vec2 tt = raySphere(P, WR, uS[l]);
+        if (tt.x < tt.y && tt.x > 0. && tt.x < t) {
+            t = tt.x;
+            vec3 PGlow = P + t * WR;
+            vec3 color = shadeSphereDirectly(l,PGlow,WR);
+            // vec3 NGlow = (PGlow-uS[l].xyz)/uS[l].w;
+            // F = color * max(0., dot(-WR, NGlow));
+            reflectiveShade = color;
+        }
+    }
+
+    return directShade+reflectiveShade;
+}
+
+
+
+void main() {
+    vec4 F = vec4(0.);
+    vec3 V = uViewPoint;
+    vec3 W = normalize(vPos-V);
+    float t = 100.;
+    
+    for (int i = 0 ; i < NS ; i++) {
+        vec2 tt = raySphere(V, W, uS[i]);
+        if (tt.x < tt.y && tt.x > 0. && tt.x < t) {
+            t = tt.x;
+            vec3 P = V + t * W;
+            F = vec4(shadeSphere(i,P,W),1.);
+        }
+    }
+    
+    // fragColor = vec4(pow(F.rgb, vec3(1.0/2.2)), F.a);
+    fragColor = vec4(F.rgb, F.a);
+
+    vec4 colorBg = vec4(0.);
+    colorBg = vec4(.5*sin(PI*(.25*vPos.x-uTime))+.5,.5*sin(PI*(.4*vPos.y-uTime))+.5,.5*sin(PI*uTime)+.5, 1.);
+    
+    float pctNoiseW = snoise(vec4(.8*SIZE_SHRINK_MOUSE*vPos.xy-vec2(.33*uTime), 0.7*uTime, 0.));
+    float pctNoiseB = 2.*snoise(vec4(.9*SIZE_SHRINK_MOUSE*vPos.xy-vec2(.33*uTime), 0.5*uTime, 0.));
+    
+    colorBg = mix(colorBg, vec4(1.), .25*pctNoiseW);    
+    colorBg = mix(colorBg, vec4(0., 0., 0., 1.), pctNoiseB);
+    colorBg = mix(vec4(0.,0.,0.,1.),colorBg,.15);
+
+    fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
+    // fragColor = mix(colorBg,fragColor,F.a);
+}
