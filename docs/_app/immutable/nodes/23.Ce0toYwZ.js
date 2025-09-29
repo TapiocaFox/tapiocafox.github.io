@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as C}from"../chunks/C1s8tzlo.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/iRrFqdo0.js";const vn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as C}from"../chunks/DQ32kk8B.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/CN_vqCnh.js";const vn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -1053,7 +1053,7 @@ void main() {
     }
     
     fragColor = vec4(sqrt(F.rgb), F.a);
-    fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
+    // fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
 }`,hn=`// Author: TapiocaFox
 // Title:  Phong Reflection
 
