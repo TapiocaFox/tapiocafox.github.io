@@ -10,7 +10,7 @@
     import reversi_talk from '$lib/assets/projects/reversi_talk.png';
     import reversi_talk_terminal from '$lib/assets/projects/reversi_talk_terminal.png';
 
-    import note_g_editor from '$lib/assets/projects/note_g_editor.png';
+    import note_g_editor from '$lib/assets/projects/note_g_editor.jpg';
     import note_g_arduino from '$lib/assets/projects/note_g_arduino.jpg';
 
     // import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
@@ -90,8 +90,8 @@
 
 {#if selected_category=="all" || selected_category=='highlights'}
 <div class="card">
-    <h2><a href="https://github.com/TapiocaFox/Note-G" target="_blank">Note-G</a></h2>
-    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet in browser and <span class="emphasize">upload it to Arduino via bluetooth BLE</span>. The editor also support the importation from the <span class="emphasize">Open Music XML format</span> through conversion.</p>
+    <h2><a href="http://tapiocafox.github.io/Note-G" target="_blank">Note-G</a></h2>
+    <p>A simple rhythm game console made with Arduino UNO. You can edit your music sheet in browser and <span class="emphasize">upload it to Arduino via bluetooth BLE</span>. The editor also supports the importation from the <span class="emphasize">Open Music XML format</span> through conversion.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Note G Arduino" src={note_g_arduino}/>
         <img class="preview-large outlined" alt="Note G Editor" src={note_g_editor}/>
@@ -101,7 +101,7 @@
 
 {#if selected_category=="all"}
 <div class="card">
-    <h2><a href="https://github.com/TapiocaFox/ReversiTalk" target="_blank">ReversiTalk</a></h2>
+    <h2><a href="http://tapiocafox.github.io/ReversiTalk" target="_blank">ReversiTalk</a></h2>
     <p><span class="emphasize">A reversi game stack</span> that can be controlled by various IoT devices, and can be displayed on the webpage. The AI agent uses CNN model, and <span class="emphasize">the library was written <a href="https://github.com/TapiocaFox/NodeNet" target="_blank">purely in NumPy</a></span>. It was my second year undergrad project.</p>
     <div class="preview-row">
         <img class="preview-large" alt="Reversi Talk" src={reversi_talk}/>
