@@ -13,13 +13,13 @@ uniform mat4 uQ[3];
 in  vec3 vPos;
 out vec4 fragColor;
 
-vec3 firstGridColor = vec3(1.,1.,1.);
-vec3 secondGridColor = vec3(.95,.95,.95);
+vec3 firstGridColor = vec3(.8,.8,.8);
+vec3 secondGridColor = vec3(.7,.7,.7);
 
 vec3 light = normalize(vec3(1.,1.,1.));
-vec3 lightColor = vec3(.9,.9,1.);
+vec3 lightColor = vec3(.95,.95,1.);
 vec3 light2 = normalize(vec3(-1.,-1.,0.));
-vec3 lightColor2 = vec3(1.,.6,.6);
+vec3 lightColor2 = vec3(.9,.5,.5);
 vec4 sepcular = vec4(1.,1.,1.,20.);
 
 vec3 rayEq(vec3 V, vec3 W, mat4 Q) {

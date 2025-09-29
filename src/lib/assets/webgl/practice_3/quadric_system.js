@@ -154,7 +154,7 @@ const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
 const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
 const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
 
-let systemIndex = 0;
+let systemIndex = 1;
 const systems = [
     cubeSystem,
     hourglassSystem,
@@ -203,20 +203,20 @@ function animate() {
 
     // const sinValue = Math.sin(2*uTime);
     const cosScale = Math.cos(uTime);
-    const scaleSize = 0.15;
+    const scaleSize = 0.1;
     const breath = 1+scaleSize*cosScale;
 
-    const sinTranslation = Math.sin(.5*uTime);
-    const cosTranslation = Math.cos(.25*uTime);
-    const transaltionScale = .5;
+    const sinTranslation = Math.sin(.66*uTime);
+    const cosTranslation = Math.cos(.33*uTime);
+    const transaltionScale = .4;
     const translateX = transaltionScale*sinTranslation;
     const translateY = transaltionScale*cosTranslation;
 
-    let transform = scale(.4,.4,.4);
+    let transform = scale(.45,.45,.45);
     transform = mxm(transform,translate(translateX,translateY,0));
     transform = mxm(transform,scale(breath,breath,breath));
-    transform = mxm(transform,rotateX(.5*uTime));
-    transform = mxm(transform,rotateY(.5*uTime));
+    transform = mxm(transform,rotateX(.66*uTime));
+    transform = mxm(transform,rotateY(.66*uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
     const finalQSystem = qsxm(systems[systemIndex], transform).flat();

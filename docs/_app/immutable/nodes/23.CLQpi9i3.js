@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as E}from"../chunks/BXvrjwzB.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/BLvmOLTW.js";const vn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as E}from"../chunks/C3Rj7tZn.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/wGck8JwZ.js";const vn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -1488,13 +1488,13 @@ uniform mat4 uQ[3];
 in  vec3 vPos;
 out vec4 fragColor;
 
-vec3 firstGridColor = vec3(1.,1.,1.);
-vec3 secondGridColor = vec3(.95,.95,.95);
+vec3 firstGridColor = vec3(.8,.8,.8);
+vec3 secondGridColor = vec3(.7,.7,.7);
 
 vec3 light = normalize(vec3(1.,1.,1.));
-vec3 lightColor = vec3(.9,.9,1.);
+vec3 lightColor = vec3(.95,.95,1.);
 vec3 light2 = normalize(vec3(-1.,-1.,0.));
-vec3 lightColor2 = vec3(1.,.6,.6);
+vec3 lightColor2 = vec3(.9,.5,.5);
 vec4 sepcular = vec4(1.,1.,1.,20.);
 
 vec3 rayEq(vec3 V, vec3 W, mat4 Q) {
@@ -1770,7 +1770,7 @@ const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
 const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
 const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
 
-let systemIndex = 0;
+let systemIndex = 1;
 const systems = [
     cubeSystem,
     hourglassSystem,
@@ -1819,20 +1819,20 @@ function animate() {
 
     // const sinValue = Math.sin(2*uTime);
     const cosScale = Math.cos(uTime);
-    const scaleSize = 0.15;
+    const scaleSize = 0.1;
     const breath = 1+scaleSize*cosScale;
 
-    const sinTranslation = Math.sin(.5*uTime);
-    const cosTranslation = Math.cos(.25*uTime);
-    const transaltionScale = .5;
+    const sinTranslation = Math.sin(.66*uTime);
+    const cosTranslation = Math.cos(.33*uTime);
+    const transaltionScale = .4;
     const translateX = transaltionScale*sinTranslation;
     const translateY = transaltionScale*cosTranslation;
 
-    let transform = scale(.4,.4,.4);
+    let transform = scale(.45,.45,.45);
     transform = mxm(transform,translate(translateX,translateY,0));
     transform = mxm(transform,scale(breath,breath,breath));
-    transform = mxm(transform,rotateX(.5*uTime));
-    transform = mxm(transform,rotateY(.5*uTime));
+    transform = mxm(transform,rotateX(.66*uTime));
+    transform = mxm(transform,rotateY(.66*uTime));
     // transform = mxm(transform,rotateZ(uTime));
     
     const finalQSystem = qsxm(systems[systemIndex], transform).flat();
