@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as E}from"../chunks/CwaFbSfI.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/BrPXsloR.js";const vn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as A,f as L,e as h,a as u,b as nn,s as a,k as en,i as n,j as tn,aA as m,c as f,r as c,g as I}from"../chunks/ug66gb1C.js";import{i as b}from"../chunks/CkVXaSfc.js";import{e as z,i as M}from"../chunks/9Fe9rX9w.js";import{C as on}from"../chunks/BLcuZv8E.js";import{H as rn}from"../chunks/DSCYYZAn.js";import{e as D,T as S,d as y,a as w,b as E}from"../chunks/BXvrjwzB.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as sn,b as an,r as cn}from"../chunks/K1sOCa-h.js";import{g as ln}from"../chunks/BLvmOLTW.js";const vn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -1594,8 +1594,8 @@ void main() {
     
     if (tI1.x > 0. && tI1.x < tI1.y)
         fragColor = vec4(sqrt(color1), 1.);
-    else
-        fragColor = vec4(0.0,0.0,0.,1.);
+    // else
+    //     fragColor = vec4(0.0,0.0,0.,1.);
 /*
    vec3 color2 = vec3(0.);
    vec2 tI2 = vec2(-1.,1000.);
