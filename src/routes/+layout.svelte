@@ -2,7 +2,7 @@
 	import favicon from '$lib/assets/favicon.ico';
 
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
-	
+	import tapiocafox from '$lib/assets/squares/tapiocafox.png';
 	// import default_vert from '$lib/assets/webgl/practice_1/default.vert?raw';
     import fiber_bg_frag from '$lib/assets/webgl/misc/fiber_bg.frag?raw';
 
@@ -13,6 +13,12 @@
 	<link rel="icon" href={favicon} />
 	<meta name="theme-color" content="var(--fox-background-color)">
 	<title>TapiocaFox</title>
+	
+	<!-- Basic Open Graph -->
+	<meta property="og:title" content="TapiocaFox" />
+	<meta property="og:description" content="Hi, I am TapiocaFox. This is the website of me sharing personal works and demos." />
+	<meta property="og:image" content={ tapiocafox }/>
+	<meta property="og:type" content="website" />
 </svelte:head>
 
 <style>
