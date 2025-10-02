@@ -6,8 +6,8 @@
 precision highp float;
 
 #define RADIUS_POINTER 0.033
-#define GAP_GRID 0.1
-#define SIZE_HALF_STROKE 0.007
+#define GAP_GRID 0.17
+#define SIZE_HALF_STROKE 0.01
 #define SIZE_BUMP_RADIUS 0.35
 #define SIZE_BUMP_HEIGHT .1
 #define SIZE_BUMP_HEIGHT_R .08
