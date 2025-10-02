@@ -27,14 +27,16 @@
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
     import phong_reflective_spheres_frag from '$lib/assets/webgl/practice_2/phong_reflective_spheres.frag?raw';
     import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
-    import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
-    import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
-
-
+    
+    
+    import phong_frag from '$lib/assets/webgl/practice_3/phong.frag?raw';
+    import phong_js from '$lib/assets/webgl/practice_3/phong.js?raw';
     import quadric_frag from '$lib/assets/webgl/practice_3/quadric.frag?raw';
     import quadric_js from '$lib/assets/webgl/practice_3/quadric.js?raw';
     import quadric_system_frag from '$lib/assets/webgl/practice_3/quadric_system.frag?raw';
     import quadric_system_js from '$lib/assets/webgl/practice_3/quadric_system.js?raw';
+
+    import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -49,82 +51,109 @@
         categories: string[]
     };
 
-    let practice_1 = $state<Array<Practice>>([
-        // {
-        //     vert: default_vert_shader,
-        //     frag: default_frag_shader,
-        //     categories: []
-        // },
-        {
-            frag: adhesive,
-            categories: ['distortion']
-        },
-        // {
-        //     shader: mouse,
-        //     categories: ['debug']
-        // },
-        {
-            frag: balls,
-            categories: []
-        },
-        {
-            frag: fiber,
-            js: frame_skip_js,
-            categories: ['distortion']
-        },
-        {
-            frag: array,
-            js: frame_skip_js,
-            categories: []
-        },
-        {
-            frag: radiant,
-            categories: ['noise']
-        },
-        // {
-        //     vert: default_vert_shader,
-        //     frag: snoise,
-        //     categories: ['noise']
-        // }
-    ]);
+    type Cluster = {
+        title: string,
+        description: string,
+        practices: Array<Practice>
+    };
 
-    let practice_2 = $state<Array<Practice>>([
+    let clusters = $state<Array<Cluster>>([
         {
-            frag: spheres_frag,
-            js: spheres_js,
-            categories: ['raycasting']
+            title: 'Practice One',
+            description: 'Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)',
+            practices: [
+                // {
+                //     vert: default_vert_shader,
+                //     frag: default_frag_shader,
+                //     categories: []
+                // },
+                {
+                    frag: adhesive,
+                    categories: ['distortion']
+                },
+                // {
+                //     shader: mouse,
+                //     categories: ['debug']
+                // },
+                {
+                    frag: balls,
+                    categories: []
+                },
+                {
+                    frag: fiber,
+                    js: frame_skip_js,
+                    categories: ['distortion']
+                },
+                {
+                    frag: array,
+                    js: frame_skip_js,
+                    categories: []
+                },
+                {
+                    frag: radiant,
+                    categories: ['noise']
+                },
+                // {
+                //     vert: default_vert_shader,
+                //     frag: snoise,
+                //     categories: ['noise']
+                // }
+            ]
         },
         {
-            frag: reflective_spheres_frag,
-            js: reflective_spheres_js,
-            categories: ['noise','raycasting']
+            title: 'Practice Two',
+            description: 'Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)',
+            practices: [
+                {
+                    frag: spheres_frag,
+                    js: spheres_js,
+                    categories: ['raycasting']
+                },
+                {
+                    frag: reflective_spheres_frag,
+                    js: reflective_spheres_js,
+                    categories: ['noise','raycasting']
+                },
+                {
+                    frag: phong_reflective_spheres_frag,
+                    js: phong_reflective_spheres_js,
+                    categories: ['noise','raycasting']
+                },
+            ]
         },
         {
-            frag: phong_reflective_spheres_frag,
-            js: phong_reflective_spheres_js,
-            categories: ['noise','raycasting']
+            title: 'Practice Three',
+            description: 'Phong reflection, quadric surfaces and transformations. (Part of assignment three.)',
+            practices: [
+                {
+                    frag: phong_frag,
+                    js: phong_js,
+                    categories: ['raycasting']
+                },
+                {
+                    frag: quadric_frag,
+                    js: quadric_js,
+                    categories: ['raycasting']
+                },
+                {
+                    frag: quadric_system_frag,
+                    js: quadric_system_js,
+                    categories: ['raycasting']
+                }
+            ]
         },
-    ]);
-
-    let practice_3 = $state<Array<Practice>>([
-
         {
-            frag: phong_frag,
-            js: phong_js,
-            categories: ['raycasting']
-        },
-        {
-            frag: quadric_frag,
-            js: quadric_js,
-            categories: ['raycasting']
-        },
-        {
-            frag: quadric_system_frag,
-            js: quadric_system_js,
-            categories: ['raycasting']
+            title: 'Unorganized',
+            description: 'Things that are not organized to any cluster yet.',
+            practices: [
+                {
+                    frag: magnifier_frag,
+                    js: passive_render_js,
+                    categories: ['distortion']
+                }
+            ]
         }
     ]);
-
 </script>
 <style>
     .shader_item {
@@ -188,67 +217,29 @@
 </div>
 {/if}
 
-{#if practice_1.filter((practice) => {
-    return selected_category =='all' || practice.categories.includes(selected_category);
-}).length > 0}
-<!-- <hr class="dashed"> -->
-<h3>Practice One</h3>
-<p class="annotation">Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)</p>
-<div class="flex_grid gallery">
-    {#each practice_1 as practice}
-        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
-        <div class="item shader_item">
-            <TapiocaFoxWebGL 
-            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
-            fragment_shader={practice.frag?practice.frag:default_frag_shader}
-            javascript={practice.js?practice.js:default_js}
-            />
-        </div>
-        {/if}
-    {/each}
-</div>
-{/if}
+{#each clusters as cluster}
+    {#if cluster.practices.filter((practice) => {
+        return selected_category =='all' || practice.categories.includes(selected_category);
+    }).length > 0}
+    <!-- <hr class="dashed"> -->
+    <h3>{cluster.title}</h3>
+    <p class="annotation">{cluster.description}</p>
+    <div class="flex_grid gallery">
+        {#each cluster.practices as practice}
+            {#if selected_category =='all' || practice.categories.includes(selected_category)} 
+            <div class="item shader_item">
+                <TapiocaFoxWebGL 
+                vertex_shader={practice.vert?practice.vert:default_vert_shader} 
+                fragment_shader={practice.frag?practice.frag:default_frag_shader}
+                javascript={practice.js?practice.js:default_js}
+                />
+            </div>
+            {/if}
+        {/each}
+    </div>
+    {/if}
+{/each}
 
-{#if practice_2.filter((practice) => {
-    return selected_category =='all' || practice.categories.includes(selected_category);
-}).length > 0}
-<!-- <hr class="dashed"> -->
-<h3>Practice Two</h3>
-<p class="annotation">Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)</p>
-<div class="flex_grid gallery">
-    {#each practice_2 as practice}
-        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
-        <div class="item shader_item">
-            <TapiocaFoxWebGL 
-            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
-            fragment_shader={practice.frag?practice.frag:default_frag_shader}
-            javascript={practice.js?practice.js:default_js}
-            />
-        </div>
-        {/if}
-    {/each}
-</div>
-{/if}
-{#if practice_3.filter((practice) => {
-    return selected_category =='all' || practice.categories.includes(selected_category);
-}).length > 0}
-<!-- <hr class="dashed"> -->
-<h3>Practice Three</h3>
-<p class="annotation">Phong reflection, quadric surfaces and transformations. (Part of assignment three.)</p>
-<div class="flex_grid gallery">
-    {#each practice_3 as practice}
-        {#if selected_category =='all' || practice.categories.includes(selected_category)} 
-        <div class="item shader_item">
-            <TapiocaFoxWebGL 
-            vertex_shader={practice.vert?practice.vert:default_vert_shader} 
-            fragment_shader={practice.frag?practice.frag:default_frag_shader}
-            javascript={practice.js?practice.js:default_js}
-            />
-        </div>
-        {/if}
-    {/each}
-</div>
-{/if}
 <!-- <GlslCanvas/> -->
 <!-- <GlslCanvas fragment_shader={alter_green_red_frag}/> -->
 <!-- <GlslCanvas fragment_shader={shader_toy_demo}/> -->
