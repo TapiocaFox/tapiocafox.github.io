@@ -350,6 +350,7 @@
         cursor: crosshair;
         /* border-radius: var(--sharper-radius); */
     }
+    
     canvas.glsl.preview {
         max-height: calc(var(--compact-widcth) * 0.25);
         box-sizing: border-box;
@@ -368,6 +369,7 @@
         border: none;
         cursor: unset;
     }
+
     @media (max-width: 768px) {
         canvas.glsl {
             width: 170px;

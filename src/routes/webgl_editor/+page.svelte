@@ -3,10 +3,12 @@
     import HeaderWithBackButton from '$lib/components/HeaderWithBackButton.svelte';
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     import PointerBlock from '$lib/components/PointerBlock.svelte';
+    import WindowBlock from '$lib/components/WindowBlock.svelte';
 	import EndingDecoration from '$lib/components/EndingDecoration.svelte';
     
 
     import { tick } from 'svelte';
+    import { dev } from '$app/environment';
     import { EditorView, basicSetup } from "codemirror";
     import { keymap, type KeyBinding } from '@codemirror/view';
     import { indentUnit } from "@codemirror/language";
@@ -32,6 +34,10 @@
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
     import box_icon from '$lib/assets/icons/box.svg';
+    import deform_icon from '$lib/assets/icons/deform.svg';
+    import upload_icon from '$lib/assets/icons/upload.svg';
+    import close_icon from '$lib/assets/icons/close.svg';
+
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -82,6 +88,7 @@
     let selected_value = $derived(`view_${$viewModeStorage}`);
 
     let mounted = $state(false);
+    let show_foxgl_interface = $state(false);
     let anything_changed = false;
 
     function scrollToTop() {
@@ -540,6 +547,14 @@
         return 'just now';
     }
 
+    const chips_names = ['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4'];
+    const chips_values = ['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js'];
+    const chips_icons = [reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon];
+    if(dev) {
+        chips_names.push('Assets');
+        chips_values.push('view_assets');
+        chips_icons.push(box_icon);
+    }
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
 <style>
@@ -593,14 +608,41 @@
         width: 1px;
         white-space: nowrap;
     }
+
+    .flex_grid .html-item {
+        width: 100%;
+        aspect-ratio: 1;
+        max-width: 220px;
+        max-height: 220px;
+        display:flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: unset;
+    }
+
+    .flex_grid .html-item .center-div {
+        display: block;
+        position: relative;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    @media (max-width: 768px) {
+        .flex_grid .html-item {
+            width: 170px;
+            height: 170px;
+        }
+    }
     
 </style>
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
 <HeaderWithBackButton text="WebGL Editor"/>
 <Chips
-    names={['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4', 'Assets']}
-    values={['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js', 'view_assets']}
-    inline_icons={[reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon, box_icon]}
+    names={chips_names}
+    values={chips_values}
+    inline_icons={chips_icons}
     bind:selected_value={selected_value}
     dividers={['view_all']}
     sticky={true}
@@ -672,7 +714,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <span id="foxgl-definition" class="underline">interface definition</span>. Be careful of the Cross Site Scripting (XSS) attack.</p>
+                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>interface definition</button>. Be careful of the Cross Site Scripting (XSS) attack.</p>
                 {#if javascript_error != null}
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
@@ -680,11 +722,27 @@
             </div>
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
-                <h3>Textures <img class="inline-glyph" src={box_icon}/></h3>
+                <h3>Textures <img class="inline-glyph" src={deform_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
+                <div class="flex_grid gallery">
+                    <div class="item html-item">
+                        <div>
+                            <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
+                            <p class="annotation">Click to upload a texture file.</p>
+                        </div>
+                    </div>
+                </div>
                 <hr class="dashed" style:margin-bottom="0">
                 <h3>Objects <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
+                <div class="flex_grid gallery">
+                    <div class="item html-item">
+                        <div>
+                            <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
+                            <p class="annotation">Click to upload a object file.</p>
+                        </div>
+                    </div>
+                </div>
                 <hr class="dashed" style:margin-bottom="0">
             </div>
 
@@ -714,7 +772,7 @@
                             <td style:white-space="nowrap"><img id={`snap-img-${snapshot.timestamp}`} class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
                                 loadSnapshot(snapshot);
                             }}>{snapshot.name}</button>
-                            <PointerBlock elementId={`snap-img-${snapshot.timestamp}`}>
+                            <PointerBlock element_id={`snap-img-${snapshot.timestamp}`}>
                                 <p class="annotation">Snapshot: {snapshot.name}<br>Time: {timeAgo(new Date(snapshot.timestamp))}</p>
                                 <img alt="Preview" src={snapshot.img} style:max-height="300px"/>
                             </PointerBlock>
@@ -745,7 +803,11 @@
         </div>
     </div>
 </div>
-<PointerBlock elementId="foxgl-definition">
+<!-- <PointerBlock element_id="foxgl-definition">
     <h3>TapiocaFoxGLContext</h3>
     <pre>{TapiocaFoxGLContextRaw}</pre>
-</PointerBlock>
+</PointerBlock> -->
+<WindowBlock grab_element_id="foxgl-grabable" bind:show={show_foxgl_interface}>
+    <h3 id="foxgl-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;TapiocaFoxGLContext</h3>
+    <pre>{TapiocaFoxGLContextRaw}</pre>
+</WindowBlock>

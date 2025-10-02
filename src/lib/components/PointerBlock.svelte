@@ -1,7 +1,7 @@
 <script lang="ts">
     import { onDestroy, onMount, tick } from "svelte";
 
-    let { children, elementId, division_percentage = 0.5, pointer_offset = 32, unit="px" } = $props();
+    let { children, element_id, division_percentage = 0.5, pointer_offset = 32, unit="px" } = $props();
     let show = $state(false);
     var pointer_block: HTMLDivElement;
 
@@ -39,13 +39,13 @@
 
     onMount(async () => {
         // await tick();
-        const element = document.getElementById(elementId)!;
+        const element = document.getElementById(element_id)!;
         element.addEventListener('pointermove', onpointermove);
         element.addEventListener('pointerleave', onpointerleave);
     });
     
     // onDestroy(() => {
-    //     const element = document.getElementById(elementId)!;
+    //     const element = document.getElementById(element_id)!;
     //     element.removeEventListener('pointermove', onpointermove);
     //     element.removeEventListener('pointermove', onpointerleave);
     // });

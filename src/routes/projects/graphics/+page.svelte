@@ -156,7 +156,7 @@
     ]);
 </script>
 <style>
-    .shader_item {
+    .webgl-item {
         border: none !important;
         display: flex;
         align-items: stretch;
@@ -186,32 +186,32 @@
 <h3>Debug</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_render_js}/>
     </div>
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js}/>
     </div>
-    <!-- <div class="item shader_item">
+    <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
     </div>
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls}/>
     </div> -->
 </div>
 <h3>Debug (Preview mode)</h3>
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_render_js} mode="preview"/>
     </div>
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js} mode="preview"/>
     </div>
-    <div class="item shader_item">
+    <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} javascript={frame_skip_js} mode="preview"/>
     </div>
-    <!-- <div class="item shader_item">
+    <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
     </div> -->
 </div>
@@ -227,7 +227,7 @@
     <div class="flex_grid gallery">
         {#each cluster.practices as practice}
             {#if selected_category =='all' || practice.categories.includes(selected_category)} 
-            <div class="item shader_item">
+            <div class="item webgl-item">
                 <TapiocaFoxWebGL 
                 vertex_shader={practice.vert?practice.vert:default_vert_shader} 
                 fragment_shader={practice.frag?practice.frag:default_frag_shader}

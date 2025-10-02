@@ -263,8 +263,8 @@
         outline: 1px dashed black;
     }
     div.card img.icon {
-        width: 96px;
-        height: 96px;
+        width: 128px;
+        height: 128px;
     }
 
     div.card > h1, h2, h3, h4, h5, h6 {
@@ -488,6 +488,12 @@
         box-sizing: border-box;
         z-index: var(--large-z-index);
         text-align: left;
+        overflow-y: auto;
+        overscroll-behavior: contain;
+        /* inset: 0; */
+        /* top:0;
+        left:0; */
+        /* transform: translate(-50%, -50%); */
     }
 
     div.floating-block.visible {

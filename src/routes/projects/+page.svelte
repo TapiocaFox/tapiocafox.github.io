@@ -118,7 +118,7 @@
             <img class="icon" alt="Icon" src={icon}/>
         </div>
         <div class="description">
-            <p>A page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
         </div>
     </div>
 </div>
