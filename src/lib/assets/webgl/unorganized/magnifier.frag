@@ -21,6 +21,9 @@ uniform vec2 uResolution;
 uniform vec2 uMouse;
 uniform float uTime;
 
+vec3 light = normalize(vec3(1., 1., 1.));
+vec4 specular = vec4(1., 1., 1., 4.);
+
 float bump_derivative(float x) {
     float x_sqr_minus_one = min(x*x-1.,-.001); // min to prevent divided by zero.
     // float x_sqr_minus_one = x*x-1.; // min to prevent divide by zero.
@@ -38,11 +41,18 @@ float grid(vec2 st) {
     return max(pct_st.x, pct_st.y);
 }
 
-vec2 magnify(vec2 st, vec2 center, float height, float radius) { // Magnifier distortion.
+vec3 magnify(vec2 st, vec2 center, float height, float radius) { // Magnifier distortion.
     float dist = distance(st, center);
     float derivative = bump_derivative(dist/radius);
     vec2 direction = normalize(st-center);
-    return st+height*derivative*direction;
+    vec3 T = normalize(vec3(direction, derivative)); // Tangent
+    vec3 BT = cross(T, vec3(direction, 0.)); // BiTangent
+    vec3 N = cross(T, BT); // Normal
+    vec3 reflection = 2.*N*dot(N,light)-light;
+    float specularIntensity = pow(max(0., -reflection.z), specular.w);
+    // float specularIntensity = -reflection.z;
+    // float specularIntensity = BT.z;
+    return vec3(st+height*derivative*direction, specularIntensity);
 }
 
 void main() {
@@ -51,9 +61,11 @@ void main() {
     st.x *= uResolution.x/uResolution.y;
     stMouse.x *= uResolution.x/uResolution.y;
 
-    vec2 stMagnifiedR = magnify(st, stMouse, SIZE_BUMP_HEIGHT_R, SIZE_BUMP_RADIUS);
-    vec2 stMagnifiedG = magnify(st, stMouse, SIZE_BUMP_HEIGHT_G, SIZE_BUMP_RADIUS);
-    vec2 stMagnifiedB = magnify(st, stMouse, SIZE_BUMP_HEIGHT_B, SIZE_BUMP_RADIUS);
+    vec3 stMagnifiedR = magnify(st, stMouse, SIZE_BUMP_HEIGHT_R, SIZE_BUMP_RADIUS);
+    vec3 stMagnifiedG = magnify(st, stMouse, SIZE_BUMP_HEIGHT_G, SIZE_BUMP_RADIUS);
+    vec3 stMagnifiedB = magnify(st, stMouse, SIZE_BUMP_HEIGHT_B, SIZE_BUMP_RADIUS);
+
+    float principleSpecular = stMagnifiedG.z;
 
     vec3 colorPointer = vec3(0., 1., 0.);
     // vec3 colorGrid = vec3(.95, .95, .95);
@@ -63,13 +75,14 @@ void main() {
     
 	float pct = point(st, stMouse);
     float pctGrid = grid(st);
-    float pctGridR = grid(stMagnifiedR);
-    float pctGridG = grid(stMagnifiedG);
-    float pctGridB = grid(stMagnifiedB);
+    float pctGridR = grid(stMagnifiedR.xy);
+    float pctGridG = grid(stMagnifiedG.xy);
+    float pctGridB = grid(stMagnifiedB.xy);
 
     float dist = distance(st, stMouse);
     
     vec3 color = vec3(mix(colorBG.x, colorGrid.x, pctGridR), mix(colorBG.y, colorGrid.y, pctGridG), mix(colorBG.z, colorGrid.z, pctGridB));
     color = mix(color, colorPointer, pct);
+    color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
 }
