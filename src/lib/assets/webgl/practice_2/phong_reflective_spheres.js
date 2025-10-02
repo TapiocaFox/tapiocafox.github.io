@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Reflective Spheres
+// Title:  Phong Reflective Spheres
 
 // Init variables.
 const gl = foxGL.gl;

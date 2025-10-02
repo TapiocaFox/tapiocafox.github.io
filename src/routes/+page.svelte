@@ -57,7 +57,7 @@
                     <img class="inline-glyph" alt="Resume" src={resume_icon}/>
                     <a class="no-glyph" href="https://drive.google.com/file/d/1q949zLDJBIJn8srw5MWjQ9UIJE_ksLM7/view" target="_blank">Resume</a>
                     <img class="inline-glyph" alt="LinkedIn" src={linkedin_icon}/>
-                    <a class="no-glyph" href="https://www.linkedin.com/in/yves-chen-991949161/" target="_blank">LinkedIn</a><br>
+                    <a class="no-glyph" href="https://www.linkedin.com/in/yeh-chen-991949161/" target="_blank">LinkedIn</a><br>
                 </p>
                 <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>

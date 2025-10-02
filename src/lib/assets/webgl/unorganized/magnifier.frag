@@ -22,7 +22,7 @@ uniform vec2 uMouse;
 uniform float uTime;
 
 float bump_derivative(float x) {
-    float x_sqr_minus_one = min(x*x-1.,-.001); // min to prevent divide by zero.
+    float x_sqr_minus_one = min(x*x-1.,-.001); // min to prevent divided by zero.
     // float x_sqr_minus_one = x*x-1.; // min to prevent divide by zero.
     return step(-1.,-abs(x))*-2.*x*exp(1./x_sqr_minus_one)/(x_sqr_minus_one*x_sqr_minus_one);
 }

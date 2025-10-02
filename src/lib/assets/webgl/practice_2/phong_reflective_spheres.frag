@@ -1,7 +1,7 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title:  Reflective Spheres
+// Title:  Phong Reflective Spheres
 // Snoise implementation is from: https://stegu.github.io/webgl-noise/webdemo/
 
 precision highp float;
