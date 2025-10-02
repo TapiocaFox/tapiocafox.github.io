@@ -22,7 +22,7 @@ uniform vec2 uMouse;
 uniform float uTime;
 
 vec3 light = normalize(vec3(1., 1., 1.));
-vec4 specular = vec4(1., 1., 1., 4.);
+vec4 specular = vec4(.3, .3, .3, 10.);
 
 float bump_derivative(float x) {
     float x_sqr_minus_one = min(x*x-1.,-.001); // min to prevent divided by zero.
@@ -46,9 +46,10 @@ vec3 magnify(vec2 st, vec2 center, float height, float radius) { // Magnifier di
     float derivative = bump_derivative(dist/radius);
     vec2 direction = normalize(st-center);
     vec3 T = normalize(vec3(direction, derivative)); // Tangent
-    vec3 BT = cross(T, vec3(direction, 0.)); // BiTangent
+    vec3 BT = normalize(cross(T, vec3(direction, 0.))); // BiTangent
     vec3 N = cross(T, BT); // Normal
-    vec3 reflection = 2.*N*dot(N,light)-light;
+    // vec3 reflection = 2.*N*dot(N,light)-light;
+    vec3 reflection = reflect(light, N);
     float specularIntensity = pow(max(0., -reflection.z), specular.w);
     // float specularIntensity = -reflection.z;
     // float specularIntensity = BT.z;
