@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aJ as nn,f as _,e as S,a as m,b as en,s as o,k as tn,i as n,j as on,aA as T,c as r,r as e,g as F,t as rn}from"../chunks/BmjwGVwE.js";import{s as N}from"../chunks/BUrgX1Mi.js";import{i as A}from"../chunks/yQMjAdwa.js";import{e as O,i as W}from"../chunks/mqTO3fkI.js";import{C as sn}from"../chunks/St5qb3As.js";import{H as an}from"../chunks/qGTRwmI_.js";import{e as V,T as f,d,a as cn,b as ln}from"../chunks/D8NP1lFF.js";import{m as q}from"../chunks/8p4Ra2kK.js";import{a as vn,b as un,r as mn}from"../chunks/K1sOCa-h.js";import{g as fn}from"../chunks/MD8S1GpC.js";const dn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aJ as nn,f as _,e as S,a as m,b as en,s as o,k as tn,i as n,j as on,aA as T,c as r,r as e,g as F,t as rn}from"../chunks/BmjwGVwE.js";import{s as N}from"../chunks/BUrgX1Mi.js";import{i as A}from"../chunks/yQMjAdwa.js";import{e as O,i as W}from"../chunks/mqTO3fkI.js";import{C as sn}from"../chunks/St5qb3As.js";import{H as an}from"../chunks/qGTRwmI_.js";import{e as V,T as f,d,a as cn,b as ln}from"../chunks/ZtoEcylf.js";import{m as q}from"../chunks/8p4Ra2kK.js";import{a as vn,b as un,r as mn}from"../chunks/K1sOCa-h.js";import{g as fn}from"../chunks/CT410SY_.js";const dn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2287,7 +2287,7 @@ foxGL.onStop(async () => {
 precision highp float;
 
 #define RADIUS_POINTER 0.033
-#define GAP_GRID 0.17
+#define GAP_GRID 0.125
 #define SIZE_HALF_STROKE 0.01
 #define SIZE_BUMP_RADIUS 0.35
 #define SIZE_BUMP_HEIGHT .1
