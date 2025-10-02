@@ -7,7 +7,7 @@ precision highp float;
 
 #define RADIUS_POINTER 0.033
 #define GAP_GRID 0.1
-#define SIZE_HALF_STROKE 0.005
+#define SIZE_HALF_STROKE 0.007
 #define SIZE_BUMP_RADIUS 0.35
 #define SIZE_BUMP_HEIGHT .1
 #define SIZE_BUMP_HEIGHT_R .08
@@ -56,17 +56,20 @@ void main() {
     vec2 stMagnifiedB = magnify(st, stMouse, SIZE_BUMP_HEIGHT_B, SIZE_BUMP_RADIUS);
 
     vec3 colorPointer = vec3(0., 1., 0.);
-    vec3 colorGrid = vec3(0.5, 0.5, 0.5);
+    // vec3 colorGrid = vec3(.95, .95, .95);
+    vec3 colorGrid = vec3(1.);
+    vec3 colorBG = vec3(.65,.65,.65);
     // vec3 colorGrid = vec3(0.0, 0.0, 0.0);
     
 	float pct = point(st, stMouse);
+    float pctGrid = grid(st);
     float pctGridR = grid(stMagnifiedR);
     float pctGridG = grid(stMagnifiedG);
     float pctGridB = grid(stMagnifiedB);
 
     float dist = distance(st, stMouse);
     
-    vec3 color = vec3(mix(1., colorGrid.x, pctGridR), mix(1., colorGrid.y, pctGridG), mix(1., colorGrid.z, pctGridB));
+    vec3 color = vec3(mix(colorBG.x, colorGrid.x, pctGridR), mix(colorBG.y, colorGrid.y, pctGridG), mix(colorBG.z, colorGrid.z, pctGridB));
     color = mix(color, colorPointer, pct);
     fragColor = vec4(color,1.0);
 }
