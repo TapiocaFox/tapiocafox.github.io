@@ -550,11 +550,12 @@
     const chips_names = ['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4'];
     const chips_values = ['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js'];
     const chips_icons = [reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon];
-    if(dev) {
-        chips_names.push('Assets');
-        chips_values.push('view_assets');
-        chips_icons.push(box_icon);
-    }
+    // if(dev) {
+
+    // }
+    chips_names.push('Assets');
+    chips_values.push('view_assets');
+    chips_icons.push(box_icon);
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
 <style>
@@ -725,25 +726,25 @@
                 <h3>Textures <img class="inline-glyph" src={deform_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
                 <div class="flex_grid gallery">
-                    <div class="item html-item">
+                    <div class="item html-item" style:border="1px dashed dimgray">
                         <div>
                             <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
-                            <p class="annotation">Click to upload a texture file.</p>
+                            <p class="annotation">Select a texture file.</p>
                         </div>
                     </div>
                 </div>
-                <hr class="dashed" style:margin-bottom="0">
+                <hr class="dashed">
                 <h3>Objects <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
                 <div class="flex_grid gallery">
-                    <div class="item html-item">
+                    <div class="item html-item" style:border="1px dashed dimgray">
                         <div>
                             <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
-                            <p class="annotation">Click to upload a object file.</p>
+                            <p class="annotation">Select an object file.</p>
                         </div>
                     </div>
                 </div>
-                <hr class="dashed" style:margin-bottom="0">
+                <hr class="dotted">
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
