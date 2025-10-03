@@ -89,6 +89,7 @@
 
     let mounted = $state(false);
     let show_foxgl_interface = $state(false);
+    let show_asset_upload_dialog = $state(false);
     let anything_changed = false;
 
     function scrollToTop() {
@@ -556,87 +557,36 @@
     chips_names.push('Assets');
     chips_values.push('view_assets');
     chips_icons.push(box_icon);
+
+
+    // Asset upload dialog
+    // let asset_name = $state('Untitled');
+    let asset_id = $state<string|null>(null);
+    let asset_type = $state('image');
+    let asset_source_type = $state('local');
+    const asset_type_options = [
+        {value: 'image', label: 'Image'},
+        {value: 'audio', label: 'Audio'},
+        {value: 'video', label: 'Video'},
+        {value: 'model', label: '3D Model'},
+        {value: 'blob', label: 'Blob'},
+    ]
+
+    const asset_source_type_options = [
+        {value: 'local', label: 'Local'},
+        {value: 'link', label: 'Link'}
+    ]
+
+    async function uploadAsset(event: SubmitEvent) {
+        show_asset_upload_dialog = false;
+        await tick();
+        event.preventDefault();
+        alert(`Selected asset type: ${asset_type || "(none)"}`);
+    }
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
 <style>
-    div.editor-layout {
-        display: flex;
-        gap: 1em;
-    }
-
-    div.editor-layout > div.left {
-        display: flex;
-        flex-grow: 1;
-        flex-direction: column;
-    }
-
-    div.editor-layout > div.left > .master-container {
-        display: block;
-        /* width: 100%; */
-    }
-
-    div.editor-layout > div.left > .master-container > div.row {
-        display: block;
-    }
-    
-    div.editor-layout > div.right {
-        display: flex;
-        flex-grow: 0;
-        width: auto;
-        /* overflow-y: auto; */
-    }
-
-    div.editor-layout > div.right > div.canvas-container {
-        margin-top: 1em;
-        top: calc(var(--main-nav-height) + var(--page-offset));
-        position: sticky;
-        /* min-width: 350px; */
-        display: block;
-        height: fit-content;
-        width: auto;
-    }
-
-    div.editor-layout > div.right > div.canvas-container > div.info-container {
-        display: block;
-        width: 100%;
-    }
-
-    table.snapshot {
-        width: 100%;
-    }
-
-    td.glyphs {
-        width: 1px;
-        white-space: nowrap;
-    }
-
-    .flex_grid .html-item {
-        width: 100%;
-        aspect-ratio: 1;
-        max-width: 220px;
-        max-height: 220px;
-        display:flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-        background: unset;
-    }
-
-    .flex_grid .html-item .center-div {
-        display: block;
-        position: relative;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-    }
-
-    @media (max-width: 768px) {
-        .flex_grid .html-item {
-            width: 170px;
-            height: 170px;
-        }
-    }
-    
+    @import './editor.css';
 </style>
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
 <HeaderWithBackButton text="WebGL Editor"/>
@@ -714,6 +664,7 @@
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
+                <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
                 <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>interface definition</button>. Be careful of the Cross Site Scripting (XSS) attack.</p>
                 {#if javascript_error != null}
@@ -723,24 +674,24 @@
             </div>
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
-                <h3>Textures <img class="inline-glyph" src={deform_icon}/></h3>
+                <!-- <h3>Textures <img class="inline-glyph" src={deform_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
                 <div class="flex_grid gallery">
                     <div class="item html-item" style:border="1px dashed dimgray">
                         <div>
-                            <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
+                            <h3><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h3>
                             <p class="annotation">Select a texture file.</p>
                         </div>
                     </div>
                 </div>
-                <hr class="dashed">
-                <h3>Objects <img class="inline-glyph" src={box_icon}/></h3>
+                <hr class="dashed"> -->
+                <h3>Assets <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
                 <div class="flex_grid gallery">
                     <div class="item html-item" style:border="1px dashed dimgray">
                         <div>
-                            <h4><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h4>
-                            <p class="annotation">Select an object file.</p>
+                            <h3><button class="text" onclick={() => {show_asset_upload_dialog=true}}><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h3>
+                            <p class="annotation">Select an asset file.</p>
                         </div>
                     </div>
                 </div>
@@ -808,8 +759,56 @@
     <h3>TapiocaFoxGLContext</h3>
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </PointerBlock> -->
-<WindowBlock grab_element_id="foxgl-grabable" bind:show={show_foxgl_interface} open_location="right">
-    <h3 id="foxgl-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;TapiocaFoxGLContext</h3>
+<WindowBlock grab_element_id="foxgl-interface-grabable" bind:show={show_foxgl_interface} open_location="right">
+    <h3 id="foxgl-interface-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;TapiocaFoxGLContext</h3>
     <p class="annotation">This is foxGL's interface definition.</p>
     <pre>{TapiocaFoxGLContextRaw}</pre>
+</WindowBlock>
+
+<WindowBlock grab_element_id="asset-config-grabable" bind:show={show_asset_upload_dialog} open_location="center">
+    <h3 id="asset-config-grabable"><button class="no-style" onclick={()=>{show_asset_upload_dialog=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Asset's Configuration</h3>
+    <!-- <hr class="dotted"> -->
+    
+    <p class="annotation">Configure the settings for the asset file. Please make sure the id is unique to avoid conflicts. Consider the "link" source type if the file is larger than 4MB.</p>
+    <!-- <hr class="dotted"> -->
+    
+    <form onsubmit={uploadAsset}>
+        <!-- <label for="asset-name">Name:</label>
+        <input id="asset-name" type="text" bind:value={asset_name} placeholder="Enter your name"/>
+        <br> -->
+        <label for="asset-name">Id:</label>
+        <input id="asset-name" type="text" bind:value={asset_id} placeholder="Enter your id"/>
+        <br>
+        <label for="asset-type">Type:</label>
+        <select id="asset-type" bind:value={asset_type} required>
+            {#each asset_type_options as option}
+            <option value={option.value} disabled={option.value === ""} selected={option.value === ""}>
+                {option.label}
+            </option>
+            {/each}
+        </select>
+        <br>
+        <label for="asset-type">Source type:</label>
+        <select id="asset-type" bind:value={asset_source_type} required>
+            {#each asset_source_type_options as option}
+            <option value={option.value} disabled={option.value === ""} selected={option.value === ""}>
+                {option.label}
+            </option>
+            {/each}
+        </select>
+        {#if asset_source_type=='link'}
+        <br>
+        <label for="asset-link">Link:</label>
+        <input id="asset-link" type="url" placeholder="Enter the link"/>
+        {:else if asset_source_type=='local'}
+        <br>
+        <button type="button" onclick={() => {}}>Select a file</button>
+        {/if}
+        <!-- <p class="annotation compact"></p> -->
+
+        <br><br>
+        <!-- <hr class="dotted"> -->
+        <button type="submit">Confirm</button>
+        <button type="button" onclick={() => {show_asset_upload_dialog=false}}>Cancel</button>
+    </form>
 </WindowBlock>

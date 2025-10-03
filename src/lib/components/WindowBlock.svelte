@@ -44,7 +44,7 @@
         mouse_down_offset_y = clientY-rect.top;
 
 
-        const blockWidth = window_block.offsetWidth;
+        const blockWidth = Math.ceil(window_block.offsetWidth)+1;
         window_block.style.width = blockWidth + "px"; // Lock the width to avoid resizing during dragging.
 
         // console.log(`Mouse down event detected. (${clientX}, ${clientY}), offset: (${mouse_down_offset_x}, ${mouse_down_offset_y})`);

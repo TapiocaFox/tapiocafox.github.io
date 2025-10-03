@@ -10,6 +10,7 @@ export interface TapiocaFoxGLContext {
     render: () => void,
     setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string) => void,
+    getAsset: (assetId: string) => HTMLImageElement | HTMLVideoElement | HTMLAudioElement | Blob | null,
 
     // Do not access the things below.
     statusTitle: string,

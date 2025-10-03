@@ -1,0 +1,78 @@
+div.editor-layout {
+    display: flex;
+    gap: 1em;
+}
+
+div.editor-layout > div.left {
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+}
+
+div.editor-layout > div.left > .master-container {
+    display: block;
+    /* width: 100%; */
+}
+
+div.editor-layout > div.left > .master-container > div.row {
+    display: block;
+}
+
+div.editor-layout > div.right {
+    display: flex;
+    flex-grow: 0;
+    width: auto;
+    /* overflow-y: auto; */
+}
+
+div.editor-layout > div.right > div.canvas-container {
+    margin-top: 1em;
+    top: calc(var(--main-nav-height) + var(--page-offset));
+    position: sticky;
+    /* min-width: 350px; */
+    display: block;
+    height: fit-content;
+    width: auto;
+}
+
+div.editor-layout > div.right > div.canvas-container > div.info-container {
+    display: block;
+    width: 100%;
+}
+
+table.snapshot {
+    width: 100%;
+}
+
+td.glyphs {
+    width: 1px;
+    white-space: nowrap;
+}
+
+.flex_grid .html-item {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: 220px;
+    max-height: 220px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: unset;
+}
+
+.flex_grid .html-item .center-div {
+    display: block;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+@media (max-width: 768px) {
+    .flex_grid .html-item {
+        width: 170px;
+        height: 170px;
+    }
+}
+    

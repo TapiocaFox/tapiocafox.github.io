@@ -116,6 +116,10 @@
         padding: 0;
     }
 
+    label {
+        font-family: 'Courier New', Courier, monospace;
+    }
+
   	#main-nav {
         position: sticky;
         z-index: var(--large-z-index);
