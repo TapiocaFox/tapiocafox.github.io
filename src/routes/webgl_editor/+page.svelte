@@ -694,7 +694,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental, your data might be lost!)</p>
+<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental, data might be lost!)</p>
 <hr class="dotted" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -808,7 +808,8 @@
     <h3>TapiocaFoxGLContext</h3>
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </PointerBlock> -->
-<WindowBlock grab_element_id="foxgl-grabable" bind:show={show_foxgl_interface}>
+<WindowBlock grab_element_id="foxgl-grabable" bind:show={show_foxgl_interface} open_location="right">
     <h3 id="foxgl-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;TapiocaFoxGLContext</h3>
+    <p class="annotation">This is foxGL's interface definition.</p>
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </WindowBlock>

@@ -78,16 +78,23 @@
             const pointerBlockWidth = window_block.offsetWidth;
             const pointerBlockHeight = window_block.offsetHeight;
             
-            if(open_location === "left") {
+            if(open_location.includes("left")) {
                 window_block.style.left = `var(--page-offset)`;
-                window_block.style.top  = `calc(.5 * var(--main-nav-height) + ${windowHeight/2 - pointerBlockHeight/2}px)`;
             }
-            else if(open_location === "right") {
+            else if(open_location.includes("right")) {
                 window_block.style.left = `calc(${windowWidth - pointerBlockWidth}px - var(--page-offset))`;
-                window_block.style.top  = `calc(.5 * var(--main-nav-height) + ${windowHeight/2 - pointerBlockHeight/2}px)`;
             }
             else {
                 window_block.style.left = `${windowWidth/2 - pointerBlockWidth/2}px`;
+            }
+
+            if (open_location.includes("top")) {
+                window_block.style.top  = `calc(var(--main-nav-height) + var(--page-offset))`;
+            }
+            else if (open_location.includes("bottom")) {
+                window_block.style.top  = `calc(${windowHeight - pointerBlockHeight}px - var(--page-offset))`;
+            }
+            else {
                 window_block.style.top  = `calc(.5 * var(--main-nav-height) + ${windowHeight/2 - pointerBlockHeight/2}px)`;
             }
             // window_block.animate({
