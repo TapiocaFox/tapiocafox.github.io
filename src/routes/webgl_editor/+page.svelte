@@ -744,8 +744,8 @@
                         </div>
                     </div>
                 </div>
-                <hr class="dotted">
             </div>
+            <hr class="dotted">
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
 
