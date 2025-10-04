@@ -652,14 +652,14 @@
         <div class="master-container">
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
                 <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to set source to default .</p>
+                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to set source to default.</p>
                 <div bind:this={vertex_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
                 <h3>Fragment Shader <img alt="Fragment" class="inline-glyph" src={fragment_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to set source to default .</p>
+                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to set source to default.</p>
                 <div bind:this={fragment_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
