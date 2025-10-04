@@ -71,7 +71,7 @@ void main() {
     vec3 colorPointer = vec3(0., 1., 0.);
     // vec3 colorGrid = vec3(.95, .95, .95);
     vec3 colorGrid = vec3(1.);
-    vec3 colorBG = vec3(.65,.65,.65);
+    vec3 colorBG = vec3(.7,.7,.7);
     // vec3 colorGrid = vec3(0.0, 0.0, 0.0);
     
 	float pct = point(st, stMouse);

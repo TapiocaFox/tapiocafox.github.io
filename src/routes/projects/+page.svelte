@@ -29,6 +29,7 @@
     // import info_icon from '$lib/assets/icons/info.svg';
 
     import decoration from '$lib/assets/tea.png';
+    import version from '$lib/version';
 
     let selected_category = $state('all');
 </script>
@@ -118,7 +119,7 @@
             <img class="icon" alt="Icon" src={icon}/>
         </div>
         <div class="description">
-            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. ({version})</p>
         </div>
     </div>
 </div>

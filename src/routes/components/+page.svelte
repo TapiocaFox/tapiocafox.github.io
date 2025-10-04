@@ -14,6 +14,8 @@
   import window_icon from '$lib/assets/icons/window.svg';
   import close_icon from '$lib/assets/icons/close.svg';
 
+  import version from '$lib/version';
+
   let chip_selected_value = $state(-1);
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);
@@ -62,7 +64,7 @@
             <img class="icon" alt="Icon" src={tapiocafox}/>
         </div>
         <div class="description">
-            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>.</p>
+            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. ({version})</p>
         </div>
     </div>
 </div>
@@ -72,7 +74,7 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <p><button class="text" onclick={() => {show_lena_window=!show_lena_window}}>Open the article in window <img class="inline-glyph" alt="Window" src={window_icon}/></button> (show: {show_lena_window})</p>
   <WindowBlock grab_element_id="lena-grabable" bind:show={show_lena_window} open_location="right">
-    <h2 id="lena-grabable"><button class="no-style" onclick={()=>{show_lena_window=false}} ><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Window: Lorem Ipsum</h2>
+    <h2 id="lena-grabable"><button class="no-style" onclick={()=>{show_lena_window=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Window: Lorem Ipsum</h2>
     <p class="annotation">Grab the title to drag the window around.</p>
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor odio eu ullamcorper consectetur. Integer malesuada mauris vel ipsum semper dictum. Mauris quis sem ut velit mollis interdum. Aliquam et eros ac nunc suscipit bibendum. Phasellus finibus urna sit amet lorem posuere, non volutpat urna tristique. Sed auctor, quam a fringilla imperdiet, ligula urna ornare urna, at sodales urna mauris sit amet dui. Curabitur auctor interdum aliquet.
 

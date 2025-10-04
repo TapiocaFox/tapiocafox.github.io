@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as J,aH as nn,f as _,e as S,a as m,b as en,s as o,k as tn,i as n,j as on,aA as T,c as r,r as e,g as F,t as rn}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/BTkTLzvx.js";import{e as O,i as W}from"../chunks/C1OkaSYx.js";import{C as sn}from"../chunks/BGOOM2Dq.js";import{H as an}from"../chunks/DzTgYh7a.js";import{e as V,T as f,d,a as cn,b as ln}from"../chunks/BUboIy9m.js";import{m as q}from"../chunks/8p4Ra2kK.js";import{a as vn,b as un,r as mn}from"../chunks/K1sOCa-h.js";import{g as fn}from"../chunks/BDZByX4x.js";const dn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as J,aH as nn,f as _,e as S,a as m,b as en,s as o,k as tn,i as n,j as on,aA as T,c as r,r as e,g as F,t as rn}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/BTkTLzvx.js";import{e as O,i as W}from"../chunks/C1OkaSYx.js";import{C as sn}from"../chunks/BGOOM2Dq.js";import{H as an}from"../chunks/DzTgYh7a.js";import{e as V,T as f,d,a as cn,b as ln}from"../chunks/FDCsoCsp.js";import{m as q}from"../chunks/8p4Ra2kK.js";import{a as vn,b as un,r as mn}from"../chunks/K1sOCa-h.js";import{g as fn}from"../chunks/DuzGzqoh.js";const dn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2352,7 +2352,7 @@ void main() {
     vec3 colorPointer = vec3(0., 1., 0.);
     // vec3 colorGrid = vec3(.95, .95, .95);
     vec3 colorGrid = vec3(1.);
-    vec3 colorBG = vec3(.65,.65,.65);
+    vec3 colorBG = vec3(.7,.7,.7);
     // vec3 colorGrid = vec3(0.0, 0.0, 0.0);
     
 	float pct = point(st, stMouse);

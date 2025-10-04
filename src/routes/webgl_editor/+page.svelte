@@ -564,12 +564,13 @@
     let asset_id = $state<string|null>(null);
     let asset_type = $state('image');
     let asset_source_type = $state('local');
+    const groups = [{value: 'html', label: 'HTML Element'}, {value: 'other', label: 'Other'}];
     const asset_type_options = [
-        {value: 'image', label: 'Image'},
-        {value: 'audio', label: 'Audio'},
-        {value: 'video', label: 'Video'},
-        {value: 'model', label: '3D Model'},
-        {value: 'blob', label: 'Blob'},
+        {value: 'image', label: 'Image', group: 'html'},
+        {value: 'audio', label: 'Audio', group: 'html'},
+        {value: 'video', label: 'Video', group: 'html'},
+        {value: 'model', label: '3D Model', group: 'other'},
+        {value: 'blob', label: 'Blob', group: 'other'},
     ]
 
     const asset_source_type_options = [
@@ -581,7 +582,7 @@
         show_asset_upload_dialog = false;
         await tick();
         event.preventDefault();
-        alert(`Selected asset type: ${asset_type || "(none)"}`);
+        // alert(`Selected asset type: ${asset_type || "(none)"}`);
     }
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
@@ -644,33 +645,33 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental, data might be lost!)</p>
+<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental)</p>
 <hr class="dotted" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
         <div class="master-container">
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
                 <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
-                <p class="annotation">To set source to default <button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">click here</button>.</p>
-                <div bind:this={vertex_shader_editor} class="editor-container"></div>
+                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to set source to default .</p>
+                <div bind:this={vertex_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
                 <h3>Fragment Shader <img alt="Fragment" class="inline-glyph" src={fragment_icon}/></h3>
-                <p class="annotation">To set source to default <button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">click here</button>.</p>
-                <div bind:this={fragment_shader_editor} class="editor-container"></div>
+                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to set source to default .</p>
+                <div bind:this={fragment_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>To set source to default <button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">click here</button>. Check out foxGL's <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>interface definition</button>. Be careful of the Cross Site Scripting (XSS) attack.</p>
+                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p>
                 {#if javascript_error != null}
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
-                <div bind:this={javascript_editor} class="editor-container"></div>
+                <div bind:this={javascript_editor} class="editor-container code-block-background"></div>
             </div>
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
@@ -688,7 +689,7 @@
                 <h3>Assets <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">(Under construction.)</p>
                 <div class="flex_grid gallery">
-                    <div class="item html-item" style:border="1px dashed dimgray">
+                    <div class="item html-item code-block-background" style:border="1px dashed dimgray">
                         <div>
                             <h3><button class="text" onclick={() => {show_asset_upload_dialog=true}}><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h3>
                             <p class="annotation">Select an asset file.</p>
@@ -700,7 +701,7 @@
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
 
-            <p class="annotation">Site version: ({version})</p>
+            <!-- <p class="annotation">Site version: ({version})</p> -->
             <EndingDecoration/>
         </div>
     </div>
@@ -760,7 +761,7 @@
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </PointerBlock> -->
 <WindowBlock grab_element_id="foxgl-interface-grabable" bind:show={show_foxgl_interface} open_location="right">
-    <h3 id="foxgl-interface-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;TapiocaFoxGLContext</h3>
+    <h3 id="foxgl-interface-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;JavaScript API Definitions</h3>
     <p class="annotation">This is foxGL's interface definition.</p>
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </WindowBlock>
@@ -769,7 +770,7 @@
     <h3 id="asset-config-grabable"><button class="no-style" onclick={()=>{show_asset_upload_dialog=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Asset's Configuration</h3>
     <!-- <hr class="dotted"> -->
     
-    <p class="annotation">Configure the settings for the asset file. Please make sure the id is unique to avoid conflicts. Consider the "link" source type if the file is larger than 4MB.</p>
+    <p class="annotation">Configure the settings for the asset file. Please make sure the id is unique to avoid conflicts. Consider the "link" source type if the file is larger than 16MB.</p>
     <!-- <hr class="dotted"> -->
     
     <form onsubmit={uploadAsset}>
@@ -781,10 +782,16 @@
         <br>
         <label for="asset-type">Type:</label>
         <select id="asset-type" bind:value={asset_type} required>
-            {#each asset_type_options as option}
-            <option value={option.value} disabled={option.value === ""} selected={option.value === ""}>
-                {option.label}
-            </option>
+            {#each groups as group}
+                <optgroup label={group.label}>
+                {#each asset_type_options as option}
+                {#if option.group == group.value}
+                <option value={option.value} disabled={option.value === ""} selected={option.value === ""}>
+                    {option.label}
+                </option>
+                {/if}
+                {/each}
+                </optgroup>
             {/each}
         </select>
         <br>
