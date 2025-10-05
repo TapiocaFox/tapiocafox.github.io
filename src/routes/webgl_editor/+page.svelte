@@ -804,7 +804,7 @@
                     </div>
                     <PointerBlock element_id={`asset-img-${id}`}>
                         <h4 class="annotation">Image Asset ({id})</h4>
-                        <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Link: {asset.src} {:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
+                        <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Asset linked by an url.{:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
                     </PointerBlock>
                     {/if}
 
@@ -814,7 +814,7 @@
                             <h3><button onclick={() => {
                                 openAssetConfigurationDialog(asset);
                             }} class="text">Audio Asset <img class="inline-glyph" alt="Audio" src={music_icon}/></button></h3>
-                            <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Link: {asset.src} {:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
+                            <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Asset linked by an url.{:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
                             <audio controls>
                                 <source src={asset.src}>
                             </audio>
@@ -828,7 +828,7 @@
                             <h3><button onclick={() => {
                                 openAssetConfigurationDialog(asset);
                             }} class="text">Video Asset <img class="inline-glyph" alt="Video" src={video_icon}/></button></h3>
-                            <p class="annotation">Id: {id}, {#if asset.srcType=='link'}link: {asset.src} {:else if asset.srcType=='local'}size: {stringToByteSize(asset.src)}{/if}</p>
+                            <p class="annotation">Id: {id}, {#if asset.srcType=='link'}Asset linked by an url.{:else if asset.srcType=='local'}size: {stringToByteSize(asset.src)}{/if}</p>
                             <video controls>
                                 <source src={asset.src}>
                             </video>
