@@ -14,6 +14,11 @@
     import mouse from '$lib/assets/webgl/misc/mouse.frag?raw';
     import snoise from '$lib/assets/webgl/misc/snoise.frag?raw';
     import sin from '$lib/assets/webgl/misc/sin.frag?raw';
+    import texture_preview_js from '$lib/assets/webgl/misc/texture_preview.js?raw';
+    import texture_preview_vert from '$lib/assets/webgl/misc/texture_preview.vert?raw';
+    import texture_preview_frag from '$lib/assets/webgl/misc/texture_preview.frag?raw';
+    import uvmap_texture from '$lib/assets/webgl/misc/textures/uvmap_grid.jpg';
+    import hl_button_sound from '$lib/assets/webgl/misc/sounds/hl_button3.wav';
 
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
     import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
@@ -41,6 +46,7 @@
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
     import { goto } from '$app/navigation';
+    import type { Asset } from '$lib/components/TapiocaFoxGl';
     
     let selected_category = $state('all');
 
@@ -48,6 +54,7 @@
         vert?: string,
         frag?: string,
         js?: string,
+        assets?: Record<string, Asset>,
         categories: string[]
     };
 
@@ -150,6 +157,26 @@
                     frag: magnifier_frag,
                     js: passive_render_js,
                     categories: ['distortion']
+                },
+                {
+                    vert: texture_preview_vert,
+                    frag: texture_preview_frag,
+                    js: texture_preview_js,
+                    assets: {
+                        'uvmap': {
+                            id: 'uvmap',
+                            type: 'image',
+                            srcType: 'link',
+                            src: uvmap_texture
+                        },
+                        'hl_button': {
+                            id: 'hl_button',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_button_sound
+                        }
+                    },
+                    categories: []
                 }
             ]
         }
@@ -193,6 +220,9 @@
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js}/>
     </div>
     <!-- <div class="item webgl-item">
+        <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} javascript={texture_preview_js} assets={}/>
+    </div> -->
+    <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
     </div>
     <div class="item webgl-item">
@@ -232,6 +262,7 @@
                 vertex_shader={practice.vert?practice.vert:default_vert_shader} 
                 fragment_shader={practice.frag?practice.frag:default_frag_shader}
                 javascript={practice.js?practice.js:default_js}
+                assets={practice.assets?practice.assets:{}}
                 />
             </div>
             {/if}

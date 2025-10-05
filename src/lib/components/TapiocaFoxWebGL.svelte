@@ -5,13 +5,13 @@
     import default_js from '$lib/assets/webgl/default.js?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
-    import type { TapiocaFoxGLContext } from './TapiocaFoxGl';
+    import type { TapiocaFoxGLContext, Asset } from './TapiocaFoxGl';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
 
-    const props = $props();
-    let { vertex_shader=default_vert_shader, fragment_shader=default_frag_shader, javascript=default_js, mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = props;
+    // const props = $props();
+    let { vertex_shader=$bindable(default_vert_shader), fragment_shader=$bindable(default_frag_shader), javascript=$bindable(default_js), assets=$bindable<Record<string, Asset>>({}), mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = $props();
 
     var canvas: HTMLCanvasElement;
     var status_block: HTMLDivElement;
@@ -44,17 +44,20 @@
         // console.log(fragment_shader);
         // console.log(props.fragment_shader);
         // console.log(props.javascript);
-        vertex_shader = props.vertex_shader || vertex_shader;
-        fragment_shader = props.fragment_shader || fragment_shader;
-        javascript = props.javascript || javascript;
-
-
-        if(foxGL) {
-            // console.log('Something changed and foxGL exists, re-setup and run.');
-            foxGL.newProgram();
-            foxGL.setShadersAndScript(vertex_shader, fragment_shader, javascript);
-            foxGL.refreshShadersAndScript();
-        }
+        // vertex_shader = props.vertex_shader || vertex_shader;
+        // fragment_shader = props.fragment_shader || fragment_shader;
+        // javascript = props.javascript || javascript;
+        // assets = props.assets || assets;
+        // console.log(`vertex_shader: ${vertex_shader.length}, fragment_shader: ${fragment_shader.length}, javascript: ${javascript.length}, assets: ${Object.keys(assets).length}`);
+        vertex_shader;
+        fragment_shader; 
+        javascript;
+        assets;
+        if (!foxGL) return;
+        // console.log('Something changed and foxGL exists, re-setup and run.');
+        foxGL.newProgram();
+        foxGL.setShadersScriptAndAssets(vertex_shader, fragment_shader, javascript, assets);
+        foxGL.refreshShadersAndScript();
     });
 
     onMount(async () => {
@@ -76,6 +79,8 @@
                 vertexShader: '',
                 fragmentShader: '',
                 javascript: '',
+                assets: {},
+                loadedScripts: [],
 
                 onStart: function(start) {
                     this.invokeStart = start;
@@ -114,6 +119,13 @@
                         gl.viewport(0, 0, width, height);
                     }
                     await tick();
+                },
+
+                unloadLoadedScripts: function() {
+                    this.loadedScripts.forEach( (script) => {
+                        document.head.removeChild(script);
+                    });
+                    this.loadedScripts = [];
                 },
 
                 initProgram: function (vertexShader: string, fragmentShader: string) {
@@ -186,6 +198,7 @@
                     const gl = this.gl;
                     this.newProgram();
                     await this.stop();
+                    this.unloadLoadedScripts();
                     await this.optimizeViewPort();
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
@@ -199,14 +212,16 @@
                     await this.start();
                 },
 
-                setShadersAndScript: function(vertex_shader: string, fragment_shader: string, javascript: string) {
+                setShadersScriptAndAssets: function(vertex_shader: string, fragment_shader: string, javascript: string, assets: Record<string, Asset>) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
                     this.javascript = javascript;
+                    this.assets = assets;
                 },
 
                 refreshShadersAndScript: async function() {
                     await this.stop();
+                    this.unloadLoadedScripts();
                     await this.optimizeViewPort();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     this.evalJavaScript();
@@ -221,6 +236,54 @@
                     // console.log(key, status, this.statusDict);
                     this.statusDict[key] = status;
                 },
+
+                loadScriptFromSource: async function(src: string) {
+                    return new Promise<void>((resolve, reject) => {
+                        const script = document.createElement('script');
+                        script.src = src;
+                        script.onload = () => resolve();
+                        script.onerror = (e) => reject(e);
+                        document.head.appendChild(script);
+                        this.loadedScripts.push(script);
+                    });
+                },
+
+                getAssetById: async function(id: string) {
+                    const asset = this.assets[id];
+                    if(typeof(asset)==='undefined' || asset==null)
+                        throw `Asset with id "${id}" does not exist.`;
+                    if(asset.type == 'image') {
+                        return new Promise((resolve, reject) => {
+                            const img = new Image();
+                            img.crossOrigin = "anonymous";
+
+                            img.onload = () => resolve(img);
+                            img.onerror = (err) => reject(err);
+
+                            img.src = asset.src;
+
+                            // Handle cache-race condition:
+                            if (img.complete) {
+                                // If cached and already loaded, resolve immediately
+                                resolve(img);
+                            }
+                        });
+                    }
+                    if (asset.type === 'audio') {
+                        return new Promise<HTMLAudioElement>((resolve, reject) => {
+                            const audio = new Audio();
+                            audio.crossOrigin = "anonymous";
+
+                            audio.oncanplaythrough = () => resolve(audio);
+                            audio.onerror = (err) => reject(err);
+
+                            audio.src = asset.src;
+                            audio.load();
+                        });
+                    }
+
+                    throw 'Not implemented'; // Placeholder
+                }
             };
 
             const resizeObserver = new ResizeObserver(entries => {
@@ -306,7 +369,7 @@
             });
 
             const refreshOnGlInit = await onglinit(foxGL);
-            foxGL.setShadersAndScript(vertex_shader, fragment_shader, javascript);
+            foxGL.setShadersScriptAndAssets(vertex_shader, fragment_shader, javascript, assets);
             if(refreshOnGlInit) foxGL.refreshShadersAndScript();
         }
         catch (error) {
@@ -331,7 +394,8 @@
             img: '',
             vert: vertex_shader,
             frag: fragment_shader,
-            js: javascript
+            js: javascript,
+            assets: assets,
         });
         goto(`/webgl_editor`);
     }

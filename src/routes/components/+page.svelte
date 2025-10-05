@@ -86,8 +86,8 @@ In pulvinar, libero in vulputate facilisis, tortor nunc tempor nibh, eget conseq
 
 Sed ullamcorper sed quam ac fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Cras ornare dapibus augue id aliquam. Praesent lorem velit, malesuada id dictum eget, lacinia et erat. Quisque imperdiet nunc et imperdiet mollis. Cras tempus orci non pellentesque porta. Etiam rhoncus hendrerit magna. Maecenas ac elit faucibus, volutpat nulla ac, tempor mi. Nunc nec iaculis ipsum. Sed ut dictum sem. Nunc quam ligula, commodo eget fermentum vel, luctus quis orci.</p>
     <div class="preview-row">
-      <img id="lena-img" alt="Lena" class="preview" src={lena}/>
-      <PointerBlock element_id="lena-img">
+      <img id="lena-img-window" alt="Lena" class="preview" src={lena}/>
+      <PointerBlock element_id="lena-img-window">
         <h3>Lenna</h3>
         <p>Lenna (or Lena) is a standard test image used in the field of digital image processing, starting in 1973. It is a picture of the Swedish model Lena Forsén, shot by photographer Dwight Hooker and cropped from the centerfold of the November 1972 issue of Playboy magazine. The image has attracted controversy in recent years because of its subject matter, and many journals have deemed it inappropriate and discouraged its use, while others have banned it from publication outright. Forsén herself has called for it to be retired, saying "It's time I retired from tech."</p>
       </PointerBlock>

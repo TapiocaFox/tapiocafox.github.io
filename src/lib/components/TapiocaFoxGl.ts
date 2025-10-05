@@ -10,7 +10,8 @@ export interface TapiocaFoxGLContext {
     render: () => void,
     setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string) => void,
-    getAsset: (assetId: string) => HTMLImageElement | HTMLVideoElement | HTMLAudioElement | Blob | null,
+    loadScriptFromSource: (src: string) => Promise<void>,
+    getAssetById: (assetId: string) => Promise<HTMLImageElement | HTMLVideoElement | HTMLAudioElement | Blob>,
 
     // Do not access the things below.
     statusTitle: string,
@@ -18,6 +19,9 @@ export interface TapiocaFoxGLContext {
     vertexShader: string,
     fragmentShader: string,
     javascript: string,
+    assets: Record<string, Asset>
+    loadedScripts: Array<HTMLScriptElement>,
+    unloadLoadedScripts: () => void,
     invokeStart: (() => Promise<void>) | null,
     invokeStop: (() => Promise<void>) | null,
     optimizeViewPort: () => Promise<void>,
@@ -27,6 +31,13 @@ export interface TapiocaFoxGLContext {
     reset: () => Promise<void>,
     start: () => void,
     stop: () => void,
-    setShadersAndScript: (vertexShader: string, fragmentShader: string, javascript: string) => void,
+    setShadersScriptAndAssets: (vertexShader: string, fragmentShader: string, javascript: string, assets: Record<string, Asset>) => void,
     refreshShadersAndScript: () => Promise<void>,
+}
+
+export type Asset = {
+    id: string;
+    type: 'image' | 'video' | 'audio' | 'blob';
+    srcType: 'local' | 'link';
+    src: string;
 }

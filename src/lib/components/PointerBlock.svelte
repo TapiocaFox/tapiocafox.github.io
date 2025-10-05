@@ -19,17 +19,21 @@
         const pointerBlockWidth = pointer_block.offsetWidth;
         const pointerBlockHeight = pointer_block.offsetHeight;
 
-        if((elementRect.left+elementRect.right)*0.5 <= windowWidth*division_percentage) {
-            pointer_block.animate({
-                left:`${Math.min(clientX+pointer_offset, windowWidth-pointerBlockWidth)}${unit}`,
-                top: `${Math.min(clientY+pointer_offset, windowHeight-pointerBlockHeight)}${unit}`
-            }, {fill: "forwards"});
+        let division = windowWidth*division_percentage;
+        const parentElement = element.parentElement;
+        if(parentElement) {
+            const parentElementRect = parentElement.getBoundingClientRect();
+            division = parentElementRect.left+(parentElementRect.right-parentElementRect.left)*division_percentage;
+            // console.log(division);
+        }
+
+        if((elementRect.left+elementRect.right)*0.5 <= division) {
+            pointer_block.style.left = `${Math.min(clientX+pointer_offset, windowWidth-pointerBlockWidth)}${unit}`;
+            pointer_block.style.top  = `${Math.min(clientY+pointer_offset, windowHeight-pointerBlockHeight)}${unit}`;
         }
         else {
-            pointer_block.animate({
-                right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}${unit}`,
-                top: `${Math.min(clientY+pointer_offset, windowHeight-pointerBlockHeight)}${unit}`
-            }, {fill: "forwards"});
+            pointer_block.style.right = `${Math.max(windowWidth-clientX+pointer_offset, 0)}${unit}`;
+            pointer_block.style.top  = `${Math.min(clientY+pointer_offset, windowHeight-pointerBlockHeight)}${unit}`;
         }
     };
 

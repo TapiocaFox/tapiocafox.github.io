@@ -10,7 +10,8 @@
     import { tick } from 'svelte';
     import { dev } from '$app/environment';
     import { EditorView, basicSetup } from "codemirror";
-    import { keymap, type KeyBinding } from '@codemirror/view';
+    import { searchKeymap } from "@codemirror/search";
+    import { keymap, ViewPlugin, ViewUpdate, type KeyBinding } from '@codemirror/view';
     import { indentUnit } from "@codemirror/language";
     import { javascript } from "@codemirror/lang-javascript";
     import { indentWithTab } from "@codemirror/commands";
@@ -37,6 +38,8 @@
     import deform_icon from '$lib/assets/icons/deform.svg';
     import upload_icon from '$lib/assets/icons/upload.svg';
     import close_icon from '$lib/assets/icons/close.svg';
+    import music_icon from '$lib/assets/icons/music.svg';
+    import video_icon from '$lib/assets/icons/video.svg';
 
 
     import eye_icon from '$lib/assets/icons/eye.svg';
@@ -53,6 +56,7 @@
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGl';
 
     import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGl.ts?raw';
+    import type { Asset } from '$lib/components/TapiocaFoxGl';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -85,11 +89,12 @@
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
     let js_src = $state(default_js);
+    let assets = $state<Record<string, Asset>>({});
     let selected_value = $derived(`view_${$viewModeStorage}`);
 
     let mounted = $state(false);
     let show_foxgl_interface = $state(false);
-    let show_asset_upload_dialog = $state(false);
+    let show_asset_configuration_dialog = $state(false);
     let anything_changed = false;
 
     function scrollToTop() {
@@ -113,7 +118,6 @@
     function openSnapshotFilePicker() {
         importSnapshotInput.click();
     }
-
 
     const keymapExtension = keymap.of([indentWithTab]);
     const modS: KeyBinding["run"] = ({ state }) => {
@@ -251,6 +255,7 @@
             vert_shader_src = snapshot.vert;
             frag_shader_src = snapshot.frag;
             js_src = snapshot.js;
+            assets = snapshot.assets||{};
             anything_changed = true;
             nextSnapshot.set(null);
         }
@@ -259,6 +264,7 @@
             vert_shader_src = snapshot.vert;
             frag_shader_src = snapshot.frag;
             js_src = snapshot.js;
+            assets = snapshot.assets||{};
             anything_changed = true;
             snapshotInNewTab.set(null);
         }
@@ -266,6 +272,7 @@
             vert_shader_src = $lastSnapshot.vert;
             frag_shader_src = $lastSnapshot.frag;
             js_src = $lastSnapshot.js;
+            assets = $lastSnapshot.assets||{};
         }
         
         // clears all query parameters
@@ -276,8 +283,7 @@
             doc: vert_shader_src,
             extensions: [basicSetup, glsl(), 
             keymapExtension, 
-            modKeymapExtension, 
-            indentUnitExtension,
+            modKeymapExtension,
             EditorView.lineWrapping,
             errorLinterCompartment.of([])]
         })
@@ -387,8 +393,11 @@
                 img: foxGL.canvas.toDataURL('image/png'),
                 vert: vert_shader_src,
                 frag: frag_shader_src,
-                js: js_src
+                js: js_src,
+                assets: JSON.parse(JSON.stringify(assets)),
             };
+        // console.log(`assets:`);
+        // console.log({...assets});
         return newSnapshot;
     }
 
@@ -405,6 +414,8 @@
         setEditorValue(vertexShaderEditorView, snapshot.vert);
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
         setEditorValue(javascriptEditorView, snapshot.js);
+        assets = snapshot.assets||{};
+        anything_changed = true;
         // foxGL.reset();
     }
 
@@ -559,18 +570,22 @@
     chips_icons.push(box_icon);
 
 
-    // Asset upload dialog
+    // Asset configuration dialog
     // let asset_name = $state('Untitled');
+    let modifying_asset_id = $state<string|null>(null);
     let asset_id = $state<string|null>(null);
-    let asset_type = $state('image');
-    let asset_source_type = $state('local');
-    const groups = [{value: 'html', label: 'HTML Element'}, {value: 'other', label: 'Other'}];
+    let asset_type = $state<'image'| 'audio' | 'video' | 'blob'>('image');
+    let asset_source_type = $state<'local' | 'link'>('local');
+    let asset_source = $state<string|null>(null);
+    
+    const groups = [{value: 'html', label: 'HTML Element'}];
+    // const groups = [{value: 'html', label: 'HTML Element'}, {value: 'other', label: 'Other'}];
     const asset_type_options = [
         {value: 'image', label: 'Image', group: 'html'},
         {value: 'audio', label: 'Audio', group: 'html'},
         {value: 'video', label: 'Video', group: 'html'},
-        {value: 'model', label: '3D Model', group: 'other'},
-        {value: 'blob', label: 'Blob', group: 'other'},
+        // {value: 'model', label: '3D Model', group: 'other'},
+        // {value: 'blob', label: 'Blob', group: 'other'},
     ]
 
     const asset_source_type_options = [
@@ -578,11 +593,89 @@
         {value: 'link', label: 'Link'}
     ]
 
-    async function uploadAsset(event: SubmitEvent) {
-        show_asset_upload_dialog = false;
-        await tick();
+    async function submitAssetConfiguration(event: SubmitEvent) {
+        anything_changed = true;
+        // await tick();
         event.preventDefault();
+        if(modifying_asset_id != null) {
+            const { [modifying_asset_id]: _, ...rest } = assets;
+            assets = rest;
+        }
+        if(asset_id==null) {
+            alert('Asset Id is missing.');
+            return;
+        }
+        else if(asset_source==null) {
+            alert('Asset source is missing.');
+            return;
+        }
+        else {
+            assets = { ...assets, [asset_id]: {
+                id: asset_id,
+                type: asset_type,
+                srcType: asset_source_type,
+                src: asset_source
+            } }
+            show_asset_configuration_dialog = false;
+        }
         // alert(`Selected asset type: ${asset_type || "(none)"}`);
+    }
+
+    function openAssetConfigurationDialog(asset: Asset | null) {
+        if(show_asset_configuration_dialog) return;
+        if(asset != null) {
+            modifying_asset_id = asset.id;
+            asset_id = asset.id;
+            asset_type = asset.type;
+            asset_source_type = asset.srcType
+            if(asset.srcType == 'link')
+                asset_source = asset.src
+            else
+                asset_source = null
+            show_asset_configuration_dialog = true;
+        }
+        else {
+            modifying_asset_id = null;
+            asset_id = null;
+            asset_type = 'image';
+            asset_source_type = 'local';
+            asset_source = null;
+            show_asset_configuration_dialog = true;
+        }
+    }
+
+    async function handleFileSelect(event: Event) {
+        const input = event.target as HTMLInputElement;
+        const file = input.files?.[0];
+        if (!file) return;
+
+        asset_source = await fileToDataURL(file);
+        // console.log('Data URL:', asset_source);
+    }
+
+    // Helper function
+    function fileToDataURL(file: File): Promise<string> {
+        return new Promise((resolve, reject) => {
+            const reader = new FileReader();
+            reader.onload = () => resolve(reader.result as string);
+            reader.onerror = () => reject(reader.error);
+            reader.readAsDataURL(file);
+        });
+    }
+
+    function stringToByteSize(str: string) {
+        const bytes = new TextEncoder().encode(str).length;
+
+        const units = ["B", "KB", "MB", "GB", "TB"];
+        let size = bytes;
+        let unitIndex = 0;
+
+        while (size >= 1024 && unitIndex < units.length - 1) {
+            size /= 1024;
+            unitIndex++;
+        }
+
+        return `${size.toFixed(2)} ${units[unitIndex]}`;
     }
 </script>
 <svelte:window onbeforeunload={beforeUnload}/>
@@ -640,12 +733,11 @@
             view_mode = 'assets';
             viewModeStorage.set('assets');
             scrollToTop();
-
         }
         return true;
     }}
 />
-<p class="annotation">This is a simple WebGL 2 editor with a little bit of Fox's spices. (Experimental)</p>
+<p class="annotation">This is a simple editor for small WebGL 2 projects. (Experimental phase.)</p>
 <hr class="dotted" style:margin-bottom="0">
 <div bind:this={editor_layout} class="editor-layout">
     <div bind:this={editor_layout_left} class="left">
@@ -687,14 +779,64 @@
                 </div>
                 <hr class="dashed"> -->
                 <h3>Assets <img class="inline-glyph" src={box_icon}/></h3>
-                <p class="annotation">(Under construction.)</p>
+                <p class="annotation">Manage your image, audio or video assets.</p>
                 <div class="flex_grid gallery">
-                    <div class="item html-item code-block-background" style:border="1px dashed dimgray">
+                    <div class="item html-item code-block-background">
                         <div>
-                            <h3><button class="text" onclick={() => {show_asset_upload_dialog=true}}><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h3>
-                            <p class="annotation">Select an asset file.</p>
+                            <h3><button class="text" onclick={() => {openAssetConfigurationDialog(null);}}><img class="inline-glyph" src={ upload_icon }/>&nbsp;Import</button></h3>
+                            <p class="annotation">Click to upload or link a new asset file.</p>
                         </div>
                     </div>
+                    {#each Object.entries(assets).reverse() as [id, asset]}
+                    {#if asset.type == 'image'}
+                    <div id={`asset-img-${id}`} class="item image-item" role="button" tabindex="0" 
+                    onclick={() => {
+                        openAssetConfigurationDialog(asset);
+                    }} onkeydown={(e) => {
+                        openAssetConfigurationDialog(asset);
+                    }}>
+                        <!-- <div>
+                            <h3>{id}</h3>
+                            <p class="annotation">Click to edit the asset file.</p>
+                        </div> -->
+                        <img  alt={id} src={asset.src} />
+
+                    </div>
+                    <PointerBlock element_id={`asset-img-${id}`}>
+                        <h4 class="annotation">Image Asset ({id})</h4>
+                        <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Link: {asset.src} {:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
+                    </PointerBlock>
+                    {/if}
+
+                    {#if asset.type == 'audio'}
+                    <div class="item audio-item code-block-background">
+                        <div>
+                            <h3><button onclick={() => {
+                                openAssetConfigurationDialog(asset);
+                            }} class="text">Audio Asset <img class="inline-glyph" alt="Audio" src={music_icon}/></button></h3>
+                            <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Link: {asset.src} {:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
+                            <audio controls>
+                                <source src={asset.src}>
+                            </audio>
+                        </div>
+                    </div>
+                    {/if}
+
+                    {#if asset.type == 'video'}
+                    <div class="item video-item code-block-background">
+                        <div>
+                            <h3><button onclick={() => {
+                                openAssetConfigurationDialog(asset);
+                            }} class="text">Video Asset <img class="inline-glyph" alt="Video" src={video_icon}/></button></h3>
+                            <p class="annotation">Id: {id}, {#if asset.srcType=='link'}link: {asset.src} {:else if asset.srcType=='local'}size: {stringToByteSize(asset.src)}{/if}</p>
+                            <video controls>
+                                <source src={asset.src}>
+                            </video>
+                        </div>
+                    </div>
+                    {/if}
+
+                    {/each}
                 </div>
             </div>
             <hr class="dotted">
@@ -708,7 +850,7 @@
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
             {#if mounted}
-            <TapiocaFoxWebGL mode="in-editor" size={400} vertex_shader={vert_shader_src} fragment_shader={frag_shader_src} javascript={js_src} onglinit={onGLInit} onerror={onError}/>
+            <TapiocaFoxWebGL mode="in-editor" size={400} bind:vertex_shader={vert_shader_src} bind:fragment_shader={frag_shader_src} bind:javascript={js_src} bind:assets={assets} onglinit={onGLInit} onerror={onError}/>
             {/if}
             <div class="info-container">
                 {#if error_message != null}
@@ -739,9 +881,9 @@
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
-                                <button class="no-style" onclick={() => {
+                                <!-- <button class="no-style" onclick={() => {
                                     shareSnapshot(snapshot);
-                                }}><img class="inline-glyph" alt="Share" src={share_icon}/></button>
+                                }}><img class="inline-glyph" alt="Share" src={share_icon}/></button> -->
                                 <button class="no-style" onclick={() => {
                                     deleteSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Delete" src={delete_icon}/></button>
@@ -766,19 +908,19 @@
     <pre>{TapiocaFoxGLContextRaw}</pre>
 </WindowBlock>
 
-<WindowBlock grab_element_id="asset-config-grabable" bind:show={show_asset_upload_dialog} open_location="center">
-    <h3 id="asset-config-grabable"><button class="no-style" onclick={()=>{show_asset_upload_dialog=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Asset's Configuration</h3>
+<WindowBlock grab_element_id="asset-config-grabable" bind:show={show_asset_configuration_dialog} open_location="center">
+    <h3 id="asset-config-grabable"><button class="no-style" onclick={()=>{show_asset_configuration_dialog=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;{#if modifying_asset_id}Asset's Configuration{:else}Import New Asset{/if}</h3>
     <!-- <hr class="dotted"> -->
     
     <p class="annotation">Configure the settings for the asset file. Please make sure the id is unique to avoid conflicts. Consider the "link" source type if the file is larger than 16MB.</p>
     <!-- <hr class="dotted"> -->
     
-    <form onsubmit={uploadAsset}>
+    <form onsubmit={submitAssetConfiguration}>
         <!-- <label for="asset-name">Name:</label>
         <input id="asset-name" type="text" bind:value={asset_name} placeholder="Enter your name"/>
         <br> -->
         <label for="asset-name">Id:</label>
-        <input id="asset-name" type="text" bind:value={asset_id} placeholder="Enter your id"/>
+        <input id="asset-name" type="text" bind:value={asset_id} placeholder="Enter your id" required/>
         <br>
         <label for="asset-type">Type:</label>
         <select id="asset-type" bind:value={asset_type} required>
@@ -806,16 +948,32 @@
         {#if asset_source_type=='link'}
         <br>
         <label for="asset-link">Link:</label>
-        <input id="asset-link" type="url" placeholder="Enter the link"/>
+        <input id="asset-link" type="text" placeholder="Enter the link" bind:value={asset_source}/>
         {:else if asset_source_type=='local'}
         <br>
-        <button type="button" onclick={() => {}}>Select a file</button>
+        {#if asset_type == 'image'}
+        <input type="file" accept="image/*" onchange={handleFileSelect} />
+        {/if}
+        {#if asset_type == 'audio'}
+        <input type="file" accept="audio/*" onchange={handleFileSelect} />
+        {/if}
+        {#if asset_type == 'video'}
+        <input type="file" accept="video/*" onchange={handleFileSelect} />
+        {/if}
+        <!-- <button type="button" onclick={() => {}}>Select a file</button> -->
         {/if}
         <!-- <p class="annotation compact"></p> -->
 
         <br><br>
         <!-- <hr class="dotted"> -->
         <button type="submit">Confirm</button>
-        <button type="button" onclick={() => {show_asset_upload_dialog=false}}>Cancel</button>
+        <button type="button" onclick={() => {show_asset_configuration_dialog=false}}>Cancel</button>
+        {#if modifying_asset_id != null}
+        | <button type="button" style:color="red" onclick={() => {
+            const { [modifying_asset_id!]: _, ...rest } = assets;
+            assets = rest;
+            show_asset_configuration_dialog=false;
+        }}>Delete</button>
+        {/if}
     </form>
 </WindowBlock>

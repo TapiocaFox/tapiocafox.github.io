@@ -49,16 +49,78 @@ td.glyphs {
     white-space: nowrap;
 }
 
-.flex_grid .html-item {
-    width: 100%;
-    aspect-ratio: 1;
-    max-width: 220px;
-    max-height: 220px;
+.flex_grid .image-item {
+    width: auto;
+    height: 220px;
+    min-width: 110px;
+    background: unset;
+    border: 1px dotted dimgray;
     display:flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     background: unset;
+    cursor: pointer;
+    /* padding-left: var(--page-offset);
+    padding-right: var(--page-offset); */
+}
+
+.flex_grid .image-item img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+.flex_grid .html-item {
+    width: 100%;
+    aspect-ratio: 1;
+    max-width: calc(220px - 2 * var(--page-offset));
+    height: 220px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: unset;
+    border: 1px dotted dimgray;
+    padding-right: var(--page-offset);
+    padding-left: var(--page-offset);
+    /* cursor: pointer; */
+}
+
+.flex_grid .audio-item {
+    height: 220px;
+    width: auto;
+    aspect-ratio: 1.25;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: unset;
+    border: 1px dotted dimgray;
+    padding-right: var(--page-offset);
+    padding-left: var(--page-offset);
+    /* cursor: pointer; */
+}
+
+.flex_grid .audio-item audio {
+    max-width: 250px;
+}
+
+.flex_grid .video-item {
+    height: 220px;
+    display:flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: unset;
+    border: 1px dotted dimgray;
+    padding-right: var(--page-offset);
+    padding-left: var(--page-offset);
+    /* cursor: pointer; */
+}
+
+.flex_grid .video-item video {
+    max-height: 100px;
 }
 
 .flex_grid .html-item .center-div {
@@ -70,6 +132,10 @@ td.glyphs {
 }
 
 @media (max-width: 768px) {
+    .flex_grid .image-item {
+        height: 170px;
+        min-width: 170px;
+    }
     .flex_grid .html-item {
         width: 170px;
         height: 170px;

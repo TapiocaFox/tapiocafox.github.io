@@ -194,7 +194,6 @@ foxGL.onStart(async () => {
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
-    window.addEventListener('resize', onresize);
     animate();
 });
 
@@ -204,5 +203,4 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-    window.removeEventListener('resize', onresize);
 });

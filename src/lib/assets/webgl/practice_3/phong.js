@@ -109,7 +109,6 @@ foxGL.onStart(async () => {
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
     canvas.addEventListener('pointerleave', pointerleave);
-    window.addEventListener('resize', onresize);
     animate();
 });
 
@@ -121,5 +120,4 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-    window.removeEventListener('resize', onresize);
 });

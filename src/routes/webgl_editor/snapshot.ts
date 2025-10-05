@@ -1,4 +1,5 @@
 import { writable, type Writable } from "svelte/store";
+import type { Asset } from "$lib/components/TapiocaFoxGl";
 
 export type Snapshot = {
     name: string;
@@ -7,6 +8,7 @@ export type Snapshot = {
     vert: string;
     frag: string;
     js: string;
+    assets: Record<string, Asset>;
 };
 
 export const extension: string = 'fgl';
