@@ -20,12 +20,12 @@
         const pointerBlockHeight = pointer_block.offsetHeight;
 
         let division = windowWidth*division_percentage;
-        const parentElement = element.parentElement;
-        if(parentElement) {
-            const parentElementRect = parentElement.getBoundingClientRect();
-            division = parentElementRect.left+(parentElementRect.right-parentElementRect.left)*division_percentage;
-            // console.log(division);
-        }
+        // const parentElement = element.parentElement;
+        // if(parentElement) {
+        //     const parentElementRect = parentElement.getBoundingClientRect();
+        //     division = parentElementRect.left+(parentElementRect.right-parentElementRect.left)*division_percentage;
+        //     // console.log(division);
+        // }
 
         if((elementRect.left+elementRect.right)*0.5 <= division) {
             pointer_block.style.left = `${Math.min(clientX+pointer_offset, windowWidth-pointerBlockWidth)}${unit}`;
