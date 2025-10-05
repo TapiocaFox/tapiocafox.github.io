@@ -27,9 +27,13 @@ const onpointermove = async event => {
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
 
+let activatedSound = null;
+let deactivatedSound = null;
+
 const onclick = async event => {
     enlarge = !enlarge;
-    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
+    enlarge?activatedSound?.play():deactivatedSound?.play();
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'green':'red');
 };
 
 const pointerleave = async event => {
@@ -102,8 +106,11 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Phong Reflective Spheres');
-    foxGL.reportStatus('Description', `Click to enlarge the white sphere.`);
-    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
+    foxGL.reportStatus('Description', `Click to enlarge the white sphere.`, 'green');
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'green':'red');
+
+    activatedSound = await foxGL.getAssetById('hl_activated');
+    deactivatedSound = await foxGL.getAssetById('hl_deactivated');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

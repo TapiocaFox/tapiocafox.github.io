@@ -31,7 +31,6 @@ void main() {
             float uTimeInChannel = RATIO_TIME*uTime+(.5*sin(RATIO_TIME*uTime+3.*float(i+1)))-float(3-j)*TIME_DELAY;
         	// float uTimeInChannel = uTime-float(j)*TIME_DELAY;
 
-
             vec2 stInChannel = st;
             stInChannel.x -= sin(.5*uTimeInChannel+float(i));    
             stInChannel.y -= sin(2.*uTimeInChannel+float(i));

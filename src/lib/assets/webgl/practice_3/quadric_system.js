@@ -183,7 +183,10 @@ const onpointermove = async event => {
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
 
+let blipSound = null;
+
 const onclick = async event => {
+    blipSound?.play();
     systemIndex = (systemIndex+1)%systems.length;
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);
 }
@@ -229,8 +232,10 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Quadric Surface (System)');
-    foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).');
+    foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);
+
+    blipSound = await foxGL.getAssetById('hl_blip');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

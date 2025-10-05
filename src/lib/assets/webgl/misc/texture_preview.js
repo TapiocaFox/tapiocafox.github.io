@@ -450,7 +450,7 @@ foxGL.onStart(async () => {
     
     // Set status title.
     foxGL.setStatusTitle('Mozilla Texture Load');
-    foxGL.reportStatus('Tips', 'Click to make noises.');
+    foxGL.reportStatus('Tips', 'Click to make noises.', 'green');
 
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);

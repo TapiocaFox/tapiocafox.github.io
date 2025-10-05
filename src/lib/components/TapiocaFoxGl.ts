@@ -9,13 +9,13 @@ export interface TapiocaFoxGLContext {
     onStop: (stop: () => Promise<void>) => void,
     render: () => void,
     setStatusTitle: (title: string) => void,
-    reportStatus: (key: string, status: string) => void,
+    reportStatus: (key: string, status: string, color: string) => void,
     loadScriptFromSource: (src: string) => Promise<void>,
     getAssetById: (assetId: string) => Promise<HTMLImageElement | HTMLVideoElement | HTMLAudioElement | Blob>,
 
     // Do not access the things below.
     statusTitle: string,
-    statusDict: Record<string, string>,
+    statusDict: Record<string, Status>,
     vertexShader: string,
     fragmentShader: string,
     javascript: string,
@@ -40,4 +40,9 @@ export type Asset = {
     type: 'image' | 'video' | 'audio' | 'blob';
     srcType: 'local' | 'link';
     src: string;
+}
+
+export type Status = {
+    text: string;
+    color: string;
 }

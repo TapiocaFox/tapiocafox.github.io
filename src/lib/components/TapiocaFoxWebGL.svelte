@@ -5,7 +5,7 @@
     import default_js from '$lib/assets/webgl/default.js?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
-    import type { TapiocaFoxGLContext, Asset } from './TapiocaFoxGl';
+    import type { TapiocaFoxGLContext, Asset, Status } from './TapiocaFoxGl';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
@@ -21,7 +21,7 @@
     let display_edit_button = $state(false);
     let fps = $state(0);
     let statusTitle = $state('Rendering Status');
-    let statusDict = $state({});
+    let statusDict = $state<Record<string, Status>>({});
 
     const status_block_division_percentage = 0.5;
     const pointer_offset = 32;
@@ -232,9 +232,12 @@
                     statusTitle = title;
                 },
 
-                reportStatus: function(key, status) {
+                reportStatus: function(key, text, color='inherit') {
                     // console.log(key, status, this.statusDict);
-                    this.statusDict[key] = status;
+                    this.statusDict[key] = {
+                        text: text,
+                        color: color
+                    };
                 },
 
                 loadScriptFromSource: async function(src: string) {
@@ -495,6 +498,6 @@
     <pre>{props.fragment_shader}</pre>
     {:else} -->
     <h3>{statusTitle}</h3>
-    <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br>{status}{/each}{/if}</p>
+    <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br><span style:color={status.color}>{status.text}</span>{/each}{/if}</p>
     <!-- {/if} -->
 </div>

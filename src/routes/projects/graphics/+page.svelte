@@ -18,7 +18,8 @@
     import texture_preview_vert from '$lib/assets/webgl/misc/texture_preview.vert?raw';
     import texture_preview_frag from '$lib/assets/webgl/misc/texture_preview.frag?raw';
     import uvmap_texture from '$lib/assets/webgl/misc/textures/uvmap_grid.jpg';
-    import hl_button_sound from '$lib/assets/webgl/misc/sounds/hl_button3.wav';
+    import hl_blip1_sound from '$lib/assets/webgl/misc/sounds/hl_blip1.wav';
+    import hl_button3_sound from '$lib/assets/webgl/misc/sounds/hl_button3.wav';
 
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
     import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
@@ -32,7 +33,9 @@
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
     import phong_reflective_spheres_frag from '$lib/assets/webgl/practice_2/phong_reflective_spheres.frag?raw';
     import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
-    
+    import hl_activated_sound from '$lib/assets/webgl/practice_2/sounds/activated.wav';
+    import hl_deactivated_sound from '$lib/assets/webgl/practice_2/sounds/deactivated.wav';
+
     
     import phong_frag from '$lib/assets/webgl/practice_3/phong.frag?raw';
     import phong_js from '$lib/assets/webgl/practice_3/phong.js?raw';
@@ -40,6 +43,8 @@
     import quadric_js from '$lib/assets/webgl/practice_3/quadric.js?raw';
     import quadric_system_frag from '$lib/assets/webgl/practice_3/quadric_system.frag?raw';
     import quadric_system_js from '$lib/assets/webgl/practice_3/quadric_system.js?raw';
+
+    import noise_frag from '$lib/assets/webgl/practice_4/noise.frag?raw';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 
@@ -119,11 +124,39 @@
                 {
                     frag: reflective_spheres_frag,
                     js: reflective_spheres_js,
+                    assets: {
+                        'hl_deactivated': {
+                            id: 'hl_deactivated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_deactivated_sound
+                        },
+                        'hl_activated': {
+                            id: 'hl_activated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_activated_sound
+                        },
+                    },
                     categories: ['noise','raycasting']
                 },
                 {
                     frag: phong_reflective_spheres_frag,
                     js: phong_reflective_spheres_js,
+                    assets: {
+                        'hl_deactivated': {
+                            id: 'hl_deactivated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_deactivated_sound
+                        },
+                        'hl_activated': {
+                            id: 'hl_activated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_activated_sound
+                        },
+                    },
                     categories: ['noise','raycasting']
                 },
             ]
@@ -145,7 +178,25 @@
                 {
                     frag: quadric_system_frag,
                     js: quadric_system_js,
+                    assets: {
+                        'hl_blip': {
+                            id: 'hl_blip',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_blip1_sound
+                        }
+                    },
                     categories: ['raycasting']
+                }
+            ]
+        },
+        {
+            title: 'Practice Four',
+            description: 'Procedural texture generation. (Part of assignment four.)',
+            practices: [
+                {
+                    frag: noise_frag,
+                    categories: ['noise']
                 }
             ]
         },
@@ -173,7 +224,7 @@
                             id: 'hl_button',
                             type: 'audio',
                             srcType: 'link',
-                            src: hl_button_sound
+                            src: hl_button3_sound
                         }
                     },
                     categories: []
