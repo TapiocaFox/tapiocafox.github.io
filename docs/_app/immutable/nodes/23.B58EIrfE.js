@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as b,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as G,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as U}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as V,T as m,d as g,a as vn,b as fn}from"../chunks/kDQNXpFZ.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/CZLvyDKh.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as b,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as G,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as U}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as V,T as m,d as g,a as vn,b as fn}from"../chunks/3BDBQzRN.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BgWv9DrN.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -357,9 +357,8 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`, 'green');
     foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'green':'red');
 
-    activatedSound = await foxGL.getAssetById('hl_activated');
-    deactivatedSound = await foxGL.getAssetById('hl_deactivated');
-
+    foxGL.getAssetById('hl_activated').then(result => activatedSound = result);
+    foxGL.getAssetById('hl_deactivated').then(result => deactivatedSound = result);
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -1858,8 +1857,8 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`, 'green');
     foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'green':'red');
 
-    activatedSound = await foxGL.getAssetById('hl_activated');
-    deactivatedSound = await foxGL.getAssetById('hl_deactivated');
+    foxGL.getAssetById('hl_activated').then(result => activatedSound = result);
+    foxGL.getAssetById('hl_deactivated').then(result => deactivatedSound = result);
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -2750,7 +2749,7 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`);
 
-    blipSound = await foxGL.getAssetById('hl_blip');
+    foxGL.getAssetById('hl_blip').then(result => blipSound = result);
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

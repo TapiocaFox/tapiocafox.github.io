@@ -109,8 +109,8 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`, 'green');
     foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'green':'red');
 
-    activatedSound = await foxGL.getAssetById('hl_activated');
-    deactivatedSound = await foxGL.getAssetById('hl_deactivated');
+    foxGL.getAssetById('hl_activated').then(result => activatedSound = result);
+    foxGL.getAssetById('hl_deactivated').then(result => deactivatedSound = result);
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

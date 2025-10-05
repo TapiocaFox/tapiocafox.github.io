@@ -235,7 +235,7 @@ foxGL.onStart(async () => {
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);
 
-    blipSound = await foxGL.getAssetById('hl_blip');
+    foxGL.getAssetById('hl_blip').then(result => blipSound = result);
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
