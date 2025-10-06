@@ -17,6 +17,12 @@ precision highp float;
 #define NUM_GRANULARITY 4
 #define SCALE_DEGENERATE 1.5
 
+#define GRADIENT_START_GLITTER 1.
+#define GRADIENT_END_GLITTER .0
+#define SIZE_THRESHOULD_GLITTER .5
+#define SCALE_RECIPROCAL_GLITTER_XY 80.
+#define SCALE_RECIPROCAL_GLITTER_Z .25
+
 in  vec3 vPos;
 out vec4 fragColor;
 
@@ -46,10 +52,17 @@ float turbulence(vec3 P) {
    return f;
 }
 
+float glitter(vec3 P) {
+    // float f = 0.;
+    float t = step(SIZE_THRESHOULD_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
+    return t;
+}
+
 // vec3 colorBlob = vec3(.5, .5, 0.);
 vec3 colorBlobStart = vec3(.8, .75, 0.);
 vec3 colorBlobEnd = vec3(1., 0.392, 0.078);
 vec3 colorBG = vec3(0.1, 0.1, 0.0);
+vec3 colorGlitter = vec3(1., 1., 1.);
 
 void main() {
     float g = .5*(vPos.y+1.);
@@ -60,5 +73,7 @@ void main() {
     vec3 colorBlob = mix(colorBlobStart, colorBlobEnd , g);
     vec3 color = vec3(tc)+colorBlob*clip;
     color += (1.-clip)*colorBG;
+    float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
+    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.5*SPEED_Y*uTime, uTime));
     fragColor = vec4(color, 1.);
 }
