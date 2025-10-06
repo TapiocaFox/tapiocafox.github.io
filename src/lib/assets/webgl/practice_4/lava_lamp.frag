@@ -55,8 +55,9 @@ float turbulence(vec3 P) {
 
 float glitter(vec3 P) {
     // float f = 0.;
-    float t = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
-    return t;
+    P.y -= .75 * .5 * (noise(.5*P)+1.);
+    float g = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
+    return g;
 }
 
 // vec3 colorBlob = vec3(.5, .5, 0.);

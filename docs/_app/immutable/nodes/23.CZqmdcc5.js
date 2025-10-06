@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as P}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/NDbamvL-.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/D1er0TND.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as P}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/DHcPH07A.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/PwQBjAu0.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2889,8 +2889,9 @@ float turbulence(vec3 P) {
 
 float glitter(vec3 P) {
     // float f = 0.;
-    float t = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
-    return t;
+    P.y -= .75 * .5 * (noise(.5*P)+1.);
+    float g = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
+    return g;
 }
 
 // vec3 colorBlob = vec3(.5, .5, 0.);
