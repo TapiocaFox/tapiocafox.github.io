@@ -6,7 +6,6 @@
 precision highp float;
 
 #define PI 3.1415926535897932384
-#define SIZE_HALF_STROKE 0.015
 
 in  vec3 vPos;
 out vec4 fragColor;

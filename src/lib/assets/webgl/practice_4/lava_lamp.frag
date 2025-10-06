@@ -1,0 +1,64 @@
+#version 300 es
+
+// Author: TapiocaFox
+// Title:  Lava Lamp
+
+precision highp float;
+
+#define PI 3.1415926535897932384
+#define SCALE_RECIPROCAL .85
+#define GRADIENT_START_BLOB .2
+#define GRADIENT_END_BLOB 1.25
+#define STRECH_Y_RECIPROCAL .9
+#define CLIP_THRESHOLD .2
+#define CLIP_HIGHLIGHT_THRESHOLD .21
+#define SPEED_Y .6
+#define SPEED_Z .25
+#define NUM_GRANULARITY 4
+#define SCALE_DEGENERATE 1.5
+
+in  vec3 vPos;
+out vec4 fragColor;
+
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
+
+// Noise snippet from Prof. Perlin.
+vec3  _s(vec3 i) { return cos(5.*(i+5.*cos(5.*(i.yzx+5.*cos(5.*(i.zxy+5.*cos(5.*i))))))); }
+float _t(vec3 i, vec3 u, vec3 a) { return dot(normalize(_s(i + a)), u - a); }
+float noise(vec3 p) {
+   vec3 i = floor(p), u = p - i, v = 2.*mix(u*u, u*(2.-u)-.5, step(.5,u));
+   return mix(mix(mix(_t(i, u, vec3(0.,0.,0.)), _t(i, u, vec3(1.,0.,0.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,0.)), _t(i, u, vec3(1.,1.,0.)), v.x), v.y),
+              mix(mix(_t(i, u, vec3(0.,0.,1.)), _t(i, u, vec3(1.,0.,1.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,1.)), _t(i, u, vec3(1.,1.,1.)), v.x), v.y), v.z);
+}
+
+float turbulence(vec3 P) {
+   float f = 0., s = 1.;
+   for (int i = 0 ; i < NUM_GRANULARITY ; i++) {
+      float t = noise(s * P);
+      f += abs(t) / s;
+      s *= SCALE_DEGENERATE;
+      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+   }
+   return f;
+}
+
+// vec3 colorBlob = vec3(.5, .5, 0.);
+vec3 colorBlobStart = vec3(.8, .75, 0.);
+vec3 colorBlobEnd = vec3(1., 0.392, 0.078);
+vec3 colorBG = vec3(0.1, 0.1, 0.0);
+
+void main() {
+    float g = .5*(vPos.y+1.);
+    float gb = (GRADIENT_END_BLOB-GRADIENT_START_BLOB)*g+GRADIENT_START_BLOB;
+    float t = gb*turbulence(SCALE_RECIPROCAL*vec3(vPos.x, STRECH_Y_RECIPROCAL*vPos.y-SPEED_Y*uTime, -SPEED_Z*uTime));
+    float clip = step(CLIP_THRESHOLD, t);
+    float tc = clip*.5*(.5-t);
+    vec3 colorBlob = mix(colorBlobStart, colorBlobEnd , g);
+    vec3 color = vec3(tc)+colorBlob*clip;
+    color += (1.-clip)*colorBG;
+    fragColor = vec4(color, 1.);
+}

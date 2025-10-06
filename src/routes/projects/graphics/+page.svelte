@@ -35,7 +35,6 @@
     import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
     import hl_activated_sound from '$lib/assets/webgl/practice_2/sounds/activated.wav';
     import hl_deactivated_sound from '$lib/assets/webgl/practice_2/sounds/deactivated.wav';
-
     
     import phong_frag from '$lib/assets/webgl/practice_3/phong.frag?raw';
     import phong_js from '$lib/assets/webgl/practice_3/phong.js?raw';
@@ -45,6 +44,9 @@
     import quadric_system_js from '$lib/assets/webgl/practice_3/quadric_system.js?raw';
 
     import noise_frag from '$lib/assets/webgl/practice_4/noise.frag?raw';
+    import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
+    import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
+    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 
@@ -196,6 +198,19 @@
             practices: [
                 {
                     frag: noise_frag,
+                    categories: ['noise']
+                },
+                {
+                    frag: lava_lamp_frag,
+                    js: lava_lamp_js,
+                    assets: {
+                        'hl_alien_blipper': {
+                            id: 'hl_alien_blipper',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_alien_blipper_sound
+                        }
+                    },
                     categories: ['noise']
                 }
             ]

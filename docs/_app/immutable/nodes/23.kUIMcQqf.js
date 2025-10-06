@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as b,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as G,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as U}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as V,T as m,d as g,a as vn,b as fn}from"../chunks/3BDBQzRN.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BgWv9DrN.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as U,T as m,d as g,a as vn,b as fn}from"../chunks/DPCWefqi.js";import{m as O}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BFs24vM9.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -474,7 +474,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
-});`,w=`// Author: TapiocaFox
+});`,E=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Init variables.
@@ -680,7 +680,7 @@ void main() {
     color = mix(color, vec3(0.), pctNoiseB);
 
     fragColor = vec4(color,1.0);
-}`,O=`#version 300 es
+}`,V=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Sin
@@ -1204,7 +1204,7 @@ varying highp vec2 vTextureCoord;
 void main(void) {
   gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
   vTextureCoord = aTextureCoord;
-}`,Tn=`// Author: TapiocaFox
+}`,Ln=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 varying highp vec2 vTextureCoord;
@@ -1213,7 +1213,7 @@ uniform sampler2D uSampler;
 
 void main(void) {
   gl_FragColor = texture2D(uSampler, vTextureCoord);
-}`,Ln=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,bn=""+new URL("../assets/hl_blip1.Db9rI5k-.wav",import.meta.url).href,_n=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,Pn=`#version 300 es
+}`,Tn=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,_n=""+new URL("../assets/hl_blip1.Db9rI5k-.wav",import.meta.url).href,bn=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber
@@ -1266,7 +1266,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     fragColor = vec4(color,1.0);
-}`,An=`#version 300 es
+}`,Pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Array
@@ -1390,7 +1390,7 @@ void main() {
 
    fragColor = vec4(sqrt(F.rgb), F.a);
    fragColor = mix(vec4(0.,0.,0.,1.),fragColor, F.a);
-}`,wn=`// Author: TapiocaFox
+}`,En=`// Author: TapiocaFox
 // Title:  Perlin Spheres
 
 // Init variables.
@@ -1483,7 +1483,7 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-});`,Mn=`#version 300 es
+});`,wn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflective Spheres
@@ -1746,7 +1746,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,En=`// Author: TapiocaFox
+}`,Mn=`// Author: TapiocaFox
 // Title:  Phong Reflective Spheres
 
 // Init variables.
@@ -1890,7 +1890,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,W=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,q=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Fn=`#version 300 es
+});`,W=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,q=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Cn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflection
@@ -1955,7 +1955,7 @@ void main() {
     
     fragColor = vec4(sqrt(F.rgb), F.a);
     fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
-}`,Cn=`// Author: TapiocaFox
+}`,Fn=`// Author: TapiocaFox
 // Title:  Phong Reflection
 
 // Init variables.
@@ -2077,7 +2077,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,zn=`#version 300 es
+});`,Gn=`#version 300 es
 
 // Author: Ken Perlin
 // Title:  Quadric Surface
@@ -2166,7 +2166,7 @@ void main() {
       fragColor = vec4(c,c,c, 1.);
    }
 
-}`,Gn=`// Author: TapiocaFox
+}`,zn=`// Author: TapiocaFox
 // Title:  Quadric Surface
 
 // Init variables.
@@ -2777,7 +2777,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
-});`,Un=`#version 300 es
+});`,Dn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Basic Noise
@@ -2785,7 +2785,6 @@ foxGL.onStop(async () => {
 precision highp float;
 
 #define PI 3.1415926535897932384
-#define SIZE_HALF_STROKE 0.015
 
 in  vec3 vPos;
 out vec4 fragColor;
@@ -2817,7 +2816,149 @@ void main() {
       F = vec4(c,c,c,1.);
    }
    fragColor = vec4(sqrt(F.rgb), F.a);
-}`,Vn=`#version 300 es
+}`,Un=`#version 300 es
+
+// Author: TapiocaFox
+// Title:  Lava Lamp
+
+precision highp float;
+
+#define PI 3.1415926535897932384
+#define SCALE_RECIPROCAL .85
+#define GRADIENT_START_BLOB .2
+#define GRADIENT_END_BLOB 1.25
+#define STRECH_Y_RECIPROCAL .9
+#define CLIP_THRESHOLD .2
+#define CLIP_HIGHLIGHT_THRESHOLD .21
+#define SPEED_Y .6
+#define SPEED_Z .25
+#define NUM_GRANULARITY 4
+#define SCALE_DEGENERATE 1.5
+
+in  vec3 vPos;
+out vec4 fragColor;
+
+uniform vec2 uResolution;
+uniform vec2 uMouse;
+uniform float uTime;
+
+// Noise snippet from Prof. Perlin.
+vec3  _s(vec3 i) { return cos(5.*(i+5.*cos(5.*(i.yzx+5.*cos(5.*(i.zxy+5.*cos(5.*i))))))); }
+float _t(vec3 i, vec3 u, vec3 a) { return dot(normalize(_s(i + a)), u - a); }
+float noise(vec3 p) {
+   vec3 i = floor(p), u = p - i, v = 2.*mix(u*u, u*(2.-u)-.5, step(.5,u));
+   return mix(mix(mix(_t(i, u, vec3(0.,0.,0.)), _t(i, u, vec3(1.,0.,0.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,0.)), _t(i, u, vec3(1.,1.,0.)), v.x), v.y),
+              mix(mix(_t(i, u, vec3(0.,0.,1.)), _t(i, u, vec3(1.,0.,1.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,1.)), _t(i, u, vec3(1.,1.,1.)), v.x), v.y), v.z);
+}
+
+float turbulence(vec3 P) {
+   float f = 0., s = 1.;
+   for (int i = 0 ; i < NUM_GRANULARITY ; i++) {
+      float t = noise(s * P);
+      f += abs(t) / s;
+      s *= SCALE_DEGENERATE;
+      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+   }
+   return f;
+}
+
+// vec3 colorBlob = vec3(.5, .5, 0.);
+vec3 colorBlobStart = vec3(.8, .75, 0.);
+vec3 colorBlobEnd = vec3(1., 0.392, 0.078);
+vec3 colorBG = vec3(0.1, 0.1, 0.0);
+
+void main() {
+    float g = .5*(vPos.y+1.);
+    float gb = (GRADIENT_END_BLOB-GRADIENT_START_BLOB)*g+GRADIENT_START_BLOB;
+    float t = gb*turbulence(SCALE_RECIPROCAL*vec3(vPos.x, STRECH_Y_RECIPROCAL*vPos.y-SPEED_Y*uTime, -SPEED_Z*uTime));
+    float clip = step(CLIP_THRESHOLD, t);
+    float tc = clip*.5*(.5-t);
+    vec3 colorBlob = mix(colorBlobStart, colorBlobEnd , g);
+    vec3 color = vec3(tc)+colorBlob*clip;
+    color += (1.-clip)*colorBG;
+    fragColor = vec4(color, 1.);
+}`,On=`// Author: TapiocaFox
+// Title:  Lava Lamp
+
+// Init variables.
+const gl = foxGL.gl;
+const program = foxGL.program;
+const canvas = foxGL.canvas;
+
+let destroyed = false;
+
+let alienSound = null;
+
+// Declare listeners.
+const onpointermove = async event => {
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasHeight = canvasRect.bottom - canvasRect.top;
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+};
+
+const onpointerenter = async event => {
+    alienSound?.play();
+};
+
+const onpointerleave = async event => {
+    alienSound?.pause();
+};
+
+const resizeObserver = new ResizeObserver(entries => {
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+});
+
+// Render per animation frame.
+function animate() {
+    if(destroyed) return;
+    requestAnimationFrame(animate);
+    const uTime = (Date.now() - foxGL.startTime) / 1000;
+    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+    foxGL.render();
+}
+
+// Start lifecycle.
+foxGL.onStart(async () => {
+    // Set status title.
+    foxGL.setStatusTitle('Lava Lamp');
+
+    foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    
+    // Register listeners on start.
+    resizeObserver.observe(canvas);
+    canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerenter', onpointerenter);
+    canvas.addEventListener('pointerleave', onpointerleave);
+    animate();
+});
+
+// Stop lifecycle.
+foxGL.onStop(async () => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    resizeObserver.disconnect();
+    canvas.removeEventListener('pointermove', onpointermove);
+    canvas.removeEventListener('pointerenter', onpointerenter);
+    canvas.removeEventListener('pointerleave', onpointerleave);
+});`,Vn=""+new URL("../assets/alien_blipper.DjjNZq0-.wav",import.meta.url).href,Wn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Bump Magnifier Distortion
@@ -2905,4 +3046,4 @@ void main() {
     color = mix(color, colorPointer, pct);
     color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
-}`,Dn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var On=b('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Wn=b('<div class="item webgl-item svelte-ahq8ot"><!></div>'),qn=b('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Qn=b("<!> <!>  <!> <!>",1);function te(Q,X){tn(X,!0);let a=sn("all"),H=on([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:mn,categories:["distortion"]},{frag:gn,categories:[]},{frag:Pn,js:R,categories:["distortion"]},{frag:An,js:R,categories:[]},{frag:dn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)",practices:[{frag:In,js:wn,categories:["raycasting"]},{frag:pn,js:hn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]}]},{title:"Practice Three",description:"Phong reflection, quadric surfaces and transformations. (Part of assignment three.)",practices:[{frag:Fn,js:Cn,categories:["raycasting"]},{frag:zn,js:Gn,categories:["raycasting"]},{frag:Bn,js:Nn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:bn}},categories:["raycasting"]}]},{title:"Practice Four",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:Un,categories:["noise"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Vn,js:w,categories:["distortion"]},{vert:Rn,frag:Tn,js:yn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:Ln},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:_n}},categories:[]}]}]);var M=Qn(),E=S(M);un(E,{text:"Graphics"});var F=r(E,2);{let s=y(()=>[null,null,null,null,Dn,V,V]);ln(F,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(s)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(a)},callback:o=>{o=="editor"?xn("/webgl_editor"):an(a,o,!0)}})}var C=r(F,2);{var Y=s=>{var o=On(),c=r(S(o),4),d=i(c),_=i(d);m(_,{get vertex_shader(){return g},get fragment_shader(){return D},get javascript(){return w}}),t(d);var l=r(d,2),u=i(l);m(u,{get vertex_shader(){return g},get fragment_shader(){return O},get javascript(){return R}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return g},get fragment_shader(){return D},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),T=i(h);m(T,{get vertex_shader(){return g},get fragment_shader(){return O},get javascript(){return R},mode:"preview"}),t(h);var L=r(h,2),e=i(L);m(e,{get vertex_shader(){return g},get fragment_shader(){return Sn},get javascript(){return R},mode:"preview"}),t(L),t(v),f(s,o)};I(C,s=>{n(a)=="debug"&&s(Y)})}var k=r(C,2);N(k,17,()=>H,U,(s,o)=>{var c=G(),d=S(c);{var _=l=>{var u=qn(),v=S(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var T=r(p,2);N(T,21,()=>n(o).practices,U,(L,e)=>{var z=G(),j=S(z);{var $=P=>{var A=Wn(),Z=i(A);{let K=y(()=>n(e).vert?n(e).vert:g),J=y(()=>n(e).frag?n(e).frag:vn),nn=y(()=>n(e).js?n(e).js:fn),en=y(()=>n(e).assets?n(e).assets:{});m(Z,{get vertex_shader(){return n(K)},get fragment_shader(){return n(J)},get javascript(){return n(nn)},get assets(){return n(en)}})}t(A),f(P,A)};I(j,P=>{(n(a)=="all"||n(e).categories.includes(n(a)))&&P($)})}f(L,z)}),t(T),cn(()=>{B(x,n(o).title),B(h,n(o).description)}),f(l,u)};I(d,l=>{n(o).practices.filter(u=>n(a)=="all"||u.categories.includes(n(a))).length>0&&l(_)})}f(s,c)}),f(Q,M),rn()}export{te as component};
+}`,qn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var Hn=_('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Xn=_('<div class="item webgl-item svelte-ahq8ot"><!></div>'),Yn=_('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Qn=_("<!> <!>  <!> <!>",1);function ie(H,X){tn(X,!0);let a=sn("all"),Y=on([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:mn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:R,categories:["distortion"]},{frag:Pn,js:R,categories:[]},{frag:dn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)",practices:[{frag:In,js:En,categories:["raycasting"]},{frag:pn,js:hn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]},{frag:wn,js:Mn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]}]},{title:"Practice Three",description:"Phong reflection, quadric surfaces and transformations. (Part of assignment three.)",practices:[{frag:Cn,js:Fn,categories:["raycasting"]},{frag:Gn,js:zn,categories:["raycasting"]},{frag:Bn,js:Nn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:_n}},categories:["raycasting"]}]},{title:"Practice Four",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:Dn,categories:["noise"]},{frag:Un,js:On,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:Vn}},categories:["noise"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Wn,js:E,categories:["distortion"]},{vert:Rn,frag:Ln,js:yn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:Tn},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:bn}},categories:[]}]}]);var w=Qn(),M=S(w);un(M,{text:"Graphics"});var C=r(M,2);{let s=y(()=>[null,null,null,null,qn,U,U]);ln(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(s)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(a)},callback:o=>{o=="editor"?xn("/webgl_editor"):an(a,o,!0)}})}var F=r(C,2);{var Q=s=>{var o=Hn(),c=r(S(o),4),d=i(c),b=i(d);m(b,{get vertex_shader(){return g},get fragment_shader(){return O},get javascript(){return E}}),t(d);var l=r(d,2),u=i(l);m(u,{get vertex_shader(){return g},get fragment_shader(){return V},get javascript(){return R}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return g},get fragment_shader(){return O},get javascript(){return E},mode:"preview"}),t(x);var h=r(x,2),L=i(h);m(L,{get vertex_shader(){return g},get fragment_shader(){return V},get javascript(){return R},mode:"preview"}),t(h);var T=r(h,2),e=i(T);m(e,{get vertex_shader(){return g},get fragment_shader(){return Sn},get javascript(){return R},mode:"preview"}),t(T),t(v),f(s,o)};I(F,s=>{n(a)=="debug"&&s(Q)})}var k=r(F,2);N(k,17,()=>Y,D,(s,o)=>{var c=z(),d=S(c);{var b=l=>{var u=Yn(),v=S(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var L=r(p,2);N(L,21,()=>n(o).practices,D,(T,e)=>{var G=z(),$=S(G);{var j=A=>{var P=Xn(),Z=i(P);{let K=y(()=>n(e).vert?n(e).vert:g),J=y(()=>n(e).frag?n(e).frag:vn),nn=y(()=>n(e).js?n(e).js:fn),en=y(()=>n(e).assets?n(e).assets:{});m(Z,{get vertex_shader(){return n(K)},get fragment_shader(){return n(J)},get javascript(){return n(nn)},get assets(){return n(en)}})}t(P),f(A,P)};I($,A=>{(n(a)=="all"||n(e).categories.includes(n(a)))&&A(j)})}f(T,G)}),t(L),cn(()=>{B(x,n(o).title),B(h,n(o).description)}),f(l,u)};I(d,l=>{n(o).practices.filter(u=>n(a)=="all"||u.categories.includes(n(a))).length>0&&l(b)})}f(s,c)}),f(H,w),rn()}export{ie as component};
