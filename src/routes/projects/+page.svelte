@@ -35,8 +35,8 @@
 </script>
 <h1>Projects</h1>
 <ChipsWithUrlState 
-  names={['All categories', 'Highlights', 'Ongoing', 'Other']} 
-  values={['all', 'highlights', 'ongoing', 'other']}
+  names={['All categories', 'Highlights', 'Ongoing']} 
+  values={['all', 'highlights', 'ongoing']}
   dividers={['highlights']}
   selected_value={selected_category}
   callback={(value: any) => {
@@ -111,7 +111,7 @@
 </div>
 {/if}
 
-{#if selected_category=='other'}
+{#if selected_category=='all'}
 <div class="card">
     <h2><a href="/components">Components</a></h2>
     <div class="icon-description-layout">
