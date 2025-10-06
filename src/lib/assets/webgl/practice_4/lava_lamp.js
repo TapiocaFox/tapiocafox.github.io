@@ -9,6 +9,7 @@ const canvas = foxGL.canvas;
 let destroyed = false;
 
 let alienSound = null;
+let alienAppealSound = null;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -18,6 +19,10 @@ const onpointermove = async event => {
     const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+};
+
+const onclick = async event => {
+    alienAppealSound?.play();
 };
 
 const onpointerenter = async event => {
@@ -47,8 +52,10 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Lava Lamp');
-
+    foxGL.reportStatus('Tips', 'Click to appeal alien authority.', 'green');
+    
     foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});
+    foxGL.getAssetById('hl_alienappeal').then(result => {alienAppealSound=result;});
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -66,6 +73,7 @@ foxGL.onStart(async () => {
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerenter', onpointerenter);
     canvas.addEventListener('pointerleave', onpointerleave);
+    canvas.addEventListener('click', onclick);
     animate();
 });
 
@@ -77,4 +85,5 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerenter', onpointerenter);
     canvas.removeEventListener('pointerleave', onpointerleave);
+    canvas.removeEventListener('click', onclick);
 });

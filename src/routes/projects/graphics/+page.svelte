@@ -47,6 +47,7 @@
     import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
     import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
+    import hl_alienappeal_sound from '$lib/assets/webgl/practice_4/sounds/alienappeal.wav';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 
@@ -209,6 +210,12 @@
                             type: 'audio',
                             srcType: 'link',
                             src: hl_alien_blipper_sound
+                        },
+                        'hl_alienappeal': {
+                            id: 'hl_alienappeal',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_alienappeal_sound
                         }
                     },
                     categories: ['noise']
