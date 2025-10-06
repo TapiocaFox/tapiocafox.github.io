@@ -74,6 +74,6 @@ void main() {
     vec3 color = vec3(tc)+colorBlob*clip;
     color += (1.-clip)*colorBG;
     float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
-    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.5*SPEED_Y*uTime, uTime));
+    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.2*SPEED_Y*uTime, uTime));
     fragColor = vec4(color, 1.);
 }

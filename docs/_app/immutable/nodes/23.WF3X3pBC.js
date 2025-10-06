@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/ClQe9i6s.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/oFODLhey.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/D_4kltBF.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BAQJJIFa.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2908,7 +2908,7 @@ void main() {
     vec3 color = vec3(tc)+colorBlob*clip;
     color += (1.-clip)*colorBG;
     float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
-    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.5*SPEED_Y*uTime, uTime));
+    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.2*SPEED_Y*uTime, uTime));
     fragColor = vec4(color, 1.);
 }`,Un=`// Author: TapiocaFox
 // Title:  Lava Lamp
