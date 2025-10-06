@@ -13,7 +13,7 @@ precision highp float;
 #define CLIP_THRESHOLD .2
 #define CLIP_HIGHLIGHT_THRESHOLD .21
 #define SPEED_Y .6
-#define SPEED_Z .25
+#define SPEED_Z -.1
 #define NUM_GRANULARITY 4
 #define SCALE_DEGENERATE 1.5
 
@@ -64,9 +64,9 @@ float glitter(vec3 P) {
 
 // vec3 colorBlob = vec3(.5, .5, 0.);
 vec3 colorBlobStart = vec3(.8, .75, 0.);
-vec3 colorBlobEnd = vec3(1., 0.392, 0.078);
+vec3 colorBlobEnd = vec3(1., 0.35, 0.078);
 vec3 colorBG = vec3(0.1, 0.1, 0.0);
-vec3 colorGlitter = vec3(1., 1., 1.);
+vec3 colorGlitter = vec3(.0, 1., 1.);
 
 void main() {
     float g = .5*(vPos.y+1.);

@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as P}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/BKsfD8nG.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BeZxTeUc.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as P}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/BnBpPFip.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/CZLq1LeI.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2847,7 +2847,7 @@ precision highp float;
 #define CLIP_THRESHOLD .2
 #define CLIP_HIGHLIGHT_THRESHOLD .21
 #define SPEED_Y .6
-#define SPEED_Z .25
+#define SPEED_Z -.1
 #define NUM_GRANULARITY 4
 #define SCALE_DEGENERATE 1.5
 
@@ -2898,9 +2898,9 @@ float glitter(vec3 P) {
 
 // vec3 colorBlob = vec3(.5, .5, 0.);
 vec3 colorBlobStart = vec3(.8, .75, 0.);
-vec3 colorBlobEnd = vec3(1., 0.392, 0.078);
+vec3 colorBlobEnd = vec3(1., 0.35, 0.078);
 vec3 colorBG = vec3(0.1, 0.1, 0.0);
-vec3 colorGlitter = vec3(1., 1., 1.);
+vec3 colorGlitter = vec3(.0, 1., 1.);
 
 void main() {
     float g = .5*(vPos.y+1.);
