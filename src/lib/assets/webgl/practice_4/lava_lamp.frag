@@ -23,6 +23,8 @@ precision highp float;
 #define SIZE_FADE_IN_GLITTER .1
 #define SCALE_RECIPROCAL_GLITTER_XY 80.
 #define SCALE_RECIPROCAL_GLITTER_Z .25
+#define SPEED_Y_GLITTER .2
+
 
 in  vec3 vPos;
 out vec4 fragColor;
@@ -55,7 +57,7 @@ float turbulence(vec3 P) {
 
 float glitter(vec3 P) {
     // float f = 0.;
-    P.y -= .75 * .5 * (noise(.5*P)+1.);
+    P.y -= .25 * .5 * (noise(.5*P)+1.);
     float g = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
     return g;
 }
@@ -76,6 +78,6 @@ void main() {
     vec3 color = vec3(tc)+colorBlob*clip;
     color += (1.-clip)*colorBG;
     float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
-    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,.2*SPEED_Y*uTime, uTime));
+    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,SPEED_Y_GLITTER*uTime, uTime));
     fragColor = vec4(color, 1.);
 }
