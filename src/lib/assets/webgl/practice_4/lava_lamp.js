@@ -52,7 +52,7 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Lava Lamp');
-    foxGL.reportStatus('Tips', 'Click to appeal alien authority.', 'green');
+    foxGL.reportStatus('Tips', 'Click to appeal to the 👽 alien authority.', 'green');
     
     foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});
     foxGL.getAssetById('hl_alienappeal').then(result => {alienAppealSound=result;});

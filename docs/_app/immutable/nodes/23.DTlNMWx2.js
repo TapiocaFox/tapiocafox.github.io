@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as U,T as m,d as g,a as vn,b as fn}from"../chunks/d70stLPJ.js";import{m as O}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/C9itXTQD.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as I}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as U,T as m,d as g,a as vn,b as fn}from"../chunks/DOLy_ZkL.js";import{m as O}from"../chunks/8p4Ra2kK.js";import{a as mn,b as gn,r as dn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/BjHKprxQ.js";const pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -2933,7 +2933,7 @@ function animate() {
 foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Lava Lamp');
-    foxGL.reportStatus('Tips', 'Click to appeal alien authority.', 'green');
+    foxGL.reportStatus('Tips', 'Click to appeal to the 👽 alien authority.', 'green');
     
     foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});
     foxGL.getAssetById('hl_alienappeal').then(result => {alienAppealSound=result;});
