@@ -189,7 +189,7 @@ const onclick = async event => {
     blipSound.currentTime = 0;
     blipSound?.play();
     systemIndex = (systemIndex+1)%systems.length;
-    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);
+    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
 }
 
 const resizeObserver = new ResizeObserver(entries => {
@@ -234,7 +234,7 @@ foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Quadric Surface (System)');
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
-    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);
+    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
 
     foxGL.getAssetById('hl_blip').then(result => blipSound = result);
 

@@ -32,8 +32,15 @@ let deactivatedSound = null;
 
 const onclick = async event => {
     enlarge = !enlarge;
-    enlarge?activatedSound?.play():deactivatedSound?.play();
-    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'green':'red');
+    if(enlarge && activatedSound) {
+        activatedSound.currentTime = 0;
+        activatedSound.play();
+    }
+    else if(deactivatedSound) {
+        deactivatedSound.currentTime = 0;
+        deactivatedSound.play();
+    }
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'blue':'red');
 };
 
 const pointerleave = async event => {
@@ -107,7 +114,7 @@ foxGL.onStart(async () => {
     // Set status title.
     foxGL.setStatusTitle('Reflective Spheres');
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`, 'green');
-    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'green':'red');
+    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'blue':'red');
 
     foxGL.getAssetById('hl_activated').then(result => activatedSound = result);
     foxGL.getAssetById('hl_deactivated').then(result => deactivatedSound = result);
