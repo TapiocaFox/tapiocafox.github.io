@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { page } from '$app/stores';
+
 	import favicon from '$lib/assets/favicon.ico';
 
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
@@ -7,6 +9,8 @@
     import fiber_bg_frag from '$lib/assets/webgl/misc/fiber_bg.frag?raw';
 
 	let { children } = $props();
+
+	let first_level_path = $derived($page.url.pathname.split('/')[1] || '');
 </script>
 
 <svelte:head>
@@ -25,16 +29,16 @@
   	@import 'main.css';
 </style>
 
-<TapiocaFoxWebGL mode='background' show_code_block={false} fragment_shader={fiber_bg_frag}/>
+<TapiocaFoxWebGL mode='background' show_status_block={false} fragment_shader={fiber_bg_frag}/>
 
 <nav id="main-nav">
 	<a href="/">&gt; <span style:font-weight="bold" style:color="var(--fox-secondary-color)">Tapioca</span><span style:font-weight="bold" style:color="var(--fox-primary-color)">Fox</span></a>
 	<!-- <a href="https://github.com/TapiocaFox/Daijishou">Daijishō</a> -->
 	<!-- <a href="/components">[Components]</a> -->
-	<a href="/projects">[Projects]</a>
-	<a href="/webgl_editor">[FoxGL]</a>
-	<a href="/artworks">[Artworks]</a>
-	<a href="/patio">[Patio]</a>
+	<a style:color={first_level_path=='projects'?'var(--page-selected-color)':'unset'} href="/projects">[Projects]</a>
+	<a style:color={first_level_path=='webgl_editor'?'var(--page-selected-color)':'unset'} href="/webgl_editor">[FoxGL]</a>
+	<a style:color={first_level_path=='artworks'?'var(--page-selected-color)':'unset'} href="/artworks">[Artworks]</a>
+	<a style:color={first_level_path=='patio'?'var(--page-selected-color)':'unset'} href="/patio">[Patio]</a>
 	<!-- <a href="https://github.com/TapiocaFox">[GitHub]</a> -->
 	<!-- <button class="no-style" onclick={()=>{}}>[☾]</button> -->
 
