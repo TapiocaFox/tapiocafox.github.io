@@ -186,6 +186,7 @@ const onpointermove = async event => {
 let blipSound = null;
 
 const onclick = async event => {
+    blipSound.currentTime = 0;
     blipSound?.play();
     systemIndex = (systemIndex+1)%systems.length;
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`);

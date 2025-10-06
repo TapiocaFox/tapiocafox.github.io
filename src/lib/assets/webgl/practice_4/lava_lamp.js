@@ -22,6 +22,7 @@ const onpointermove = async event => {
 };
 
 const onclick = async event => {
+    alienAppealSound.currentTime = 0;
     alienAppealSound?.play();
 };
 

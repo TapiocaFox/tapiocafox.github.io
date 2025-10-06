@@ -398,6 +398,7 @@ const onpointermove = async event => {
 };
 
 const onclick = async event => {
+    buttonSound.currentTime = 0;
     buttonSound?.play();
 };
 
