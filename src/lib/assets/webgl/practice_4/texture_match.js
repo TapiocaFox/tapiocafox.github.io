@@ -184,7 +184,8 @@ function resetGame() {
     seletedSeed = null;
     selectedIndex = null;
     isCoolingDown = false;  
-    matchCount = 0
+    matchCount = 0;
+    foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
 }
 
 // console.log(seedsUnique, seeds);
@@ -291,7 +292,7 @@ const onclick = async event => {
             }, 16*coolDownTime);
         }
     }
-    foxGL.reportStatus('ClickPos', `Click Position: (${uMouseX.toFixed(1)} [${col}], ${uMouseY.toFixed(1)}) [${row}]`);
+    foxGL.reportStatus('ClickPos', `Click Position: (${uMouseX.toFixed(1)} [${col}], ${uMouseY.toFixed(1)} [${row}])`);
 }
 
 const resizeObserver = new ResizeObserver(entries => {
