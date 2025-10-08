@@ -33,6 +33,7 @@ div.editor-layout > div.right > div.canvas-container {
     display: block;
     height: calc(100vh - var(--main-nav-height) - 2 * var(--page-offset));
     overflow-y: auto;
+    overflow-x: hidden;
     width: auto;
 }
 
