@@ -264,7 +264,7 @@
                             src: hl_gman_wise_sound
                         }
                     },
-                    categories: ['noise']
+                    categories: ['noise', 'raycasting']
                 }
             ]
         },
