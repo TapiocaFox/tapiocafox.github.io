@@ -27,6 +27,7 @@
 		"@types/three": "^0.179.0",
 		"codemirror": "^6.0.2",
 		"idb-keyval": "^6.2.2",
+		"svelte-portal": "^2.2.1",
 		"three": "^0.179.1"
 	}
 }

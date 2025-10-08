@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onMount, tick } from 'svelte';
+    import Portal from 'svelte-portal';
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import default_js from '$lib/assets/webgl/default.js?raw';
@@ -485,6 +486,7 @@
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 
 {#if show_status_block}
+<Portal target="body">
 <div class="floating-block {(display_status_block && mode != "background") ? 'visible' : ''}" 
     bind:this={status_block}>
     <!-- {#if mode != 'in-editor'}
@@ -497,6 +499,7 @@
     <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br><span style:color={status.color}>{status.text}</span>{/each}{/if}</p>
     <!-- {/if} -->
 </div>
+</Portal>
 {/if}
 
 <canvas bind:this={canvas} 

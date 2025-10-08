@@ -1,5 +1,6 @@
 <script lang="ts">
     import { onDestroy, onMount, tick } from "svelte";
+    import Portal from "svelte-portal";
 
     let { children, element_id, division_percentage = 0.5, pointer_offset = 32, unit="px" } = $props();
     let show = $state(false);
@@ -55,8 +56,9 @@
     // });
     
 </script>
-
+<Portal>
 <div class="floating-block {show?'visible fade-in':''}" 
     bind:this={pointer_block}>
     {@render children?.()} 
 </div>
+</Portal>

@@ -1,4 +1,5 @@
 <script lang="ts">
+    import Portal from "svelte-portal";
     import { onMount } from "svelte";
 
     let { children, grab_element_id=null, show=$bindable(false), open_location="center" } = $props();
@@ -104,8 +105,8 @@
         }
     });
 </script>
-
 <div class="floating-block {show?'visible fade-in':''}" 
-    bind:this={window_block}>
-    {@render children?.()} 
+bind:this={window_block}>
+{@render children?.()} 
 </div>
+
