@@ -131,6 +131,16 @@ vec3 marble(vec3 pos, int seed) {
     return vec3(.8,.7,.5) * vec3(s,s*s,s*s*s);
 }
 
+vec3 wood(vec3 pos) {
+   pos.y += .5 * turbulence(.4*pos);
+   vec3 c = vec3(.7,.4,.1) *
+            mix(1.5, .1,
+	        .5 + .25 * turbulence(vec3(.5,40.,40.) * pos+2.*sin(pos))
+                   + .25 * turbulence(vec3(40.,40.,.5) * pos+2.*sin(pos)));
+   c *= .3 + .7 * pow(abs(sin(10. * pos.y)), .4);
+   return c;
+}
+
 vec3 colorAtPoint(vec3 P) {
     int zeroOrOne = int(mod(floor(P.x/SIZE_VOLUME_GRID)+floor(P.y/SIZE_VOLUME_GRID)+floor(P.z/SIZE_VOLUME_GRID), 2.));
     return (zeroOrOne==0)?firstGridColor:secondGridColor;
@@ -144,7 +154,7 @@ void main() {
 
     vec3 color1 = vec3(0.);
 
-    fragColor = vec4(.0,.2,.2,1.);
+    fragColor = vec4(wood(vPos), 1.);
     float minX = 1000.;
     for (int n = 0; n < uNumQ; n++) {
         vec2 tI1 = vec2(-1.,1000.);
