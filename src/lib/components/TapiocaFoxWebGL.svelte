@@ -477,18 +477,14 @@
         }
     }
 </style>
-<canvas bind:this={canvas} 
-    style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
-    style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
-    style:background-color = {background_color}
-    class="glsl {mode}"></canvas>
+
 <button 
     class="edit {display_edit_button ? 'visible' : ''}" 
     onclick={clickEditButton}
     bind:this={edit_button}>
 <img class="inline-glyph" alt="Edit" src={edit_icon}/>Edit</button>
 
-
+{#if show_status_block}
 <div class="floating-block {(display_status_block && mode != "background") ? 'visible' : ''}" 
     bind:this={status_block}>
     <!-- {#if mode != 'in-editor'}
@@ -501,3 +497,10 @@
     <p class="annotation">FPS: {`${Math.round(fps)} (${canvas?.width}x${canvas?.height})`} {#if statusDict!=null}{#each Object.entries(statusDict) as [key, status]}<br><span style:color={status.color}>{status.text}</span>{/each}{/if}</p>
     <!-- {/if} -->
 </div>
+{/if}
+
+<canvas bind:this={canvas} 
+    style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
+    style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
+    style:background-color = {background_color}
+    class="glsl {mode}"></canvas>

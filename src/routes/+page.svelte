@@ -19,8 +19,8 @@
 <style>
     .sqaure_item {
         display: block;
-        width: 125px;
-        height: 125px;
+        width: 130px;
+        height: 130px;
         margin-right: 4px;
     }
     @media (max-width: 768px) {
@@ -43,8 +43,8 @@
             alt="Profile"
             style:border-radius="var(--sharper-radius)"
             style:margin="1rem 0"
-            style:width="128px"
-            style:height="128px"/>
+            style:width="135px"
+            style:height="135px"/>
         </div>
         <div class="description">
             <div>
