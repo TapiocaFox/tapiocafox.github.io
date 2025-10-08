@@ -18,7 +18,6 @@
     import texture_preview_vert from '$lib/assets/webgl/misc/texture_preview.vert?raw';
     import texture_preview_frag from '$lib/assets/webgl/misc/texture_preview.frag?raw';
     import uvmap_texture from '$lib/assets/webgl/misc/textures/uvmap_grid.jpg';
-    import hl_blip1_sound from '$lib/assets/webgl/misc/sounds/hl_blip1.wav';
     import hl_button3_sound from '$lib/assets/webgl/misc/sounds/hl_button3.wav';
 
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
@@ -46,8 +45,16 @@
     import noise_frag from '$lib/assets/webgl/practice_4/noise.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
     import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
+    import texture_match_frag from '$lib/assets/webgl/practice_4/texture_match.frag?raw';
+    import texture_match_js from '$lib/assets/webgl/practice_4/texture_match.js?raw';
+    
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
     import hl_alienappeal_sound from '$lib/assets/webgl/practice_4/sounds/alienappeal.wav';
+    import hl_blip1_sound from '$lib/assets/webgl/practice_4/sounds/blip1.wav';
+    import hl_button1_sound from '$lib/assets/webgl/practice_4/sounds/button1.wav';
+    import hl_button2_sound from '$lib/assets/webgl/practice_4/sounds/button2.wav';
+    import hl_industrial1_sound from '$lib/assets/webgl/practice_4/sounds/industrial1.wav';
+    import hl_gman_wise_sound from '$lib/assets/webgl/practice_4/sounds/gman_wise.wav';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 
@@ -216,6 +223,45 @@
                             type: 'audio',
                             srcType: 'link',
                             src: hl_alienappeal_sound
+                        }
+                    },
+                    categories: ['noise']
+                },
+                {
+                    frag: texture_match_frag,
+                    js: texture_match_js,
+                    assets: {
+                        'hl_button1': {
+                            id: 'hl_button1',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_button1_sound
+                        },
+                        'hl_button2': {
+                            id: 'hl_button_2',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_button2_sound
+                        },
+                        'hl_blip1': {
+                            id: 'hl_blip1',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_blip1_sound
+                        }
+                        ,
+                        'hl_industrial1': {
+                            id: 'hl_industrial1',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_industrial1_sound
+                        }
+                        ,
+                        'hl_gman_wise': {
+                            id: 'hl_gman_wise',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_gman_wise_sound
                         }
                     },
                     categories: ['noise']

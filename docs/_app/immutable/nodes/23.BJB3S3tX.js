@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as tn,aH as on,f as _,e as S,a as f,b as rn,s as r,k as an,i as n,j as sn,aA as y,c as i,r as t,g as z,t as cn}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as P}from"../chunks/CjISyPlu.js";import{e as N,i as D}from"../chunks/C1OkaSYx.js";import{C as ln}from"../chunks/KNxH3l1H.js";import{H as un}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as vn,b as fn}from"../chunks/Cf2D9flR.js";import{m as U}from"../chunks/8p4Ra2kK.js";import{a as mn,b as dn,r as gn}from"../chunks/C5c6H-dk.js";import{g as xn}from"../chunks/CpbyELEl.js";const pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as L,e as S,a as f,b as an,s as r,k as sn,i as n,j as cn,aA as y,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as B}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as N,i as q}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/LlTIiNEf.js";import{m as V}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as Sn,c as yn}from"../chunks/Cnjg3lNN.js";import{g as bn}from"../chunks/OZlBQdLd.js";const Tn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Spheres
@@ -246,7 +246,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,hn=`// Author: TapiocaFox
+}`,_n=`// Author: TapiocaFox
 // Title:  Reflective Spheres
 
 // Init variables.
@@ -397,7 +397,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,T=`// Author: TapiocaFox
+});`,b=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
@@ -481,7 +481,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
-});`,E=`// Author: TapiocaFox
+});`,M=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Init variables.
@@ -559,7 +559,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
-});`,Sn=`#version 300 es
+});`,Ln=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -687,7 +687,7 @@ void main() {
     color = mix(color, vec3(0.), pctNoiseB);
 
     fragColor = vec4(color,1.0);
-}`,V=`#version 300 es
+}`,W=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Sin
@@ -725,7 +725,7 @@ void main() {
     vec3 color = (1.0-pct)*y+pct*vec3(0.0, 1.0, 0.0);
 
     fragColor = vec4(color,1.0);
-}`,yn=`// Author: TapiocaFox
+}`,Rn=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 // Init variables.
@@ -1198,7 +1198,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
-});`,Tn=`// Author: TapiocaFox
+});`,Pn=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 attribute vec4 aVertexPosition;
@@ -1212,7 +1212,7 @@ varying highp vec2 vTextureCoord;
 void main(void) {
   gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
   vTextureCoord = aTextureCoord;
-}`,Rn=`// Author: TapiocaFox
+}`,In=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 varying highp vec2 vTextureCoord;
@@ -1221,7 +1221,7 @@ uniform sampler2D uSampler;
 
 void main(void) {
   gl_FragColor = texture2D(uSampler, vTextureCoord);
-}`,Ln=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,_n=""+new URL("../assets/hl_blip1.Db9rI5k-.wav",import.meta.url).href,bn=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
+}`,An=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,Mn=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,wn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber
@@ -1274,7 +1274,7 @@ void main() {
     color = mix(vec3(0.), color, pct);
 
     fragColor = vec4(color,1.0);
-}`,In=`#version 300 es
+}`,En=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Array
@@ -1330,7 +1330,7 @@ void main() {
     float z_block = min(z_stBlock.x, z_stBlock.y);
     
     fragColor = vec4(mix(vec3(0.), color, z_block),1.0);
-}`,Pn=`#version 300 es
+}`,zn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Perlin Spheres
@@ -1398,7 +1398,7 @@ void main() {
 
    fragColor = vec4(sqrt(F.rgb), F.a);
    fragColor = mix(vec4(0.,0.,0.,1.),fragColor, F.a);
-}`,En=`// Author: TapiocaFox
+}`,Cn=`// Author: TapiocaFox
 // Title:  Perlin Spheres
 
 // Init variables.
@@ -1491,7 +1491,7 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-});`,wn=`#version 300 es
+});`,Gn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflective Spheres
@@ -1754,7 +1754,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,Mn=`// Author: TapiocaFox
+}`,Fn=`// Author: TapiocaFox
 // Title:  Phong Reflective Spheres
 
 // Init variables.
@@ -1905,7 +1905,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,W=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,q=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Cn=`#version 300 es
+});`,O=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,D=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Bn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflection
@@ -1970,7 +1970,7 @@ void main() {
     
     fragColor = vec4(sqrt(F.rgb), F.a);
     fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
-}`,Gn=`// Author: TapiocaFox
+}`,Nn=`// Author: TapiocaFox
 // Title:  Phong Reflection
 
 // Init variables.
@@ -2092,7 +2092,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,Fn=`#version 300 es
+});`,qn=`#version 300 es
 
 // Author: Ken Perlin
 // Title:  Quadric Surface
@@ -2181,7 +2181,7 @@ void main() {
       fragColor = vec4(c,c,c, 1.);
    }
 
-}`,zn=`// Author: TapiocaFox
+}`,Un=`// Author: TapiocaFox
 // Title:  Quadric Surface
 
 // Init variables.
@@ -2386,17 +2386,20 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-});`,Bn=`#version 300 es
+});`,Vn=`#version 300 es
 
-// Author: Ken Perlin
+// Author: TapiocaFox
 // Title:  Quadric Surface (System)
 
 #define SIZE_VOLUME_GRID 0.05
+#define SIZE_MAX_SYSTEMS 16
 
 precision highp float;
 uniform float uTime;
 uniform vec3 uViewPoint;
-uniform mat4 uQ[3];
+uniform mat4 uQ[3*SIZE_MAX_SYSTEMS];
+uniform bool uF[SIZE_MAX_SYSTEMS];
+uniform int uNumQ;
 
 in  vec3 vPos;
 out vec4 fragColor;
@@ -2476,6 +2479,53 @@ vec3 phong(vec3 N, vec3 L, vec3 W,vec3 diffuse, vec4 specular) {
     return shade;
 }
 
+// Noise snippet from Prof. Perlin.
+vec3  _s(vec3 i) { return cos(5.*(i+5.*cos(5.*(i.yzx+5.*cos(5.*(i.zxy+5.*cos(5.*i))))))); }
+float _t(vec3 i, vec3 u, vec3 a) { return dot(normalize(_s(i + a)), u - a); }
+float noise(vec3 p) {
+   vec3 i = floor(p), u = p - i, v = 2.*mix(u*u, u*(2.-u)-.5, step(.5,u));
+   return mix(mix(mix(_t(i, u, vec3(0.,0.,0.)), _t(i, u, vec3(1.,0.,0.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,0.)), _t(i, u, vec3(1.,1.,0.)), v.x), v.y),
+              mix(mix(_t(i, u, vec3(0.,0.,1.)), _t(i, u, vec3(1.,0.,1.)), v.x),
+                  mix(_t(i, u, vec3(0.,1.,1.)), _t(i, u, vec3(1.,1.,1.)), v.x), v.y), v.z);
+}
+
+float fractal(vec3 P) {
+   float f = 0., s = 1.;
+   for (int i = 0 ; i < 9 ; i++) {
+      f += noise(s * P) / s;
+      s *= 2.;
+      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+   }
+   return f;
+}
+
+float turbulence(vec3 P) {
+   float f = 0., s = 1.;
+   for (int i = 0 ; i < 4 ; i++) {
+      f += abs(noise(s * P)) / s;
+      s *= 2.;
+      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+   }
+   return f;
+}
+
+vec3 marble(vec3 pos) {
+   float v = turbulence(pos);
+   float s = sqrt(.5 + .5 * sin(20. * pos.y + 8. * v));
+   return vec3(.8,.7,.5) * vec3(s,s*s,s*s*s);
+}
+
+vec3 wood(vec3 pos) {
+   pos.y += .5 * turbulence(.4*pos);
+   vec3 c = vec3(1.,.42,.15) *
+            mix(1.5, .1,
+	        .5 + .25 * turbulence(vec3(.5,40.,40.) * pos+2.*sin(pos))
+                   + .25 * turbulence(vec3(40.,40.,.5) * pos+2.*sin(pos)));
+   c *= .3 + .7 * pow(abs(sin(10. * pos.y)), .4);
+   return c;
+}
+
 vec3 colorAtPoint(vec3 P) {
     int zeroOrOne = int(mod(floor(P.x/SIZE_VOLUME_GRID)+floor(P.y/SIZE_VOLUME_GRID)+floor(P.z/SIZE_VOLUME_GRID), 2.));
     return (zeroOrOne==0)?firstGridColor:secondGridColor;
@@ -2486,49 +2536,36 @@ void main() {
     
     vec3 V = uViewPoint;
     vec3 W = normalize(vPos-V);
-    
+
     vec3 color1 = vec3(0.);
-    vec2 tI1 = vec2(-1.,1000.);
-    for (int i = 0 ; i < 3 ; i++) {
-        vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
-        if (tQ.x > tI1.x) {
-            vec3 P = V + tQ.x * W;
-            vec3 PC = colorAtPoint(P);
-            vec3 N = normalQ(uQ[i], P);
-            // color1 = vec3(.025 + PC*max(0., dot(N, light)));
-            // color1 = phong(N,light,W,PC,sepcular);
-            color1 = lightColor*phong(N,light,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
-            color1 += lightColor2*phong(N,light2,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
-            tI1.x = tQ.x;
+
+    fragColor = vec4(.225,.2,.2,1.);
+    float minX = 1000.;
+    for (int n = 0; n < uNumQ; n++) {
+        vec2 tI1 = vec2(-1.,1000.);
+        for (int i = 3*n ; i < 3*n+3 ; i++) {
+            vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
+            if (tQ.x > tI1.x) {
+                vec3 P = V + tQ.x * W;
+                vec3 PC = colorAtPoint(P);
+                vec3 N = normalQ(uQ[i], P);
+                
+                color1 = lightColor*phong(N,light,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
+                color1 += lightColor2*phong(N,light2,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
+                    
+                tI1.x = tQ.x;
+            }
+            if (tQ.y < tI1.y)
+                tI1.y = tQ.y;
         }
-        if (tQ.y < tI1.y)
-            tI1.y = tQ.y;
+        if (tI1.x > 0. && tI1.x < tI1.y && tI1.x < minX) {
+            fragColor = vec4(sqrt(color1), 1.);
+            minX = tI1.x;
+        }
     }
-    
-    if (tI1.x > 0. && tI1.x < tI1.y)
-        fragColor = vec4(sqrt(color1), 1.);
-    else
-        fragColor = vec4(.225,.2,.2,1.);
-/*
-   vec3 color2 = vec3(0.);
-   vec2 tI2 = vec2(-1.,1000.);
-   for (int i = 3 ; i < 6 ; i++) {
-      vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
-      if (tQ.x > tI2.x) {
-         vec3 N = normalQ(uQ[i], V + tQ.x * W);
-         color2 = vec3(.1 + max(0., dot(N, vec3(.5))));
-	 tI2.x = tQ.x;
-      }
-      if (tQ.y < tI2.y)
-         tI2.y = tQ.y;
-   }
 
-
-   if (tI2.x > 0. && tI2.x < tI2.y && tI2.x < tI1.x)
-      fragColor = vec4(sqrt(color2), 1.);
-*/
-}`,Nn=`// Author: TapiocaFox
-// Title:  Quadric Surface (System)
+}`,Wn=`// Author: TapiocaFox
+// Title:  Match The Texture
 
 // Init variables.
 const gl = foxGL.gl;
@@ -2676,6 +2713,10 @@ const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
 }
 
 // Predefined systems.
+const numObjects = 4;
+const sizeScale = .66;
+const flags_reveal = new Array(numObjects).fill(false);
+
 const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
 const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
 const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
@@ -2730,11 +2771,14 @@ const resizeObserver = new ResizeObserver(entries => {
 function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
+
+    let instances = [];
+    
+    
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
 
-    // const sinValue = Math.sin(2*uTime);
     const cosScale = Math.cos(uTime);
     const scaleSize = 0.1;
     const breath = 1+scaleSize*cosScale;
@@ -2751,9 +2795,12 @@ function animate() {
     transform = mxm(transform,rotateX(.66*uTime));
     transform = mxm(transform,rotateY(.66*uTime));
     // transform = mxm(transform,rotateZ(uTime));
-    
     const finalQSystem = qsxm(systems[systemIndex], transform).flat();
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, finalQSystem);
+    instances.push(finalQSystem);
+    
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
+    gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
+    gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
     
     foxGL.render();
 }
@@ -2793,7 +2840,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
-});`,Dn=`#version 300 es
+});`,On=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Basic Noise
@@ -2832,40 +2879,100 @@ void main() {
       F = vec4(c,c,c,1.);
    }
    fragColor = vec4(sqrt(F.rgb), F.a);
-}`,On=`#version 300 es
+}`,Dn=`#version 300 es
 
 // Author: TapiocaFox
-// Title:  Lava Lamp
+// Title:  Match The Texture
+
+#define SIZE_VOLUME_GRID 0.1
+#define SIZE_MAX_SYSTEMS 16
 
 precision highp float;
-
-#define PI 3.1415926535897932384
-#define SCALE_RECIPROCAL .85
-#define GRADIENT_START_BLOB .2
-#define GRADIENT_END_BLOB 1.25
-#define STRECH_Y_RECIPROCAL .9
-#define CLIP_THRESHOLD .2
-#define CLIP_HIGHLIGHT_THRESHOLD .21
-#define SPEED_Y .6
-#define SPEED_Z -.1
-#define NUM_GRANULARITY 4
-#define SCALE_DEGENERATE 1.5
-
-#define GRADIENT_START_GLITTER 1.
-#define GRADIENT_END_GLITTER -.25
-#define SIZE_THRESHOULD_GLITTER .45
-#define SIZE_FADE_IN_GLITTER .1
-#define SCALE_RECIPROCAL_GLITTER_XY 80.
-#define SCALE_RECIPROCAL_GLITTER_Z .25
-#define SPEED_Y_GLITTER .2
-
+uniform float uTime;
+uniform vec3 uViewPoint;
+uniform mat4 uQ[3*SIZE_MAX_SYSTEMS];
+uniform int uF[SIZE_MAX_SYSTEMS];
+uniform int uS[SIZE_MAX_SYSTEMS];
+uniform int uNumQ;
+uniform float uSizeGrid;
 
 in  vec3 vPos;
 out vec4 fragColor;
 
-uniform vec2 uResolution;
-uniform vec2 uMouse;
-uniform float uTime;
+vec3 firstGridColor = vec3(.8,.8,.8);
+vec3 secondGridColor = vec3(.7,.7,.7);
+
+vec3 light = normalize(vec3(1.,1.,1.));
+vec3 lightColor = vec3(.95,.95,1.);
+vec3 light2 = normalize(vec3(-1.,-1.,0.));
+vec3 lightColor2 = vec3(.9,.5,.5);
+vec4 sepcular = vec4(1.,1.,1.,20.);
+
+vec3 rayEq(vec3 V, vec3 W, mat4 Q) {
+
+   float A = Q[0].x, B = Q[1].x+Q[0].y, C = Q[2].x+Q[0].z, D = Q[3].x+Q[0].w,
+                     E = Q[1].y       , F = Q[2].y+Q[1].z, G = Q[3].y+Q[1].w,
+                                        H = Q[2].z       , I = Q[3].z+Q[2].w,
+                                                           J = Q[3].w       ;
+
+   float a = A * W.x * W.x +
+             B * W.x * W.y +
+             C * W.z * W.x +
+             E * W.y * W.y +
+             F * W.y * W.z +
+             H * W.z * W.z ;
+
+   float b = 2. * A * V.x * W.x +
+                  B * (W.x * V.y + V.y * W.x) +
+                  C * (V.z * W.x + V.x * W.z) +
+                  D * W.x +
+             2. * E * V.y * W.y +
+                  F * (V.y * W.z + V.z * W.y) +
+                  G * W.y +
+             2. * H * V.z * W.z +
+                  I * W.z;
+
+   float c = A * V.x * V.x +
+             B * V.x * V.y +
+             C * V.z * V.x +
+             D * V.x       +
+             E * V.y * V.y +
+             F * V.y * V.z +
+             G * V.y       +
+             H * V.z * V.z +
+             I * V.z       +
+             J;
+
+   return vec3(a,b,c);
+}
+
+vec2 findRoots(vec3 eq) {
+    float a = eq.x, b = eq.y, c = eq.z;
+    vec2 t = vec2(-1.);
+    float discr = b * b - 4. * a * c;
+    if (discr >= 0.)
+        t = vec2(-b - sqrt(discr), -b + sqrt(discr)) / (2. * a);
+    return t;
+}
+
+vec3 normalQ(mat4 Q, vec3 P) {
+   float A = Q[0].x, B = Q[1].x+Q[0].y, C = Q[2].x+Q[0].z, D = Q[3].x+Q[0].w,
+                     E = Q[1].y       , F = Q[2].y+Q[1].z, G = Q[3].y+Q[1].w,
+                                        H = Q[2].z       , I = Q[3].z+Q[2].w,
+                                                           J = Q[3].w       ;
+
+   return normalize(vec3(2. * A * P.x + C * P.z + B * P.y + D,
+                         2. * E * P.y + F * P.z + B * P.x + G,
+                         2. * H * P.z + F * P.y + C * P.x + I));
+}
+
+vec3 phong(vec3 N, vec3 L, vec3 W,vec3 diffuse, vec4 specular) {
+    vec3 shade = vec3(0.);
+    shade += diffuse * max(0., dot(L,N)); // Diffuse.
+    vec3 reflection = 2.*N*dot(N,L)-L;
+    shade += specular.xyz * pow(max(0., dot(-reflection, W)), specular.w); // Specular.
+    return shade;
+}
 
 // Noise snippet from Prof. Perlin.
 vec3  _s(vec3 i) { return cos(5.*(i+5.*cos(5.*(i.yzx+5.*cos(5.*(i.zxy+5.*cos(5.*i))))))); }
@@ -2878,44 +2985,72 @@ float noise(vec3 p) {
                   mix(_t(i, u, vec3(0.,1.,1.)), _t(i, u, vec3(1.,1.,1.)), v.x), v.y), v.z);
 }
 
+float fractal(vec3 P) {
+    float f = 0., s = 1.;
+    for (int i = 0 ; i < 9 ; i++) {
+        f += noise(s * P) / s;
+        s *= 2.;
+        P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+    }
+    return f;
+}
+
 float turbulence(vec3 P) {
-   float f = 0., s = 1.;
-   for (int i = 0 ; i < NUM_GRANULARITY ; i++) {
-      float t = noise(s * P);
-      f += abs(t) / s;
-      s *= SCALE_DEGENERATE;
-      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
-   }
-   return f;
+    float f = 0., s = 1.;
+    for (int i = 0 ; i < 4 ; i++) {
+        f += abs(noise(s * P)) / s;
+        s *= 2.;
+        P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+    }
+    return f;
 }
 
-float glitter(vec3 P) {
-    // float f = 0.;
-    P.y -= .25 * .5 * (noise(.5*P)+1.);
-    float g = smoothstep(SIZE_THRESHOULD_GLITTER,SIZE_THRESHOULD_GLITTER+SIZE_FADE_IN_GLITTER, noise(vec3(SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_XY, SCALE_RECIPROCAL_GLITTER_Z) * P));
-    return g;
+vec3 marble(vec3 pos, int seed) {
+    pos.z += float(seed);
+    float v = turbulence(pos);
+    float s = sqrt(.5 + .5 * sin(((.5*sin(float(seed))+.5)*17.+3.) * pos.y + 8. * v));
+    return vec3(.8,.7,.5) * vec3(s,s*s,s*s*s);
 }
 
-// vec3 colorBlob = vec3(.5, .5, 0.);
-vec3 colorBlobStart = vec3(.8, .75, 0.);
-vec3 colorBlobEnd = vec3(1., 0.35, 0.078);
-vec3 colorBG = vec3(0.1, 0.1, 0.0);
-vec3 colorGlitter = vec3(.0, 1., 1.);
+vec3 colorAtPoint(vec3 P) {
+    int zeroOrOne = int(mod(floor(P.x/SIZE_VOLUME_GRID)+floor(P.y/SIZE_VOLUME_GRID)+floor(P.z/SIZE_VOLUME_GRID), 2.));
+    return (zeroOrOne==0)?firstGridColor:secondGridColor;
+}
 
 void main() {
-    float g = .5*(vPos.y+1.);
-    float gb = (GRADIENT_END_BLOB-GRADIENT_START_BLOB)*g+GRADIENT_START_BLOB;
-    float t = gb*turbulence(SCALE_RECIPROCAL*vec3(vPos.x, STRECH_Y_RECIPROCAL*vPos.y-SPEED_Y*uTime, -SPEED_Z*uTime));
-    float clip = step(CLIP_THRESHOLD, t);
-    float tc = clip*.5*(.5-t);
-    vec3 colorBlob = mix(colorBlobStart, colorBlobEnd , g);
-    vec3 color = vec3(tc)+colorBlob*clip;
-    color += (1.-clip)*colorBG;
-    float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
-    color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,SPEED_Y_GLITTER*uTime, uTime));
-    fragColor = vec4(color, 1.);
-}`,Un=`// Author: TapiocaFox
-// Title:  Lava Lamp
+    fragColor = vec4(0.);
+    
+    vec3 V = uViewPoint;
+    vec3 W = normalize(vPos-V);
+
+    vec3 color1 = vec3(0.);
+
+    fragColor = vec4(.0,.2,.2,1.);
+    float minX = 1000.;
+    for (int n = 0; n < uNumQ; n++) {
+        vec2 tI1 = vec2(-1.,1000.);
+        for (int i = 3*n ; i < 3*n+3 ; i++) {
+            vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
+            if (tQ.x > tI1.x) {
+                vec3 P = V + tQ.x * W;
+                vec3 PC = (uF[n]==0)?colorAtPoint(P):marble(mod(P-1., uSizeGrid), uS[n]);
+                vec3 N = normalQ(uQ[i], P);
+                
+                color1 = lightColor*phong(N,light,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
+                color1 += lightColor2*phong(N,light2,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
+                    
+                tI1.x = tQ.x;
+            }
+            if (tQ.y < tI1.y)
+                tI1.y = tQ.y;
+        }
+        if (tI1.x > 0. && tI1.x < tI1.y && tI1.x < minX) {
+            fragColor = vec4(sqrt(color1), 1.);
+            minX = tI1.x;
+        }
+    }
+}`,Qn=`// Author: TapiocaFox
+// Title:  Match The Texture
 
 // Init variables.
 const gl = foxGL.gl;
@@ -2924,8 +3059,218 @@ const canvas = foxGL.canvas;
 
 let destroyed = false;
 
-let alienSound = null;
-let alienAppealSound = null;
+const qGlobal = [0,0,0,0,
+                 0,0,0,0,
+                 0,0,0,0,
+                 0,0,0,-1];
+
+const qSphere = [1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,-1];
+
+const qParabX = [0,0,0,1,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qParabY = [1,0,0,0,
+                 0,0,0,1,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qParabZ = [1,0,0,0,
+                 0,1,0,0,
+                 0,0,0,1,
+                 0,0,0,0];
+
+const qSlabX = [1,0,0,0,
+                0,0,0,0,
+                0,0,0,0,
+                0,0,0,-1];
+
+const qSlabY = [0,0,0,0,
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-1];
+
+const qSlabZ = [0,0,0,0,
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-1];
+
+const qTubeX = [0,0,0,0,
+                0,1,0,0,
+                0,0,1,0,
+                0,0,0,-1];
+
+const qTubeY = [1,0,0,0,
+                0,0,0,0,
+                0,0,1,0,
+                0,0,0,-1];
+
+const qTubeZ = [1,0,0,0,
+                0,1,0,0,
+                0,0,0,0,
+                0,0,0,-1];
+
+const qConeX = [-1,0,0,0,
+                 0,1,0,0,
+                 0,0,1,0,
+                 0,0,0,0];
+
+const qConeY = [1,0,0,0,
+                0,-1,0,0,
+                0,0,1,0,
+                0,0,0,0];
+
+const qConeZ = [1,0,0,0,
+                0,1,0,0,
+                0,0,-1,0,
+                0,0,0,0];
+
+// Transformations. Column major.
+// Row.
+const rotateX = r => [1,0,0,0,
+                      0,Math.cos(r),Math.sin(r),0,
+                      0,-Math.sin(r),Math.cos(r),0,
+                      0,0,0,1];
+// Pitch.
+const rotateY = r => [Math.cos(r),0,-Math.sin(r),0,
+                      0,1,0,0,
+                      Math.sin(r),0,Math.cos(r),0,
+                      0,0,0,1];
+// Yaw.
+const rotateZ = r => [Math.cos(r),Math.sin(r),0,0,
+                      -Math.sin(r),Math.cos(r),0,0,
+                      0,0,1,0,
+                      0,0,0,1];
+// Translate.
+const translate = (x,y,z) => [1,0,0,0,
+                              0,1,0,0,
+                              0,0,1,0,
+                              x,y,z,1];
+
+// Scale.
+const scale = (x,y,z) => [x,0,0,0,
+                          0,y,0,0,
+                          0,0,z,0,
+                          0,0,0,1];
+
+// Matrix operations.
+const mxm = (a,b) => {
+   let m = [];
+   for (let c = 0 ; c < 16 ; c += 4)
+       for (let r = 0 ; r < 4 ; r++)
+          m.push(a[r]*b[c]+a[r+4]*b[c+1]+a[r+8]*b[c+2]+a[r+12]*b[c+3]);
+   return m;
+}
+
+const transpose = m => [ m[0],m[4],m[ 8],m[12],
+                       m[1],m[5],m[ 9],m[13],
+                       m[2],m[6],m[10],m[14],
+                       m[3],m[7],m[11],m[15] ];
+
+const inverse = src => {
+   let dst = [], det = 0, cofactor = (c, r) => {
+      let s = (i, j) => src[c+i & 3 | (r+j & 3) << 2];
+      return (c+r&1?-1:1)*((s(1,1)*(s(2,2)*s(3,3)-s(3,2)*s(2,3)))
+                         - (s(2,1)*(s(1,2)*s(3,3)-s(3,2)*s(1,3)))
+                         + (s(3,1)*(s(1,2)*s(2,3)-s(2,2)*s(1,3))) );
+   }
+   for (let n = 0 ; n < 16 ; n++) dst.push(cofactor(n >> 2, n & 3));
+   for (let n = 0 ; n <  4 ; n++) det += src[n] * dst[n << 2];
+   for (let n = 0 ; n < 16 ; n++) dst[n] /= det;
+   return dst;
+}
+
+const qxm = (Q,M) => {
+   let MI = inverse(M);
+   return mxm(transpose(MI), mxm(Q, MI));
+}
+
+const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
+    let newSystem = [];
+    for(let n=0; n<QS.length; n++) {
+        newSystem.push(qxm(QS[n],M));
+    }
+    return newSystem;
+}
+
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function shuffleArray(array) {
+  let currentIndex = array.length;
+  let randomIndex; 
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--; 
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
+// Predefined systems.
+const numObjects = 16;
+const coolDownTime = 500;
+
+let flags_reveal = new Array(numObjects).fill(false);
+let flags_lock = new Array(numObjects).fill(false);
+let seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+let seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+let seletedSeed = null;
+let selectedIndex = null;
+let isCoolingDown = false;
+let matchCount = 0;
+
+function resetGame() {
+    flags_reveal = new Array(numObjects).fill(false);
+    flags_lock = new Array(numObjects).fill(false);
+    seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+    seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+    seletedSeed = null;
+    selectedIndex = null;
+    isCoolingDown = false;  
+    matchCount = 0
+}
+
+// console.log(seedsUnique, seeds);
+
+const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
+const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
+const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
+const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
+const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
+const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
+
+let systemIndex = 5;
+const systems = [
+    cubeSystem,
+    hourglassSystem,
+    coneSystem,
+    cylinderSystem,
+    noseSystem,
+    sphereSystem,
+]
+
+const systemNames = [
+    'Cube',
+    'Hourglass',
+    'Cone',
+    'Cylinder',
+    'Nose',
+    'Sphere',
+]
+
+let blipSound = null;
+let button1Sound = null;
+let button2Sound = null;
+let gmanWiseSound = null;
+let ambientSound = null;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -2937,42 +3282,125 @@ const onpointermove = async event => {
     foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
 };
 
-const onclick = async event => {
-    alienAppealSound.currentTime = 0;
-    alienAppealSound?.play();
-};
-
 const onpointerenter = async event => {
-    alienSound?.play();
+    ambientSound?.play();
 };
 
 const onpointerleave = async event => {
-    alienSound?.pause();
+    ambientSound?.pause();
 };
+
+const onclick = async event => {
+    // systemIndex = (systemIndex+1)%systems.length;
+    // foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`, 'blue');
+    
+    blipSound.currentTime = 0;
+    blipSound?.play();
+    if(isCoolingDown) return;
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasHeight = canvasRect.bottom - canvasRect.top;
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    const col = Math.floor((uMouseX/canvas.width)/(1/numGridSlice));
+    const row = Math.floor((uMouseY/canvas.height)/(1/numGridSlice));
+    const index = col+numGridSlice*row;
+    if(index == selectedIndex || flags_lock[index]) return;
+    if(seletedSeed == null) {
+        flags_reveal[index] = true;
+        seletedSeed = seeds[index];
+        selectedIndex = index;
+    }
+    else if(seeds[index] != seletedSeed) {
+        flags_reveal[index] = true;
+        button2Sound.currentTime = 0;
+        button2Sound?.play();
+        isCoolingDown = true;
+        setTimeout(() => {
+            isCoolingDown = false;
+            flags_reveal[selectedIndex] = false;
+            flags_reveal[index] = false;
+            seletedSeed = null;
+            selectedIndex = null;
+        }, coolDownTime);
+    }
+    else {
+        flags_reveal[index] = true;
+        flags_lock[index] = true;
+        flags_lock[selectedIndex] = true;
+        button1Sound.currentTime = 0;
+        button1Sound?.play();
+        seletedSeed = null;
+        selectedIndex = null;
+        matchCount += 2;
+        foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
+        if(matchCount == numObjects) {
+            gmanWiseSound.currentTime = 0;
+            gmanWiseSound?.play();
+            setTimeout(() => {
+                foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
+                resetGame();
+            }, 16*coolDownTime);
+        }
+    }
+    foxGL.reportStatus('ClickPos', \`Click Position: (\${uMouseX.toFixed(1)} [\${col}], \${uMouseY.toFixed(1)}) [\${row}]\`);
+}
 
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
 });
 
+const nearest_sq = n => Math.ceil(Math.sqrt(n));
+const numGridSlice = nearest_sq(numObjects);
+
 // Render per animation frame.
 function animate() {
     if(destroyed) return;
     requestAnimationFrame(animate);
+
+    let instances = [];
+    
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+
+    let uniformTransform = scale(1/numGridSlice,1/numGridSlice,1/numGridSlice);
+
+    for(let i=0; i<numGridSlice; i++) {
+        for(let j=0; j<numGridSlice; j++) {
+            const translateX = (2*j)-(numGridSlice-1);
+            const translateY = (2*i)-(numGridSlice-1);
+            const translateZ = (matchCount == numObjects)?2*Math.sin(uTime+i+j):.25*Math.sin(uTime+i+j);
+            const transform = mxm(uniformTransform,translate(translateX, translateY, translateZ));
+            const finalQSystem = qsxm(systems[systemIndex], transform).flat();
+            instances.push(finalQSystem);
+        }
+    }
+    
+
+    // instances.push(systems[2].flat());
+    
+    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
+    gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
+    gl.uniform1iv(gl.getUniformLocation(program, 'uS'), seeds);
+    
+    // console.log(numObjects);
+    
     foxGL.render();
 }
 
 // Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
-    foxGL.setStatusTitle('Lava Lamp');
-    foxGL.reportStatus('Tips', 'Click to appeal to the alien authority.', 'green');
-    
-    foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});
-    foxGL.getAssetById('hl_alienappeal').then(result => {alienAppealSound=result;});
+    foxGL.setStatusTitle('Match The Texture');
+    foxGL.reportStatus('Tips', 'Click to reveal texture to Gman.', 'green');
+    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
+
+    foxGL.getAssetById('hl_blip1').then(result => blipSound = result);
+    foxGL.getAssetById('hl_button1').then(result => button1Sound = result);
+    foxGL.getAssetById('hl_button2').then(result => button2Sound = result);
+    foxGL.getAssetById('hl_gman_wise').then(result => gmanWiseSound = result);
+    // foxGL.getAssetById('hl_industrial1').then(result => {ambientSound = result; ambientSound.loop=true;});
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -2984,6 +3412,9 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+    gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
+    gl.uniform1f(gl.getUniformLocation(program, 'uSizeGrid'), 2/numGridSlice);
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
@@ -3003,7 +3434,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointerenter', onpointerenter);
     canvas.removeEventListener('pointerleave', onpointerleave);
     canvas.removeEventListener('click', onclick);
-});`,Vn=""+new URL("../assets/alien_blipper.DjjNZq0-.wav",import.meta.url).href,Wn=""+new URL("../assets/alienappeal.B5YF_wGI.wav",import.meta.url).href,qn=`#version 300 es
+});`,Q=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Xn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,Yn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Hn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,kn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,jn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Bump Magnifier Distortion
@@ -3091,4 +3522,4 @@ void main() {
     color = mix(color, colorPointer, pct);
     color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
-}`,Hn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var Xn=_('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Yn=_('<div class="item webgl-item svelte-ahq8ot"><!></div>'),Qn=_('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),kn=_("<!> <!>  <!> <!>",1);function ae(H,X){tn(X,!0);let a=sn("all"),Y=on([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:mn,categories:["distortion"]},{frag:dn,categories:[]},{frag:An,js:T,categories:["distortion"]},{frag:In,js:T,categories:[]},{frag:gn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)",practices:[{frag:Pn,js:En,categories:["raycasting"]},{frag:pn,js:hn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]},{frag:wn,js:Mn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:q},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:W}},categories:["noise","raycasting"]}]},{title:"Practice Three",description:"Phong reflection, quadric surfaces and transformations. (Part of assignment three.)",practices:[{frag:Cn,js:Gn,categories:["raycasting"]},{frag:Fn,js:zn,categories:["raycasting"]},{frag:Bn,js:Nn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:_n}},categories:["raycasting"]}]},{title:"Practice Four",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:Dn,categories:["noise"]},{frag:On,js:Un,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:Vn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:Wn}},categories:["noise"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:qn,js:E,categories:["distortion"]},{vert:Tn,frag:Rn,js:yn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:Ln},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:bn}},categories:[]}]}]);var w=kn(),M=S(w);un(M,{text:"Graphics"});var C=r(M,2);{let s=y(()=>[null,null,null,null,Hn,O,O]);ln(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(s)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(a)},callback:o=>{o=="editor"?xn("/webgl_editor"):an(a,o,!0)}})}var G=r(C,2);{var Q=s=>{var o=Xn(),c=r(S(o),4),g=i(c),b=i(g);m(b,{get vertex_shader(){return d},get fragment_shader(){return U},get javascript(){return E}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return V},get javascript(){return T}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return U},get javascript(){return E},mode:"preview"}),t(x);var h=r(x,2),R=i(h);m(R,{get vertex_shader(){return d},get fragment_shader(){return V},get javascript(){return T},mode:"preview"}),t(h);var L=r(h,2),e=i(L);m(e,{get vertex_shader(){return d},get fragment_shader(){return Sn},get javascript(){return T},mode:"preview"}),t(L),t(v),f(s,o)};P(G,s=>{n(a)=="debug"&&s(Q)})}var k=r(G,2);N(k,17,()=>Y,D,(s,o)=>{var c=z(),g=S(c);{var b=l=>{var u=Qn(),v=S(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var R=r(p,2);N(R,21,()=>n(o).practices,D,(L,e)=>{var F=z(),Z=S(F);{var $=A=>{var I=Yn(),j=i(I);{let K=y(()=>n(e).vert?n(e).vert:d),J=y(()=>n(e).frag?n(e).frag:vn),nn=y(()=>n(e).js?n(e).js:fn),en=y(()=>n(e).assets?n(e).assets:{});m(j,{get vertex_shader(){return n(K)},get fragment_shader(){return n(J)},get javascript(){return n(nn)},get assets(){return n(en)}})}t(I),f(A,I)};P(Z,A=>{(n(a)=="all"||n(e).categories.includes(n(a)))&&A($)})}f(L,F)}),t(R),cn(()=>{B(x,n(o).title),B(h,n(o).description)}),f(l,u)};P(g,l=>{n(o).practices.filter(u=>n(a)=="all"||u.categories.includes(n(a))).length>0&&l(b)})}f(s,c)}),f(H,w),rn()}export{ae as component};
+}`,Zn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var $n=L('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Kn=L('<div class="item webgl-item svelte-ahq8ot"><!></div>'),Jn=L('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),ne=L("<!> <!>  <!> <!>",1);function fe(X,Y){on(Y,!0);let a=cn("all"),H=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:wn,js:b,categories:["distortion"]},{frag:En,js:b,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)",practices:[{frag:zn,js:Cn,categories:["raycasting"]},{frag:Tn,js:_n,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:D},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:O}},categories:["noise","raycasting"]},{frag:Gn,js:Fn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:D},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:O}},categories:["noise","raycasting"]}]},{title:"Practice Three",description:"Phong reflection, quadric surfaces and transformations. (Part of assignment three.)",practices:[{frag:Bn,js:Nn,categories:["raycasting"]},{frag:qn,js:Un,categories:["raycasting"]},{frag:Vn,js:Wn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:Q}},categories:["raycasting"]}]},{title:"Practice Four",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:yn,js:Sn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Dn,js:Qn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Xn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:Yn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:Q},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Hn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:kn}},categories:["noise"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:jn,js:M,categories:["distortion"]},{vert:Pn,frag:In,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:An},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:Mn}},categories:[]}]}]);var w=ne(),E=S(w);vn(E,{text:"Graphics"});var z=r(E,2);{let s=y(()=>[null,null,null,null,Zn,U,U]);un(z,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(s)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(a)},callback:o=>{o=="editor"?bn("/webgl_editor"):sn(a,o,!0)}})}var C=r(z,2);{var k=s=>{var o=$n(),c=r(S(o),4),g=i(c),R=i(g);m(R,{get vertex_shader(){return d},get fragment_shader(){return V},get javascript(){return M}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return b}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return V},get javascript(){return M},mode:"preview"}),t(x);var h=r(x,2),T=i(h);m(T,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return b},mode:"preview"}),t(h);var _=r(h,2),e=i(_);m(e,{get vertex_shader(){return d},get fragment_shader(){return Ln},get javascript(){return b},mode:"preview"}),t(_),t(v),f(s,o)};A(C,s=>{n(a)=="debug"&&s(k)})}var j=r(C,2);N(j,17,()=>H,q,(s,o)=>{var c=F(),g=S(c);{var R=l=>{var u=Jn(),v=S(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var T=r(p,2);N(T,21,()=>n(o).practices,q,(_,e)=>{var G=F(),Z=S(G);{var $=P=>{var I=Kn(),K=i(I);{let J=y(()=>n(e).vert?n(e).vert:d),nn=y(()=>n(e).frag?n(e).frag:fn),en=y(()=>n(e).js?n(e).js:mn),tn=y(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(I),f(P,I)};A(Z,P=>{(n(a)=="all"||n(e).categories.includes(n(a)))&&P($)})}f(_,G)}),t(T),ln(()=>{B(x,n(o).title),B(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(a)=="all"||u.categories.includes(n(a))).length>0&&l(R)})}f(s,c)}),f(X,w),an()}export{fe as component};

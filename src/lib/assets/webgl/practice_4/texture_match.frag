@@ -1,17 +1,19 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title:  Quadric Surface (System)
+// Title:  Match The Texture
 
-#define SIZE_VOLUME_GRID 0.05
+#define SIZE_VOLUME_GRID 0.1
 #define SIZE_MAX_SYSTEMS 16
 
 precision highp float;
 uniform float uTime;
 uniform vec3 uViewPoint;
 uniform mat4 uQ[3*SIZE_MAX_SYSTEMS];
-uniform bool uF[SIZE_MAX_SYSTEMS];
+uniform int uF[SIZE_MAX_SYSTEMS];
+uniform int uS[SIZE_MAX_SYSTEMS];
 uniform int uNumQ;
+uniform float uSizeGrid;
 
 in  vec3 vPos;
 out vec4 fragColor;
@@ -103,39 +105,30 @@ float noise(vec3 p) {
 }
 
 float fractal(vec3 P) {
-   float f = 0., s = 1.;
-   for (int i = 0 ; i < 9 ; i++) {
-      f += noise(s * P) / s;
-      s *= 2.;
-      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
-   }
-   return f;
+    float f = 0., s = 1.;
+    for (int i = 0 ; i < 9 ; i++) {
+        f += noise(s * P) / s;
+        s *= 2.;
+        P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+    }
+    return f;
 }
 
 float turbulence(vec3 P) {
-   float f = 0., s = 1.;
-   for (int i = 0 ; i < 4 ; i++) {
-      f += abs(noise(s * P)) / s;
-      s *= 2.;
-      P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
-   }
-   return f;
+    float f = 0., s = 1.;
+    for (int i = 0 ; i < 4 ; i++) {
+        f += abs(noise(s * P)) / s;
+        s *= 2.;
+        P = vec3(.866*P.x + .5*P.z, P.y + 100., -.5*P.x + .866*P.z);
+    }
+    return f;
 }
 
-vec3 marble(vec3 pos) {
-   float v = turbulence(pos);
-   float s = sqrt(.5 + .5 * sin(20. * pos.y + 8. * v));
-   return vec3(.8,.7,.5) * vec3(s,s*s,s*s*s);
-}
-
-vec3 wood(vec3 pos) {
-   pos.y += .5 * turbulence(.4*pos);
-   vec3 c = vec3(1.,.42,.15) *
-            mix(1.5, .1,
-	        .5 + .25 * turbulence(vec3(.5,40.,40.) * pos+2.*sin(pos))
-                   + .25 * turbulence(vec3(40.,40.,.5) * pos+2.*sin(pos)));
-   c *= .3 + .7 * pow(abs(sin(10. * pos.y)), .4);
-   return c;
+vec3 marble(vec3 pos, int seed) {
+    pos.z += float(seed);
+    float v = turbulence(pos);
+    float s = sqrt(.5 + .5 * sin(((.5*sin(float(seed))+.5)*17.+3.) * pos.y + 8. * v));
+    return vec3(.8,.7,.5) * vec3(s,s*s,s*s*s);
 }
 
 vec3 colorAtPoint(vec3 P) {
@@ -151,7 +144,7 @@ void main() {
 
     vec3 color1 = vec3(0.);
 
-    fragColor = vec4(.225,.2,.2,1.);
+    fragColor = vec4(.0,.2,.2,1.);
     float minX = 1000.;
     for (int n = 0; n < uNumQ; n++) {
         vec2 tI1 = vec2(-1.,1000.);
@@ -159,7 +152,7 @@ void main() {
             vec2 tQ = findRoots(rayEq(V, W, uQ[i]));
             if (tQ.x > tI1.x) {
                 vec3 P = V + tQ.x * W;
-                vec3 PC = colorAtPoint(P);
+                vec3 PC = (uF[n]==0)?colorAtPoint(P):marble(mod(P-1., uSizeGrid), uS[n]);
                 vec3 N = normalQ(uQ[i], P);
                 
                 color1 = lightColor*phong(N,light,W,PC,vec4(mix(PC,vec3(1.),.1), 20.));
@@ -175,5 +168,4 @@ void main() {
             minX = tI1.x;
         }
     }
-
 }

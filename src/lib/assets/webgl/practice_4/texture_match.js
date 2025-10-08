@@ -146,10 +146,48 @@ const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
     return newSystem;
 }
 
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
+}
+
+function shuffleArray(array) {
+  let currentIndex = array.length;
+  let randomIndex; 
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--; 
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
+
 // Predefined systems.
-const numObjects = 4;
-const sizeScale = .66;
-const flags_reveal = new Array(numObjects).fill(false);
+const numObjects = 16;
+const coolDownTime = 500;
+
+let flags_reveal = new Array(numObjects).fill(false);
+let flags_lock = new Array(numObjects).fill(false);
+let seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+let seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+let seletedSeed = null;
+let selectedIndex = null;
+let isCoolingDown = false;
+let matchCount = 0;
+
+function resetGame() {
+    flags_reveal = new Array(numObjects).fill(false);
+    flags_lock = new Array(numObjects).fill(false);
+    seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+    seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+    seletedSeed = null;
+    selectedIndex = null;
+    isCoolingDown = false;  
+    matchCount = 0
+}
+
+// console.log(seedsUnique, seeds);
 
 const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
 const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
@@ -158,7 +196,7 @@ const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
 const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
 const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
 
-let systemIndex = 1;
+let systemIndex = 5;
 const systems = [
     cubeSystem,
     hourglassSystem,
@@ -177,6 +215,12 @@ const systemNames = [
     'Sphere',
 ]
 
+let blipSound = null;
+let button1Sound = null;
+let button2Sound = null;
+let gmanWiseSound = null;
+let ambientSound = null;
+
 // Declare listeners.
 const onpointermove = async event => {
     const canvasRect = canvas.getBoundingClientRect();
@@ -187,19 +231,76 @@ const onpointermove = async event => {
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
 };
 
-let blipSound = null;
+const onpointerenter = async event => {
+    ambientSound?.play();
+};
+
+const onpointerleave = async event => {
+    ambientSound?.pause();
+};
 
 const onclick = async event => {
+    // systemIndex = (systemIndex+1)%systems.length;
+    // foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
+    
     blipSound.currentTime = 0;
     blipSound?.play();
-    systemIndex = (systemIndex+1)%systems.length;
-    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
+    if(isCoolingDown) return;
+    const canvasRect = canvas.getBoundingClientRect();
+    const canvasHeight = canvasRect.bottom - canvasRect.top;
+    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+    const col = Math.floor((uMouseX/canvas.width)/(1/numGridSlice));
+    const row = Math.floor((uMouseY/canvas.height)/(1/numGridSlice));
+    const index = col+numGridSlice*row;
+    if(index == selectedIndex || flags_lock[index]) return;
+    if(seletedSeed == null) {
+        flags_reveal[index] = true;
+        seletedSeed = seeds[index];
+        selectedIndex = index;
+    }
+    else if(seeds[index] != seletedSeed) {
+        flags_reveal[index] = true;
+        button2Sound.currentTime = 0;
+        button2Sound?.play();
+        isCoolingDown = true;
+        setTimeout(() => {
+            isCoolingDown = false;
+            flags_reveal[selectedIndex] = false;
+            flags_reveal[index] = false;
+            seletedSeed = null;
+            selectedIndex = null;
+        }, coolDownTime);
+    }
+    else {
+        flags_reveal[index] = true;
+        flags_lock[index] = true;
+        flags_lock[selectedIndex] = true;
+        button1Sound.currentTime = 0;
+        button1Sound?.play();
+        seletedSeed = null;
+        selectedIndex = null;
+        matchCount += 2;
+        foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
+        if(matchCount == numObjects) {
+            gmanWiseSound.currentTime = 0;
+            gmanWiseSound?.play();
+            setTimeout(() => {
+                foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
+                resetGame();
+            }, 16*coolDownTime);
+        }
+    }
+    foxGL.reportStatus('ClickPos', `Click Position: (${uMouseX.toFixed(1)} [${col}], ${uMouseY.toFixed(1)}) [${row}]`);
 }
 
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
 });
+
+const nearest_sq = n => Math.ceil(Math.sqrt(n));
+const numGridSlice = nearest_sq(numObjects);
 
 // Render per animation frame.
 function animate() {
@@ -208,33 +309,31 @@ function animate() {
 
     let instances = [];
     
-    
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
     foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
 
-    const cosScale = Math.cos(uTime);
-    const scaleSize = 0.1;
-    const breath = 1+scaleSize*cosScale;
+    let uniformTransform = scale(1/numGridSlice,1/numGridSlice,1/numGridSlice);
 
-    const sinTranslation = Math.sin(.66*uTime);
-    const cosTranslation = Math.cos(.33*uTime);
-    const transaltionScale = .4;
-    const translateX = transaltionScale*sinTranslation;
-    const translateY = transaltionScale*cosTranslation;
+    for(let i=0; i<numGridSlice; i++) {
+        for(let j=0; j<numGridSlice; j++) {
+            const translateX = (2*j)-(numGridSlice-1);
+            const translateY = (2*i)-(numGridSlice-1);
+            const translateZ = (matchCount == numObjects)?2*Math.sin(uTime+i+j):.25*Math.sin(uTime+i+j);
+            const transform = mxm(uniformTransform,translate(translateX, translateY, translateZ));
+            const finalQSystem = qsxm(systems[systemIndex], transform).flat();
+            instances.push(finalQSystem);
+        }
+    }
+    
 
-    let transform = scale(.45,.45,.45);
-    transform = mxm(transform,translate(translateX,translateY,0));
-    transform = mxm(transform,scale(breath,breath,breath));
-    transform = mxm(transform,rotateX(.66*uTime));
-    transform = mxm(transform,rotateY(.66*uTime));
-    // transform = mxm(transform,rotateZ(uTime));
-    const finalQSystem = qsxm(systems[systemIndex], transform).flat();
-    instances.push(finalQSystem);
+    // instances.push(systems[2].flat());
     
     gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
-    gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
     gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
+    gl.uniform1iv(gl.getUniformLocation(program, 'uS'), seeds);
+    
+    // console.log(numObjects);
     
     foxGL.render();
 }
@@ -242,11 +341,15 @@ function animate() {
 // Start lifecycle.
 foxGL.onStart(async () => {
     // Set status title.
-    foxGL.setStatusTitle('Quadric Surface (System)');
-    foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
-    foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
+    foxGL.setStatusTitle('Match The Texture');
+    foxGL.reportStatus('Tips', 'Click to reveal texture to Gman.', 'green');
+    foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
 
-    foxGL.getAssetById('hl_blip').then(result => blipSound = result);
+    foxGL.getAssetById('hl_blip1').then(result => blipSound = result);
+    foxGL.getAssetById('hl_button1').then(result => button1Sound = result);
+    foxGL.getAssetById('hl_button2').then(result => button2Sound = result);
+    foxGL.getAssetById('hl_gman_wise').then(result => gmanWiseSound = result);
+    // foxGL.getAssetById('hl_industrial1').then(result => {ambientSound = result; ambientSound.loop=true;});
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -259,10 +362,14 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+    gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
+    gl.uniform1f(gl.getUniformLocation(program, 'uSizeGrid'), 2/numGridSlice);
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerenter', onpointerenter);
+    canvas.addEventListener('pointerleave', onpointerleave);
     canvas.addEventListener('click', onclick);
     animate();
 });
@@ -273,5 +380,7 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
+    canvas.removeEventListener('pointerenter', onpointerenter);
+    canvas.removeEventListener('pointerleave', onpointerleave);
     canvas.removeEventListener('click', onclick);
 });

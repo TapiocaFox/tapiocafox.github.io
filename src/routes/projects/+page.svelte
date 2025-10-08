@@ -18,6 +18,11 @@
     import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
+    import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
+    import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
+    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
+    import hl_alienappeal_sound from '$lib/assets/webgl/practice_4/sounds/alienappeal.wav';
+
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
 
@@ -63,6 +68,20 @@
         <GlslCanvas mode='preview' fragment_shader={balls}/>
         <!-- <GlslCanvas mode='preview' fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/> -->
         <GlslCanvas mode='preview' fragment_shader={spiral}/>
+        <GlslCanvas mode='preview' fragment_shader={lava_lamp_frag} javascript={lava_lamp_js} assets={{
+                        'hl_alien_blipper': {
+                            id: 'hl_alien_blipper',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_alien_blipper_sound
+                        },
+                        'hl_alienappeal': {
+                            id: 'hl_alienappeal',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_alienappeal_sound
+                        }
+                    }}/>
     </div>
 </div>
 {/if}

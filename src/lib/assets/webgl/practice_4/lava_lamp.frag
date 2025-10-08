@@ -44,6 +44,12 @@ float noise(vec3 p) {
                   mix(_t(i, u, vec3(0.,1.,1.)), _t(i, u, vec3(1.,1.,1.)), v.x), v.y), v.z);
 }
 
+float random (vec2 st) {
+    return fract(sin(dot(st.xy,
+                         vec2(12.9898,78.233)))*
+        43758.5453123);
+}
+
 float turbulence(vec3 P) {
    float f = 0., s = 1.;
    for (int i = 0 ; i < NUM_GRANULARITY ; i++) {
@@ -75,6 +81,7 @@ void main() {
     float clip = step(CLIP_THRESHOLD, t);
     float tc = clip*.5*(.5-t);
     vec3 colorBlob = mix(colorBlobStart, colorBlobEnd , g);
+    colorBlob = mix(colorBlobEnd, colorBlob, .5*random(vec2(vPos.x, vPos.y-SPEED_Y*uTime))+.5);
     vec3 color = vec3(tc)+colorBlob*clip;
     color += (1.-clip)*colorBG;
     float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;

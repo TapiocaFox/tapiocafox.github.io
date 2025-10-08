@@ -31,7 +31,8 @@ div.editor-layout > div.right > div.canvas-container {
     position: sticky;
     /* min-width: 350px; */
     display: block;
-    height: fit-content;
+    height: calc(100vh - var(--main-nav-height) - 2 * var(--page-offset));
+    overflow-y: auto;
     width: auto;
 }
 

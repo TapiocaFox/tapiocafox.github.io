@@ -799,8 +799,7 @@
                             <h3>{id}</h3>
                             <p class="annotation">Click to edit the asset file.</p>
                         </div> -->
-                        <img  alt={id} src={asset.src} />
-
+                        <img alt={id} src={asset.src} />
                     </div>
                     <PointerBlock element_id={`asset-img-${id}`}>
                         <h4 class="annotation">Image Asset ({id})</h4>
@@ -816,7 +815,7 @@
                             }} class="text">Audio Asset <img class="inline-glyph" alt="Audio" src={music_icon}/></button></h3>
                             <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Asset linked by an url.{:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
                             <audio controls>
-                                <source src={asset.src}>
+                                <source src={asset.src} alt={console.log(asset.src)}>
                             </audio>
                         </div>
                     </div>
