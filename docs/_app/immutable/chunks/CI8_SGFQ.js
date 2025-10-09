@@ -225,6 +225,7 @@ vec3 colorBlobStart = vec3(.8, .75, 0.);
 vec3 colorBlobEnd = vec3(1., 0.35, 0.078);
 vec3 colorBG = vec3(0.1, 0.1, 0.0);
 vec3 colorGlitter = vec3(.0, 1., 1.);
+vec3 colorGlitter2 = vec3(1., 1., 1.);
 
 void main() {
     float g = .5*(vPos.y+1.);
@@ -238,6 +239,7 @@ void main() {
     color += (1.-clip)*colorBG;
     float gg = (GRADIENT_END_GLITTER-GRADIENT_START_GLITTER)*g+GRADIENT_START_GLITTER;
     color += (1.-clip)*colorGlitter*gg*glitter(vPos-vec3(0.,SPEED_Y_GLITTER*uTime, uTime));
+    color += (1.-clip)*colorGlitter2*gg*glitter(vPos-vec3(0.,SPEED_Y_GLITTER*uTime, uTime+100.));
     fragColor = vec4(color, 1.);
 }`,i=`// Author: TapiocaFox
 // Title:  Lava Lamp
