@@ -18,7 +18,7 @@
 
     const hour = new Date().getHours();
 
-    let greeting;
+    let greeting = '';
     if (hour >= 5 && hour < 12) {
         greeting = 'Good Morning ☕.';
     } else if (hour >= 12 && hour < 17) {
