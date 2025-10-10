@@ -44,19 +44,19 @@
     import quadric_system_frag from '$lib/assets/webgl/practice_2/quadric_system.frag?raw';
     import quadric_system_js from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
 
-    import noise_frag from '$lib/assets/webgl/practice_4/noise.frag?raw';
-    import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
-    import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
-    import texture_match_frag from '$lib/assets/webgl/practice_4/texture_match.frag?raw';
-    import texture_match_js from '$lib/assets/webgl/practice_4/texture_match.js?raw';
+    import noise_frag from '$lib/assets/webgl/practice_3/noise.frag?raw';
+    import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
+    import lava_lamp_js from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
+    import texture_match_frag from '$lib/assets/webgl/practice_3/texture_match.frag?raw';
+    import texture_match_js from '$lib/assets/webgl/practice_3/texture_match.js?raw';
     
-    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
-    import hl_alienappeal_sound from '$lib/assets/webgl/practice_4/sounds/alienappeal.wav';
-    import hl_blip1_sound from '$lib/assets/webgl/practice_4/sounds/blip1.wav';
-    import hl_button1_sound from '$lib/assets/webgl/practice_4/sounds/button1.wav';
-    import hl_button2_sound from '$lib/assets/webgl/practice_4/sounds/button2.wav';
-    import hl_industrial1_sound from '$lib/assets/webgl/practice_4/sounds/industrial1.wav';
-    import hl_gman_wise_sound from '$lib/assets/webgl/practice_4/sounds/gman_wise.wav';
+    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
+    import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
+    import hl_blip1_sound from '$lib/assets/webgl/practice_3/sounds/blip1.wav';
+    import hl_button1_sound from '$lib/assets/webgl/practice_3/sounds/button1.wav';
+    import hl_button2_sound from '$lib/assets/webgl/practice_3/sounds/button2.wav';
+    import hl_industrial1_sound from '$lib/assets/webgl/practice_3/sounds/industrial1.wav';
+    import hl_gman_wise_sound from '$lib/assets/webgl/practice_3/sounds/gman_wise.wav';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
 

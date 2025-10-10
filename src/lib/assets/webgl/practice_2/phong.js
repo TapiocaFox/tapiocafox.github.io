@@ -14,6 +14,7 @@ let destroyed = false;
 let usePointer = false;
 let uMouseX = 0;
 let uMouseY = 0;
+let firstFrameRendered = false;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -33,6 +34,8 @@ const pointerleave = async event => {
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    firstFrameRendered = false;
+    animate();
 });
 
 // Math.
@@ -44,6 +47,7 @@ const normalize = v => {
 // Render per animation frame.
 function animate() {
     if(destroyed) return;
+    if(firstFrameRendered) return;
     requestAnimationFrame(animate);
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
@@ -77,6 +81,7 @@ function animate() {
         [.2,.15,.1]
     ].flat());
     foxGL.render();
+    firstFrameRendered = true;
 }
 
 // Start lifecycle.
