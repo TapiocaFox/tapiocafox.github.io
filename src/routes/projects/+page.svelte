@@ -18,10 +18,10 @@
     import spiral from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
-    import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
-    import lava_lamp_js from '$lib/assets/webgl/practice_4/lava_lamp.js?raw';
-    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_4/sounds/alien_blipper.wav';
-    import hl_alienappeal_sound from '$lib/assets/webgl/practice_4/sounds/alienappeal.wav';
+    import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
+    import lava_lamp_js from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
+    import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
+    import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
 
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';

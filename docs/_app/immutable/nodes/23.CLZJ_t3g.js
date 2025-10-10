@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/CDRFvvuM.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CI8_SGFQ.js";import{g as _n}from"../chunks/fiLMwBTi.js";const _=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/BIKJsOef.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CI8_SGFQ.js";import{g as _n}from"../chunks/DTP8-la2.js";const _=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
@@ -1871,6 +1871,7 @@ let destroyed = false;
 let usePointer = false;
 let uMouseX = 0;
 let uMouseY = 0;
+let firstFrameRendered = false;
 
 // Declare listeners.
 const onpointermove = async event => {
@@ -1890,6 +1891,8 @@ const pointerleave = async event => {
 const resizeObserver = new ResizeObserver(entries => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    firstFrameRendered = false;
+    animate();
 });
 
 // Math.
@@ -1901,6 +1904,7 @@ const normalize = v => {
 // Render per animation frame.
 function animate() {
     if(destroyed) return;
+    if(firstFrameRendered) return;
     requestAnimationFrame(animate);
     const uTime = (Date.now() - foxGL.startTime) / 1000;
     gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
@@ -1934,6 +1938,7 @@ function animate() {
         [.2,.15,.1]
     ].flat());
     foxGL.render();
+    firstFrameRendered = true;
 }
 
 // Start lifecycle.
