@@ -12,7 +12,6 @@ const NL = 2;
 
 let destroyed = false;
 let usePointer = false;
-let enlarge = false;
 let uMouseX = 0;
 let uMouseY = 0;
 
@@ -25,11 +24,6 @@ const onpointermove = async event => {
     uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
     foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
-};
-
-const onclick = async event => {
-    enlarge = !enlarge;
-    foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`);
 };
 
 const pointerleave = async event => {
@@ -107,7 +101,6 @@ foxGL.onStart(async () => {
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
-    canvas.addEventListener('click', onclick);
     canvas.addEventListener('pointerleave', pointerleave);
     animate();
 });
@@ -118,6 +111,5 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
 });

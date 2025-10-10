@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as L,e as S,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as y,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as U}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as O,T as m,d,a as fn,b as mn}from"../chunks/BJywOiJb.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as Sn,c as yn}from"../chunks/CI8_SGFQ.js";import{g as bn}from"../chunks/CPzkeh53.js";const b=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/CDRFvvuM.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CI8_SGFQ.js";import{g as _n}from"../chunks/fiLMwBTi.js";const _=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
@@ -160,7 +160,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('pointerleave', onpointerleave);
-});`,_n=`#version 300 es
+});`,bn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -799,7 +799,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
-});`,Ln=`// Author: TapiocaFox
+});`,Tn=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 attribute vec4 aVertexPosition;
@@ -813,7 +813,7 @@ varying highp vec2 vTextureCoord;
 void main(void) {
   gl_Position = uProjectionMatrix * uModelViewMatrix * aVertexPosition;
   vTextureCoord = aTextureCoord;
-}`,Tn=`// Author: TapiocaFox
+}`,Ln=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 varying highp vec2 vTextureCoord;
@@ -822,7 +822,7 @@ uniform sampler2D uSampler;
 
 void main(void) {
   gl_FragColor = texture2D(uSampler, vTextureCoord);
-}`,Pn=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,In=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
+}`,In=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,Pn=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber
@@ -932,167 +932,6 @@ void main() {
     
     fragColor = vec4(mix(vec3(0.), color, z_block),1.0);
 }`,Mn=`#version 300 es
-
-// Author: TapiocaFox
-// Title:  Perlin Spheres
-
-precision highp float;
-uniform float uTime;
-uniform vec3 uViewPoint;
-
-#define MAX_SPHERES 64
-#define MAX_LIGHTS 64
-
-uniform int NS;
-uniform int NL;
-uniform vec4 uS[MAX_SPHERES];
-uniform vec3 uC[MAX_SPHERES],uL[MAX_LIGHTS],uLC[MAX_LIGHTS];
-
-in  vec3 vPos;
-out vec4 fragColor;
-
-vec2 raySphere(vec3 V, vec3 W, vec4 S) {
-   V -= S.xyz;
-   float b = dot(V, W);
-   float d = b * b - dot(V, V) + S.w * S.w;
-   if (d < 0.)
-      return vec2(1001.,1000.);
-   return vec2(-b - sqrt(d), -b + sqrt(d));
-}
-
-bool inShadow(vec3 P, vec3 L) {
-   for (int i = 0 ; i < NS ; i++) {
-      vec2 tt = raySphere(P, L, uS[i]);
-      if (tt.x < tt.y && tt.x > 0.)
-         return true;
-   }
-   return false;
-}
-
-vec3 shadeSphere(vec4 S, vec3 P, vec3 C) {
-   vec3 N = (P - S.xyz) / S.w;
-
-   vec3 shade = vec3(.1);
-
-   // shade *= .5 + .5 * sin(20. * N.y);
-
-   for (int l = 0 ; l < NL ; l++)
-      if (! inShadow(P, uL[l]))
-         shade += uLC[l] * max(0., dot(N, uL[l]));
-   return C * shade;
-}
-
-void main() {
-   vec4 F = vec4(0.);
-   vec3 V = uViewPoint;
-   vec3 W = normalize(vPos-V);
-   float t = 100.;
-
-   for (int i = 0 ; i < NS ; i++) {
-      vec2 tt = raySphere(V, W, uS[i]);
-      if (tt.x < tt.y && tt.x > 0. && tt.x < t) {
-         t = tt.x;
-	 vec3 P = V + t * W;
-         F = vec4(shadeSphere(uS[i],P,uC[i]),1.);
-      }
-   }
-
-   fragColor = vec4(sqrt(F.rgb), F.a);
-   fragColor = mix(vec4(0.,0.,0.,1.),fragColor, F.a);
-}`,En=`// Author: TapiocaFox
-// Title:  Perlin Spheres
-
-// Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
-const NS = 3;
-const NL = 3;
-
-let destroyed = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
-
-// Math.
-const normalize = v => {
-   let s = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
-   return [ v[0]/s, v[1]/s, v[2]/s ];
-}
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    
-    let s = Math.sin(uTime);
-    const c = Math.cos(uTime);
-    
-    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ -.3*s,0,0,.4,
-                              .3*s,0,.3,.4,
-                              .7*c,.7*s,.0,.2 ]);
-    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 1,.5,.5,
-                             .5,.7,1,
-                             .5,1,.5 ]);
-    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ normalize([1,1,1]),
-                             normalize([-1,-1,-.5]),
-                             normalize([0,-1,0])
-			   ].flat());
-
-    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [ .5,.7,1,
-                              .2,.15,.1,
-			      .5,0,0 ]);
-    foxGL.render();
-}
-
-// Start lifecycle.
-foxGL.onStart(async () => {
-    // Set status title.
-    foxGL.setStatusTitle('Spheres');
-
-    // Setup vertex buffer.
-    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
-    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
-    const aPos = gl.getAttribLocation(program, 'aPos');
-    gl.enableVertexAttribArray(aPos);
-    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
-
-    gl.uniform1i(gl.getUniformLocation(program, 'NS'), NS);
-    gl.uniform1i(gl.getUniformLocation(program, 'NL'), NL);
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 5);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-    
-    // Register listeners on start.
-    resizeObserver.observe(canvas);
-    canvas.addEventListener('pointermove', onpointermove);
-    animate();
-});
-
-// Stop lifecycle.
-foxGL.onStop(async () => {
-    // Deregister listeners on stop.
-    destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-});`,Cn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflective Spheres
@@ -1355,7 +1194,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,Gn=`// Author: TapiocaFox
+}`,En=`// Author: TapiocaFox
 // Title:  Phong Reflective Spheres
 
 // Init variables.
@@ -1506,7 +1345,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,zn=`#version 300 es
+});`,Cn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
@@ -1793,7 +1632,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,Fn=`// Author: TapiocaFox
+}`,Gn=`// Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
 
 // Init variables.
@@ -1951,7 +1790,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,q=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,V=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Nn=`#version 300 es
+});`,q=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,V=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,zn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflection
@@ -2016,7 +1855,7 @@ void main() {
     
     fragColor = vec4(sqrt(F.rgb), F.a);
     fragColor = mix(vec4(.0,.0,.0,1.),fragColor, F.a);
-}`,Bn=`// Author: TapiocaFox
+}`,Fn=`// Author: TapiocaFox
 // Title:  Phong Reflection
 
 // Init variables.
@@ -2030,7 +1869,6 @@ const NL = 2;
 
 let destroyed = false;
 let usePointer = false;
-let enlarge = false;
 let uMouseX = 0;
 let uMouseY = 0;
 
@@ -2043,11 +1881,6 @@ const onpointermove = async event => {
     uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
     gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
     foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-const onclick = async event => {
-    enlarge = !enlarge;
-    foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`);
 };
 
 const pointerleave = async event => {
@@ -2125,7 +1958,6 @@ foxGL.onStart(async () => {
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
-    canvas.addEventListener('click', onclick);
     canvas.addEventListener('pointerleave', pointerleave);
     animate();
 });
@@ -2136,9 +1968,8 @@ foxGL.onStop(async () => {
     destroyed = true;
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
     canvas.removeEventListener('pointerleave', pointerleave);
-});`,Un=`#version 300 es
+});`,Nn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Quadric Surface (System)
@@ -2316,7 +2147,7 @@ void main() {
         }
     }
 
-}`,On=`// Author: TapiocaFox
+}`,Bn=`// Author: TapiocaFox
 // Title:  Match The Texture
 
 // Init variables.
@@ -2592,7 +2423,7 @@ foxGL.onStop(async () => {
     resizeObserver.disconnect();
     canvas.removeEventListener('pointermove', onpointermove);
     canvas.removeEventListener('click', onclick);
-});`,Wn=`#version 300 es
+});`,On=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Basic Noise
@@ -2631,7 +2462,7 @@ void main() {
       F = vec4(c,c,c,1.);
    }
    fragColor = vec4(sqrt(F.rgb), F.a);
-}`,Dn=`#version 300 es
+}`,Un=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Match The Texture
@@ -2811,7 +2642,7 @@ void main() {
             minX = tI1.x;
         }
     }
-}`,qn=`// Author: TapiocaFox
+}`,Wn=`// Author: TapiocaFox
 // Title:  Match The Texture
 
 // Init variables.
@@ -3197,7 +3028,7 @@ foxGL.onStop(async () => {
     canvas.removeEventListener('pointerenter', onpointerenter);
     canvas.removeEventListener('pointerleave', onpointerleave);
     canvas.removeEventListener('click', onclick);
-});`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Vn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,Xn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Qn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Yn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,Hn=`#version 300 es
+});`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Dn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,qn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Vn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Xn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,Qn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Bump Magnifier Distortion
@@ -3285,4 +3116,4 @@ void main() {
     color = mix(color, colorPointer, pct);
     color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
-}`,kn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var jn=L('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Zn=L('<div class="item webgl-item svelte-ahq8ot"><!></div>'),$n=L('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Kn=L("<!> <!>  <!> <!>",1);function ue(Q,Y){on(Y,!0);let s=cn("all"),H=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:b,categories:["distortion"]},{frag:wn,js:b,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:Mn,js:En,categories:["raycasting"]},{frag:Nn,js:Bn,categories:["raycasting"]},{frag:Cn,js:Gn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:zn,js:Fn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Un,js:On,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:Wn,categories:["noise"]},{frag:yn,js:Sn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Dn,js:qn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Vn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:Xn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Qn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Yn}},categories:["noise","raycasting"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Hn,js:w,categories:["distortion"]},{vert:Ln,frag:Tn,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:Pn},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:In}},categories:[]}]}]);var M=Kn(),E=S(M);vn(E,{text:"Graphics"});var C=r(E,2);{let a=y(()=>[null,null,null,null,kn,O,O]);un(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?bn("/webgl_editor"):an(s,o,!0)}})}var G=r(C,2);{var k=a=>{var o=jn(),c=r(S(o),4),g=i(c),T=i(g);m(T,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return b}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),_=i(h);m(_,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return b},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return _n},get javascript(){return b},mode:"preview"}),t(R),t(v),f(a,o)};A(G,a=>{n(s)=="debug"&&a(k)})}var j=r(G,2);B(j,17,()=>H,U,(a,o)=>{var c=F(),g=S(c);{var T=l=>{var u=$n(),v=S(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var _=r(p,2);B(_,21,()=>n(o).practices,U,(R,e)=>{var z=F(),Z=S(z);{var $=P=>{var I=Zn(),K=i(I);{let J=y(()=>n(e).vert?n(e).vert:d),nn=y(()=>n(e).frag?n(e).frag:fn),en=y(()=>n(e).js?n(e).js:mn),tn=y(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(I),f(P,I)};A(Z,P=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&P($)})}f(R,z)}),t(_),ln(()=>{N(x,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(T)})}f(a,c)}),f(Q,M),sn()}export{ue as component};
+}`,Yn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var Hn=T('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),kn=T('<div class="item webgl-item svelte-ahq8ot"><!></div>'),jn=T('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Zn=T("<!> <!>  <!> <!>",1);function ce(Q,Y){on(Y,!0);let s=cn("all"),H=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:_,categories:["distortion"]},{frag:wn,js:_,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:zn,js:Fn,categories:["raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Cn,js:Gn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Nn,js:Bn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:Sn,js:yn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Un,js:Wn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Dn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:qn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Vn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Xn}},categories:["noise","raycasting"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Qn,js:w,categories:["distortion"]},{vert:Tn,frag:Ln,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:In},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:Pn}},categories:[]}]}]);var M=Zn(),E=y(M);vn(E,{text:"Graphics"});var C=r(E,2);{let a=S(()=>[null,null,null,null,Yn,U,U]);un(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?_n("/webgl_editor"):an(s,o,!0)}})}var G=r(C,2);{var k=a=>{var o=Hn(),c=r(y(o),4),g=i(c),L=i(g);m(L,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),b=i(h);m(b,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return bn},get javascript(){return _},mode:"preview"}),t(R),t(v),f(a,o)};A(G,a=>{n(s)=="debug"&&a(k)})}var j=r(G,2);B(j,17,()=>H,O,(a,o)=>{var c=F(),g=y(c);{var L=l=>{var u=jn(),v=y(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var b=r(p,2);B(b,21,()=>n(o).practices,O,(R,e)=>{var z=F(),Z=y(z);{var $=I=>{var P=kn(),K=i(P);{let J=S(()=>n(e).vert?n(e).vert:d),nn=S(()=>n(e).frag?n(e).frag:fn),en=S(()=>n(e).js?n(e).js:mn),tn=S(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(P),f(I,P)};A(Z,I=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&I($)})}f(R,z)}),t(b),ln(()=>{N(x,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(L)})}f(a,c)}),f(Q,M),sn()}export{ce as component};

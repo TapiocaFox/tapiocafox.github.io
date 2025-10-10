@@ -37,12 +37,12 @@
     import hl_activated_sound from '$lib/assets/webgl/practice_2/sounds/activated.wav';
     import hl_deactivated_sound from '$lib/assets/webgl/practice_2/sounds/deactivated.wav';
     
-    import phong_frag from '$lib/assets/webgl/practice_3/phong.frag?raw';
-    import phong_js from '$lib/assets/webgl/practice_3/phong.js?raw';
-    import quadric_frag from '$lib/assets/webgl/practice_3/quadric.frag?raw';
-    import quadric_js from '$lib/assets/webgl/practice_3/quadric.js?raw';
-    import quadric_system_frag from '$lib/assets/webgl/practice_3/quadric_system.frag?raw';
-    import quadric_system_js from '$lib/assets/webgl/practice_3/quadric_system.js?raw';
+    import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
+    import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
+    import quadric_frag from '$lib/assets/webgl/practice_2/quadric.frag?raw';
+    import quadric_js from '$lib/assets/webgl/practice_2/quadric.js?raw';
+    import quadric_system_frag from '$lib/assets/webgl/practice_2/quadric_system.frag?raw';
+    import quadric_system_js from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
 
     import noise_frag from '$lib/assets/webgl/practice_4/noise.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_4/lava_lamp.frag?raw';
@@ -128,11 +128,11 @@
             title: 'Practice Two',
             description: 'Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)',
             practices: [
-                {
-                    frag: spheres_frag,
-                    js: spheres_js,
-                    categories: ['raycasting']
-                },
+                // {
+                //     frag: spheres_frag,
+                //     js: spheres_js,
+                //     categories: ['raycasting']
+                // },
                 {
                     frag: phong_frag,
                     js: phong_js,
