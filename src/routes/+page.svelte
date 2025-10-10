@@ -15,6 +15,17 @@
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     // import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
+
+    const hour = new Date().getHours();
+
+    let greeting;
+    if (hour >= 5 && hour < 12) {
+        greeting = 'Good Morning ☕.';
+    } else if (hour >= 12 && hour < 17) {
+        greeting = 'Good Afternoon 🍵.';
+    } else {
+        greeting = 'Good Evening 🌙.';
+    }
 </script>
 <style>
     .sqaure_item {
@@ -36,7 +47,8 @@
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 <div class="align-with-nav">
-    <h1 style:margin-block-end="0.3em">TapiocaFox 🦊</h1>
+    <h1 style:margin-block-end="0.3em">{greeting}</h1>
+    <!-- <h1 style:margin-block-end="0.3em">Good Evening 🌙.</h1> -->
     <div class="icon-description-layout">
         <div class="icon fade-in">
             <img src={profile}
