@@ -16,7 +16,7 @@
         }}>
             <img alt="TapiocaFox" style:height="24px" src={tapiocafox}/>
         </button>
-        <p style:margin="0" style:font-size="xx-small">© {new Date().getFullYear()}. tapiocafox.com</p>
+        <p style:margin="0" style:font-size="xx-small">© {new Date().getFullYear()} TapiocaFox</p>
         <!-- <p style:margin="0" style:font-size="xx-small">© {new Date().getFullYear()} TapiocaFox.</p> -->
     </div>
 </div>
