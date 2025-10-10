@@ -26,6 +26,7 @@
     } else {
         greeting = 'Good Evening 🌙.';
     }
+    // greeting = 'Good Evening 🌙.';
 </script>
 <style>
     .sqaure_item {
@@ -47,7 +48,7 @@
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 <div class="align-with-nav">
-    <h1 style:margin-block-end="0.3em">{greeting}</h1>
+    <h1 style:margin-block-end="0.2em">{greeting}</h1>
     <!-- <h1 style:margin-block-end="0.3em">Good Evening 🌙.</h1> -->
     <div class="icon-description-layout">
         <div class="icon fade-in">
