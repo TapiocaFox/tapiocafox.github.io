@@ -32,6 +32,8 @@
     import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
     import phong_reflective_spheres_frag from '$lib/assets/webgl/practice_2/phong_reflective_spheres.frag?raw';
     import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
+    import reflectice_refractive_spheres_frag from '$lib/assets/webgl/practice_2/reflective_refractive_spheres.frag?raw';
+    import reflectice_refractive_spheres_js from '$lib/assets/webgl/practice_2/reflective_refractive_spheres.js?raw';
     import hl_activated_sound from '$lib/assets/webgl/practice_2/sounds/activated.wav';
     import hl_deactivated_sound from '$lib/assets/webgl/practice_2/sounds/deactivated.wav';
     
@@ -124,7 +126,7 @@
         },
         {
             title: 'Practice Two',
-            description: 'Ray casting of spheres.  Some of them are interactive with mouse position and clicks. (Part of assignment two.)',
+            description: 'Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)',
             practices: [
                 {
                     frag: spheres_frag,
@@ -132,24 +134,29 @@
                     categories: ['raycasting']
                 },
                 {
-                    frag: reflective_spheres_frag,
-                    js: reflective_spheres_js,
-                    assets: {
-                        'hl_deactivated': {
-                            id: 'hl_deactivated',
-                            type: 'audio',
-                            srcType: 'link',
-                            src: hl_deactivated_sound
-                        },
-                        'hl_activated': {
-                            id: 'hl_activated',
-                            type: 'audio',
-                            srcType: 'link',
-                            src: hl_activated_sound
-                        },
-                    },
-                    categories: ['noise','raycasting']
+                    frag: phong_frag,
+                    js: phong_js,
+                    categories: ['raycasting']
                 },
+                // {
+                //     frag: reflective_spheres_frag,
+                //     js: reflective_spheres_js,
+                //     assets: {
+                //         'hl_deactivated': {
+                //             id: 'hl_deactivated',
+                //             type: 'audio',
+                //             srcType: 'link',
+                //             src: hl_deactivated_sound
+                //         },
+                //         'hl_activated': {
+                //             id: 'hl_activated',
+                //             type: 'audio',
+                //             srcType: 'link',
+                //             src: hl_activated_sound
+                //         },
+                //     },
+                //     categories: ['noise','raycasting']
+                // },
                 {
                     frag: phong_reflective_spheres_frag,
                     js: phong_reflective_spheres_js,
@@ -169,22 +176,30 @@
                     },
                     categories: ['noise','raycasting']
                 },
-            ]
-        },
-        {
-            title: 'Practice Three',
-            description: 'Phong reflection, quadric surfaces and transformations. (Part of assignment three.)',
-            practices: [
                 {
-                    frag: phong_frag,
-                    js: phong_js,
-                    categories: ['raycasting']
+                    frag: reflectice_refractive_spheres_frag,
+                    js: reflectice_refractive_spheres_js,
+                    assets: {
+                        'hl_deactivated': {
+                            id: 'hl_deactivated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_deactivated_sound
+                        },
+                        'hl_activated': {
+                            id: 'hl_activated',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_activated_sound
+                        },
+                    },
+                    categories: ['noise','raycasting']
                 },
-                {
-                    frag: quadric_frag,
-                    js: quadric_js,
-                    categories: ['raycasting']
-                },
+                // {
+                //     frag: quadric_frag,
+                //     js: quadric_js,
+                //     categories: ['raycasting']
+                // },
                 {
                     frag: quadric_system_frag,
                     js: quadric_system_js,
@@ -200,8 +215,15 @@
                 }
             ]
         },
+        // {
+        //     title: 'Practice Three',
+        //     description: 'Phong reflection, quadric surfaces and transformations. (Part of assignment three.)',
+        //     practices: [
+                
+        //     ]
+        // },
         {
-            title: 'Practice Four',
+            title: 'Practice Three',
             description: 'Procedural texture generation. (Part of assignment four.)',
             practices: [
                 {
