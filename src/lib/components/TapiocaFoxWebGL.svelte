@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount, tick } from 'svelte';
+    import { onDestroy, onMount, tick } from 'svelte';
     import Portal from 'svelte-portal';
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
@@ -40,6 +40,13 @@
 
     let foxGL: TapiocaFoxGLContext;
 
+    const sandboxUncaughtErrorListener = (module: string, error: unknown) => {
+        console.log('module:', module, '\nerror:', error);
+        onerror('js', {
+            module: module,
+            error: error
+        });
+    };
 
     $effect ( () => {
         // console.log('Something changed:');
@@ -75,8 +82,8 @@
                 lastRenderTime: 0,
                 devicePixelRatio: window.devicePixelRatio || 1,
                 // animate: null,
-                invokeStart: null,
-                invokeStop: null,
+                // invokeStart: null,
+                // invokeStop: null,
                 statusTitle: statusTitle,
                 statusDict: statusDict,
                 vertexShader: '',
@@ -86,29 +93,29 @@
                 assets: {},
                 loadedScripts: [],
 
-                onStart: function(start) {
-                    this.invokeStart = start;
-                },
+                // onStart: function(start) {
+                //     this.invokeStart = start;
+                // },
 
-                onStop: function(stop) {
-                    this.invokeStop = stop;
-                },
+                // onStop: function(stop) {
+                //     this.invokeStop = stop;
+                // },
 
                 start: async function() {
                     try {
-                        await this.indexModule?.start?.();
+                        await this.indexModule?.start?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', error);
+                        onerror('js', {module: 'index', error: error});
                     }
                 },
 
                 stop: async function() {
                     try {
-                        await this.indexModule?.stop?.();
+                        await this.indexModule?.stop?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', error);
+                        onerror('js', {module: 'index', error: error});
                     }
                 },
 
@@ -173,7 +180,7 @@
                         this.indexModule = await this.sandbox.import('index');
                     }
                     catch(error) {
-                        onerror('js', error);
+                        onerror('js', {module: 'index', error: error});
                     } 
                 },
 
@@ -293,6 +300,8 @@
                 }
             };
 
+            foxGL.sandbox.addUncaughtErrorListener(sandboxUncaughtErrorListener);
+
             const resizeObserver = new ResizeObserver(entries => {
                 foxGL.optimizeViewPort();
             });
@@ -392,7 +401,9 @@
         };
     });
 
-
+    onDestroy(() => {
+        foxGL?.sandbox.removeUncaughtErrorListener(sandboxUncaughtErrorListener);
+    });
 
     function clickEditButton() {
         nextSnapshot.set({

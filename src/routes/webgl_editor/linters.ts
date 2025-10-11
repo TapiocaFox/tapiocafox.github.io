@@ -58,7 +58,7 @@ export function createEvalLinter(error: Error | null, code: string) {
         const stack = error.stack ?? error.message;
 
         // Generic regex: matches any moduleId, row, col
-        const regex = /^\s*at\s+(?:.+?\s+\()?(.+?):(\d+):(\d+)\)?$/gm;
+        const regex = /^\s*(?:at\s+.*?\s+\()?(.+?):(\d+):(\d+)\)?$/gm;
         let match: RegExpExecArray | null;
         let found = false;
 

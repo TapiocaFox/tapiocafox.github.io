@@ -7,8 +7,8 @@ export interface TapiocaFoxGLContext {
     startTime: number,
     lastRenderTime: number,
     devicePixelRatio: number,
-    onStart: (start: () => Promise<void>) => void,
-    onStop: (stop: () => Promise<void>) => void,
+    // onStart: (start: () => Promise<void>) => void,
+    // onStop: (stop: () => Promise<void>) => void,
     render: () => void,
     setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string, color: string) => void,
@@ -25,8 +25,8 @@ export interface TapiocaFoxGLContext {
     assets: Record<string, Asset>
     loadedScripts: Array<HTMLScriptElement>,
     unloadLoadedScripts: () => void,
-    invokeStart: (() => Promise<void>) | null,
-    invokeStop: (() => Promise<void>) | null,
+    // invokeStart: (() => Promise<void>) | null,
+    // invokeStop: (() => Promise<void>) | null,
     optimizeViewPort: () => Promise<void>,
     initProgram: (vertexShader: string, fragmentShader: string) => void,
     importIndexModule: () => Promise<void>,
@@ -37,3 +37,21 @@ export interface TapiocaFoxGLContext {
     setShadersScriptAndAssets: (vertexShader: string, fragmentShader: string, javascript: string, assets: Record<string, Asset>) => void,
     refreshShadersAndScript: () => Promise<void>,
 }
+
+/*
+To get TapiocaFoxGLContext export `start` or `stop` functions inside your index module.
+
+For example:
+
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+};
+
+export const stop = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+};
+*/

@@ -518,16 +518,18 @@
             });
         }
         else if(type === 'js') {
-            console.log('JavaScript Error', error);
-            javascript_error = error.toString();
+            const module = error.module;
+            const js_error = error.error;
+            console.log(`JavaScript error in module "${module}":\n`, js_error);
+            javascript_error = js_error.toString();
             // error_message = `JavaScript shader error: ${javascript_error}`;
-            const linterExtension = createEvalLinter(error, js_src);
+            const linterExtension = createEvalLinter(js_error, js_src);
 
             javascriptEditorView.dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)
             });
         }
-        else console.trace(error);
+        else console.trace(error.error);
     }
 
     async function clearErrors(view: EditorView) {

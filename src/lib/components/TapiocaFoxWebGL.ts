@@ -1,3 +1,4 @@
+import type{ TapiocaFoxGLContext } from './TapiocaFoxGLContext';
 export type Asset = {
   id: string;
   type: 'image' | 'video' | 'audio' | 'blob';
@@ -11,8 +12,8 @@ export type Status = {
 }
 
 export type IndexModule = {
-  start: () => Promise<void> | null;
-  stop: () => Promise<void> | null;
+  start: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
+  stop: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
 }
 
 type ModuleRecord = {
@@ -21,83 +22,124 @@ type ModuleRecord = {
   exports: any;
 };
 
+export type UncaughtErrorListener = (moduleName: string, error: unknown) => void;
+
 export interface Sandbox {
   register(name: string, code: string): string;
   import<T = any>(name: string): Promise<T>;
   replace(name: string, newCode: string): Promise<void>;
   reloadAll(): Promise<void>;
   clear(): void;
+  addUncaughtErrorListener(listener: UncaughtErrorListener): void;
+  removeUncaughtErrorListener(listener: UncaughtErrorListener): void;
 }
 
 export function createSandbox(): Sandbox {
   const modules = new Map<string, ModuleRecord>();
+  const errorListeners = new Set<UncaughtErrorListener>();
+
+  function notifyError(moduleName: string, error: unknown) {
+    for (const listener of errorListeners) listener(moduleName, error);
+  }
+
+  // Try to map a URL back to a module name
+  function getModuleNameFromUrl(url: string | undefined): string {
+    if (!url) return "unknown module";
+    for (const [name, mod] of modules.entries()) {
+      if (mod.url === url || url.includes(mod.url)) return name;
+    }
+    return "unknown module";
+  }
+
+  // Global runtime error listener
+  function handleWindowError(event: ErrorEvent) {
+    const moduleName = getModuleNameFromUrl(event.filename);
+    notifyError(moduleName, event.error ?? event.message);
+  }
+
+  function handlePromiseRejection(event: PromiseRejectionEvent) {
+    let moduleName = "unknown module";
+    // Try to extract from stack if available
+    if (event.reason instanceof Error && event.reason.stack) {
+      const stack = event.reason.stack;
+      for (const mod of modules.values()) {
+        if (stack.includes(mod.url)) {
+          moduleName = getModuleNameFromUrl(mod.url);
+          break;
+        }
+      }
+    }
+    notifyError(moduleName, event.reason);
+  }
+
+  window.addEventListener("error", handleWindowError);
+  window.addEventListener("unhandledrejection", handlePromiseRejection);
 
   return {
-    /**
-     * Register a module by name
-     */
     register(name: string, code: string): string {
-      // Revoke old blob URL if exists
       const existing = modules.get(name);
       if (existing?.url) URL.revokeObjectURL(existing.url);
 
-      // Rewrite internal imports
       const rewrittenCode = code.replace(
         /import\s+(?:[\s\S]*?)\s+from\s+['"]([^'"]+)['"]/g,
         (match, depName) => {
           const dep = modules.get(depName);
           if (dep) return match.replace(depName, dep.url);
-          return match; // external import stays unchanged
+          return match;
         }
       );
 
-      // Create blob URL
       const blob = new Blob([rewrittenCode], { type: "application/javascript" });
       const url = URL.createObjectURL(blob);
-
       modules.set(name, { code, url, exports: null });
       return url;
     },
 
-    /**
-     * Import a module by name
-     */
     async import<T = any>(name: string): Promise<T> {
       const mod = modules.get(name);
       if (!mod) throw new Error(`Module "${name}" not found`);
-      const imported: T = await import(mod.url); // no ?v= appended
-      mod.exports = imported;
-      return imported;
+      try {
+        const imported: T = await import(mod.url);
+        mod.exports = imported;
+        return imported;
+      } catch (err) {
+        notifyError(name, err);
+        throw err;
+      }
     },
 
-    /**
-     * Replace module code and reload all modules
-     */
     async replace(name: string, newCode: string): Promise<void> {
       this.register(name, newCode);
       await this.reloadAll();
     },
 
-    /**
-     * Reload all modules (re-imports them from their blob URLs)
-     */
     async reloadAll(): Promise<void> {
       for (const [name, mod] of modules.entries()) {
         try {
           const imported = await import(mod.url);
           mod.exports = imported;
         } catch (err) {
+          notifyError(name, err);
           console.error(`Failed to reload module "${name}":`, err);
         }
       }
     },
 
-    /**
-     * Clear all modules and revoke blob URLs
-     */
     clear(): void {
       for (const mod of modules.values()) URL.revokeObjectURL(mod.url);
       modules.clear();
+      errorListeners.clear();
+
+      window.removeEventListener("error", handleWindowError);
+      window.removeEventListener("unhandledrejection", handlePromiseRejection);
+    },
+
+    addUncaughtErrorListener(listener: UncaughtErrorListener): void {
+      errorListeners.add(listener);
+    },
+
+    removeUncaughtErrorListener(listener: UncaughtErrorListener): void {
+      errorListeners.delete(listener);
     },
   };
 }
