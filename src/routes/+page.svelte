@@ -63,8 +63,8 @@
         </div>
         <div class="description">
             <div>
-                <h3 style:margin-block-end="0.0em">Yves Chen</h3>
-                <p class="bold-annotation">
+                <h3 class="fade-in" style:margin-block-end="0.0em">Yves Chen</h3>
+                <p class="bold-annotation fade-in">
                     <img class="inline-glyph" alt="GitHub" src={github_icon}/>
                     <a class="no-glyph" href="https://github.com/TapiocaFox" target="_blank">TapiocaFox</a><br>
                     <img class="inline-glyph" alt="Email" src={email_icon}/>
@@ -74,7 +74,7 @@
                     <img class="inline-glyph" alt="LinkedIn" src={linkedin_icon}/>
                     <a class="no-glyph" href="https://www.linkedin.com/in/yeh-chen-991949161/" target="_blank">LinkedIn</a><br>
                 </p>
-                <p class="annotation" style:margin-block-start="0.0em">*I am the one on the left.</p>
+                <p class="annotation fade-in load-delay" style:margin-block-start="0.0em">*I am the one on the left.</p>
             </div>
         </div>
     </div>
