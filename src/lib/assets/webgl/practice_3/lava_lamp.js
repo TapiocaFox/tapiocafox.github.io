@@ -2,55 +2,19 @@
 // Title:  Lava Lamp
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
+let onpointermove, onpointerenter, onpointerleave, onclick, resizeObserver;
 
 let alienSound = null;
 let alienAppealSound = null;
 
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
-};
-
-const onclick = async event => {
-    alienAppealSound.currentTime = 0;
-    alienAppealSound?.play();
-};
-
-const onpointerenter = async event => {
-    alienSound?.play();
-};
-
-const onpointerleave = async event => {
-    alienSound?.pause();
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Lava Lamp');
     foxGL.reportStatus('Tips', 'Click to appeal to the alien authority.', 'green');
@@ -68,6 +32,44 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+    };
+    
+    onclick = async event => {
+        alienAppealSound.currentTime = 0;
+        alienAppealSound?.play();
+    };
+    
+    onpointerenter = async event => {
+        alienSound?.play();
+    };
+    
+    onpointerleave = async event => {
+        alienSound?.pause();
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    });
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
@@ -76,15 +78,15 @@ foxGL.onStart(async () => {
     canvas.addEventListener('pointerleave', onpointerleave);
     canvas.addEventListener('click', onclick);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerenter', onpointerenter);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-    canvas.removeEventListener('click', onclick);
-});
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerenter) canvas.removeEventListener('pointerenter', onpointerenter);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+    if(onclick) canvas.removeEventListener('click', onclick);
+};

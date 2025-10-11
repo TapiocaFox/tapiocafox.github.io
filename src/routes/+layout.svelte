@@ -29,7 +29,7 @@
   	@import 'main.css';
 </style>
 
-<!-- <TapiocaFoxWebGL mode='background' show_status_block={false} fragment_shader={fiber_bg_frag}/> -->
+<TapiocaFoxWebGL mode='background' show_status_block={false} fragment_shader={fiber_bg_frag}/>
 
 <nav id="main-nav">
 	<a href="/">&gt; <span style:font-weight="bold" style:color="var(--fox-secondary-color)">Tapioca</span><span style:font-weight="bold" style:color="var(--fox-primary-color)">Fox</span></a>

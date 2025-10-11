@@ -2,53 +2,16 @@
 // Title:  Passive Renderer
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
-let animateOrNot = false;
-let firstFrameRendered = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
-    if(!animateOrNot) {
-        animateOrNot = true;
-        animate();
-    }
-};
-
-const onpointerleave = async event => {
-    animateOrNot = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
-    firstFrameRendered = false;
-    animate();
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    if(firstFrameRendered && !animateOrNot) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
-    foxGL.render();
-    firstFrameRendered = true;
-}
+let onpointermove, resizeObserver;
 
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Passive Renderer');
 
@@ -62,18 +25,58 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+        
+    let animateOrNot = false;
+    let firstFrameRendered = false;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        if(firstFrameRendered && !animateOrNot) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+        if(!animateOrNot) {
+            animateOrNot = true;
+            animate();
+        }
+    };
+    
+    onpointerleave = async event => {
+        animateOrNot = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+        firstFrameRendered = false;
+        animate();
+    });
+
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-});
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};

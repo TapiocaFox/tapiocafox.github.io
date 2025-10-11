@@ -1,6 +1,7 @@
 // Author: TapiocaFox
 // Title:  Default Renderer
 
+// Init variables.
 let gl, program, canvas;
 let destroyed = false;
 let onpointermove, resizeObserver;

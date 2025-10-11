@@ -2,59 +2,19 @@
 // Title:  Frame Skip Renderer
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
 
 const frameSkip = 3;
 const frameSkipSkip = 5;
 
-let destroyed = false;
-let firstFrameRendered = false;
-let frameCount = 0;
-let skippedFrameCount = 0;
-let doNotSkip = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
-    doNotSkip = true;
-};
-
-const onpointerleave = async event => {
-    doNotSkip = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
-    firstFrameRendered = false;
-    animate();
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    frameCount++;
-    if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
-        skippedFrameCount++;
-        if(skippedFrameCount%frameSkipSkip==0) return;
-    }
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
-    foxGL.render();
-    firstFrameRendered = true;
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Frame Skip Renderer');
 
@@ -68,18 +28,61 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+
+    let firstFrameRendered = false;
+    let frameCount = 0;
+    let skippedFrameCount = 0;
+    let doNotSkip = false;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        frameCount++;
+        if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
+            skippedFrameCount++;
+            if(skippedFrameCount%frameSkipSkip==0) return;
+        }
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+        doNotSkip = true;
+    };
+    
+    onpointerleave = async event => {
+        doNotSkip = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+        firstFrameRendered = false;
+        animate();
+    });
+        
     // Register listeners on start.
-    resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
-});
+    resizeObserver.observe(canvas);
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-});
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+    if(resizeObserver) resizeObserver.disconnect();
+};

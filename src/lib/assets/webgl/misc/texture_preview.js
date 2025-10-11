@@ -1,12 +1,11 @@
 // Author: TapiocaFox
 // Title:  Mozilla Texture Load
+import { mat4 } from 'https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/esm/index.js';
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
+let onpointermove, onclick, resizeObserver;
 
 //
 // Initialize a texture and load an image.
@@ -212,19 +211,6 @@ function setTextureAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
 }
 
-const programInfo = {
-    program: program,
-    attribLocations: {
-        vertexPosition: gl.getAttribLocation(program, "aVertexPosition"),
-        textureCoord: gl.getAttribLocation(program, "aTextureCoord"),
-    },
-    uniformLocations: {
-        projectionMatrix: gl.getUniformLocation(program, "uProjectionMatrix"),
-        modelViewMatrix: gl.getUniformLocation(program, "uModelViewMatrix"),
-        uSampler: gl.getUniformLocation(program, "uSampler"),
-    },
-};
-
 
 function drawScene(gl, programInfo, buffers, texture, cubeRotation) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
@@ -366,82 +352,35 @@ function setColorAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
 }
 
-// tell webgl how to pull out the texture coordinates from buffer
-function setTextureAttribute(gl, buffers, programInfo) {
-    const num = 2; // every coordinate composed of 2 values
-    const type = gl.FLOAT; // the data in the buffer is 32-bit float
-    const normalize = false; // don't normalize
-    const stride = 0; // how many bytes to get from one set to the next
-    const offset = 0; // how many bytes inside the buffer to start from
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
-    gl.vertexAttribPointer(
-        programInfo.attribLocations.textureCoord,
-        num,
-        type,
-        normalize,
-        stride,
-        offset
-    );
-    gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
-}
-
-let buttonSound = null;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
-};
-
-const onclick = async event => {
-    buttonSound.currentTime = 0;
-    buttonSound?.play();
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
-});
-
-
-// Setup vertex buffer.
-const buffers = initBuffers(gl);
-
-// Load texture
-let texture = null;
-
-let cubeRotation = 3.0;
-let deltaTime = 0;
-let then = 0;
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
-    deltaTime = uTime - then;
-    then = uTime;
-    drawScene(gl, programInfo, buffers, texture, cubeRotation);
-    cubeRotation += deltaTime;
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
-    await foxGL.loadScriptFromSource('https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js');
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    // await foxGL.loadScriptFromSource('https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js');
 
+    // Setup vertex buffer.
+    const buffers = initBuffers(gl);
+    
     // console.log({...foxGL.assets});
     // Load texture
     const textureImage = await foxGL.getAssetById('uvmap');
-    texture = loadTexture(gl, textureImage);
+    const texture = loadTexture(gl, textureImage);
+    const programInfo = {
+        program: program,
+        attribLocations: {
+            vertexPosition: gl.getAttribLocation(program, "aVertexPosition"),
+            textureCoord: gl.getAttribLocation(program, "aTextureCoord"),
+        },
+        uniformLocations: {
+            projectionMatrix: gl.getUniformLocation(program, "uProjectionMatrix"),
+            modelViewMatrix: gl.getUniformLocation(program, "uModelViewMatrix"),
+            uSampler: gl.getUniformLocation(program, "uSampler"),
+        },
+    };
     
-    buttonSound = await foxGL.getAssetById('hl_button');
+    const buttonSound = await foxGL.getAssetById('hl_button');
     // buttonSound.play();
     
     // setTextureAttribute.
@@ -456,19 +395,57 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+
+    let cubeRotation = 3.0;
+    let deltaTime = 0;
+    let then = 0;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
+        deltaTime = uTime - then;
+        then = uTime;
+        drawScene(gl, programInfo, buffers, texture, cubeRotation);
+        cubeRotation += deltaTime;
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+    };
+    
+    onclick = async event => {
+        buttonSound.currentTime = 0;
+        buttonSound?.play();
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    });
+        
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
-});
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onclick) canvas.removeEventListener('click', onclick);
+};
