@@ -1,3 +1,5 @@
+import type { Status, Asset, Sandbox, IndexModule } from './TapiocaFoxWebGL';
+
 export interface TapiocaFoxGLContext {
     gl: WebGL2RenderingContext,
     canvas: HTMLCanvasElement,
@@ -18,7 +20,8 @@ export interface TapiocaFoxGLContext {
     statusDict: Record<string, Status>,
     vertexShader: string,
     fragmentShader: string,
-    javascript: string,
+    sandbox: Sandbox,
+    indexModule: IndexModule | null,
     assets: Record<string, Asset>
     loadedScripts: Array<HTMLScriptElement>,
     unloadLoadedScripts: () => void,
@@ -26,7 +29,7 @@ export interface TapiocaFoxGLContext {
     invokeStop: (() => Promise<void>) | null,
     optimizeViewPort: () => Promise<void>,
     initProgram: (vertexShader: string, fragmentShader: string) => void,
-    evalJavaScript: () => void,
+    importIndexModule: () => Promise<void>,
     newProgram: () => void,
     reset: () => Promise<void>,
     start: () => void,

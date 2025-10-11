@@ -33,7 +33,7 @@ export function createEvalLinter(error: Error | null, code: string) {
 
         // --- Try Acorn parse for syntax/declaration errors ---
         try {
-            acorn.parse(code, { ecmaVersion: "latest" });
+            acorn.parse(code, { ecmaVersion: "latest", sourceType: "module" });
         } catch (parseErr: any) {
             // Acorn gives {loc: {line, column}}
             console.log('Acorn parse error', parseErr);
@@ -54,16 +54,26 @@ export function createEvalLinter(error: Error | null, code: string) {
             }
         }
 
-        // Use stack trace if available, otherwise message
+        // --- Parse stack trace ---
         const stack = error.stack ?? error.message;
-        const regex = /<anonymous>:(\d+):(\d+)/;
-        const match = stack.match(regex);
 
-        if (match) {
-            const line = parseInt(match[1], 10) - 1;  // 0-based
-            const col = parseInt(match[2], 10) - 1;
-            const message = error.message;
+        // Generic regex: matches any moduleId, row, col
+        const regex = /^\s*at\s+(?:.+?\s+\()?(.+?):(\d+):(\d+)\)?$/gm;
+        let match: RegExpExecArray | null;
+        let found = false;
 
+        console.log("=== ERROR STACK ===");
+        console.log(stack);
+
+        while ((match = regex.exec(stack)) !== null) {
+            found = true;
+            const moduleId = match[1];  // module name, blob id, or URL
+            const line = parseInt(match[2], 10) - 1; // 0-based
+            const col = parseInt(match[3], 10) - 1;
+
+            console.log("Matched module:", moduleId, "line:", line + 1, "col:", col + 1);
+
+            // Get line info from CodeMirror
             const lineInfo = view.state.doc.line(line + 1);
             const from = Math.min(lineInfo.from + col, lineInfo.to);
             const to = lineInfo.to;
@@ -72,10 +82,14 @@ export function createEvalLinter(error: Error | null, code: string) {
                 from,
                 to,
                 severity: "error",
-                message,
+                message: error.message,
             });
-        } else {
-            // fallback: show whole-doc error if no line info
+            return diagnostics;
+        }
+
+        if (!found) {
+            console.log("No line/column info found in stack, showing fallback diagnostic.");
+            // fallback: whole document
             diagnostics.push({
                 from: 0,
                 to: 0,

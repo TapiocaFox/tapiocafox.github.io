@@ -56,7 +56,7 @@
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGLContext';
 
     import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGLContext.ts?raw';
-    import type { Asset } from '$lib/components/TapiocaFoxGLContext';
+    import type { Asset } from '$lib/components/TapiocaFoxWebGL';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -815,7 +815,7 @@
                             }} class="text">Audio Asset <img class="inline-glyph" alt="Audio" src={music_icon}/></button></h3>
                             <p class="annotation">Id: {id}<br>Source Type: {asset.srcType}<br>{#if asset.srcType=='link'}Asset linked by an url.{:else if asset.srcType=='local'}Size: {stringToByteSize(asset.src)}{/if}</p>
                             <audio controls>
-                                <source src={asset.src} alt={console.log(asset.src)}>
+                                <source src={asset.src}>
                             </audio>
                         </div>
                     </div>

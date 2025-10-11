@@ -41,7 +41,7 @@
     let foxGL: TapiocaFoxGLContext;
 
 
-    $effect (() => {
+    $effect ( () => {
         // console.log('Something changed:');
         // console.log(props.vertex_shader);
         // console.log(fragment_shader);
@@ -81,7 +81,8 @@
                 statusDict: statusDict,
                 vertexShader: '',
                 fragmentShader: '',
-                javascript: '',
+                sandbox: createSandbox(),
+                indexModule: null,
                 assets: {},
                 loadedScripts: [],
 
@@ -95,7 +96,7 @@
 
                 start: async function() {
                     try {
-                        await this.invokeStart?.();
+                        await this.indexModule?.start?.();
                     }
                     catch(error: any) {
                         onerror('js', error);
@@ -104,7 +105,7 @@
 
                 stop: async function() {
                     try {
-                        await this.invokeStop?.();
+                        await this.indexModule?.stop?.();
                     }
                     catch(error: any) {
                         onerror('js', error);
@@ -165,11 +166,11 @@
                     gl.useProgram(this.program);
                 },
 
-                evalJavaScript: function () {
+                importIndexModule: async function () {
                     try {
                         // console.log('Eval', javascript);
                         // eval(props.javascript);
-                        eval(javascript);
+                        this.indexModule = await this.sandbox.import('index');
                     }
                     catch(error) {
                         onerror('js', error);
@@ -211,14 +212,14 @@
                         delete statusDict[key];
                     }
                     this.initProgram(this.vertexShader, this.fragmentShader);
-                    this.evalJavaScript();
+                    await this.importIndexModule();
                     await this.start();
                 },
 
                 setShadersScriptAndAssets: function(vertex_shader: string, fragment_shader: string, javascript: string, assets: Record<string, Asset>) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
-                    this.javascript = javascript;
+                    this.sandbox.register('index', javascript);
                     this.assets = assets;
                 },
 
@@ -227,7 +228,7 @@
                     this.unloadLoadedScripts();
                     await this.optimizeViewPort();
                     this.initProgram(this.vertexShader, this.fragmentShader);
-                    this.evalJavaScript();
+                    await this.importIndexModule();
                     await this.start();
                 },
 
@@ -376,7 +377,7 @@
 
             const refreshOnGlInit = await onglinit(foxGL);
             foxGL.setShadersScriptAndAssets(vertex_shader, fragment_shader, javascript, assets);
-            if(refreshOnGlInit) foxGL.refreshShadersAndScript();
+            if(refreshOnGlInit) await foxGL.refreshShadersAndScript();
         }
         catch (error) {
             console.trace(error);
