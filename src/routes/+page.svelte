@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
 	import two_blocks_fox from '$lib/assets/comics/two_blocks_fox.png';
     import profile from '$lib/assets/profile.png';
     import EndingDecoration from '$lib/components/EndingDecoration.svelte';
@@ -19,7 +19,7 @@
 
     // import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
 
-    let greeting = 'Good Morning ☕.';
+    let greeting = $state<string|null>(null);
     if(browser) {
         const hour = new Date().getHours();
         if (hour >= 5 && hour < 12) {
@@ -51,6 +51,7 @@
 </svelte:head>
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
+{#if greeting != null}
 <div class="align-with-nav">
     <h1 class="fade-in" style:margin-block-end="0.2em">{greeting}</h1>
     <!-- <h1 style:margin-block-end="0.3em">Good Evening 🌙.</h1> -->
@@ -96,3 +97,4 @@
     <img alt="Preview" src={tapiocafox_mascot} style:max-height="300px"/>
 </PointerBlock>
 <!-- <ArtDecoration/> -->
+{/if}
