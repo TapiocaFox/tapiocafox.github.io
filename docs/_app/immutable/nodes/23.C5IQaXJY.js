@@ -1,60 +1,20 @@
-import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/DYHmxtA9.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CI8_SGFQ.js";import{g as _n}from"../chunks/DkY2z1m7.js";const _=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/D-fvB3A-.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CB2R9zhL.js";import{g as _n}from"../chunks/W0MlifQN.js";const _=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
 
 const frameSkip = 3;
 const frameSkipSkip = 5;
 
-let destroyed = false;
-let firstFrameRendered = false;
-let frameCount = 0;
-let skippedFrameCount = 0;
-let doNotSkip = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-    doNotSkip = true;
-};
-
-const onpointerleave = async event => {
-    doNotSkip = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-    firstFrameRendered = false;
-    animate();
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    frameCount++;
-    if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
-        skippedFrameCount++;
-        if(skippedFrameCount%frameSkipSkip==0) return;
-    }
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-    foxGL.render();
-    firstFrameRendered = true;
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Frame Skip Renderer');
 
@@ -68,71 +28,77 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    let firstFrameRendered = false;
+    let frameCount = 0;
+    let skippedFrameCount = 0;
+    let doNotSkip = false;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        frameCount++;
+        if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
+            skippedFrameCount++;
+            if(skippedFrameCount%frameSkipSkip==0) return;
+        }
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+        doNotSkip = true;
+    };
+    
+    onpointerleave = async event => {
+        doNotSkip = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        firstFrameRendered = false;
+        animate();
+    });
+        
     // Register listeners on start.
-    resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
-});
+    resizeObserver.observe(canvas);
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-});`,w=`// Author: TapiocaFox
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+    if(resizeObserver) resizeObserver.disconnect();
+};`,w=`// Author: TapiocaFox
 // Title:  Passive Renderer
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
-let animateOrNot = false;
-let firstFrameRendered = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-    if(!animateOrNot) {
-        animateOrNot = true;
-        animate();
-    }
-};
-
-const onpointerleave = async event => {
-    animateOrNot = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-    firstFrameRendered = false;
-    animate();
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    if(firstFrameRendered && !animateOrNot) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-    foxGL.render();
-    firstFrameRendered = true;
-}
+let onpointermove, resizeObserver;
 
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Passive Renderer');
 
@@ -146,21 +112,61 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        
+    let animateOrNot = false;
+    let firstFrameRendered = false;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        if(firstFrameRendered && !animateOrNot) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+        if(!animateOrNot) {
+            animateOrNot = true;
+            animate();
+        }
+    };
+    
+    onpointerleave = async event => {
+        animateOrNot = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        firstFrameRendered = false;
+        animate();
+    });
+
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('pointerleave', onpointerleave);
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-});`,bn=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};`,bn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -328,13 +334,12 @@ void main() {
     fragColor = vec4(color,1.0);
 }`,Rn=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
+import { mat4 } from 'https://cdn.jsdelivr.net/npm/gl-matrix@3.4.3/esm/index.js';
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
+let onpointermove, onclick, resizeObserver;
 
 //
 // Initialize a texture and load an image.
@@ -540,19 +545,6 @@ function setTextureAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
 }
 
-const programInfo = {
-    program: program,
-    attribLocations: {
-        vertexPosition: gl.getAttribLocation(program, "aVertexPosition"),
-        textureCoord: gl.getAttribLocation(program, "aTextureCoord"),
-    },
-    uniformLocations: {
-        projectionMatrix: gl.getUniformLocation(program, "uProjectionMatrix"),
-        modelViewMatrix: gl.getUniformLocation(program, "uModelViewMatrix"),
-        uSampler: gl.getUniformLocation(program, "uSampler"),
-    },
-};
-
 
 function drawScene(gl, programInfo, buffers, texture, cubeRotation) {
     gl.clearColor(0.0, 0.0, 0.0, 1.0); // Clear to black, fully opaque
@@ -694,82 +686,35 @@ function setColorAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
 }
 
-// tell webgl how to pull out the texture coordinates from buffer
-function setTextureAttribute(gl, buffers, programInfo) {
-    const num = 2; // every coordinate composed of 2 values
-    const type = gl.FLOAT; // the data in the buffer is 32-bit float
-    const normalize = false; // don't normalize
-    const stride = 0; // how many bytes to get from one set to the next
-    const offset = 0; // how many bytes inside the buffer to start from
-    gl.bindBuffer(gl.ARRAY_BUFFER, buffers.textureCoord);
-    gl.vertexAttribPointer(
-        programInfo.attribLocations.textureCoord,
-        num,
-        type,
-        normalize,
-        stride,
-        offset
-    );
-    gl.enableVertexAttribArray(programInfo.attribLocations.textureCoord);
-}
-
-let buttonSound = null;
-
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-const onclick = async event => {
-    buttonSound.currentTime = 0;
-    buttonSound?.play();
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
-
-
-// Setup vertex buffer.
-const buffers = initBuffers(gl);
-
-// Load texture
-let texture = null;
-
-let cubeRotation = 3.0;
-let deltaTime = 0;
-let then = 0;
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-    deltaTime = uTime - then;
-    then = uTime;
-    drawScene(gl, programInfo, buffers, texture, cubeRotation);
-    cubeRotation += deltaTime;
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
-    await foxGL.loadScriptFromSource('https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js');
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    // await foxGL.loadScriptFromSource('https://cdnjs.cloudflare.com/ajax/libs/gl-matrix/2.8.1/gl-matrix-min.js');
 
+    // Setup vertex buffer.
+    const buffers = initBuffers(gl);
+    
     // console.log({...foxGL.assets});
     // Load texture
     const textureImage = await foxGL.getAssetById('uvmap');
-    texture = loadTexture(gl, textureImage);
+    const texture = loadTexture(gl, textureImage);
+    const programInfo = {
+        program: program,
+        attribLocations: {
+            vertexPosition: gl.getAttribLocation(program, "aVertexPosition"),
+            textureCoord: gl.getAttribLocation(program, "aTextureCoord"),
+        },
+        uniformLocations: {
+            projectionMatrix: gl.getUniformLocation(program, "uProjectionMatrix"),
+            modelViewMatrix: gl.getUniformLocation(program, "uModelViewMatrix"),
+            uSampler: gl.getUniformLocation(program, "uSampler"),
+        },
+    };
     
-    buttonSound = await foxGL.getAssetById('hl_button');
+    const buttonSound = await foxGL.getAssetById('hl_button');
     // buttonSound.play();
     
     // setTextureAttribute.
@@ -784,22 +729,60 @@ foxGL.onStart(async () => {
     // Initial uniform values.
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    let cubeRotation = 3.0;
+    let deltaTime = 0;
+    let then = 0;
     
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        deltaTime = uTime - then;
+        then = uTime;
+        drawScene(gl, programInfo, buffers, texture, cubeRotation);
+        cubeRotation += deltaTime;
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onclick = async event => {
+        buttonSound.currentTime = 0;
+        buttonSound?.play();
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
+        
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
     resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
-});`,Tn=`// Author: TapiocaFox
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onclick) canvas.removeEventListener('click', onclick);
+};`,Tn=`// Author: TapiocaFox
 // Title:  Mozilla Texture Load
 
 attribute vec4 aVertexPosition;
@@ -1198,55 +1181,13 @@ void main() {
 // Title:  Phong Reflective Spheres
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, onpointerleave, onclick, resizeObserver;
 
 const PI = 3.141592653589793;
 const NS = 4;
 const NL = 3;
-
-let destroyed = false;
-let usePointer = false;
-let enlarge = false;
-let uMouseX = 0;
-let uMouseY = 0;
-
-// Declare listeners.
-const onpointermove = async event => {
-    usePointer = true;
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-let activatedSound = null;
-let deactivatedSound = null;
-
-const onclick = async event => {
-    enlarge = !enlarge;
-    if(enlarge && activatedSound) {
-        activatedSound.currentTime = 0;
-        activatedSound.play();
-    }
-    else if(deactivatedSound) {
-        deactivatedSound.currentTime = 0;
-        deactivatedSound.play();
-    }
-    foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'blue':'red');
-};
-
-const pointerleave = async event => {
-    usePointer = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
 
 // Math.
 const normalize = v => {
@@ -1254,59 +1195,14 @@ const normalize = v => {
    return [ v[0]/s, v[1]/s, v[2]/s ];
 }
 
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    const RATIO_TIME = 0.66;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
-    
-    const sinRot = Math.sin(radianRotation);
-    const cosRot = Math.cos(radianRotation);
-
-    const sinThird = Math.sin(2*RATIO_TIME*uTime);
-    const cosThird = Math.cos(RATIO_TIME*uTime);
-    const sinFourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
-    const cosFourth = Math.cos(RATIO_TIME*uTime-.33*PI);
-
-    // Spheres.
-    const thridSphere = [usePointer?2*(uMouseX/canvas.width)-1:.7*cosThird,
-                         usePointer?2*(uMouseY/canvas.height)-1:.7*sinThird,
-                         .1,enlarge?.275:.225];
-    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ 
-        [-.4*sinRot,0,-.4*cosRot,.35],
-        [.4*sinRot,0,.4*cosRot,.35],
-        thridSphere,
-        [.7*cosFourth,.7*sinFourth,.1,.225]
-    ].flat());
-    // Spheres' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 
-        [1,.5,.5],
-        [.65,.65,.9],
-        [1,1,1],
-        [.5,0.,0.]
-    ].flat());
-    // Lights.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ 
-        normalize([1,1,1]),
-        normalize([-1,-1,-.5]),
-        normalize([0,-1,0])
-    ].flat());
-    // Lights' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
-        [.5,.7,1],
-        [.2,.15,.1],
-        [.5,0,0]
-    ].flat());
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    let enlarge = false;
+    
     // Set status title.
     foxGL.setStatusTitle('Phong Reflective Spheres');
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`, 'green');
@@ -1328,24 +1224,115 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 3);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        const RATIO_TIME = 0.66;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
     
+        const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
+        
+        const sinRot = Math.sin(radianRotation);
+        const cosRot = Math.cos(radianRotation);
+    
+        const sinThird = Math.sin(2*RATIO_TIME*uTime);
+        const cosThird = Math.cos(RATIO_TIME*uTime);
+        const sinFourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
+        const cosFourth = Math.cos(RATIO_TIME*uTime-.33*PI);
+    
+        // Spheres.
+        const thridSphere = [usePointer?2*(uMouseX/canvas.width)-1:.7*cosThird,
+                             usePointer?2*(uMouseY/canvas.height)-1:.7*sinThird,
+                             .1,enlarge?.275:.225];
+        gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ 
+            [-.4*sinRot,0,-.4*cosRot,.35],
+            [.4*sinRot,0,.4*cosRot,.35],
+            thridSphere,
+            [.7*cosFourth,.7*sinFourth,.1,.225]
+        ].flat());
+        // Spheres' colors.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 
+            [1,.5,.5],
+            [.65,.65,.9],
+            [1,1,1],
+            [.5,0.,0.]
+        ].flat());
+        // Lights.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ 
+            normalize([1,1,1]),
+            normalize([-1,-1,-.5]),
+            normalize([0,-1,0])
+        ].flat());
+        // Lights' colors.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
+            [.5,.7,1],
+            [.2,.15,.1],
+            [.5,0,0]
+        ].flat());
+        foxGL.render();
+    }
+    
+    let usePointer = false;
+    let uMouseX = 0;
+    let uMouseY = 0;
+    
+    let activatedSound = null;
+    let deactivatedSound = null;
+    
+    // Declare listeners.
+    onpointermove = async event => {
+        usePointer = true;
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onclick = async event => {
+        enlarge = !enlarge;
+        if(enlarge && activatedSound) {
+            activatedSound.currentTime = 0;
+            activatedSound.play();
+        }
+        else if(deactivatedSound) {
+            deactivatedSound.currentTime = 0;
+            deactivatedSound.play();
+        }
+        foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'blue':'red');
+    };
+    
+    onpointerleave = async event => {
+        usePointer = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
+
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
-    canvas.addEventListener('pointerleave', pointerleave);
+    canvas.addEventListener('pointerleave', onpointerleave);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
-    canvas.removeEventListener('pointerleave', pointerleave);
-});`,Cn=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onclick) canvas.removeEventListener('click', onclick);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};`,Cn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
@@ -1632,59 +1619,17 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,Gn=`// Author: TapiocaFox
+}`,zn=`// Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, onpointerleave, onclick, resizeObserver;
 
 const PI = 3.141592653589793;
 const NS = 4;
 const NL = 3;
-
-let destroyed = false;
-let usePointer = false;
-let enlarge = false;
-let uMouseX = 0;
-let uMouseY = 0;
-
-// Declare listeners.
-const onpointermove = async event => {
-    usePointer = true;
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-let activatedSound = null;
-let deactivatedSound = null;
-
-const onclick = async event => {
-    enlarge = !enlarge;
-    if(enlarge && activatedSound) {
-        activatedSound.currentTime = 0;
-        activatedSound.play();
-    }
-    else if(deactivatedSound) {
-        deactivatedSound.currentTime = 0;
-        deactivatedSound.play();
-    }
-    foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'blue':'red');
-};
-
-const pointerleave = async event => {
-    usePointer = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
 
 // Math.
 const normalize = v => {
@@ -1692,66 +1637,14 @@ const normalize = v => {
    return [ v[0]/s, v[1]/s, v[2]/s ];
 }
 
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    const RATIO_TIME = 0.66;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
-    
-    const sinRot = Math.sin(radianRotation);
-    const cosRot = Math.cos(radianRotation);
-
-    const sinThird = Math.sin(2*RATIO_TIME*uTime);
-    const cosThird = Math.cos(RATIO_TIME*uTime);
-    const sinFourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
-    const cosFourth = Math.cos(RATIO_TIME*uTime-.33*PI);
-
-    // Spheres.
-    const thridSphere = [usePointer?2*(uMouseX/canvas.width)-1:.7*cosThird,
-                         usePointer?2*(uMouseY/canvas.height)-1:.7*sinThird,
-                         .1,enlarge?.275:.225];
-    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ 
-        [-.4*sinRot,0,-.4*cosRot,.35],
-        [.4*sinRot,0,.4*cosRot,.35],
-        thridSphere,
-        [.7*cosFourth,.7*sinFourth,.1,.225]
-    ].flat());
-    // Spheres' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 
-        [1,.5,.5],
-        [.65,.65,1.],
-        [1,1,1],
-        [.5,0.,0.]
-    ].flat());
-    // Spheres' opacity and eta.
-    gl.uniform2fv(gl.getUniformLocation(program, 'uR'), [ 
-    [1., 1.],
-    [.5, 1.15],
-    [1.,1.],
-    [1.,1.]
-    ].flat());
-    // Lights.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ 
-        normalize([1,1,1]),
-        normalize([-1,-1,-.5]),
-        normalize([0,-1,0])
-    ].flat());
-    // Lights' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
-        [.6,.8,1],
-        [.2,.15,.1],
-        [.5,0,0]
-    ].flat());
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    let enlarge = false;
+    
     // Set status title.
     foxGL.setStatusTitle('Reflective Refractive Spheres');
     foxGL.reportStatus('Description', \`Click to enlarge the white sphere.\`, 'green');
@@ -1773,24 +1666,122 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 3);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        const RATIO_TIME = 0.66;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+
+        const radianRotation = 0.25*PI*Math.sin(RATIO_TIME*uTime);
+        
+        const sinRot = Math.sin(radianRotation);
+        const cosRot = Math.cos(radianRotation);
+
+        const sinThird = Math.sin(2*RATIO_TIME*uTime);
+        const cosThird = Math.cos(RATIO_TIME*uTime);
+        const sinFourth = Math.sin(2*(RATIO_TIME*uTime-.33*PI));
+        const cosFourth = Math.cos(RATIO_TIME*uTime-.33*PI);
+
+        // Spheres.
+        const thridSphere = [usePointer?2*(uMouseX/canvas.width)-1:.7*cosThird,
+                            usePointer?2*(uMouseY/canvas.height)-1:.7*sinThird,
+                            .1,enlarge?.275:.225];
+        gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [ 
+            [-.4*sinRot,0,-.4*cosRot,.35],
+            [.4*sinRot,0,.4*cosRot,.35],
+            thridSphere,
+            [.7*cosFourth,.7*sinFourth,.1,.225]
+        ].flat());
+        // Spheres' colors.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uC'), [ 
+            [1,.5,.5],
+            [.65,.65,1.],
+            [1,1,1],
+            [.5,0.,0.]
+        ].flat());
+        // Spheres' opacity and eta.
+        gl.uniform2fv(gl.getUniformLocation(program, 'uR'), [ 
+        [1., 1.],
+        [.5, 1.15],
+        [1.,1.],
+        [1.,1.]
+        ].flat());
+        // Lights.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [ 
+            normalize([1,1,1]),
+            normalize([-1,-1,-.5]),
+            normalize([0,-1,0])
+        ].flat());
+        // Lights' colors.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
+            [.6,.8,1],
+            [.2,.15,.1],
+            [.5,0,0]
+        ].flat());
+        foxGL.render();
+    }
     
+    let usePointer = false;
+    let uMouseX = 0;
+    let uMouseY = 0;
+    
+    let activatedSound = null;
+    let deactivatedSound = null;
+    
+    // Declare listeners.
+    onpointermove = async event => {
+        usePointer = true;
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onclick = async event => {
+        enlarge = !enlarge;
+        if(enlarge && activatedSound) {
+            activatedSound.currentTime = 0;
+            activatedSound.play();
+        }
+        else if(deactivatedSound) {
+            deactivatedSound.currentTime = 0;
+            deactivatedSound.play();
+        }
+        foxGL.reportStatus('enlarge', \`Enlarged: \${enlarge}\`, enlarge?'blue':'red');
+    };
+    
+    onpointerleave = async event => {
+        usePointer = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
+
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
-    canvas.addEventListener('pointerleave', pointerleave);
+    canvas.addEventListener('pointerleave', onpointerleave);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
-    canvas.removeEventListener('pointerleave', pointerleave);
-});`,q=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,V=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,zn=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onclick) canvas.removeEventListener('click', onclick);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};`,q=""+new URL("../assets/activated.Bse8Nsx6.wav",import.meta.url).href,V=""+new URL("../assets/deactivated.COA-aso_.wav",import.meta.url).href,Gn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Phong Reflection
@@ -1859,41 +1850,13 @@ void main() {
 // Title:  Phong Reflection
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, onpointerleave, resizeObserver;
 
 const PI = 3.141592653589793;
 const NS = 1;
 const NL = 2;
-
-let destroyed = false;
-let usePointer = false;
-let uMouseX = 0;
-let uMouseY = 0;
-let firstFrameRendered = false;
-
-// Declare listeners.
-const onpointermove = async event => {
-    usePointer = true;
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-const pointerleave = async event => {
-    usePointer = false;
-};
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-    firstFrameRendered = false;
-    animate();
-});
 
 // Math.
 const normalize = v => {
@@ -1901,48 +1864,12 @@ const normalize = v => {
    return [ v[0]/s, v[1]/s, v[2]/s ];
 }
 
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    if(firstFrameRendered) return;
-    requestAnimationFrame(animate);
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    // Spheres.
-    gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [
-        [0,0,0,.45]
-    ].flat());
-    
-    // Spheres' lighting.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uAmbient'), [
-        [ 0,0,.4 ]
-    ].flat());
-    gl.uniform3fv(gl.getUniformLocation(program, 'uDiffuse'), [
-        [ 0,0,.4 ]
-    ].flat());
-    gl.uniform4fv(gl.getUniformLocation(program, 'uSpecular'), [
-        [ 1,1,1,3 ]
-    ].flat());
-    
-    // Lights.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [
-        normalize([-.35,.35,.35]),
-        normalize([1,-1,-.5])
-    ].flat());
-
-    // Lights' colors.
-    gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
-        [.5,.7,1],
-        [.2,.15,.1]
-    ].flat());
-    foxGL.render();
-    firstFrameRendered = true;
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Phong Reflection');
 
@@ -1959,22 +1886,89 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 3);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        if(firstFrameRendered) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+    
+        // Spheres.
+        gl.uniform4fv(gl.getUniformLocation(program, 'uS'), [
+            [0,0,0,.45]
+        ].flat());
+        
+        // Spheres' lighting.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uAmbient'), [
+            [ 0,0,.4 ]
+        ].flat());
+        gl.uniform3fv(gl.getUniformLocation(program, 'uDiffuse'), [
+            [ 0,0,.4 ]
+        ].flat());
+        gl.uniform4fv(gl.getUniformLocation(program, 'uSpecular'), [
+            [ 1,1,1,3 ]
+        ].flat());
+        
+        // Lights.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uL'), [
+            normalize([-.35,.35,.35]),
+            normalize([1,-1,-.5])
+        ].flat());
+    
+        // Lights' colors.
+        gl.uniform3fv(gl.getUniformLocation(program, 'uLC'), [
+            [.5,.7,1],
+            [.2,.15,.1]
+        ].flat());
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+    
+    let usePointer = false;
+    let uMouseX = 0;
+    let uMouseY = 0;
+    let firstFrameRendered = false;
+    
+    // Declare listeners.
+    onpointermove = async event => {
+        usePointer = true;
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onpointerleave = async event => {
+        usePointer = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        firstFrameRendered = false;
+        animate();
+    });
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
-    canvas.addEventListener('pointerleave', pointerleave);
+    canvas.addEventListener('pointerleave', onpointerleave);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerleave', pointerleave);
-});`,Nn=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};`,Nn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Quadric Surface (System)
@@ -2153,14 +2147,12 @@ void main() {
     }
 
 }`,Bn=`// Author: TapiocaFox
-// Title:  Match The Texture
+// Title:  Quadric Surface (System)
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
+let onpointermove, onclick, resizeObserver;
 
 const qGlobal = [0,0,0,0,
                  0,0,0,0,
@@ -2331,70 +2323,12 @@ const systemNames = [
     'Sphere',
 ]
 
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-let blipSound = null;
-
-const onclick = async event => {
-    blipSound.currentTime = 0;
-    blipSound?.play();
-    systemIndex = (systemIndex+1)%systems.length;
-    foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`, 'blue');
-}
-
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-
-    let instances = [];
-    
-    
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    const cosScale = Math.cos(uTime);
-    const scaleSize = 0.1;
-    const breath = 1+scaleSize*cosScale;
-
-    const sinTranslation = Math.sin(.66*uTime);
-    const cosTranslation = Math.cos(.33*uTime);
-    const transaltionScale = .4;
-    const translateX = transaltionScale*sinTranslation;
-    const translateY = transaltionScale*cosTranslation;
-
-    let transform = scale(.45,.45,.45);
-    transform = mxm(transform,translate(translateX,translateY,0));
-    transform = mxm(transform,scale(breath,breath,breath));
-    transform = mxm(transform,rotateX(.66*uTime));
-    transform = mxm(transform,rotateY(.66*uTime));
-    // transform = mxm(transform,rotateZ(uTime));
-    const finalQSystem = qsxm(systems[systemIndex], transform).flat();
-    instances.push(finalQSystem);
-    
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
-    gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
-    gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
-    
-    foxGL.render();
-}
-
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Quadric Surface (System)');
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
@@ -2413,22 +2347,84 @@ foxGL.onStart(async () => {
     gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
     foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
+
+    let blipSound = null;
+    
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+    
+        let instances = [];
+        
+        
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+    
+        const cosScale = Math.cos(uTime);
+        const scaleSize = 0.1;
+        const breath = 1+scaleSize*cosScale;
+    
+        const sinTranslation = Math.sin(.66*uTime);
+        const cosTranslation = Math.cos(.33*uTime);
+        const transaltionScale = .4;
+        const translateX = transaltionScale*sinTranslation;
+        const translateY = transaltionScale*cosTranslation;
+    
+        let transform = scale(.45,.45,.45);
+        transform = mxm(transform,translate(translateX,translateY,0));
+        transform = mxm(transform,scale(breath,breath,breath));
+        transform = mxm(transform,rotateX(.66*uTime));
+        transform = mxm(transform,rotateY(.66*uTime));
+        // transform = mxm(transform,rotateZ(uTime));
+        const finalQSystem = qsxm(systems[systemIndex], transform).flat();
+        instances.push(finalQSystem);
+        
+        gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
+        gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
+        gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
+        
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onclick = async event => {
+        blipSound.currentTime = 0;
+        blipSound?.play();
+        systemIndex = (systemIndex+1)%systems.length;
+        foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`, 'blue');
+    }
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
     
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
     canvas.addEventListener('click', onclick);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('click', onclick);
-});`,On=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onclick) canvas.removeEventListener('click', onclick);
+};`,On=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Basic Noise
@@ -2651,11 +2647,9 @@ void main() {
 // Title:  Match The Texture
 
 // Init variables.
-const gl = foxGL.gl;
-const program = foxGL.program;
-const canvas = foxGL.canvas;
-
+let gl, program, canvas;
 let destroyed = false;
+let onpointermove, onpointerenter, onpointerleave, onclick, resizeObserver;
 
 const qGlobal = [0,0,0,0,
                  0,0,0,0,
@@ -2795,50 +2789,7 @@ const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
     return newSystem;
 }
 
-function randInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min);
-}
-
-function shuffleArray(array) {
-  let currentIndex = array.length;
-  let randomIndex; 
-  while (currentIndex !== 0) {
-    randomIndex = Math.floor(Math.random() * currentIndex);
-    currentIndex--; 
-    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
-  }
-  return array;
-}
-
 // Predefined systems.
-const numObjects = 16;
-const coolDownTime = 500;
-
-let flags_reveal = new Array(numObjects).fill(false);
-let flags_lock = new Array(numObjects).fill(false);
-let seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
-let seeds = shuffleArray([seedsUnique, seedsUnique].flat());
-let seletedSeed = null;
-let selectedIndex = null;
-let isCoolingDown = false;
-let matchCount = 0;
-
-function resetGame() {
-    flags_reveal = new Array(numObjects).fill(false);
-    flags_lock = new Array(numObjects).fill(false);
-    seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
-    seeds = shuffleArray([seedsUnique, seedsUnique].flat());
-    seletedSeed = null;
-    selectedIndex = null;
-    isCoolingDown = false;  
-    matchCount = 0;
-    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
-}
-
-// console.log(seedsUnique, seeds);
-
 const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
 const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
 const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
@@ -2865,131 +2816,62 @@ const systemNames = [
     'Sphere',
 ]
 
+const nearest_sq = n => Math.ceil(Math.sqrt(n));
+
+const numObjects = 16;
+const numGridSlice = nearest_sq(numObjects);
+const coolDownTime = 500;
+
+let flags_reveal = new Array(numObjects).fill(false);
+let flags_lock = new Array(numObjects).fill(false);
+let seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+let seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+let seletedSeed = null;
+let selectedIndex = null;
+let isCoolingDown = false;
+let matchCount = 0;
+
 let blipSound = null;
 let button1Sound = null;
 let button2Sound = null;
 let gmanWiseSound = null;
 let ambientSound = null;
 
-// Declare listeners.
-const onpointermove = async event => {
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
-    foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
-};
-
-const onpointerenter = async event => {
-    ambientSound?.play();
-};
-
-const onpointerleave = async event => {
-    ambientSound?.pause();
-};
-
-const onclick = async event => {
-    // systemIndex = (systemIndex+1)%systems.length;
-    // foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`, 'blue');
-    
-    blipSound.currentTime = 0;
-    blipSound?.play();
-    if(isCoolingDown) return;
-    const canvasRect = canvas.getBoundingClientRect();
-    const canvasHeight = canvasRect.bottom - canvasRect.top;
-    const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
-    const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-    const col = Math.floor((uMouseX/canvas.width)/(1/numGridSlice));
-    const row = Math.floor((uMouseY/canvas.height)/(1/numGridSlice));
-    const index = col+numGridSlice*row;
-    if(index == selectedIndex || flags_lock[index]) return;
-    if(seletedSeed == null) {
-        flags_reveal[index] = true;
-        seletedSeed = seeds[index];
-        selectedIndex = index;
-    }
-    else if(seeds[index] != seletedSeed) {
-        flags_reveal[index] = true;
-        button2Sound.currentTime = 0;
-        button2Sound?.play();
-        isCoolingDown = true;
-        setTimeout(() => {
-            isCoolingDown = false;
-            flags_reveal[selectedIndex] = false;
-            flags_reveal[index] = false;
-            seletedSeed = null;
-            selectedIndex = null;
-        }, coolDownTime);
-    }
-    else {
-        flags_reveal[index] = true;
-        flags_lock[index] = true;
-        flags_lock[selectedIndex] = true;
-        button1Sound.currentTime = 0;
-        button1Sound?.play();
-        seletedSeed = null;
-        selectedIndex = null;
-        matchCount += 2;
-        foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
-        if(matchCount == numObjects) {
-            gmanWiseSound.currentTime = 0;
-            gmanWiseSound?.play();
-            setTimeout(() => {
-                foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
-                resetGame();
-            }, 16*coolDownTime);
-        }
-    }
-    foxGL.reportStatus('ClickPos', \`Click Position: (\${uMouseX.toFixed(1)} [\${col}], \${uMouseY.toFixed(1)} [\${row}])\`);
+function randInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min);
 }
 
-const resizeObserver = new ResizeObserver(entries => {
-    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
-    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
-});
+function shuffleArray(array) {
+  let currentIndex = array.length;
+  let randomIndex; 
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex--; 
+    [array[currentIndex], array[randomIndex]] = [array[randomIndex], array[currentIndex]];
+  }
+  return array;
+}
 
-const nearest_sq = n => Math.ceil(Math.sqrt(n));
-const numGridSlice = nearest_sq(numObjects);
-
-// Render per animation frame.
-function animate() {
-    if(destroyed) return;
-    requestAnimationFrame(animate);
-
-    let instances = [];
-    
-    const uTime = (Date.now() - foxGL.startTime) / 1000;
-    gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
-    foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-
-    let uniformTransform = scale(1/numGridSlice,1/numGridSlice,1/numGridSlice);
-
-    for(let i=0; i<numGridSlice; i++) {
-        for(let j=0; j<numGridSlice; j++) {
-            const translateX = (2*j)-(numGridSlice-1);
-            const translateY = (2*i)-(numGridSlice-1);
-            const translateZ = (matchCount == numObjects)?2*Math.sin(uTime+i+j):.25*Math.sin(uTime+i+j);
-            const transform = mxm(uniformTransform,translate(translateX, translateY, translateZ));
-            const finalQSystem = qsxm(systems[systemIndex], transform).flat();
-            instances.push(finalQSystem);
-        }
-    }
-    
-
-    // instances.push(systems[2].flat());
-    
-    gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
-    gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
-    gl.uniform1iv(gl.getUniformLocation(program, 'uS'), seeds);
-    
-    // console.log(numObjects);
-    
-    foxGL.render();
+function resetGame() {
+    flags_reveal = new Array(numObjects).fill(false);
+    flags_lock = new Array(numObjects).fill(false);
+    seedsUnique = Array.from({ length: Math.ceil(numObjects / 2) }, () => randInt(0, 1000));
+    seeds = shuffleArray([seedsUnique, seedsUnique].flat());
+    seletedSeed = null;
+    selectedIndex = null;
+    isCoolingDown = false;  
+    matchCount = 0;
+    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
 }
 
 // Start lifecycle.
-foxGL.onStart(async () => {
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
     // Set status title.
     foxGL.setStatusTitle('Match The Texture');
     foxGL.reportStatus('Tips', 'Click to reveal texture to Gman.', 'green');
@@ -3014,7 +2896,115 @@ foxGL.onStart(async () => {
     gl.uniform3f(gl.getUniformLocation(program, 'uViewPoint'), 0, 0, 7);
     gl.uniform1i(gl.getUniformLocation(program, 'uNumQ'), numObjects);
     gl.uniform1f(gl.getUniformLocation(program, 'uSizeGrid'), 2/numGridSlice);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
     
+        let instances = [];
+        
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+    
+        let uniformTransform = scale(1/numGridSlice,1/numGridSlice,1/numGridSlice);
+    
+        for(let i=0; i<numGridSlice; i++) {
+            for(let j=0; j<numGridSlice; j++) {
+                const translateX = (2*j)-(numGridSlice-1);
+                const translateY = (2*i)-(numGridSlice-1);
+                const translateZ = (matchCount == numObjects)?2*Math.sin(uTime+i+j):.25*Math.sin(uTime+i+j);
+                const transform = mxm(uniformTransform,translate(translateX, translateY, translateZ));
+                const finalQSystem = qsxm(systems[systemIndex], transform).flat();
+                instances.push(finalQSystem);
+            }
+        }
+    
+        gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uQ'), false, instances.flat());
+        gl.uniform1iv(gl.getUniformLocation(program, 'uF'), flags_reveal);
+        gl.uniform1iv(gl.getUniformLocation(program, 'uS'), seeds);
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    onpointerenter = async event => {
+        ambientSound?.play();
+    };
+    
+    onpointerleave = async event => {
+        ambientSound?.pause();
+    };
+    
+    onclick = async event => {
+        // systemIndex = (systemIndex+1)%systems.length;
+        // foxGL.reportStatus('QSurface', \`Selected system: \${systemNames[systemIndex]}\`, 'blue');
+        
+        blipSound.currentTime = 0;
+        blipSound?.play();
+        if(isCoolingDown) return;
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        const col = Math.floor((uMouseX/canvas.width)/(1/numGridSlice));
+        const row = Math.floor((uMouseY/canvas.height)/(1/numGridSlice));
+        const index = col+numGridSlice*row;
+        if(index == selectedIndex || flags_lock[index]) return;
+        if(seletedSeed == null) {
+            flags_reveal[index] = true;
+            seletedSeed = seeds[index];
+            selectedIndex = index;
+        }
+        else if(seeds[index] != seletedSeed) {
+            flags_reveal[index] = true;
+            button2Sound.currentTime = 0;
+            button2Sound?.play();
+            isCoolingDown = true;
+            setTimeout(() => {
+                isCoolingDown = false;
+                flags_reveal[selectedIndex] = false;
+                flags_reveal[index] = false;
+                seletedSeed = null;
+                selectedIndex = null;
+            }, coolDownTime);
+        }
+        else {
+            flags_reveal[index] = true;
+            flags_lock[index] = true;
+            flags_lock[selectedIndex] = true;
+            button1Sound.currentTime = 0;
+            button1Sound?.play();
+            seletedSeed = null;
+            selectedIndex = null;
+            matchCount += 2;
+            foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
+            if(matchCount == numObjects) {
+                gmanWiseSound.currentTime = 0;
+                gmanWiseSound?.play();
+                setTimeout(() => {
+                    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
+                    resetGame();
+                }, 16*coolDownTime);
+            }
+        }
+        foxGL.reportStatus('ClickPos', \`Click Position: (\${uMouseX.toFixed(1)} [\${col}], \${uMouseY.toFixed(1)} [\${row}])\`);
+    }
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
+        
     // Register listeners on start.
     resizeObserver.observe(canvas);
     canvas.addEventListener('pointermove', onpointermove);
@@ -3022,18 +3012,18 @@ foxGL.onStart(async () => {
     canvas.addEventListener('pointerleave', onpointerleave);
     canvas.addEventListener('click', onclick);
     animate();
-});
+};
 
 // Stop lifecycle.
-foxGL.onStop(async () => {
+export const stop = async (foxGL) => {
     // Deregister listeners on stop.
     destroyed = true;
-    resizeObserver.disconnect();
-    canvas.removeEventListener('pointermove', onpointermove);
-    canvas.removeEventListener('pointerenter', onpointerenter);
-    canvas.removeEventListener('pointerleave', onpointerleave);
-    canvas.removeEventListener('click', onclick);
-});`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Dn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,qn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Vn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Xn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,Qn=`#version 300 es
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointermove) canvas.removeEventListener('pointerenter', onpointermove);
+    if(onpointermove) canvas.removeEventListener('pointerleave', onpointerleave);
+    if(onclick) canvas.removeEventListener('click', onclick);
+};`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Dn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,qn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Vn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Xn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,Qn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Bump Magnifier Distortion
@@ -3121,4 +3111,4 @@ void main() {
     color = mix(color, colorPointer, pct);
     color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
-}`,Yn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var Hn=T('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),kn=T('<div class="item webgl-item svelte-ahq8ot"><!></div>'),jn=T('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Zn=T("<!> <!>  <!> <!>",1);function ce(Q,Y){on(Y,!0);let s=cn("all"),H=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:_,categories:["distortion"]},{frag:wn,js:_,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:zn,js:Fn,categories:["raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Cn,js:Gn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Nn,js:Bn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:Sn,js:yn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Un,js:Wn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Dn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:qn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Vn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Xn}},categories:["noise","raycasting"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Qn,js:w,categories:["distortion"]},{vert:Tn,frag:Ln,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:In},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:Pn}},categories:[]}]}]);var M=Zn(),E=y(M);vn(E,{text:"Graphics"});var C=r(E,2);{let a=S(()=>[null,null,null,null,Yn,U,U]);un(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?_n("/webgl_editor"):an(s,o,!0)}})}var G=r(C,2);{var k=a=>{var o=Hn(),c=r(y(o),4),g=i(c),L=i(g);m(L,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),b=i(h);m(b,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return bn},get javascript(){return _},mode:"preview"}),t(R),t(v),f(a,o)};A(G,a=>{n(s)=="debug"&&a(k)})}var j=r(G,2);B(j,17,()=>H,O,(a,o)=>{var c=F(),g=y(c);{var L=l=>{var u=jn(),v=y(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var b=r(p,2);B(b,21,()=>n(o).practices,O,(R,e)=>{var z=F(),Z=y(z);{var $=I=>{var P=kn(),K=i(P);{let J=S(()=>n(e).vert?n(e).vert:d),nn=S(()=>n(e).frag?n(e).frag:fn),en=S(()=>n(e).js?n(e).js:mn),tn=S(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(P),f(I,P)};A(Z,I=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&I($)})}f(R,z)}),t(b),ln(()=>{N(x,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(L)})}f(a,c)}),f(Q,M),sn()}export{ce as component};
+}`,Yn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var kn=T('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Hn=T('<div class="item webgl-item svelte-ahq8ot"><!></div>'),jn=T('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Zn=T("<!> <!>  <!> <!>",1);function ce(Q,Y){on(Y,!0);let s=cn("all"),k=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:_,categories:["distortion"]},{frag:wn,js:_,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:Gn,js:Fn,categories:["raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Cn,js:zn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Nn,js:Bn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:Sn,js:yn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Un,js:Wn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Dn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:qn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Vn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Xn}},categories:["noise","raycasting"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Qn,js:w,categories:["distortion"]},{vert:Tn,frag:Ln,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:In},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:Pn}},categories:[]}]}]);var M=Zn(),E=y(M);vn(E,{text:"Graphics"});var C=r(E,2);{let a=S(()=>[null,null,null,null,Yn,U,U]);un(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?_n("/webgl_editor"):an(s,o,!0)}})}var z=r(C,2);{var H=a=>{var o=kn(),c=r(y(o),4),g=i(c),L=i(g);m(L,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),b=i(h);m(b,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return bn},get javascript(){return _},mode:"preview"}),t(R),t(v),f(a,o)};A(z,a=>{n(s)=="debug"&&a(H)})}var j=r(z,2);B(j,17,()=>k,O,(a,o)=>{var c=F(),g=y(c);{var L=l=>{var u=jn(),v=y(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var b=r(p,2);B(b,21,()=>n(o).practices,O,(R,e)=>{var G=F(),Z=y(G);{var $=I=>{var P=Hn(),K=i(P);{let J=S(()=>n(e).vert?n(e).vert:d),nn=S(()=>n(e).frag?n(e).frag:fn),en=S(()=>n(e).js?n(e).js:mn),tn=S(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(P),f(I,P)};A(Z,I=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&I($)})}f(R,G)}),t(b),ln(()=>{N(x,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(L)})}f(a,c)}),f(Q,M),sn()}export{ce as component};
