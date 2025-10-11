@@ -34,15 +34,3 @@ export interface TapiocaFoxGLContext {
     setShadersScriptAndAssets: (vertexShader: string, fragmentShader: string, javascript: string, assets: Record<string, Asset>) => void,
     refreshShadersAndScript: () => Promise<void>,
 }
-
-export type Asset = {
-    id: string;
-    type: 'image' | 'video' | 'audio' | 'blob';
-    srcType: 'local' | 'link';
-    src: string;
-}
-
-export type Status = {
-    text: string;
-    color: string;
-}

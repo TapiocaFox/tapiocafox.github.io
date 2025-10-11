@@ -6,7 +6,9 @@
     import default_js from '$lib/assets/webgl/default.js?raw';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
-    import type { TapiocaFoxGLContext, Asset, Status } from './TapiocaFoxGl';
+    import type { TapiocaFoxGLContext } from './TapiocaFoxGLContext';
+    import type { Asset, Status } from './TapiocaFoxWebGL';
+    import { createSandbox } from './TapiocaFoxWebGL';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);

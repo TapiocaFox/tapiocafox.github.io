@@ -53,10 +53,10 @@
     import Chips from '$lib/components/Chips.svelte';
     // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
-    import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGl';
+    import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGLContext';
 
-    import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGl.ts?raw';
-    import type { Asset } from '$lib/components/TapiocaFoxGl';
+    import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGLContext.ts?raw';
+    import type { Asset } from '$lib/components/TapiocaFoxGLContext';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
