@@ -86,6 +86,6 @@
     <img alt="Spiral 1" class="sqaure_item fade-in load-delay" src={spiral_1} style:float="left"/>
     <img alt="Spiral 2" class="sqaure_item fade-in load-delay" src={spiral_2} />
     <!-- <img alt="TapiocaFox" class="sqaure_item fade-in load-delay" src={tapiocafox}/> -->
-    <EndingDecoration/>
+    <!-- <EndingDecoration/> -->
 </div>
 <!-- <ArtDecoration/> -->
