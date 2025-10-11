@@ -40,6 +40,7 @@
     --load-animation-duration: .25s;
     --load-animation-delay: .08s;
     --secondary-load-animation-delay: .16s;
+    --tertiary-load-animation-delay: .195s;
     --load-animation-timing-function: ease;
 
     --main-nav-font-size: 1.015rem;
@@ -552,6 +553,9 @@
     }
     .load-delay, iframe {
         animation-delay: var(--secondary-load-animation-delay);
+    }
+    .load-extra-delay {
+        animation-delay: var(--tertiary-load-animation-delay);
     }
     @keyframes fadeInOpacity {
         0% {opacity: 0;}
