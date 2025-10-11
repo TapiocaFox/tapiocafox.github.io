@@ -7,12 +7,9 @@ export interface TapiocaFoxGLContext {
     startTime: number,
     lastRenderTime: number,
     devicePixelRatio: number,
-    // onStart: (start: () => Promise<void>) => void,
-    // onStop: (stop: () => Promise<void>) => void,
     render: () => void,
     setStatusTitle: (title: string) => void,
     reportStatus: (key: string, status: string, color: string) => void,
-    loadScriptFromSource: (src: string) => Promise<void>,
     getAssetById: (assetId: string) => Promise<HTMLImageElement | HTMLVideoElement | HTMLAudioElement | Blob>,
 
     // Do not access the things below.
@@ -23,10 +20,6 @@ export interface TapiocaFoxGLContext {
     sandbox: Sandbox,
     indexModule: IndexModule | null,
     assets: Record<string, Asset>
-    loadedScripts: Array<HTMLScriptElement>,
-    unloadLoadedScripts: () => void,
-    // invokeStart: (() => Promise<void>) | null,
-    // invokeStop: (() => Promise<void>) | null,
     optimizeViewPort: () => Promise<void>,
     initProgram: (vertexShader: string, fragmentShader: string) => void,
     importIndexModule: () => Promise<void>,

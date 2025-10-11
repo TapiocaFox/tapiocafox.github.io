@@ -11,22 +11,24 @@
     import resume_icon from '$lib/assets/icons/resume.svg';
     import linkedin_icon from '$lib/assets/icons/linkedin.svg';
     import tapiocafox_icon from '$lib/assets/icons/tapiocafox.png';
+    import { browser } from '$app/environment';
 
     // import GlslCanvas from '$lib/components/GlslCanvas.svelte';
 
     // import fiber_bg from '$lib/assets/webgl/practice_1/fiber_bg.frag?raw';
 
-    const hour = new Date().getHours();
-
-    let greeting = '';
-    if (hour >= 5 && hour < 12) {
-        greeting = 'Good Morning ☕.';
-    } else if (hour >= 12 && hour < 17) {
-        greeting = 'Good Afternoon 🍵.';
-    } else {
-        greeting = 'Good Evening 🌙.';
+    let greeting = 'Good Morning ☕.';
+    if(browser) {
+        const hour = new Date().getHours();
+        if (hour >= 5 && hour < 12) {
+            greeting = 'Good Morning ☕.';
+        } else if (hour >= 12 && hour < 17) {
+            greeting = 'Good Afternoon 🍵.';
+        } else {
+            greeting = 'Good Evening 🌙.';
+        }
+        // greeting = 'Good Evening 🌙.';
     }
-    // greeting = 'Good Evening 🌙.';
 </script>
 <style>
     .sqaure_item {
@@ -48,7 +50,7 @@
 
 <!-- <GlslCanvas mode='background' show_code_block={false} fragment_shader={fiber_bg}/> -->
 <div class="align-with-nav">
-    <h1 style:margin-block-end="0.2em">{greeting}</h1>
+    <h1 class="fade-in" style:margin-block-end="0.2em">{greeting}</h1>
     <!-- <h1 style:margin-block-end="0.3em">Good Evening 🌙.</h1> -->
     <div class="icon-description-layout">
         <div class="icon fade-in">

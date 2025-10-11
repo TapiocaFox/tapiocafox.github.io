@@ -91,7 +91,7 @@
                 sandbox: createSandbox(),
                 indexModule: null,
                 assets: {},
-                loadedScripts: [],
+                // loadedScripts: [],
 
                 // onStart: function(start) {
                 //     this.invokeStart = start;
@@ -132,12 +132,12 @@
                     await tick();
                 },
 
-                unloadLoadedScripts: function() {
-                    this.loadedScripts.forEach( (script) => {
-                        document.head.removeChild(script);
-                    });
-                    this.loadedScripts = [];
-                },
+                // unloadLoadedScripts: function() {
+                //     this.loadedScripts.forEach( (script) => {
+                //         document.head.removeChild(script);
+                //     });
+                //     this.loadedScripts = [];
+                // },
 
                 initProgram: function (vertexShader: string, fragmentShader: string) {
                     // console.log('initProgram');
@@ -209,7 +209,7 @@
                     const gl = this.gl;
                     this.newProgram();
                     await this.stop();
-                    this.unloadLoadedScripts();
+                    // this.unloadLoadedScripts();
                     await this.optimizeViewPort();
                     gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
                     this.startTime = Date.now();
@@ -232,7 +232,7 @@
 
                 refreshShadersAndScript: async function() {
                     await this.stop();
-                    this.unloadLoadedScripts();
+                    // this.unloadLoadedScripts();
                     await this.optimizeViewPort();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
@@ -251,16 +251,16 @@
                     };
                 },
 
-                loadScriptFromSource: async function(src: string) {
-                    return new Promise<void>((resolve, reject) => {
-                        const script = document.createElement('script');
-                        script.src = src;
-                        script.onload = () => resolve();
-                        script.onerror = (e) => reject(e);
-                        document.head.appendChild(script);
-                        this.loadedScripts.push(script);
-                    });
-                },
+                // loadScriptFromSource: async function(src: string) {
+                //     return new Promise<void>((resolve, reject) => {
+                //         const script = document.createElement('script');
+                //         script.src = src;
+                //         script.onload = () => resolve();
+                //         script.onerror = (e) => reject(e);
+                //         document.head.appendChild(script);
+                //         this.loadedScripts.push(script);
+                //     });
+                // },
 
                 getAssetById: async function(id: string) {
                     const asset = this.assets[id];
