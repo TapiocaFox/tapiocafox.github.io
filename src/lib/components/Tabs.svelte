@@ -5,6 +5,9 @@
     let selected_index = $derived(values.indexOf(selected_value));
 </script>
 <style>
+    :root {
+        --tabs-gap: .4em;
+    }
     div.tab-container {
         white-space: nowrap;
         overflow-x: auto;
@@ -20,7 +23,7 @@
     button {
         display: inline-block;
         vertical-align: middle;
-        margin: 0 2px 0 0;
+        margin: 0 var(--tabs-gap) 0 0;
         border-radius: 0;
         border-bottom: 0;
         /* filter: drop-shadow(0 0.5rem 1rem grey); */
@@ -59,8 +62,8 @@
         height: 1em;
         /* width: 1px; */
         /* margin-left: .25em; */
-        margin-right: calc(.5em );
-        margin-left: calc(.5em - 1px);
+        margin-right: calc(var(--tabs-gap));
+        margin-left: 0;
         vertical-align: middle;
     }
 </style>
