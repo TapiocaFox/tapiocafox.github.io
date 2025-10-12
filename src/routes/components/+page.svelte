@@ -114,36 +114,39 @@
 <p>"Option {chip_selected_value}" is selected.</p>
 
 <Tabs 
-bind:names={tab_names} 
-bind:values={tab_values}
-bind:inline_icons={tab_icons}
-bind:selected_value={tab_selected_value}
-bind:closable_list={tab_closable_list}
-onclose={on_close}
+  bind:names={tab_names} 
+  bind:values={tab_values}
+  bind:inline_icons={tab_icons}
+  bind:selected_value={tab_selected_value}
+  bind:closable_list={tab_closable_list}
+  onclose={on_close}
 
-bind:functional_names={functional_tab_names} 
-bind:functional_values={functional_tab_values}
-bind:functional_inline_icons={functional_tab_icons}
-onfunctional={on_tab_functional}
+  bind:functional_names={functional_tab_names} 
+  bind:functional_values={functional_tab_values}
+  bind:functional_inline_icons={functional_tab_icons}
+  onfunctional={on_tab_functional}
 />
 <hr style:margin-top="0" class="dotted">
 <p>Tab "{tab_selected_value}" is selected.</p>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
 <div class="card">
-    <h2><a href="/components">Components</a></h2>
-    <div class="icon-description-layout">
-        <div class="icon">
-            <img class="icon" alt="Icon" src={tapiocafox}/>
-        </div>
-        <div class="description">
-            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. ({version})</p>
-        </div>
-    </div>
-</div>
-
-<div class="card">
   <h2>Lorem Ipsum</h2>
+  <Tabs 
+    bind:names={tab_names} 
+    bind:values={tab_values}
+    bind:inline_icons={tab_icons}
+    bind:selected_value={tab_selected_value}
+    bind:closable_list={tab_closable_list}
+    onclose={on_close}
+
+    bind:functional_names={functional_tab_names} 
+    bind:functional_values={functional_tab_values}
+    bind:functional_inline_icons={functional_tab_icons}
+    onfunctional={on_tab_functional}
+  />
+<hr style:margin-top="0" class="dashed">
+
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <p><button class="text" onclick={() => {show_lena_window=!show_lena_window}}>Open the article in window <img class="inline-glyph" alt="Window" src={window_icon}/></button> (show: {show_lena_window})</p>
   <WindowBlock grab_element_id="lena-grabable" bind:show={show_lena_window} open_location="right">
@@ -180,6 +183,18 @@ Sed ullamcorper sed quam ac fringilla. Vestibulum ante ipsum primis in faucibus 
   </div>
   <p class="annotation"><a href="https://en.wikipedia.org/wiki/Lenna" target="_blank">Lenna</a> (or Lena) is a standard test image used in the field of digital image processing, starting in 1973.</p>
 </div>
+
+<div class="card">
+    <div class="icon-description-layout">
+        <div class="icon">
+            <img class="icon" alt="Icon" src={tapiocafox}/>
+        </div>
+        <div class="description">
+            <p>This is a page for debugging the components of this website. The website is written with <a href="https://svelte.dev" target="_blank">Svelte Tookit</a>. ({version})</p>
+        </div>
+    </div>
+</div>
+
 
 <!-- <h3>GLSL Canvases</h3> -->
 <!-- <p class="annotation">"GlslCanvasThree" is used for the left side, "TapiocaFoxWebGL" for the right.</p> -->
