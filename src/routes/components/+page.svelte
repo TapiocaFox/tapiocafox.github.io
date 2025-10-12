@@ -7,16 +7,72 @@
 	import lena from '$lib/assets/misc/lenna.png'
 	import tapiocafox from '$lib/assets/squares/tapiocafox.png';
   import Chips from '$lib/components/Chips.svelte';
+  import Tabs from '$lib/components/Tabs.svelte';
   // import GlslCanvasThree from '$lib/components/GlslCanvasThree.svelte';
   import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
 
   import mouse_frag from '$lib/assets/webgl/misc/mouse.frag?raw';
   import window_icon from '$lib/assets/icons/window.svg';
   import close_icon from '$lib/assets/icons/close.svg';
+  import reset_icon from '$lib/assets/icons/reset.svg';
+  import add_icon from '$lib/assets/icons/add.svg';
+  import document_icon from '$lib/assets/icons/document.svg';
+  import delete_icon from '$lib/assets/icons/delete.svg';
 
   import version from '$lib/version';
 
   let chip_selected_value = $state(-1);
+  let tab_selected_value = $state("none");
+
+  const default_tab_count = 3;
+  let accumalated_tabs = 0;
+
+  let tab_names: Array<string> = $state([]);
+  let tab_values: Array<string> = $state([]);
+  let tab_icons: Array<string> = $state([]);
+  let tab_closable_list: Array<boolean> = $state([]);
+  
+  let functional_tab_names = $state(['', '']);
+  let functional_tab_values = $state(['new_tab', 'reset']);
+  let functional_tab_icons = $state([add_icon, reset_icon]);
+
+  const new_tab = (closable: boolean) => {
+    tab_names.push(`Tab ${accumalated_tabs+1}`);
+    tab_values.push(`tab_${accumalated_tabs+1}`);
+    tab_icons.push(document_icon);
+    tab_closable_list.push(closable);
+    accumalated_tabs += 1;
+  };
+
+  const reset = () => {
+    tab_names = [];
+    tab_values = [];
+    tab_icons = [];
+    tab_closable_list = [];
+    accumalated_tabs = 0;
+    for(let i=0; i<default_tab_count; i++) {
+      new_tab(false);
+    }
+    tab_selected_value = tab_values[0];
+  };
+
+  reset();
+
+  const on_close = (value: string) => {
+    return confirm(`Close tab "${value}"?`);
+  };
+
+  const on_tab_functional = (value: string) => {
+    // console.log(`on_tab_functional: ${value}`);
+    if(value=='new_tab') {
+      console.log(`on_tab_functional: ${value}`);
+      new_tab(true);
+    }
+    else if(value='reset') {
+      reset();
+    }
+  };
+
   let grid_item_num = $state(12);
 	let item_min_width = $state(32);
 	let item_max_width = $state(128);
@@ -55,6 +111,21 @@
   }}
 />
 <p>"Option {chip_selected_value}" is selected.</p>
+
+<Tabs 
+bind:names={tab_names} 
+bind:values={tab_values}
+bind:inline_icons={tab_icons}
+bind:selected_value={tab_selected_value}
+bind:closable_list={tab_closable_list}
+onclose={on_close}
+
+bind:functional_names={functional_tab_names} 
+bind:functional_values={functional_tab_values}
+bind:functional_inline_icons={functional_tab_icons}
+onfunctional={on_tab_functional}
+/>
+<p>Tab "{tab_selected_value}" is selected.</p>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
 <div class="card">

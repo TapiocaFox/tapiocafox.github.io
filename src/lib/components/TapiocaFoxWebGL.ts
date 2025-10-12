@@ -58,18 +58,18 @@ export function createSandbox(): Sandbox {
   }
 
   function handlePromiseRejection(event: PromiseRejectionEvent) {
-    let moduleName = "unknown module";
-    // Try to extract from stack if available
-    if (event.reason instanceof Error && event.reason.stack) {
-      const stack = event.reason.stack;
-      for (const mod of modules.values()) {
-        if (stack.includes(mod.url)) {
-          moduleName = getModuleNameFromUrl(mod.url);
-          break;
-        }
-      }
+    const reason = event.reason;
+    if (!(reason instanceof Error) || !reason.stack) return;
+
+    const stack = reason.stack;
+    const mod = [...modules.values()].find(m => stack.includes(m.url));
+
+    if (mod) {
+      notifyError(getModuleNameFromUrl(mod.url), reason);
+    } else {
+      // Optional: log but ignore, or handle separately
+      console.debug("[Sandbox] Ignoring external promise rejection:", reason);
     }
-    notifyError(moduleName, event.reason);
   }
 
   window.addEventListener("error", handleWindowError);

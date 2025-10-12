@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/Deqrqek0.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as pn,h as xn,d as hn,l as yn,c as Sn}from"../chunks/CB2R9zhL.js";import{g as bn}from"../chunks/BFgQYWSW.js";const b=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/DR3FWEft.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as pn,h as xn,d as hn,l as yn,c as Sn}from"../chunks/CB2R9zhL.js";import{g as bn}from"../chunks/CbGU-4oP.js";const b=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
@@ -3048,6 +3048,7 @@ const mesh = [
     0, 1,0, 0,0,1,
     -1,-1,0, 0,0,1,
     1,-1,0, 0,0,1,]
+const vertexNum = mesh.length / vertexSize;
 
 // Start lifecycle.
 export const start = async (foxGL) => {
@@ -3069,7 +3070,7 @@ export const start = async (foxGL) => {
 
     const aNor = gl.getAttribLocation(program, 'aNor');
     gl.enableVertexAttribArray(aNor);
-    gl.vertexAttribPointer(aNor, 3, gl.FLOAT, false, vertexSize*4, 3*4);
+    gl.vertexAttribPointer(aNor, 3, gl.FLOAT, false, vertexSize*4, vertexNum*4);
     
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh), gl.STATIC_DRAW);
     
@@ -3084,7 +3085,7 @@ export const start = async (foxGL) => {
         const uTime = (Date.now() - foxGL.startTime) / 1000;
         gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
         foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
-        gl.drawArrays(gl.TRIANGLES, 0, mesh.length / 6);
+        gl.drawArrays(gl.TRIANGLES, 0, vertexNum);
         foxGL.render();
     }
     

@@ -11,6 +11,7 @@ const mesh = [
     0, 1,0, 0,0,1,
     -1,-1,0, 0,0,1,
     1,-1,0, 0,0,1,]
+const vertexNum = mesh.length / vertexSize;
 
 // Start lifecycle.
 export const start = async (foxGL) => {
@@ -32,7 +33,7 @@ export const start = async (foxGL) => {
 
     const aNor = gl.getAttribLocation(program, 'aNor');
     gl.enableVertexAttribArray(aNor);
-    gl.vertexAttribPointer(aNor, 3, gl.FLOAT, false, vertexSize*4, 3*4);
+    gl.vertexAttribPointer(aNor, 3, gl.FLOAT, false, vertexSize*4, vertexNum*4);
     
     gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh), gl.STATIC_DRAW);
     
@@ -47,7 +48,7 @@ export const start = async (foxGL) => {
         const uTime = (Date.now() - foxGL.startTime) / 1000;
         gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
         foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
-        gl.drawArrays(gl.TRIANGLES, 0, mesh.length / 6);
+        gl.drawArrays(gl.TRIANGLES, 0, vertexNum);
         foxGL.render();
     }
     
