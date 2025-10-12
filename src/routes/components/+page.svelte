@@ -145,13 +145,27 @@
     bind:functional_inline_icons={functional_tab_icons}
     onfunctional={on_tab_functional}
   />
-<hr style:margin-top="0" class="dashed">
+  <hr style:margin-top="0" class="dashed">
 
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
   <p><button class="text" onclick={() => {show_lena_window=!show_lena_window}}>Open the article in window <img class="inline-glyph" alt="Window" src={window_icon}/></button> (show: {show_lena_window})</p>
   <WindowBlock grab_element_id="lena-grabable" bind:show={show_lena_window} open_location="right">
     <h2 id="lena-grabable"><button class="no-style" onclick={()=>{show_lena_window=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Window: Lorem Ipsum</h2>
     <p class="annotation">Grab the title to drag the window around.</p>
+    <Tabs 
+      bind:names={tab_names} 
+      bind:values={tab_values}
+      bind:inline_icons={tab_icons}
+      bind:selected_value={tab_selected_value}
+      bind:closable_list={tab_closable_list}
+      onclose={on_close}
+
+      bind:functional_names={functional_tab_names} 
+      bind:functional_values={functional_tab_values}
+      bind:functional_inline_icons={functional_tab_icons}
+      onfunctional={on_tab_functional}
+    />
+    <hr style:margin-top="0" class="dotted">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor odio eu ullamcorper consectetur. Integer malesuada mauris vel ipsum semper dictum. Mauris quis sem ut velit mollis interdum. Aliquam et eros ac nunc suscipit bibendum. Phasellus finibus urna sit amet lorem posuere, non volutpat urna tristique. Sed auctor, quam a fringilla imperdiet, ligula urna ornare urna, at sodales urna mauris sit amet dui. Curabitur auctor interdum aliquet.
 
 Suspendisse potenti. Aliquam egestas pharetra bibendum. In dignissim ante ligula. Donec pretium purus sed suscipit sodales. Sed malesuada eget nulla in auctor. Aenean vel tristique augue. Sed erat nulla, tempor ac metus nec, euismod interdum ligula. Proin pellentesque enim et porta posuere.
