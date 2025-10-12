@@ -50,6 +50,9 @@
     import texture_match_frag from '$lib/assets/webgl/practice_3/texture_match.frag?raw';
     import texture_match_js from '$lib/assets/webgl/practice_3/texture_match.js?raw';
     
+    import simple_mesh_frag from '$lib/assets/webgl/practice_4/simple_mesh.frag?raw';
+    import simple_mesh_js from '$lib/assets/webgl/practice_4/simple_mesh.js?raw';
+    
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
     import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
     import hl_blip1_sound from '$lib/assets/webgl/practice_3/sounds/blip1.wav';
@@ -63,7 +66,7 @@
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
     import { goto } from '$app/navigation';
-    import type { Asset } from '$lib/components/TapiocaFoxGl';
+    import type { Asset } from '$lib/components/TapiocaFoxWebGL';
     
     let selected_category = $state('all');
 
@@ -291,6 +294,17 @@
             ]
         },
         {
+            title: 'Practice 4',
+            description: 'Triangles, meshes, strips and transformation matrix.',
+            practices: [
+                {
+                    frag: simple_mesh_frag,
+                    js: simple_mesh_js,
+                    categories: ['mesh']
+                },
+            ]
+        },
+        {
             title: 'Unorganized',
             description: 'Things that are not organized to any cluster yet.',
             practices: [
@@ -333,9 +347,9 @@
 </style>
 <HeaderWithBackButton text="Graphics"/>
 <Chips 
-  names={['All categories', 'Noise', 'Distortion', 'Ray casting', 'Debug', 'Editor']}
-  inline_icons={[null, null, null, null, debug_icon, edit_icon, edit_icon]}
-  values={['all', 'noise', 'distortion', 'raycasting', 'debug', 'editor']}
+  names={['All categories', 'Noise', 'Distortion', 'Ray casting', 'Mesh', 'Debug', 'Editor']}
+  inline_icons={[null, null, null, null, null, debug_icon, edit_icon, edit_icon]}
+  values={['all', 'noise', 'distortion', 'raycasting', 'mesh', 'debug', 'editor']}
   dividers={['debug']}
   selected_value={selected_category}
   callback={(value: any) => {

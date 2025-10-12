@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/D-J5QRVk.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as xn,h as pn,d as hn,l as yn,c as Sn}from"../chunks/CB2R9zhL.js";import{g as _n}from"../chunks/DRzyOnOe.js";const _=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as on,aH as rn,f as T,e as y,a as f,b as sn,s as r,k as an,i as n,j as cn,aA as S,c as i,r as t,g as F,t as ln}from"../chunks/DuvEInI2.js";import{s as N}from"../chunks/7z5teZwa.js";import{i as A}from"../chunks/CjISyPlu.js";import{e as B,i as O}from"../chunks/C1OkaSYx.js";import{C as un}from"../chunks/KNxH3l1H.js";import{H as vn}from"../chunks/Db9z64qk.js";import{e as U,T as m,d,a as fn,b as mn}from"../chunks/DXCxrgQt.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as dn,b as gn,r as pn,h as xn,d as hn,l as yn,c as Sn}from"../chunks/CB2R9zhL.js";import{g as bn}from"../chunks/DhYJdPgx.js";const b=`// Author: TapiocaFox
 // Title:  Frame Skip Renderer
 
 // Init variables.
@@ -166,7 +166,7 @@ export const stop = async (foxGL) => {
     if(resizeObserver) resizeObserver.disconnect();
     if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
     if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
-};`,bn=`#version 300 es
+};`,_n=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -294,7 +294,7 @@ void main() {
     color = mix(color, vec3(0.), pctNoiseB);
 
     fragColor = vec4(color,1.0);
-}`,D=`#version 300 es
+}`,W=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Sin
@@ -805,7 +805,7 @@ uniform sampler2D uSampler;
 
 void main(void) {
   gl_FragColor = texture2D(uSampler, vTextureCoord);
-}`,In=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,Pn=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
+}`,Pn=""+new URL("../assets/uvmap_grid.Dk-1NtMV.jpg",import.meta.url).href,In=""+new URL("../assets/hl_button3.oGfxuWLl.wav",import.meta.url).href,An=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Fiber
@@ -1332,7 +1332,7 @@ export const stop = async (foxGL) => {
     if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
     if(onclick) canvas.removeEventListener('click', onclick);
     if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
-};`,Cn=`#version 300 es
+};`,zn=`#version 300 es
 
 // Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
@@ -1619,7 +1619,7 @@ void main() {
 
     fragColor = mix(vec4(0.,0.,0.,1.),fragColor,F.a);
     // fragColor = mix(colorBg,fragColor,F.a);
-}`,zn=`// Author: TapiocaFox
+}`,Cn=`// Author: TapiocaFox
 // Title:  Reflective Refractive Spheres
 
 // Init variables.
@@ -2643,7 +2643,7 @@ void main() {
             minX = tI1.x;
         }
     }
-}`,Wn=`// Author: TapiocaFox
+}`,Dn=`// Author: TapiocaFox
 // Title:  Match The Texture
 
 // Init variables.
@@ -3023,7 +3023,99 @@ export const stop = async (foxGL) => {
     if(onpointermove) canvas.removeEventListener('pointerenter', onpointermove);
     if(onpointermove) canvas.removeEventListener('pointerleave', onpointerleave);
     if(onclick) canvas.removeEventListener('click', onclick);
-};`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Dn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,qn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Vn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Xn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,Qn=`#version 300 es
+};`,Wn=`#version 300 es
+
+// Author: TapiocaFox
+// Title:  Simple Mesh
+
+precision highp float;
+
+in  vec3 vPos, vNor;
+out vec4 fragColor;
+
+void main() {
+   fragColor = vec4(vPos, 1.);
+}`,qn=`// Author: TapiocaFox
+// Title:  Simple Mesh
+
+// Init variables.
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
+
+const vertexSize = 6;
+const mesh = [
+    0, 1,0, 0,0,1,
+    -1,-1,0, 0,0,1,
+    1,-1,0, 0,0,1,]
+
+// Start lifecycle.
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+
+    // Set status title.
+    foxGL.setStatusTitle('Simple Mesh');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+    
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, vertexSize*4, 0);
+
+    const aNor = gl.getAttribLocation(program, 'aNor');
+    gl.enableVertexAttribArray(aNor);
+    gl.vertexAttribPointer(aNor, 3, gl.FLOAT, false, vertexSize*4, 3*4);
+    
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(mesh), gl.STATIC_DRAW);
+    
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        gl.drawArrays(gl.TRIANGLES, 0, mesh.length / 6);
+        foxGL.render();
+    }
+    
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+    });
+        
+    // Register listeners on start.
+    canvas.addEventListener('pointermove', onpointermove);
+    resizeObserver.observe(canvas);
+    animate();
+};
+
+// Stop lifecycle.
+export const stop = async (foxGL) => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(resizeObserver) resizeObserver.disconnect();
+};`,X=""+new URL("../assets/blip1.Db9rI5k-.wav",import.meta.url).href,Vn=""+new URL("../assets/button1.Cro1Iv89.wav",import.meta.url).href,Xn=""+new URL("../assets/button2.BmEnIolR.wav",import.meta.url).href,Qn=""+new URL("../assets/industrial1.B-SN7Icb.wav",import.meta.url).href,Yn=""+new URL("../assets/gman_wise.CYiLjyZP.wav",import.meta.url).href,kn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Bump Magnifier Distortion
@@ -3111,4 +3203,4 @@ void main() {
     color = mix(color, colorPointer, pct);
     color += color*specular.xyz*principleSpecular;
     fragColor = vec4(color,1.0);
-}`,Yn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var kn=T('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Hn=T('<div class="item webgl-item svelte-ahq8ot"><!></div>'),jn=T('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Zn=T("<!> <!>  <!> <!>",1);function ce(Q,Y){on(Y,!0);let s=cn("all"),k=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:_,categories:["distortion"]},{frag:wn,js:_,categories:[]},{frag:xn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:Gn,js:Fn,categories:["raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Cn,js:zn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Nn,js:Bn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:Sn,js:yn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:pn}},categories:["noise"]},{frag:Un,js:Wn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Dn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:qn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Vn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Xn}},categories:["noise","raycasting"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:Qn,js:w,categories:["distortion"]},{vert:Tn,frag:Ln,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:In},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:Pn}},categories:[]}]}]);var M=Zn(),E=y(M);vn(E,{text:"Graphics"});var C=r(E,2);{let a=S(()=>[null,null,null,null,Yn,U,U]);un(C,{names:["All categories","Noise","Distortion","Ray casting","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?_n("/webgl_editor"):an(s,o,!0)}})}var z=r(C,2);{var H=a=>{var o=kn(),c=r(y(o),4),g=i(c),L=i(g);m(L,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _}}),t(l),t(c);var v=r(c,6),x=i(v),p=i(x);m(p,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return w},mode:"preview"}),t(x);var h=r(x,2),b=i(h);m(b,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return _},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return bn},get javascript(){return _},mode:"preview"}),t(R),t(v),f(a,o)};A(z,a=>{n(s)=="debug"&&a(H)})}var j=r(z,2);B(j,17,()=>k,O,(a,o)=>{var c=F(),g=y(c);{var L=l=>{var u=jn(),v=y(u),x=i(v,!0);t(v);var p=r(v,2),h=i(p,!0);t(p);var b=r(p,2);B(b,21,()=>n(o).practices,O,(R,e)=>{var G=F(),Z=y(G);{var $=I=>{var P=Hn(),K=i(P);{let J=S(()=>n(e).vert?n(e).vert:d),nn=S(()=>n(e).frag?n(e).frag:fn),en=S(()=>n(e).js?n(e).js:mn),tn=S(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(P),f(I,P)};A(Z,I=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&I($)})}f(R,G)}),t(b),ln(()=>{N(x,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(L)})}f(a,c)}),f(Q,M),sn()}export{ce as component};
+}`,Hn="data:image/svg+xml,%3c?xml%20version='1.0'%20encoding='utf-8'?%3e%3c!--%20Uploaded%20to:%20SVG%20Repo,%20www.svgrepo.com,%20Generator:%20SVG%20Repo%20Mixer%20Tools%20--%3e%3csvg%20fill='%23000000'%20width='800px'%20height='800px'%20viewBox='0%200%2024%2024'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M12,2%20C14.1421954,2%2015.8910789,3.68396847%2015.9951047,5.80035966%20L16,6%20L16.0009007,6.17102423%20C16.8482841,6.47083722%2017.5208107,7.14059603%2017.8243776,7.98619771%20C18.3775427,7.93308996%2018.8969141,7.68887231%2019.2928932,7.29289322%20C19.7003708,6.88541564%2019.9471452,6.3472755%2019.9924253,5.77695139%20L20,5.58578644%20L20,5%20L20.0067277,4.88337887%20C20.0644928,4.38604019%2020.4871642,4%2021,4%20C21.5128358,4%2021.9355072,4.38604019%2021.9932723,4.88337887%20L22,5%20L22,5.58578644%20L21.9938294,5.81921837%20C21.9363787,6.90490079%2021.479744,7.93446953%2020.7071068,8.70710678%20C19.9777124,9.43650119%2019.0193415,9.88427517%2018.0009458,9.98044661%20L18,12%20L21,12%20C21.5522847,12%2022,12.4477153%2022,13%20C22,13.5522847%2021.5522847,14%2021,14%20L18,14%20L18.0009458,16.0195534%20C19.0193415,16.1157248%2019.9777124,16.5634988%2020.7071068,17.2928932%20C21.479744,18.0655305%2021.9363787,19.0950992%2021.9938294,20.1807816%20L22,20.4142136%20L22,21%20C22,21.5522847%2021.5522847,22%2021,22%20C20.4871642,22%2020.0644928,21.6139598%2020.0067277,21.1166211%20L20,21%20L20,20.4142136%20C20,19.7739243%2019.7456461,19.1598596%2019.2928932,18.7071068%20C18.8854156,18.2996292%2018.3472755,18.0528548%2017.7769514,18.0075747%20L17.6572765,18.0037085%20C16.8325575,20.3321558%2014.6110517,22%2012,22%20C9.38894833,22%207.16744253,20.3321558%206.34272355,18.0037085%20L6.22304861,18.0075747%20C5.6527245,18.0528548%205.11458436,18.2996292%204.70710678,18.7071068%20C4.2996292,19.1145844%204.05285477,19.6527245%204.00757466,20.2230486%20L4,20.4142136%20L4,21%20L3.99327227,21.1166211%20C3.93550716,21.6139598%203.51283584,22%203,22%20C2.48716416,22%202.06449284,21.6139598%202.00672773,21.1166211%20L2,21%20L2,20.4142136%20L2.00617059,20.1807816%20C2.06362127,19.0950992%202.52025597,18.0655305%203.29289322,17.2928932%20C4.02252654,16.5632599%204.98128639,16.1154315%206.00005498,16.019459%20L6,14%20L3,14%20C2.44771525,14%202,13.5522847%202,13%20C2,12.4477153%202.44771525,12%203,12%20L6,12%20L6.00005498,9.980541%20C4.98128639,9.88456847%204.02252654,9.4367401%203.29289322,8.70710678%20C2.52025597,7.93446953%202.06362127,6.90490079%202.00617059,5.81921837%20L2,5.58578644%20L2,5%20C2,4.44771525%202.44771525,4%203,4%20C3.51283584,4%203.93550716,4.38604019%203.99327227,4.88337887%20L4,5%20L4,5.58578644%20C4,6.22607568%204.25435391,6.84014035%204.70710678,7.29289322%20C5.10308588,7.68887231%205.62245732,7.93308996%206.1748463,7.98811167%20C6.47930745,7.14026687%207.15223954,6.47031582%208.00008893,6.17067428%20L8,6%20C8,3.790861%209.790861,2%2012,2%20Z%20M15,8%20L9,8%20C8.48716416,8%208.06449284,8.38604019%208.00672773,8.88337887%20L8,9%20L8,16%20C8,18.209139%209.790861,20%2012,20%20C14.1421954,20%2015.8910789,18.3160315%2015.9951047,16.1996403%20L16,16%20L16,9%20C16,8.48716416%2015.6139598,8.06449284%2015.1166211,8.00672773%20L15,8%20Z%20M12,4%20C10.9456382,4%2010.0818349,4.81587779%2010.0054857,5.85073766%20L10,6%20L14,6%20C14,4.99835629%2013.2636703,4.16869161%2012.3027743,4.0227694%20L12.1492623,4.00548574%20L12,4%20Z'/%3e%3c/svg%3e";var jn=T('<h3>Debug</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div> <h3>Debug (Preview mode)</h3> <p class="annotation">WebGL2 shaders for debugging.</p> <div class="flex_grid gallery"><div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div> <div class="item webgl-item svelte-ahq8ot"><!></div></div>',1),Zn=T('<div class="item webgl-item svelte-ahq8ot"><!></div>'),$n=T('<h3> </h3> <p class="annotation"> </p> <div class="flex_grid gallery"></div>',1),Kn=T("<!> <!>  <!> <!>",1);function ue(Q,Y){on(Y,!0);let s=cn("all"),k=rn([{title:"Practice One",description:"Abstract fragment shader patterns animated over time. Some of them are interactive with mouse position. (Part of assignment one.)",practices:[{frag:dn,categories:["distortion"]},{frag:gn,categories:[]},{frag:An,js:b,categories:["distortion"]},{frag:wn,js:b,categories:[]},{frag:pn,categories:["noise"]}]},{title:"Practice Two",description:"Ray casting of spheres, phong reflection, quadric surfaces and transformations. (Part of assignment two and three.)",practices:[{frag:Gn,js:Fn,categories:["raycasting"]},{frag:Mn,js:En,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:zn,js:Cn,assets:{hl_deactivated:{id:"hl_deactivated",type:"audio",srcType:"link",src:V},hl_activated:{id:"hl_activated",type:"audio",srcType:"link",src:q}},categories:["noise","raycasting"]},{frag:Nn,js:Bn,assets:{hl_blip:{id:"hl_blip",type:"audio",srcType:"link",src:X}},categories:["raycasting"]}]},{title:"Practice Three",description:"Procedural texture generation. (Part of assignment four.)",practices:[{frag:On,categories:["noise"]},{frag:Sn,js:yn,assets:{hl_alien_blipper:{id:"hl_alien_blipper",type:"audio",srcType:"link",src:hn},hl_alienappeal:{id:"hl_alienappeal",type:"audio",srcType:"link",src:xn}},categories:["noise"]},{frag:Un,js:Dn,assets:{hl_button1:{id:"hl_button1",type:"audio",srcType:"link",src:Vn},hl_button2:{id:"hl_button_2",type:"audio",srcType:"link",src:Xn},hl_blip1:{id:"hl_blip1",type:"audio",srcType:"link",src:X},hl_industrial1:{id:"hl_industrial1",type:"audio",srcType:"link",src:Qn},hl_gman_wise:{id:"hl_gman_wise",type:"audio",srcType:"link",src:Yn}},categories:["noise","raycasting"]}]},{title:"Practice 4",description:"Triangles, meshes, strips and transformation matrix.",practices:[{frag:Wn,js:qn,categories:["mesh"]}]},{title:"Unorganized",description:"Things that are not organized to any cluster yet.",practices:[{frag:kn,js:w,categories:["distortion"]},{vert:Tn,frag:Ln,js:Rn,assets:{uvmap:{id:"uvmap",type:"image",srcType:"link",src:Pn},hl_button:{id:"hl_button",type:"audio",srcType:"link",src:In}},categories:[]}]}]);var M=Kn(),E=y(M);vn(E,{text:"Graphics"});var z=r(E,2);{let a=S(()=>[null,null,null,null,null,Hn,U,U]);un(z,{names:["All categories","Noise","Distortion","Ray casting","Mesh","Debug","Editor"],get inline_icons(){return n(a)},values:["all","noise","distortion","raycasting","mesh","debug","editor"],dividers:["debug"],get selected_value(){return n(s)},callback:o=>{o=="editor"?bn("/webgl_editor"):an(s,o,!0)}})}var C=r(z,2);{var H=a=>{var o=jn(),c=r(y(o),4),g=i(c),L=i(g);m(L,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return w}}),t(g);var l=r(g,2),u=i(l);m(u,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return b}}),t(l),t(c);var v=r(c,6),p=i(v),x=i(p);m(x,{get vertex_shader(){return d},get fragment_shader(){return D},get javascript(){return w},mode:"preview"}),t(p);var h=r(p,2),_=i(h);m(_,{get vertex_shader(){return d},get fragment_shader(){return W},get javascript(){return b},mode:"preview"}),t(h);var R=r(h,2),e=i(R);m(e,{get vertex_shader(){return d},get fragment_shader(){return _n},get javascript(){return b},mode:"preview"}),t(R),t(v),f(a,o)};A(C,a=>{n(s)=="debug"&&a(H)})}var j=r(C,2);B(j,17,()=>k,O,(a,o)=>{var c=F(),g=y(c);{var L=l=>{var u=$n(),v=y(u),p=i(v,!0);t(v);var x=r(v,2),h=i(x,!0);t(x);var _=r(x,2);B(_,21,()=>n(o).practices,O,(R,e)=>{var G=F(),Z=y(G);{var $=P=>{var I=Zn(),K=i(I);{let J=S(()=>n(e).vert?n(e).vert:d),nn=S(()=>n(e).frag?n(e).frag:fn),en=S(()=>n(e).js?n(e).js:mn),tn=S(()=>n(e).assets?n(e).assets:{});m(K,{get vertex_shader(){return n(J)},get fragment_shader(){return n(nn)},get javascript(){return n(en)},get assets(){return n(tn)}})}t(I),f(P,I)};A(Z,P=>{(n(s)=="all"||n(e).categories.includes(n(s)))&&P($)})}f(R,G)}),t(_),ln(()=>{N(p,n(o).title),N(h,n(o).description)}),f(l,u)};A(g,l=>{n(o).practices.filter(u=>n(s)=="all"||u.categories.includes(n(s))).length>0&&l(L)})}f(a,c)}),f(Q,M),sn()}export{ue as component};

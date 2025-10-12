@@ -234,6 +234,10 @@
                     await this.stop();
                     // this.unloadLoadedScripts();
                     await this.optimizeViewPort();
+                    const statusDict = this.statusDict;
+                    for (const key in statusDict) {
+                        delete statusDict[key];
+                    }
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
                     await this.start();
