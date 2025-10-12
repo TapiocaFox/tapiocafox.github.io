@@ -16,6 +16,11 @@ export type IndexModule = {
   stop: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
 }
 
+export type ModuleSource = {
+  name: string;
+  code: string;
+};
+
 type ModuleRecord = {
   code: string;
   url: string;

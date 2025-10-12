@@ -7,7 +7,7 @@
 
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
-    import default_js from '$lib/assets/webgl/default.js?raw';
+    import default_modules from '$lib/assets/webgl/default_modules';
     import frame_skip_js from '$lib/assets/webgl/misc/frame_skip.js?raw';
     import passive_render_js from '$lib/assets/webgl/misc/passive_render.js?raw';
     
@@ -73,7 +73,7 @@
     type Practice = {
         vert?: string,
         frag?: string,
-        js?: string,
+        modules?: Record<string, string>,
         assets?: Record<string, Asset>,
         categories: string[]
     };
@@ -108,12 +108,12 @@
                 },
                 {
                     frag: fiber,
-                    js: frame_skip_js,
+                    modules: {index: frame_skip_js},
                     categories: ['distortion']
                 },
                 {
                     frag: array,
-                    js: frame_skip_js,
+                    modules: {index: frame_skip_js},
                     categories: []
                 },
                 {
@@ -138,7 +138,7 @@
                 // },
                 {
                     frag: phong_frag,
-                    js: phong_js,
+                    modules: {index: phong_js},
                     categories: ['raycasting']
                 },
                 // {
@@ -162,7 +162,7 @@
                 // },
                 {
                     frag: phong_reflective_spheres_frag,
-                    js: phong_reflective_spheres_js,
+                    modules: {index: phong_reflective_spheres_js},
                     assets: {
                         'hl_deactivated': {
                             id: 'hl_deactivated',
@@ -181,7 +181,7 @@
                 },
                 {
                     frag: reflectice_refractive_spheres_frag,
-                    js: reflectice_refractive_spheres_js,
+                    modules: {index: reflectice_refractive_spheres_js},
                     assets: {
                         'hl_deactivated': {
                             id: 'hl_deactivated',
@@ -205,7 +205,7 @@
                 // },
                 {
                     frag: quadric_system_frag,
-                    js: quadric_system_js,
+                    modules: {index: quadric_system_js},
                     assets: {
                         'hl_blip': {
                             id: 'hl_blip',
@@ -235,7 +235,7 @@
                 },
                 {
                     frag: lava_lamp_frag,
-                    js: lava_lamp_js,
+                    modules: {index: lava_lamp_js},
                     assets: {
                         'hl_alien_blipper': {
                             id: 'hl_alien_blipper',
@@ -254,7 +254,7 @@
                 },
                 {
                     frag: texture_match_frag,
-                    js: texture_match_js,
+                    modules: {index: texture_match_js},
                     assets: {
                         'hl_button1': {
                             id: 'hl_button1',
@@ -299,7 +299,7 @@
             practices: [
                 {
                     frag: simple_mesh_frag,
-                    js: simple_mesh_js,
+                    modules: {index: simple_mesh_js},
                     categories: ['mesh']
                 },
             ]
@@ -310,13 +310,13 @@
             practices: [
                 {
                     frag: magnifier_frag,
-                    js: passive_render_js,
+                    modules: {index: passive_render_js},
                     categories: ['distortion']
                 },
                 {
                     vert: texture_preview_vert,
                     frag: texture_preview_frag,
-                    js: texture_preview_js,
+                    modules: {index: texture_preview_js},
                     assets: {
                         'uvmap': {
                             id: 'uvmap',
@@ -369,13 +369,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_render_js}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_js}}/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_js}}/>
     </div>
     <!-- <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} javascript={texture_preview_js} assets={}/>
+        <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} modules={texture_preview_js} assets={}/>
     </div> -->
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
@@ -388,13 +388,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} javascript={passive_render_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_js}} mode="preview"/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} javascript={frame_skip_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_js}} mode="preview"/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} javascript={frame_skip_js} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} modules={{index: frame_skip_js}} mode="preview"/>
     </div>
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
@@ -416,7 +416,7 @@
                 <TapiocaFoxWebGL 
                 vertex_shader={practice.vert?practice.vert:default_vert_shader} 
                 fragment_shader={practice.frag?practice.frag:default_frag_shader}
-                javascript={practice.js?practice.js:default_js}
+                modules={practice.modules?practice.modules:default_modules}
                 assets={practice.assets?practice.assets:{}}
                 />
             </div>

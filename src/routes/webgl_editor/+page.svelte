@@ -58,7 +58,7 @@
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGLContext';
 
     import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGLContext.ts?raw';
-    import type { Asset } from '$lib/components/TapiocaFoxWebGL';
+    import type { Asset, ModuleSource } from '$lib/components/TapiocaFoxWebGL';
 
     let editor_layout: HTMLDivElement;
     let editor_layout_left: HTMLDivElement;
@@ -90,7 +90,7 @@
     // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
-    let js_src = $state(default_js);
+    let modules_src = $state<Record<string, string>>({'index': default_js});
     let assets = $state<Record<string, Asset>>({});
     let selected_value = $derived(`view_${$viewModeStorage}`);
 
@@ -293,25 +293,26 @@
 
         // const snapshot = $lastSnapshot;
 
-        const url_vert = page.url.searchParams.get("vert");
-        const url_frag = page.url.searchParams.get("frag");
-        const url_js = page.url.searchParams.get("js");
+        // const url_vert = page.url.searchParams.get("vert");
+        // const url_frag = page.url.searchParams.get("frag");
+        // const url_js = page.url.searchParams.get("js");
 
-        if((url_vert!=null || url_frag!=null || url_js!=null)) {
-            if(url_vert) vert_shader_src = url_vert;
-            if(url_frag) frag_shader_src = url_frag;
-            if(url_js && url_js!=js_src) {
-                const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
-                if(use_url_js) js_src = url_js;
-            };
-            anything_changed = true;
-            history.replaceState(history.state, '', page.url.pathname);
-        }
-        else if($nextSnapshot != null) {
+        // // if((url_vert!=null || url_frag!=null || url_js!=null)) {
+        // //     if(url_vert) vert_shader_src = url_vert;
+        // //     if(url_frag) frag_shader_src = url_frag;
+        // //     if(url_js && url_js!=modules_src) {
+        // //         const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
+        // //         if(use_url_js) modules_src = url_js;
+        // //     };
+        // //     anything_changed = true;
+        // //     history.replaceState(history.state, '', page.url.pathname);
+        // // }
+        // // else 
+        if($nextSnapshot != null) {
             const snapshot: Snapshot = $nextSnapshot;
             vert_shader_src = snapshot.vert;
             frag_shader_src = snapshot.frag;
-            js_src = snapshot.js;
+            modules_src = snapshot.modules;
             assets = snapshot.assets||{};
             anything_changed = true;
             nextSnapshot.set(null);
@@ -320,7 +321,7 @@
             const snapshot: Snapshot = $snapshotInNewTab;
             vert_shader_src = snapshot.vert;
             frag_shader_src = snapshot.frag;
-            js_src = snapshot.js;
+            modules_src = snapshot.modules;
             assets = snapshot.assets||{};
             anything_changed = true;
             snapshotInNewTab.set(null);
@@ -328,7 +329,7 @@
         else if($lastSnapshot != null) {
             vert_shader_src = $lastSnapshot.vert;
             frag_shader_src = $lastSnapshot.frag;
-            js_src = $lastSnapshot.js;
+            modules_src = $lastSnapshot.modules;
             assets = $lastSnapshot.assets||{};
         }
         
@@ -358,7 +359,7 @@
 
         javascriptEditorView = new EditorView({
             parent: javascript_editor,
-            doc: js_src,
+            doc: modules_src.index,
             extensions: [basicSetup, 
             javascript(), 
             keymapExtension, 
@@ -400,10 +401,10 @@
         }
 
         const js_editor_src = javascriptEditorView.state.doc.toString();
-        if(js_editor_src!=js_src) {
+        if(js_editor_src!=modules_src.index) {
             clearErrors(javascriptEditorView);
             javascript_error = null;
-            js_src = js_editor_src;
+            modules_src.index = js_editor_src;
             anything_changed = true;
         }
         // console.log('run');
@@ -415,10 +416,10 @@
         foxGL?.reset();
     }
 
-    function share() {
-        navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(js_src)}`);
-        alert('The URL has been copied to your clipboard!');
-    }
+    // function share() {
+    //     navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(modules_src)}`);
+    //     alert('The URL has been copied to your clipboard!');
+    // }
 
     function downloadSnapshot(snapshot: Snapshot) {
         const json = JSON.stringify(snapshot, null, 2);
@@ -438,10 +439,10 @@
         URL.revokeObjectURL(url);
     }
 
-    function shareSnapshot(snapshot: Snapshot) {
-        navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(snapshot.vert)}&frag=${encodeURIComponent(snapshot.frag)}&js=${encodeURIComponent(snapshot.js)}`);
-        alert('The URL has been copied to your clipboard!');
-    }
+    // function shareSnapshot(snapshot: Snapshot) {
+    //     navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(snapshot.vert)}&frag=${encodeURIComponent(snapshot.frag)}&js=${encodeURIComponent(snapshot.js)}`);
+    //     alert('The URL has been copied to your clipboard!');
+    // }
 
     function newSnapshot() {
         const newSnapshot: Snapshot = {
@@ -450,7 +451,7 @@
                 img: foxGL.canvas.toDataURL('image/png'),
                 vert: vert_shader_src,
                 frag: frag_shader_src,
-                js: js_src,
+                modules: JSON.parse(JSON.stringify(modules_src)),
                 assets: JSON.parse(JSON.stringify(assets)),
             };
         // console.log(`assets:`);
@@ -470,7 +471,7 @@
         
         setEditorValue(vertexShaderEditorView, snapshot.vert);
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
-        setEditorValue(javascriptEditorView, snapshot.js);
+        setEditorValue(javascriptEditorView, snapshot.modules.index);
         assets = snapshot.assets||{};
         anything_changed = true;
         // foxGL.reset();
@@ -580,7 +581,7 @@
             console.log(`JavaScript error in module "${module}":\n`, js_error);
             javascript_error = js_error.toString();
             // error_message = `JavaScript shader error: ${javascript_error}`;
-            const linterExtension = createEvalLinter(js_error, js_src);
+            const linterExtension = createEvalLinter(js_error, modules_src.index);
 
             javascriptEditorView.dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)
@@ -755,10 +756,10 @@
             reset();
             return false;
         }
-        else if(value == 'share') {
-            share();
-            return false;
-        }
+        // else if(value == 'share') {
+        //     share();
+        //     return false;
+        // }
         else if (value == 'import') {
             openSnapshotFilePicker();
             return false;
@@ -921,7 +922,7 @@
     <div bind:this={editor_layout_right} class="right">
         <div class="canvas-container">
             {#if mounted}
-            <TapiocaFoxWebGL mode="in-editor" size={400} bind:vertex_shader={vert_shader_src} bind:fragment_shader={frag_shader_src} bind:javascript={js_src} bind:assets={assets} onglinit={onGLInit} onerror={onError}/>
+            <TapiocaFoxWebGL mode="in-editor" size={400} bind:vertex_shader={vert_shader_src} bind:fragment_shader={frag_shader_src} bind:modules={modules_src} bind:assets={assets} onglinit={onGLInit} onerror={onError}/>
             {/if}
             <div class="info-container">
                 {#if error_message != null}

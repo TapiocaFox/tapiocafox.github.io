@@ -1,5 +1,5 @@
 import { writable, type Writable } from "svelte/store";
-import type { Asset } from "$lib/components/TapiocaFoxGl";
+import type { Asset, ModuleSource } from "$lib/components/TapiocaFoxWebGL";
 
 export type Snapshot = {
     name: string;
@@ -7,7 +7,7 @@ export type Snapshot = {
     img:string;
     vert: string;
     frag: string;
-    js: string;
+    modules: Record<string, string>;
     assets: Record<string, Asset>;
 };
 

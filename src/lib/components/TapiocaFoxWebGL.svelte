@@ -3,18 +3,18 @@
     import Portal from 'svelte-portal';
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
-    import default_js from '$lib/assets/webgl/default.js?raw';
+    import default_modules from '$lib/assets/webgl/default_modules';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import { goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from './TapiocaFoxGLContext';
-    import type { Asset, Status } from './TapiocaFoxWebGL';
+    import type { Asset, Status, ModuleSource } from './TapiocaFoxWebGL';
     import { createSandbox } from './TapiocaFoxWebGL';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
 
     // const props = $props();
-    let { vertex_shader=$bindable(default_vert_shader), fragment_shader=$bindable(default_frag_shader), javascript=$bindable(default_js), assets=$bindable<Record<string, Asset>>({}), mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = $props();
+    let { vertex_shader=$bindable(default_vert_shader), fragment_shader=$bindable(default_frag_shader), modules=$bindable<Record<string, string>>(default_modules), assets=$bindable<Record<string, Asset>>({}), mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = $props();
 
     var canvas: HTMLCanvasElement;
     var status_block: HTMLDivElement;
@@ -61,12 +61,12 @@
         // console.log(`vertex_shader: ${vertex_shader.length}, fragment_shader: ${fragment_shader.length}, javascript: ${javascript.length}, assets: ${Object.keys(assets).length}`);
         vertex_shader;
         fragment_shader; 
-        javascript;
+        modules;
         assets;
         if (!foxGL) return;
         // console.log('Something changed and foxGL exists, re-setup and run.');
         foxGL.newProgram();
-        foxGL.setShadersScriptAndAssets(vertex_shader, fragment_shader, javascript, assets);
+        foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
         foxGL.refreshShadersAndScript();
     });
 
@@ -224,10 +224,12 @@
                     await this.start();
                 },
 
-                setShadersScriptAndAssets: function(vertex_shader: string, fragment_shader: string, javascript: string, assets: Record<string, Asset>) {
+                setShadersModulesAndAssets: function(vertex_shader: string, fragment_shader: string, modules: Record<string, string>, assets: Record<string, Asset>) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
-                    this.sandbox.register('index', javascript);
+                    for (const key in modules) {
+                        this.sandbox.register(key, modules[key]);
+                    }
                     this.assets = assets;
                 },
 
@@ -390,7 +392,7 @@
             });
 
             const refreshOnGlInit = await onglinit(foxGL);
-            foxGL.setShadersScriptAndAssets(vertex_shader, fragment_shader, javascript, assets);
+            foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
             if(refreshOnGlInit) await foxGL.refreshShadersAndScript();
         }
         catch (error) {
@@ -417,7 +419,7 @@
             img: '',
             vert: vertex_shader,
             frag: fragment_shader,
-            js: javascript,
+            modules: modules,
             assets: assets,
         });
         goto(`/webgl_editor`);
