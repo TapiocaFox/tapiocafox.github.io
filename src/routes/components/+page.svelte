@@ -25,7 +25,7 @@
   let chip_selected_value = $state(-1);
   let tab_selected_value = $state("none");
 
-  const default_tab_count = 3;
+  const default_tab_count = 2;
   let accumalated_tabs = 0;
 
   let tab_names: Array<string> = $state([]);
