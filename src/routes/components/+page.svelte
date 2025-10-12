@@ -33,7 +33,7 @@
   let tab_icons: Array<string> = $state([]);
   let tab_closable_list: Array<boolean> = $state([]);
   
-  let functional_tab_names = $state(['', '']);
+  let functional_tab_names = $state(['New', 'Reset']);
   let functional_tab_values = $state(['new_tab', 'reset']);
   let functional_tab_icons = $state([add_icon, reset_icon]);
 

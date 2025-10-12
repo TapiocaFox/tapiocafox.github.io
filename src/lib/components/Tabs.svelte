@@ -25,6 +25,8 @@
         vertical-align: middle;
         margin: 0 var(--tabs-gap) 0 0;
         border-radius: 0;
+        /* border-bottom-left-radius: 0; */
+        /* border-bottom-right-radius: 0; */
         border-bottom: 0;
         /* filter: drop-shadow(0 0.5rem 1rem grey); */
         /* border: 1px solid var(--secondary-functional-color); */
