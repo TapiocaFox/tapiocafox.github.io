@@ -53,10 +53,6 @@
         /* filter: invert(1); */
     }
 
-    hr {
-        margin-top: 0;
-    }
-
     div.divider {
         display: inline-block;
         border-right: 1px solid black;
@@ -140,4 +136,3 @@
         </button>
     {/each}
 </div>
-<hr class="solid">
