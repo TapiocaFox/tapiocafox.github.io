@@ -294,7 +294,7 @@
             ]
         },
         {
-            title: 'Practice 4',
+            title: 'Practice Four',
             description: 'Triangles, meshes, strips and transformation matrix.',
             practices: [
                 {
