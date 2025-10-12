@@ -126,7 +126,7 @@
   bind:functional_inline_icons={functional_tab_icons}
   onfunctional={on_tab_functional}
 />
-<hr style:margin-top="0" class="dotted">
+<hr style:margin-top="0" class="solid">
 <p>Tab "{tab_selected_value}" is selected.</p>
 <p>I was a sublime intellectual, the cantankerous and opinionated future genius, the skulking Malevole who stood apart from the herd. I was a grotesque amalgam of timidity and arrogance, alternating between long, awkward silences and blazing fits of rambunctiousness. -- Moon Palace, Paul Auster</p>
 
