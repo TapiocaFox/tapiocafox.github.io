@@ -116,7 +116,16 @@ export function createSandbox(): Sandbox {
     async reloadAll(): Promise<void> {
       for (const [name, mod] of modules.entries()) {
         try {
-          const imported = await import(mod.url);
+          // revoke old URL to free memory
+          URL.revokeObjectURL(mod.url);
+
+          // create a fresh blob with the same source code
+          const blob = new Blob([mod.code], { type: "application/javascript" });
+          const newUrl = URL.createObjectURL(blob);
+          mod.url = newUrl;
+
+          // re-import the module (must be dynamic)
+          const imported = await import(/* @vite-ignore */ newUrl);
           mod.exports = imported;
         } catch (err) {
           notifyError(name, err);

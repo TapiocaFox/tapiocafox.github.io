@@ -53,9 +53,17 @@
         /* color: white;
         background-color: var(--secondary-functional-color); */
     }
+    
+    button:last-child {
+        margin: 0;
+    }
 
     button.selected span.text > img.inline-glyph {
         /* filter: invert(1); */
+    }
+
+    button span.text {
+        color: black;
     }
 
     div.divider {

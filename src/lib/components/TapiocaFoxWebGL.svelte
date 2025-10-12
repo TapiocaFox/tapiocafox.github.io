@@ -218,6 +218,7 @@
                     for (const key in statusDict) {
                         delete statusDict[key];
                     }
+                    await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
                     await this.start();

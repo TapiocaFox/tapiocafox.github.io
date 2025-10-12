@@ -5,7 +5,7 @@
     import PointerBlock from '$lib/components/PointerBlock.svelte';
     import WindowBlock from '$lib/components/WindowBlock.svelte';
 	import EndingDecoration from '$lib/components/EndingDecoration.svelte';
-    
+    import Tabs from '$lib/components/Tabs.svelte';
 
     import { tick } from 'svelte';
     import { dev } from '$app/environment';
@@ -30,7 +30,7 @@
     import play_icon from '$lib/assets/icons/play.svg';
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
-    import new_tab_icon from '$lib/assets/icons/window.svg';
+    import new_module_tab_icon from '$lib/assets/icons/window.svg';
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
@@ -40,7 +40,9 @@
     import close_icon from '$lib/assets/icons/close.svg';
     import music_icon from '$lib/assets/icons/music.svg';
     import video_icon from '$lib/assets/icons/video.svg';
-
+    import add_icon from '$lib/assets/icons/add.svg';
+    import document_icon from '$lib/assets/icons/document.svg';
+    import api_icon from '$lib/assets/icons/api.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -96,6 +98,61 @@
     let show_foxgl_interface = $state(false);
     let show_asset_configuration_dialog = $state(false);
     let anything_changed = false;
+
+
+    let module_tab_names: Array<string> = $state([]);
+    let module_tab_values: Array<string> = $state([]);
+    let module_tab_icons: Array<string> = $state([]);
+    let module_tab_closable_list: Array<boolean> = $state([]);
+    
+    let module_functional_tab_names = $state(['New', 'Default', 'API']);
+    let module_functional_tab_values = $state(['new_tab', 'reset', 'api']);
+    let module_functional_tab_icons = $state([add_icon, reset_icon, api_icon]);
+
+    let accumalated_tabs = 0;
+    let module_tab_selected_value = $state("none");
+
+    const new_tab = (module_name: string, icon: string, closable: boolean) => {
+        module_tab_names.push(module_name);
+        module_tab_values.push(module_name);
+        module_tab_icons.push(icon);
+        module_tab_closable_list.push(closable);
+        accumalated_tabs += 1;
+    };
+
+    new_tab('index', box_icon, false);
+    module_tab_selected_value = 'index';
+
+    // const reset = () => {
+    //     module_tab_names = [];
+    //     module_tab_values = [];
+    //     module_tab_icons = [];
+    //     module_tab_closable_list = [];
+    //     accumalated_tabs = 0;
+    //     for(let i=0; i<default_module_tab_count; i++) {
+    //     new_tab(box_icon, false);
+    //     }
+    //     module_tab_selected_value = module_tab_values[0];
+    // };
+
+    // reset();
+
+    const on_close = (value: string) => {
+        return confirm(`Close tab "${value}"?`);
+    };
+
+    const on_module_tab_functional = (value: string) => {
+        // console.log(`on_module_tab_functional: ${value}`);
+        if(value=='new_tab') {
+            alert('Feature not implemented yet.');
+        }
+        else if(value=='reset') {
+            setEditorValue(javascriptEditorView, default_js);
+        }
+        else if(value=='api') {
+            show_foxgl_interface=!show_foxgl_interface;
+        }
+    };
 
     function scrollToTop() {
         document.body.scrollTop = 0; // For Safari
@@ -761,10 +818,23 @@
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p>
+                <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
                 {#if javascript_error != null}
                 <p class="annotation" style:color="red">{javascript_error}</p>
                 {/if}
+                <Tabs 
+                bind:names={module_tab_names} 
+                bind:values={module_tab_values}
+                bind:inline_icons={module_tab_icons}
+                bind:selected_value={module_tab_selected_value}
+                bind:closable_list={module_tab_closable_list}
+                onclose={on_close}
+
+                bind:functional_names={module_functional_tab_names} 
+                bind:functional_values={module_functional_tab_values}
+                bind:functional_inline_icons={module_functional_tab_icons}
+                onfunctional={on_module_tab_functional}
+                />
                 <div bind:this={javascript_editor} class="editor-container code-block-background"></div>
             </div>
 
@@ -878,7 +948,7 @@
                                 <button class="no-style" onclick={() => {
                                     snapshotInNewTab.set(snapshot);
                                     window.open('/webgl_editor', '_blank', 'noopener,noreferrer');
-                                }}><img class="inline-glyph" alt="New Tab" src={new_tab_icon}/></button>
+                                }}><img class="inline-glyph" alt="New Tab" src={new_module_tab_icon}/></button>
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
@@ -938,8 +1008,8 @@
             {/each}
         </select>
         <br>
-        <label for="asset-type">Source type:</label>
-        <select id="asset-type" bind:value={asset_source_type} required>
+        <label for="source-type">Source type:</label>
+        <select id="source-type" bind:value={asset_source_type} required>
             {#each asset_source_type_options as option}
             <option value={option.value} disabled={option.value === ""} selected={option.value === ""}>
                 {option.label}
