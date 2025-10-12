@@ -16,6 +16,7 @@
   import close_icon from '$lib/assets/icons/close.svg';
   import reset_icon from '$lib/assets/icons/reset.svg';
   import add_icon from '$lib/assets/icons/add.svg';
+  import box_icon from '$lib/assets/icons/box.svg';
   import document_icon from '$lib/assets/icons/document.svg';
   import delete_icon from '$lib/assets/icons/delete.svg';
 
@@ -36,10 +37,10 @@
   let functional_tab_values = $state(['new_tab', 'reset']);
   let functional_tab_icons = $state([add_icon, reset_icon]);
 
-  const new_tab = (closable: boolean) => {
+  const new_tab = (icon: string, closable: boolean) => {
     tab_names.push(`Tab ${accumalated_tabs+1}`);
     tab_values.push(`tab_${accumalated_tabs+1}`);
-    tab_icons.push(document_icon);
+    tab_icons.push(icon);
     tab_closable_list.push(closable);
     accumalated_tabs += 1;
   };
@@ -51,7 +52,7 @@
     tab_closable_list = [];
     accumalated_tabs = 0;
     for(let i=0; i<default_tab_count; i++) {
-      new_tab(false);
+      new_tab(box_icon, false);
     }
     tab_selected_value = tab_values[0];
   };
@@ -66,7 +67,7 @@
     // console.log(`on_tab_functional: ${value}`);
     if(value=='new_tab') {
       console.log(`on_tab_functional: ${value}`);
-      new_tab(true);
+      new_tab(document_icon, true);
     }
     else if(value='reset') {
       reset();
