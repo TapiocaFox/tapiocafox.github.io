@@ -116,25 +116,12 @@
     let module_functional_tab_values = $derived((module_tab_selected_value=='index')?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
     let module_functional_tab_icons = $derived((module_tab_selected_value=='index')?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
 
-
-    const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
-        module_tab_names.push(module_name);
-        module_tab_values.push(module_name);
-        module_tab_icons.push(icon);
-        module_tab_closable_list.push(closable);
-        accumalated_tabs += 1;
-    };
-
     module_tab_selected_value = 'index';
 
     $effect(() => {
         if(!mounted) return;
         // Remove obsolete editors.
         const modules_in_src = Object.keys(modules_src);
-        // console.log(modules_in_src);
-        // console.log(module_tab_values);
-        // module_tab_values = modules_in_src;
-        // const modules_in_editors = Object.keys(module_editors);
         const modules_in_editor_views = Object.keys(moduleEditorViews);
         
         const modules_not_in_editor_views = modules_in_src.filter(x => !modules_in_editor_views.includes(x));
@@ -159,7 +146,8 @@
                 modKeymapExtension, 
                 indentUnitExtension, 
                 EditorView.lineWrapping,
-                errorLinterCompartment.of([])]
+                errorLinterCompartment.of([]),
+                outlineTheme]
             })
             moduleEditorViews[module] = moduleEditorView;
         });
@@ -341,6 +329,14 @@
             run: mod4
         }
     ]));
+    const outlineTheme = EditorView.theme({
+        "&": {
+            outline: "1px dotted var(--border-color);",
+        },
+        "&.cm-focused": {
+            outline: "1px dotted var(--fox-background-color);",
+        }
+    });
     const indentUnitExtension = indentUnit.of('    ');
     const errorLinterCompartment = new Compartment();
 
@@ -384,7 +380,8 @@
             keymapExtension, 
             modKeymapExtension,
             EditorView.lineWrapping,
-            errorLinterCompartment.of([])]
+            errorLinterCompartment.of([]),
+            outlineTheme],
         })
 
         fragmentShaderEditorView = new EditorView({
@@ -395,7 +392,8 @@
             modKeymapExtension, 
             indentUnitExtension, 
             EditorView.lineWrapping,
-            errorLinterCompartment.of([])]
+            errorLinterCompartment.of([]),
+            outlineTheme]
         })
         
         mounted = true;
@@ -915,7 +913,7 @@
                     {/each}
                 </div>
             </div>
-            <hr class="dotted">
+            <!-- <hr class="dotted"> -->
             <EndingDecoration/>
         </div>
     </div>

@@ -23,7 +23,7 @@
     button {
         display: inline-block;
         vertical-align: middle;
-        margin: 0 var(--tabs-gap) 0 0;
+        margin: 1px var(--tabs-gap) 0 0;
         border-radius: 0;
         /* border-bottom-left-radius: 0; */
         /* border-bottom-right-radius: 0; */
@@ -75,79 +75,77 @@
         /* width: 1px; */
         /* margin-left: .25em; */
         margin-right: calc(var(--tabs-gap));
-        margin-left: 0;
+        margin-left: 1px;
         vertical-align: middle;
     }
 </style>
 <div class="tab-container">
     {#each names as name, index}
-        <button class="{selected_index == index?'selected':''}" 
-            onclick={() => {
-                const value = values[index];
-                selected_value = value;
-            }} 
-            draggable={true}
-            ondragstart={(event: DragEvent) => {
-                // console.log('ondrag');
-                event.dataTransfer?.setData('fromIndex', index.toString());
-            }}
-            ondragover={(event: DragEvent) => {event.preventDefault()}}
-            ondrop={(event: DragEvent) => {
-                event.preventDefault();
-                const fromIndexString = event.dataTransfer?.getData('fromIndex');
-                if(typeof(fromIndexString) == 'undefined' || fromIndexString == null) return;
-                const fromIndex = parseInt(fromIndexString);
-                const name = names[fromIndex];
-                const value = values[fromIndex];
-                const inline_icon = inline_icons[fromIndex];
-                const closable = closable_list[fromIndex];
+    <button class="{selected_index == index?'selected':''}" 
+        onclick={() => {
+            const value = values[index];
+            selected_value = value;
+        }} 
+        draggable={true}
+        ondragstart={(event: DragEvent) => {
+            // console.log('ondrag');
+            event.dataTransfer?.setData('fromIndex', index.toString());
+        }}
+        ondragover={(event: DragEvent) => {event.preventDefault()}}
+        ondrop={(event: DragEvent) => {
+            event.preventDefault();
+            const fromIndexString = event.dataTransfer?.getData('fromIndex');
+            if(typeof(fromIndexString) == 'undefined' || fromIndexString == null) return;
+            const fromIndex = parseInt(fromIndexString);
+            const name = names[fromIndex];
+            const value = values[fromIndex];
+            const inline_icon = inline_icons[fromIndex];
+            const closable = closable_list[fromIndex];
 
-                names.splice(fromIndex, 1);
-                values.splice(fromIndex, 1);
-                inline_icons.splice(fromIndex, 1);
-                closable_list.splice(fromIndex, 1);
+            names.splice(fromIndex, 1);
+            values.splice(fromIndex, 1);
+            inline_icons.splice(fromIndex, 1);
+            closable_list.splice(fromIndex, 1);
 
-                names.splice(index, 0, name);
-                values.splice(index, 0, value);
-                inline_icons.splice(index, 0, inline_icon);
-                closable_list.splice(index, 0, closable);
-                // console.log(`values: ${values}`);
-            }}
-            >
-            <span class="text">
-                {#if inline_icons.length>0 && inline_icons[index]!=null}
-                    <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
-                {/if}
-                {names[index]}
-                {#if closable_list[index]}
-                    <img class="inline-glyph" alt="Close Icon" src={close_icon} 
-                    onclick={(event) => {
-                        event.stopPropagation();
-                        if(!onclose(values[index])) return;
-                        const old_selected_index = selected_index;
-                        names.splice(index, 1);
-                        values.splice(index, 1);
-                        inline_icons.splice(index, 1);
-                        closable_list.splice(index, 1);
-                        selected_value = values[Math.min(old_selected_index, values.length-1)];
-                        // console.log(selected_value);
-                    }}>
-                {/if}
-            </span>
-        </button>
-    {/each}
-    {#if functional_names.length}<div class="divider"></div>{/if}
-    {#each functional_names as name, index}
-        <button 
-            onclick={() => {
-                onfunctional(functional_values[index]);
-            }}>
-            <span class="text">
-                {#if functional_inline_icons.length>0 && functional_inline_icons[index]!=null}
-                    <img class="inline-glyph" alt="Inline Icon" src={functional_inline_icons[index]}>
-                {/if}
-                {functional_names[index]}
-            </span>
-        </button>
+            names.splice(index, 0, name);
+            values.splice(index, 0, value);
+            inline_icons.splice(index, 0, inline_icon);
+            closable_list.splice(index, 0, closable);
+            // console.log(`values: ${values}`);
+        }}
+        >
+        <span class="text">
+            {#if inline_icons.length>0 && inline_icons[index]!=null}
+                <img class="inline-glyph" alt="Inline Icon" src={inline_icons[index]}>
+            {/if}
+            {names[index]}
+            {#if closable_list[index]}
+                <img class="inline-glyph" alt="Close Icon" src={close_icon} 
+                onclick={(event) => {
+                    event.stopPropagation();
+                    if(!onclose(values[index])) return;
+                    const old_selected_index = selected_index;
+                    names.splice(index, 1);
+                    values.splice(index, 1);
+                    inline_icons.splice(index, 1);
+                    closable_list.splice(index, 1);
+                    selected_value = values[Math.min(old_selected_index, values.length-1)];
+                    // console.log(selected_value);
+                }}>
+            {/if}
+        </span>
+    </button>
+    {/each}{#if functional_names.length}<div class="divider"></div>{/if}{#each functional_names as name, index}
+    <button 
+        onclick={() => {
+            onfunctional(functional_values[index]);
+        }}>
+        <span class="text">
+            {#if functional_inline_icons.length>0 && functional_inline_icons[index]!=null}
+                <img class="inline-glyph" alt="Inline Icon" src={functional_inline_icons[index]}>
+            {/if}
+            {functional_names[index]}
+        </span>
+    </button>
     {/each}
 </div>
