@@ -135,7 +135,7 @@
             {/if}
         </span>
     </button>
-    {/each}{#if functional_names.length}<div class="divider"></div>{/if}{#each functional_names as name, index}
+    {/each}{#if functional_names.length}<div class="divider"></div>{/if}{#each functional_names as name, index (name)}
     <button 
         onclick={() => {
             onfunctional(functional_values[index]);
