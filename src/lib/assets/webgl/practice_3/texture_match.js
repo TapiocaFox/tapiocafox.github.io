@@ -83,7 +83,6 @@ function resetGame() {
     selectedIndex = null;
     isCoolingDown = false;  
     matchCount = 0;
-    foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
 }
 
 // Start lifecycle.
@@ -214,6 +213,7 @@ export const start = async (foxGL) => {
                 setTimeout(() => {
                     foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
                     resetGame();
+                    foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
                 }, 16*coolDownTime);
             }
         }

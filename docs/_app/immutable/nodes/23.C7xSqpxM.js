@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as L,e as _,a as d,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as F,t as vn}from"../chunks/UuebQw-N.js";import{s as N}from"../chunks/CWSVVgTL.js";import{i as w}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as mn}from"../chunks/Cvoc0y2g.js";import{H as fn}from"../chunks/BNKZDGsD.js";import{e as U,T as x,d as g,a as dn,m as xn}from"../chunks/wiR5_la8.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as gn,b as pn,r as hn,h as yn,c as Sn,d as _n,l as bn}from"../chunks/r_uP3Q3U.js";import{g as Rn}from"../chunks/VZNsOmOE.js";const W=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as L,e as _,a as d,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as F,t as vn}from"../chunks/UuebQw-N.js";import{s as N}from"../chunks/CWSVVgTL.js";import{i as w}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as mn}from"../chunks/Cvoc0y2g.js";import{H as fn}from"../chunks/BNKZDGsD.js";import{e as U,T as x,d as g,a as dn,m as xn}from"../chunks/CjgkMnsL.js";import{m as D}from"../chunks/8p4Ra2kK.js";import{a as gn,b as pn,r as hn,h as yn,c as Sn,d as _n,l as bn}from"../chunks/r_uP3Q3U.js";import{g as Rn}from"../chunks/DEgpc4Bz.js";const W=`// Author: TapiocaFox
 // Title:  Matrix
 
 // Transformations. Column major.
@@ -2736,7 +2736,6 @@ function resetGame() {
     selectedIndex = null;
     isCoolingDown = false;  
     matchCount = 0;
-    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
 }
 
 // Start lifecycle.
@@ -2867,6 +2866,7 @@ export const start = async (foxGL) => {
                 setTimeout(() => {
                     foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
                     resetGame();
+                    foxGL.reportStatus('MatchCount', \`Matched Spheres: \${matchCount}\`, 'blue');
                 }, 16*coolDownTime);
             }
         }
