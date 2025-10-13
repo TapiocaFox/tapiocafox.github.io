@@ -174,12 +174,20 @@
         return closeOrNot;
     };
 
+    const new_module = () => {
+        // alert('Feature not implemented yet.');
+        let module_name = prompt("Please enter a module name.", `module ${accumalated_tabs+1}`) || `module ${accumalated_tabs+1}`;
+        modules_src = { ...modules_src, [module_name]: empty_module };
+        accumalated_tabs += 1;
+    };
+
+    const open_bookmarks = () => {
+        alert('Feature not implemented yet.');
+    };
+
     const on_module_tab_functional = (value: string) => {
         if(value=='new_module') {
-            // alert('Feature not implemented yet.');
-            let module_name = prompt("Please enter a module name.", `module ${accumalated_tabs+1}`) || `module ${accumalated_tabs+1}`;
-            modules_src = { ...modules_src, [module_name]: empty_module };
-            accumalated_tabs += 1;
+            new_module()
         }
         else if(value=='reset') {
             modules_src = default_modules;
@@ -198,7 +206,7 @@
             module_tab_selected_value = new_module_name;
         }
         else if(value=='bookmark') {
-            alert('Feature not implemented yet.');
+            open_bookmarks();
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
@@ -228,16 +236,16 @@
     }
 
     const keymapExtension = keymap.of([indentWithTab]);
-    const modS: KeyBinding["run"] = ({ state }) => {
+    const runSnapshot: KeyBinding["run"] = ({ state }) => {
                 // console.log(state.doc.toString()); 
                 snapshot();
                 return true;
             }
-    const modR: KeyBinding["run"] = ({ state }) => {
+    const runReset: KeyBinding["run"] = ({ state }) => {
                 reset();
                 return true;
             };
-    const mod0: KeyBinding["run"] = ({ state }) => {
+    const runAllView: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_all';
                 view_mode = 'all';
                 viewModeStorage.set('all');
@@ -248,7 +256,7 @@
                 });
                 return true;
             }
-    const mod1: KeyBinding["run"] = ({ state }) => {
+    const runVertexView: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_vert';
                 view_mode = 'vert';
                 viewModeStorage.set('vert');
@@ -259,7 +267,7 @@
                 });
                 return true;
             }
-    const mod2: KeyBinding["run"] = ({ state }) => {
+    const runFragmentView: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_frag';
                 view_mode = 'frag';
                 viewModeStorage.set('frag');
@@ -270,7 +278,7 @@
                 });
                 return true;
             }
-    const mod3: KeyBinding["run"]  = ({ state }) => {
+    const runJavaScriptView: KeyBinding["run"]  = ({ state }) => {
                 selected_value = 'view_js';
                 view_mode = 'js';
                 viewModeStorage.set('js');
@@ -281,55 +289,74 @@
                 });
                 return true;
             }
+
+    const runNewModule: KeyBinding["run"]  = ({ state }) => {
+            new_module();
+            return true;
+        }
+
+    const runBookmark: KeyBinding["run"]  = ({ state }) => {
+            open_bookmarks();
+            return true;
+        }
+
     const modKeymapExtension = Prec.highest(keymap.of([
         {
             key: "Mod-s",
-            run: modS
+            run: runSnapshot
         }, 
         {
             key: "Ctrl-s",
-            run: modS
+            run: runSnapshot
         }, 
         {
             key: "Mod-r",
-            run: modR
+            run: runReset
         }, 
         {
             key: "Ctrl-r",
-            run: modR
+            run: runReset
         }, 
         {
             key: "Mod-1",
-            run: mod1
+            run: runVertexView
         }, 
         {
             key: "Ctrl-1",
-            run: mod1
+            run: runVertexView
         }, 
         {
             key: "Mod-2",
-            run: mod2
+            run: runFragmentView
         }, 
         {
             key: "Ctrl-2",
-            run: mod2
+            run: runFragmentView
         }, 
         {
             key: "Mod-3",
-            run: mod3
+            run: runJavaScriptView
         }, 
         {
             key: "Ctrl-3",
-            run: mod3
+            run: runJavaScriptView
         }, 
         {
             key: "Mod-0",
-            run: mod0
+            run: runAllView
         }, 
         {
             key: "Ctrl-0",
-            run: mod0
-        }
+            run: runAllView
+        },
+        {
+            key: "Mod-b",
+            run: runBookmark
+        }, 
+        {
+            key: "Ctrl-b",
+            run: runBookmark
+        },
     ]));
     const outlineTheme = EditorView.theme({
         "&": {
