@@ -51,7 +51,7 @@
 
     import default_vert from '$lib/assets/webgl/default.vert?raw';
     import default_frag from '$lib/assets/webgl/default.frag?raw';
-    import default_js from '$lib/assets/webgl/default.js?raw';
+    import default_modules from '$lib/assets/webgl/default_modules';
     import Chips from '$lib/components/Chips.svelte';
     // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
@@ -90,7 +90,7 @@
     // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
-    let modules_src = $state<Record<string, string>>({'index': default_js});
+    let modules_src = $state<Record<string, string>>(default_modules);
     let assets = $state<Record<string, Asset>>({});
     let selected_value = $derived(`view_${$viewModeStorage}`);
 
@@ -147,7 +147,7 @@
             alert('Feature not implemented yet.');
         }
         else if(value=='reset') {
-            setEditorValue(javascriptEditorView, default_js);
+            setEditorValue(javascriptEditorView, default_modules.index);
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
@@ -404,7 +404,7 @@
         if(js_editor_src!=modules_src.index) {
             clearErrors(javascriptEditorView);
             javascript_error = null;
-            modules_src.index = js_editor_src;
+            modules_src = { ...modules_src, index: js_editor_src };
             anything_changed = true;
         }
         // console.log('run');
