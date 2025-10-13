@@ -218,7 +218,8 @@
                     for (const key in statusDict) {
                         delete statusDict[key];
                     }
-                    await this.sandbox.reloadAll();
+                    this.sandbox.commit();
+                    // await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
                     await this.start();
@@ -232,7 +233,6 @@
                         for (const key in modules) {
                             this.sandbox.register(key, modules[key]);
                         }
-                        this.sandbox.commit();
                         this.assets = assets;
                     }
                     catch(error) {
@@ -248,7 +248,8 @@
                     for (const key in statusDict) {
                         delete statusDict[key];
                     }
-                    await this.sandbox.reloadAll();
+                    this.sandbox.commit();
+                    // await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
                     await this.start();

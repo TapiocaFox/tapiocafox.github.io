@@ -35,7 +35,7 @@ export interface Sandbox {
   commit(): void;
   import<T = any>(name: string): Promise<T>;
   replace(name: string, newCode: string): Promise<void>;
-  reloadAll(): Promise<void>;
+  // reloadAll(): Promise<void>;
   clear(): void;
   addUncaughtErrorListener(listener: UncaughtErrorListener): void;
   removeUncaughtErrorListener(listener: UncaughtErrorListener): void;
@@ -154,19 +154,19 @@ export function createSandbox(): Sandbox {
       await this.reloadAll();
     },
 
-    async reloadAll(): Promise<void> {
-      const order = topologicalSort();
-      for (const name of order) {
-        const mod = modules.get(name)!;
-        if (!mod.url) throw new Error(`Module "${name}" not committed`);
-        try {
-          const imported = await import(/* @vite-ignore */ mod.url);
-          mod.exports = imported;
-        } catch (err) {
-          notifyError(name, err);
-        }
-      }
-    },
+    // async reloadAll(): Promise<void> {
+    //   const order = topologicalSort();
+    //   for (const name of order) {
+    //     const mod = modules.get(name)!;
+    //     if (!mod.url) throw new Error(`Module "${name}" not committed`);
+    //     try {
+    //       const imported = await import(/* @vite-ignore */ mod.url);
+    //       mod.exports = imported;
+    //     } catch (err) {
+    //       notifyError(name, err);
+    //     }
+    //   }
+    // },
 
     clear() {
       for (const mod of modules.values()) if (mod.url) URL.revokeObjectURL(mod.url);
