@@ -45,6 +45,7 @@
     import document_icon from '$lib/assets/icons/document.svg';
     import api_icon from '$lib/assets/icons/api.svg';
     import edit_icon from '$lib/assets/icons/edit.svg';
+    import bookmark_icon from '$lib/assets/icons/bookmark.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -109,9 +110,9 @@
     let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === default_module ? main_icon : box_icon));
     let module_tab_closable_list = $derived(Object.keys(modules_src).map(key => key !== default_module));
 
-    let module_functional_tab_names = $derived((module_tab_selected_value==default_module)?['New', 'Default', 'API']:['New', 'Default', 'Rename', 'API']);
-    let module_functional_tab_values = $derived((module_tab_selected_value==default_module)?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
-    let module_functional_tab_icons = $derived((module_tab_selected_value==default_module)?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
+    let module_functional_tab_names = $derived((module_tab_selected_value==default_module)?['New', 'Default', '[B]ookmark', 'API']:['New', 'Rename', 'Default', '[B]ookmark', 'API']);
+    let module_functional_tab_values = $derived((module_tab_selected_value==default_module)?['new_module', 'reset', 'bookmark', 'api']:['new_module', 'rename', 'reset', 'bookmark', 'api']);
+    let module_functional_tab_icons = $derived((module_tab_selected_value==default_module)?[add_icon, reset_icon, bookmark_icon, api_icon]:[add_icon, edit_icon, reset_icon, bookmark_icon, api_icon]);
 
     module_tab_selected_value = default_module;
 
@@ -174,9 +175,10 @@
     };
 
     const on_module_tab_functional = (value: string) => {
-        if(value=='new_tab') {
+        if(value=='new_module') {
             // alert('Feature not implemented yet.');
-            modules_src = { ...modules_src, [`module ${accumalated_tabs+1}`]: empty_module };
+            let module_name = prompt("Please enter a module name.", `module ${accumalated_tabs+1}`) || `module ${accumalated_tabs+1}`;
+            modules_src = { ...modules_src, [module_name]: empty_module };
             accumalated_tabs += 1;
         }
         else if(value=='reset') {
@@ -185,15 +187,18 @@
             module_tab_selected_value = Object.entries(modules_src)[0][0];
         }
         else if(value=='rename') {
-            let new_name = prompt("Please enter your new module name.", module_tab_selected_value) || module_tab_selected_value;
-            if(new_name == module_tab_selected_value) return;
+            let new_module_name = prompt("Please enter new module name.", module_tab_selected_value) || module_tab_selected_value;
+            if(new_module_name == module_tab_selected_value) return;
             modules_src = {
                 ...modules_src,
-                [new_name]: modules_src[module_tab_selected_value]
+                [new_module_name]: modules_src[module_tab_selected_value]
             };
             delete modules_src[module_tab_selected_value];
             modules_src = { ...modules_src };
-            module_tab_selected_value = new_name;
+            module_tab_selected_value = new_module_name;
+        }
+        else if(value=='bookmark') {
+            alert('Feature not implemented yet.');
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
