@@ -80,7 +80,7 @@
 
 
     const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
-    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'vert');
+    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'js');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
