@@ -19,7 +19,7 @@
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
 
     import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
-    import lava_lamp_js from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
+    import lava_lamp_module from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
     import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
 
@@ -68,7 +68,7 @@
         <GlslCanvas mode='preview' fragment_shader={balls}/>
         <!-- <GlslCanvas mode='preview' fragment_shader={reflective_spheres_frag} javascript={reflective_spheres_js}/> -->
         <GlslCanvas mode='preview' fragment_shader={spiral}/>
-        <GlslCanvas mode='preview' fragment_shader={lava_lamp_frag} javascript={lava_lamp_js} assets={{
+        <GlslCanvas mode='preview' fragment_shader={lava_lamp_frag} modules={{index: lava_lamp_module}} assets={{
                         'hl_alien_blipper': {
                             id: 'hl_alien_blipper',
                             type: 'audio',
