@@ -830,7 +830,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
-                <h3>JavaScript Modules <img class="inline-glyph" src={javascript_icon}/></h3>
+                <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
                 <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
                 {#if any_module_errors != null}
                 <p class="annotation" style:color="red">{any_module_errors}</p>
