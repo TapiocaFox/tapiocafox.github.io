@@ -185,14 +185,20 @@
         alert('Feature not implemented yet.');
     };
 
+    const reset_modules = () => {
+        const resetOrNot = confirm('Are you sure? This will remove every JavaScript modules and reset it to default.');
+        if(!resetOrNot) return;
+        modules_src = default_modules;
+        any_module_errors = null;
+        module_tab_selected_value = Object.entries(modules_src)[0][0];
+    };
+
     const on_module_tab_functional = (value: string) => {
         if(value=='new_module') {
             new_module()
         }
         else if(value=='reset') {
-            modules_src = default_modules;
-            any_module_errors = null;
-            module_tab_selected_value = Object.entries(modules_src)[0][0];
+            reset_modules();
         }
         else if(value=='rename') {
             let new_module_name = prompt("Please enter new module name.", module_tab_selected_value) || module_tab_selected_value;
