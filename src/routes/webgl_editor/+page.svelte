@@ -34,6 +34,7 @@
     import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
+    import main_icon from '$lib/assets/icons/main.svg';
     import box_icon from '$lib/assets/icons/box.svg';
     import deform_icon from '$lib/assets/icons/deform.svg';
     import upload_icon from '$lib/assets/icons/upload.svg';
@@ -52,6 +53,7 @@
     import default_vert from '$lib/assets/webgl/default.vert?raw';
     import default_frag from '$lib/assets/webgl/default.frag?raw';
     import default_modules from '$lib/assets/webgl/default_modules';
+    import empty_module from '$lib/assets/webgl/empty.js?raw';
     import Chips from '$lib/components/Chips.svelte';
     // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
@@ -67,7 +69,7 @@
     let vertex_shader_editor: HTMLDivElement;
     let fragment_shader_editor: HTMLDivElement;
     let module_editors: Record<string, HTMLDivElement> = {};
-
+    
     let vertexShaderEditorView: EditorView;
     let fragmentShaderEditorView: EditorView;
     let moduleEditorViews: Record<string, EditorView> = {};
@@ -85,7 +87,7 @@
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
     let view_mode = $derived($viewModeStorage);
-    let javascript_error = $state<string | null>(null);
+    let any_module_errors = $state<string | null>(null);
     let error_message = $state<string | null>(null);
     // let view_mode = $state('js');
     // console.log('view_mode', view_mode);
@@ -101,10 +103,10 @@
     let anything_changed = false;
 
 
-    let module_tab_names: Array<string> = $state([]);
-    let module_tab_values: Array<string> = $state([]);
-    let module_tab_icons: Array<string> = $state([]);
-    let module_tab_closable_list: Array<boolean> = $state([]);
+    let module_tab_names: Array<string> = $derived(Object.keys(modules_src));
+    let module_tab_values: Array<string> = $derived(Object.keys(modules_src));
+    let module_tab_icons: Array<string> = $derived(Object.keys(modules_src).map(key => key === 'index' ? main_icon : box_icon));
+    let module_tab_closable_list: Array<boolean> = $derived(Object.keys(modules_src).map(key => key !== 'index'));
     
     let module_functional_tab_names = $state(['New', 'Default', 'API']);
     let module_functional_tab_values = $state(['new_tab', 'reset', 'api']);
@@ -113,30 +115,33 @@
     let accumalated_tabs = 0;
     let module_tab_selected_value = $state("none");
 
-    const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
-        module_tab_names.push(module_name);
-        module_tab_values.push(module_name);
-        module_tab_icons.push(icon);
-        module_tab_closable_list.push(closable);
-        accumalated_tabs += 1;
-    };
+    // const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
+    //     module_tab_names.push(module_name);
+    //     module_tab_values.push(module_name);
+    //     module_tab_icons.push(icon);
+    //     module_tab_closable_list.push(closable);
+    //     accumalated_tabs += 1;
+    // };
 
     module_tab_selected_value = 'index';
 
     $effect(() => {
         if(!mounted) return;
-
         // Remove obsolete editors.
         const modules_in_src = Object.keys(modules_src);
         // const modules_in_editors = Object.keys(module_editors);
         const modules_in_editor_views = Object.keys(moduleEditorViews);
         
-        const modules_not_in_editor_views = modules_in_src.filter(x => modules_in_editor_views.includes(x));
-        const modules_not_in_src = modules_in_editor_views.filter(x => modules_in_src.includes(x));
+        const modules_not_in_editor_views = modules_in_src.filter(x => !modules_in_editor_views.includes(x));
+        const modules_not_in_src = modules_in_editor_views.filter(x => !modules_in_src.includes(x));
+
+        // console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
+        // console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
 
         modules_not_in_src.forEach((module: string) => {
             moduleEditorViews[module].destroy();
             delete moduleEditorViews[module];
+            delete module_editors[module];
         });
 
         modules_not_in_editor_views.forEach((module: string) => {
@@ -156,12 +161,19 @@
     });
 
     const on_close = (value: string) => {
-        return confirm(`Close tab "${value}"?`);
+        const closeOrNot = confirm(`Close tab "${value}"?`);
+        if(closeOrNot) {
+            const { [value]: _, ...rest } = modules_src;
+            modules_src = rest;
+        }
+        return closeOrNot
     };
 
     const on_module_tab_functional = (value: string) => {
         if(value=='new_tab') {
-            alert('Feature not implemented yet.');
+            // alert('Feature not implemented yet.');
+            modules_src = { ...modules_src, [`module ${accumalated_tabs}`]: empty_module };
+            accumalated_tabs += 1;
         }
         else if(value=='reset') {
             modules_src = default_modules;
@@ -390,7 +402,7 @@
             const module_editor_src = moduleEditorView.state.doc.toString();
             if(module_editor_src!=modules_src[key]) {
                 clearErrors(moduleEditorView);
-                javascript_error = null;
+                any_module_errors = null;
                 modules_src = { ...modules_src, [key]: module_editor_src };
                 anything_changed = true;
             }
@@ -547,11 +559,11 @@
         }
         else if(type === 'js') {
             const module = error.module;
-            const js_error = error.error;
-            console.log(`JavaScript error in module "${module}":\n`, js_error);
-            javascript_error = js_error.toString();
+            const module_error = error.error;
+            // console.log(`JavaScript error in module "${module}":\n`, module_error);
+            any_module_errors = `Module "${module}": ${module_error.toString()}`;
             // error_message = `JavaScript shader error: ${javascript_error}`;
-            const linterExtension = createEvalLinter(js_error, modules_src.index);
+            const linterExtension = createEvalLinter(module_error, modules_src[module]);
 
             moduleEditorViews[module].dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)
@@ -790,8 +802,8 @@
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
                 <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
-                {#if javascript_error != null}
-                <p class="annotation" style:color="red">{javascript_error}</p>
+                {#if any_module_errors != null}
+                <p class="annotation" style:color="red">{any_module_errors}</p>
                 {/if}
                 <Tabs 
                 bind:names={module_tab_names} 
@@ -807,7 +819,7 @@
                 onfunctional={on_module_tab_functional}
                 />
                 {#each Object.entries(modules_src) as [module, code]}
-                <div bind:this={module_editors[module]} class="editor-container code-block-background"></div>
+                <div bind:this={module_editors[module]} class="editor-container code-block-background" style:display={(module_tab_selected_value==module)?'block':'none'}></div>
                 {/each}
             </div>
 

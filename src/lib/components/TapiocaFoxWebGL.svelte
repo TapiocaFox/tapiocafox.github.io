@@ -65,9 +65,11 @@
         assets;
         if (!foxGL) return;
         // console.log('Something changed and foxGL exists, re-setup and run.');
-        foxGL.newProgram();
-        foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
-        foxGL.refreshShadersAndScript();
+        (async () => {
+            foxGL.newProgram();
+            foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
+            await foxGL.refreshShadersAndModules();
+        })();
     });
 
     onMount(async () => {
@@ -233,7 +235,7 @@
                     this.assets = assets;
                 },
 
-                refreshShadersAndScript: async function() {
+                refreshShadersAndModules: async function() {
                     await this.stop();
                     // this.unloadLoadedScripts();
                     await this.optimizeViewPort();
@@ -241,6 +243,7 @@
                     for (const key in statusDict) {
                         delete statusDict[key];
                     }
+                    await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importIndexModule();
                     await this.start();
@@ -393,7 +396,7 @@
 
             const refreshOnGlInit = await onglinit(foxGL);
             foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
-            if(refreshOnGlInit) await foxGL.refreshShadersAndScript();
+            if(refreshOnGlInit) await foxGL.refreshShadersAndModules();
         }
         catch (error) {
             console.trace(error);

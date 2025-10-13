@@ -82,6 +82,7 @@ export function createSandbox(): Sandbox {
 
   return {
     register(name: string, code: string): string {
+      // console.log(`register: ${name}`);
       const existing = modules.get(name);
       if (existing?.url) URL.revokeObjectURL(existing.url);
 
@@ -119,18 +120,14 @@ export function createSandbox(): Sandbox {
     },
 
     async reloadAll(): Promise<void> {
-      for (const [name, mod] of modules.entries()) {
+      for (const [name] of modules.entries()) {
         try {
-          // revoke old URL to free memory
-          URL.revokeObjectURL(mod.url);
+          // Call the same logic used for initial registration
+          this.register(name, modules.get(name)!.code);
 
-          // create a fresh blob with the same source code
-          const blob = new Blob([mod.code], { type: "application/javascript" });
-          const newUrl = URL.createObjectURL(blob);
-          mod.url = newUrl;
-
-          // re-import the module (must be dynamic)
-          const imported = await import(/* @vite-ignore */ newUrl);
+          // Dynamically import new blob
+          const mod = modules.get(name)!;
+          const imported = await import(/* @vite-ignore */ mod.url);
           mod.exports = imported;
         } catch (err) {
           notifyError(name, err);
