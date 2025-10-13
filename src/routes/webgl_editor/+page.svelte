@@ -868,7 +868,7 @@
                             <p class="annotation">Click to upload or link a new asset file.</p>
                         </div>
                     </div>
-                    {#each Object.entries(assets).reverse() as [id, asset]}
+                    {#each Object.entries(assets).reverse() as [id, asset] (id)}
                     {#if asset.type == 'image'}
                     <div id={`asset-img-${id}`} class="item image-item" role="button" tabindex="0" 
                     onclick={() => {
