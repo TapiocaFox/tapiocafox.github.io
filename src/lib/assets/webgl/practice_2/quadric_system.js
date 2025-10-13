@@ -114,7 +114,7 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     // Set status title.
-    foxGL.setStatusTitle('qmtrx Surface (System)');
+    foxGL.setStatusTitle('Quadric Surface (System)');
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
 
