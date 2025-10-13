@@ -80,7 +80,7 @@
 
 
     const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
-    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'all');
+    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'vert');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
@@ -232,7 +232,7 @@
                 reset();
                 return true;
             };
-    const mod1: KeyBinding["run"] = ({ state }) => {
+    const mod0: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_all';
                 view_mode = 'all';
                 viewModeStorage.set('all');
@@ -243,7 +243,7 @@
                 });
                 return true;
             }
-    const mod2: KeyBinding["run"] = ({ state }) => {
+    const mod1: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_vert';
                 view_mode = 'vert';
                 viewModeStorage.set('vert');
@@ -254,7 +254,7 @@
                 });
                 return true;
             }
-    const mod3: KeyBinding["run"] = ({ state }) => {
+    const mod2: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_frag';
                 view_mode = 'frag';
                 viewModeStorage.set('frag');
@@ -265,7 +265,7 @@
                 });
                 return true;
             }
-    const mod4: KeyBinding["run"]  = ({ state }) => {
+    const mod3: KeyBinding["run"]  = ({ state }) => {
                 selected_value = 'view_js';
                 view_mode = 'js';
                 viewModeStorage.set('js');
@@ -318,12 +318,12 @@
             run: mod3
         }, 
         {
-            key: "Mod-4",
-            run: mod4
+            key: "Mod-0",
+            run: mod0
         }, 
         {
-            key: "Ctrl-4",
-            run: mod4
+            key: "Ctrl-0",
+            run: mod0
         }
     ]));
     const outlineTheme = EditorView.theme({
@@ -630,15 +630,16 @@
         return 'just now';
     }
 
-    const chips_names = ['[R]eset', '[S]napshot', 'Import', 'All | 1', 'Vert | 2', 'Frag | 3', 'JS | 4'];
-    const chips_values = ['reset', 'snapshot', 'import', 'view_all', 'view_vert', 'view_frag', 'view_js'];
-    const chips_icons = [reset_icon, camera_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon];
+    const chips_names = ['[R]eset', '[S]napshot', 'Import', 'Vert | 1', 'Frag | 2', 'JS | 3', 'Assets'];
+    const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_js', 'view_assets'];
+    const chips_icons = [reset_icon, import_icon, eye_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
+    const dividers = ['view_vert'];
     // if(dev) {
 
     // }
-    chips_names.push('Assets');
-    chips_values.push('view_assets');
-    chips_icons.push(box_icon);
+    // chips_names.push('Assets');
+    // chips_values.push('view_assets');
+    // chips_icons.push(box_icon);
 
 
     // Asset configuration dialog
@@ -760,7 +761,7 @@
     values={chips_values}
     inline_icons={chips_icons}
     bind:selected_value={selected_value}
-    dividers={['view_all']}
+    dividers={dividers}
     sticky={true}
     callback={(value: any) => {
         if (value == 'reset') {
@@ -829,7 +830,7 @@
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
-                <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
+                <h3>JavaScript Modules <img class="inline-glyph" src={javascript_icon}/></h3>
                 <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
                 {#if any_module_errors != null}
                 <p class="annotation" style:color="red">{any_module_errors}</p>
@@ -910,7 +911,7 @@
                     {/each}
                 </div>
             </div>
-            <!-- <hr class="dotted"> -->
+            <hr class="dotted">
             <EndingDecoration/>
         </div>
     </div>
