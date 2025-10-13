@@ -180,6 +180,7 @@
                         this.defaultModule = await this.sandbox.import(default_module);
                     }
                     catch(error) {
+                        // console.trace(error);
                         onerror('js', {module: default_module, error: error});
                     } 
                 },
@@ -219,7 +220,10 @@
                         delete statusDict[key];
                     }
                     this.sandbox.commit();
-                    // await this.sandbox.reloadAll();
+                    if(mode=='in-editor') {
+                        const error = await this.sandbox.preloadAll();
+                        if(error) return;
+                    }
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importDefaultModule();
                     await this.start();
@@ -249,7 +253,10 @@
                         delete statusDict[key];
                     }
                     this.sandbox.commit();
-                    // await this.sandbox.reloadAll();
+                    if(mode=='in-editor') {
+                        const error = await this.sandbox.preloadAll();
+                        if(error) return;
+                    }
                     this.initProgram(this.vertexShader, this.fragmentShader);
                     await this.importDefaultModule();
                     await this.start();
@@ -315,7 +322,7 @@
                     throw 'Not implemented'; // Placeholder
                 }
             };
-
+            // console.log('addUncaughtErrorListener');
             foxGL.sandbox.addUncaughtErrorListener(sandboxUncaughtErrorListener);
 
             const resizeObserver = new ResizeObserver(entries => {

@@ -1,140 +1,13 @@
 // Author: TapiocaFox
 // Title:  Match The Texture
 
+import {qGlobal, qSphere, qParabX, qParabY, qParabZ, qSlabX, qSlabY, qSlabZ, qTubeX, qTubeY, qTubeZ, qConeX, qConeY, qConeZ, cubeSystem, hourglassSystem, coneSystem, cylinderSystem, noseSystem, sphereSystem} from 'quadric_matrices';
+import { mxm, qxm, scale, translate, rotateX, rotateY } from 'matrix';
+
 // Init variables.
 let gl, program, canvas;
 let destroyed = false;
 let onpointermove, onpointerenter, onpointerleave, onclick, resizeObserver;
-
-const qGlobal = [0,0,0,0,
-                 0,0,0,0,
-                 0,0,0,0,
-                 0,0,0,-1];
-
-const qSphere = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,-1];
-
-const qParabX = [0,0,0,1,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qParabY = [1,0,0,0,
-                 0,0,0,1,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qParabZ = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,0,1,
-                 0,0,0,0];
-
-const qSlabX = [1,0,0,0,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qSlabY = [0,0,0,0,
-                0,1,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qSlabZ = [0,0,0,0,
-                0,0,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeX = [0,0,0,0,
-                0,1,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeY = [1,0,0,0,
-                0,0,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeZ = [1,0,0,0,
-                0,1,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qConeX = [-1,0,0,0,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qConeY = [1,0,0,0,
-                0,-1,0,0,
-                0,0,1,0,
-                0,0,0,0];
-
-const qConeZ = [1,0,0,0,
-                0,1,0,0,
-                0,0,-1,0,
-                0,0,0,0];
-
-// Transformations. Column major.
-// Row.
-const rotateX = r => [1,0,0,0,
-                      0,Math.cos(r),Math.sin(r),0,
-                      0,-Math.sin(r),Math.cos(r),0,
-                      0,0,0,1];
-// Pitch.
-const rotateY = r => [Math.cos(r),0,-Math.sin(r),0,
-                      0,1,0,0,
-                      Math.sin(r),0,Math.cos(r),0,
-                      0,0,0,1];
-// Yaw.
-const rotateZ = r => [Math.cos(r),Math.sin(r),0,0,
-                      -Math.sin(r),Math.cos(r),0,0,
-                      0,0,1,0,
-                      0,0,0,1];
-// Translate.
-const translate = (x,y,z) => [1,0,0,0,
-                              0,1,0,0,
-                              0,0,1,0,
-                              x,y,z,1];
-
-// Scale.
-const scale = (x,y,z) => [x,0,0,0,
-                          0,y,0,0,
-                          0,0,z,0,
-                          0,0,0,1];
-
-// Matrix operations.
-const mxm = (a,b) => {
-   let m = [];
-   for (let c = 0 ; c < 16 ; c += 4)
-       for (let r = 0 ; r < 4 ; r++)
-          m.push(a[r]*b[c]+a[r+4]*b[c+1]+a[r+8]*b[c+2]+a[r+12]*b[c+3]);
-   return m;
-}
-
-const transpose = m => [ m[0],m[4],m[ 8],m[12],
-                       m[1],m[5],m[ 9],m[13],
-                       m[2],m[6],m[10],m[14],
-                       m[3],m[7],m[11],m[15] ];
-
-const inverse = src => {
-   let dst = [], det = 0, cofactor = (c, r) => {
-      let s = (i, j) => src[c+i & 3 | (r+j & 3) << 2];
-      return (c+r&1?-1:1)*((s(1,1)*(s(2,2)*s(3,3)-s(3,2)*s(2,3)))
-                         - (s(2,1)*(s(1,2)*s(3,3)-s(3,2)*s(1,3)))
-                         + (s(3,1)*(s(1,2)*s(2,3)-s(2,2)*s(1,3))) );
-   }
-   for (let n = 0 ; n < 16 ; n++) dst.push(cofactor(n >> 2, n & 3));
-   for (let n = 0 ; n <  4 ; n++) det += src[n] * dst[n << 2];
-   for (let n = 0 ; n < 16 ; n++) dst[n] /= det;
-   return dst;
-}
-
-const qxm = (Q,M) => {
-   let MI = inverse(M);
-   return mxm(transpose(MI), mxm(Q, MI));
-}
 
 const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
     let newSystem = [];
@@ -143,14 +16,6 @@ const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
     }
     return newSystem;
 }
-
-// Predefined systems.
-const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
-const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
-const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
-const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
-const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
-const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
 
 let systemIndex = 5;
 const systems = [

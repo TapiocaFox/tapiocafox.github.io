@@ -332,4 +332,4 @@ export const stop = async (foxGL) => {
     if(onpointerenter) canvas.removeEventListener('pointerenter', onpointerenter);
     if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
     if(onclick) canvas.removeEventListener('click', onclick);
-};`,s=""+new URL("../assets/alien_blipper.DjjNZq0-.wav",import.meta.url).href,a=""+new URL("../assets/alienappeal.B5YF_wGI.wav",import.meta.url).href;export{o as a,n as b,t as c,s as d,a as h,i as l,e as r};
+};`,a=""+new URL("../assets/alien_blipper.DjjNZq0-.wav",import.meta.url).href,s=""+new URL("../assets/alienappeal.B5YF_wGI.wav",import.meta.url).href;export{o as a,n as b,t as c,a as d,s as h,i as l,e as r};

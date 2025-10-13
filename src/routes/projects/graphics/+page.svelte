@@ -5,16 +5,19 @@
     import TapiocaFoxWebGL from '$lib/components/TapiocaFoxWebGL.svelte';
     import alter_green_red_frag from '$lib/assets/webgl/practice_1/alter_green_red.frag?raw';
 
+    import matrix_module from '$lib/assets/webgl/modules/matrix.js?raw';
+    import quadric_matrices_module from '$lib/assets/webgl/modules/quadric_matrices.js?raw';
+
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import default_modules from '$lib/assets/webgl/default_modules';
-    import frame_skip_js from '$lib/assets/webgl/misc/frame_skip.js?raw';
-    import passive_render_js from '$lib/assets/webgl/misc/passive_render.js?raw';
+    import frame_skip_module from '$lib/assets/webgl/misc/frame_skip.js?raw';
+    import passive_render_module from '$lib/assets/webgl/misc/passive_render.js?raw';
     
     import mouse from '$lib/assets/webgl/misc/mouse.frag?raw';
     import snoise from '$lib/assets/webgl/misc/snoise.frag?raw';
     import sin from '$lib/assets/webgl/misc/sin.frag?raw';
-    import texture_preview_js from '$lib/assets/webgl/misc/texture_preview.js?raw';
+    import texture_preview_module from '$lib/assets/webgl/misc/texture_preview.js?raw';
     import texture_preview_vert from '$lib/assets/webgl/misc/texture_preview.vert?raw';
     import texture_preview_frag from '$lib/assets/webgl/misc/texture_preview.frag?raw';
     import uvmap_texture from '$lib/assets/webgl/misc/textures/uvmap_grid.jpg';
@@ -27,32 +30,31 @@
     import array from '$lib/assets/webgl/practice_1/array.frag?raw';
 
     import spheres_frag from '$lib/assets/webgl/practice_2/spheres.frag?raw';
-    import spheres_js from '$lib/assets/webgl/practice_2/spheres.js?raw';
+    import spheres_module from '$lib/assets/webgl/practice_2/spheres.js?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
-    import reflective_spheres_js from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
+    import reflective_spheres_module from '$lib/assets/webgl/practice_2/reflective_spheres.js?raw';
     import phong_reflective_spheres_frag from '$lib/assets/webgl/practice_2/phong_reflective_spheres.frag?raw';
-    import phong_reflective_spheres_js from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
+    import phong_reflective_spheres_module from '$lib/assets/webgl/practice_2/phong_reflective_spheres.js?raw';
     import reflectice_refractive_spheres_frag from '$lib/assets/webgl/practice_2/reflective_refractive_spheres.frag?raw';
-    import reflectice_refractive_spheres_js from '$lib/assets/webgl/practice_2/reflective_refractive_spheres.js?raw';
+    import reflectice_refractive_spheres_module from '$lib/assets/webgl/practice_2/reflective_refractive_spheres.js?raw';
     import hl_activated_sound from '$lib/assets/webgl/practice_2/sounds/activated.wav';
     import hl_deactivated_sound from '$lib/assets/webgl/practice_2/sounds/deactivated.wav';
     
     import phong_frag from '$lib/assets/webgl/practice_2/phong.frag?raw';
-    import phong_js from '$lib/assets/webgl/practice_2/phong.js?raw';
+    import phong_module from '$lib/assets/webgl/practice_2/phong.js?raw';
     import quadric_frag from '$lib/assets/webgl/practice_2/quadric.frag?raw';
-    import quadric_js from '$lib/assets/webgl/practice_2/quadric.js?raw';
+    import quadric_module from '$lib/assets/webgl/practice_2/quadric.js?raw';
     import quadric_system_frag from '$lib/assets/webgl/practice_2/quadric_system.frag?raw';
-    import quadric_system_js from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
-    import quadric_matrices_js from '$lib/assets/webgl/practice_2/quadric_matrices.js?raw';
+    import quadric_system_module from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
 
     import noise_frag from '$lib/assets/webgl/practice_3/noise.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
-    import lava_lamp_js from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
+    import lava_lamp_module from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
     import texture_match_frag from '$lib/assets/webgl/practice_3/texture_match.frag?raw';
-    import texture_match_js from '$lib/assets/webgl/practice_3/texture_match.js?raw';
+    import texture_match_module from '$lib/assets/webgl/practice_3/texture_match.js?raw';
     
     import simple_mesh_frag from '$lib/assets/webgl/practice_4/simple_mesh.frag?raw';
-    import simple_mesh_js from '$lib/assets/webgl/practice_4/simple_mesh.js?raw';
+    import simple_mesh_module from '$lib/assets/webgl/practice_4/simple_mesh.js?raw';
     
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
     import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
@@ -109,12 +111,12 @@
                 },
                 {
                     frag: fiber,
-                    modules: {index: frame_skip_js},
+                    modules: {index: frame_skip_module},
                     categories: ['distortion']
                 },
                 {
                     frag: array,
-                    modules: {index: frame_skip_js},
+                    modules: {index: frame_skip_module},
                     categories: []
                 },
                 {
@@ -134,17 +136,17 @@
             practices: [
                 // {
                 //     frag: spheres_frag,
-                //     js: spheres_js,
+                //     js: spheres_module,
                 //     categories: ['raycasting']
                 // },
                 {
                     frag: phong_frag,
-                    modules: {index: phong_js},
+                    modules: {index: phong_module},
                     categories: ['raycasting']
                 },
                 // {
                 //     frag: reflective_spheres_frag,
-                //     js: reflective_spheres_js,
+                //     js: reflective_spheres_module,
                 //     assets: {
                 //         'hl_deactivated': {
                 //             id: 'hl_deactivated',
@@ -163,7 +165,7 @@
                 // },
                 {
                     frag: phong_reflective_spheres_frag,
-                    modules: {index: phong_reflective_spheres_js},
+                    modules: {index: phong_reflective_spheres_module},
                     assets: {
                         'hl_deactivated': {
                             id: 'hl_deactivated',
@@ -182,7 +184,7 @@
                 },
                 {
                     frag: reflectice_refractive_spheres_frag,
-                    modules: {index: reflectice_refractive_spheres_js},
+                    modules: {index: reflectice_refractive_spheres_module},
                     assets: {
                         'hl_deactivated': {
                             id: 'hl_deactivated',
@@ -201,12 +203,12 @@
                 },
                 // {
                 //     frag: quadric_frag,
-                //     js: quadric_js,
+                //     js: quadric_module,
                 //     categories: ['raycasting']
                 // },
                 {
                     frag: quadric_system_frag,
-                    modules: {index: quadric_system_js, quadric_matrices: quadric_matrices_js},
+                    modules: {index: quadric_system_module, matrix: matrix_module, quadric_matrices: quadric_matrices_module},
                     assets: {
                         'hl_blip': {
                             id: 'hl_blip',
@@ -236,7 +238,7 @@
                 },
                 {
                     frag: lava_lamp_frag,
-                    modules: {index: lava_lamp_js},
+                    modules: {index: lava_lamp_module},
                     assets: {
                         'hl_alien_blipper': {
                             id: 'hl_alien_blipper',
@@ -255,7 +257,7 @@
                 },
                 {
                     frag: texture_match_frag,
-                    modules: {index: texture_match_js},
+                    modules: {index: texture_match_module, matrix: matrix_module, quadric_matrices: quadric_matrices_module},
                     assets: {
                         'hl_button1': {
                             id: 'hl_button1',
@@ -300,7 +302,7 @@
             practices: [
                 {
                     frag: simple_mesh_frag,
-                    modules: {index: simple_mesh_js},
+                    modules: {index: simple_mesh_module},
                     categories: ['mesh']
                 },
             ]
@@ -311,13 +313,13 @@
             practices: [
                 {
                     frag: magnifier_frag,
-                    modules: {index: passive_render_js},
+                    modules: {index: passive_render_module},
                     categories: ['distortion']
                 },
                 {
                     vert: texture_preview_vert,
                     frag: texture_preview_frag,
-                    modules: {index: texture_preview_js},
+                    modules: {index: texture_preview_module},
                     assets: {
                         'uvmap': {
                             id: 'uvmap',
@@ -370,13 +372,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_js}}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_module}}/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_js}}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_module}}/>
     </div>
     <!-- <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} modules={texture_preview_js} assets={}/>
+        <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} modules={texture_preview_module} assets={}/>
     </div> -->
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise}/>
@@ -389,13 +391,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_js}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_render_module}} mode="preview"/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_js}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frame_skip_module}} mode="preview"/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} modules={{index: frame_skip_js}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} modules={{index: frame_skip_module}} mode="preview"/>
     </div>
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>

@@ -35,7 +35,7 @@ export interface Sandbox {
   commit(): void;
   import<T = any>(name: string): Promise<T>;
   replace(name: string, newCode: string): Promise<void>;
-  // reloadAll(): Promise<void>;
+  preloadAll(): Promise<Error | void>;
   clear(): void;
   addUncaughtErrorListener(listener: UncaughtErrorListener): void;
   removeUncaughtErrorListener(listener: UncaughtErrorListener): void;
@@ -44,8 +44,10 @@ export interface Sandbox {
 export function createSandbox(): Sandbox {
   const modules = new Map<string, ModuleRecord>();
   const errorListeners = new Set<UncaughtErrorListener>();
+  let order: string[] = [];
 
   function notifyError(moduleName: string, error: unknown) {
+    // console.log(errorListeners);
     for (const listener of errorListeners) listener(moduleName, error);
   }
 
@@ -125,7 +127,7 @@ export function createSandbox(): Sandbox {
     },
 
     commit() {
-      const order = topologicalSort();
+      order = topologicalSort();
       for (const name of order) {
         const mod = modules.get(name)!;
         const rewritten = rewriteCode(mod.code);
@@ -151,31 +153,32 @@ export function createSandbox(): Sandbox {
     async replace(name: string, newCode: string): Promise<void> {
       this.register(name, newCode);
       this.commit();
-      await this.reloadAll();
+      // await this.reloadAll();
     },
 
-    // async reloadAll(): Promise<void> {
-    //   const order = topologicalSort();
-    //   for (const name of order) {
-    //     const mod = modules.get(name)!;
-    //     if (!mod.url) throw new Error(`Module "${name}" not committed`);
-    //     try {
-    //       const imported = await import(/* @vite-ignore */ mod.url);
-    //       mod.exports = imported;
-    //     } catch (err) {
-    //       notifyError(name, err);
-    //     }
-    //   }
-    // },
+    async preloadAll(): Promise<Error | void> {
+      for (const name of order) {
+        console.log('name', name);
+        const mod = modules.get(name)!;
+        if (!mod.url) return new Error(`Module "${name}" not committed`);
+        try {
+          await this.import(name);
+        }
+        catch(error: any) {
+          return error;
+        }
+      }
+    },
 
     clear() {
       for (const mod of modules.values()) if (mod.url) URL.revokeObjectURL(mod.url);
       modules.clear();
-      errorListeners.clear();
+      // errorListeners.clear();
     },
 
     addUncaughtErrorListener(listener: UncaughtErrorListener) {
       errorListeners.add(listener);
+      // console.log(errorListeners);
     },
 
     removeUncaughtErrorListener(listener: UncaughtErrorListener) {
