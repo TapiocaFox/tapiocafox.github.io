@@ -1,80 +1,12 @@
 // Author: TapiocaFox
 // Title:  Quadric Surface (System)
 
+import qmtrx from 'quadric_matrices';
+
 // Init variables.
 let gl, program, canvas;
 let destroyed = false;
 let onpointermove, onclick, resizeObserver;
-
-const qGlobal = [0,0,0,0,
-                 0,0,0,0,
-                 0,0,0,0,
-                 0,0,0,-1];
-
-const qSphere = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,-1];
-
-const qParabX = [0,0,0,1,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qParabY = [1,0,0,0,
-                 0,0,0,1,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qParabZ = [1,0,0,0,
-                 0,1,0,0,
-                 0,0,0,1,
-                 0,0,0,0];
-
-const qSlabX = [1,0,0,0,
-                0,0,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qSlabY = [0,0,0,0,
-                0,1,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qSlabZ = [0,0,0,0,
-                0,0,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeX = [0,0,0,0,
-                0,1,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeY = [1,0,0,0,
-                0,0,0,0,
-                0,0,1,0,
-                0,0,0,-1];
-
-const qTubeZ = [1,0,0,0,
-                0,1,0,0,
-                0,0,0,0,
-                0,0,0,-1];
-
-const qConeX = [-1,0,0,0,
-                 0,1,0,0,
-                 0,0,1,0,
-                 0,0,0,0];
-
-const qConeY = [1,0,0,0,
-                0,-1,0,0,
-                0,0,1,0,
-                0,0,0,0];
-
-const qConeZ = [1,0,0,0,
-                0,1,0,0,
-                0,0,-1,0,
-                0,0,0,0];
 
 // Transformations. Column major.
 // Row.
@@ -136,7 +68,7 @@ const qxm = (Q,M) => {
    return mxm(transpose(MI), mxm(Q, MI));
 }
 
-const qsxm = (QS,M) => { // "qs" stands for "Quadric System".
+const qsxm = (QS,M) => { // "qs" stands for "qmtrx System".
     let newSystem = [];
     for(let n=0; n<QS.length; n++) {
         newSystem.push(qxm(QS[n],M));
@@ -149,12 +81,12 @@ const numObjects = 4;
 const sizeScale = .66;
 const flags_reveal = new Array(numObjects).fill(false);
 
-const cubeSystem = [qSlabX, qSlabY, qSlabZ]; // Cube
-const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
-const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
-const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
-const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
-const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere
+const cubeSystem = [qmtrx.qSlabX, qmtrx.qSlabY, qmtrx.qSlabZ]; // Cube
+const hourglassSystem = [qmtrx.qSlabX, qmtrx.qConeX, qmtrx.qGlobal]; // Hourglass
+const coneSystem = [qmtrx.qConeX, qxm(qmtrx.qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qmtrx.qGlobal]; // Real cone
+const cylinderSystem = [qmtrx.qTubeX, qmtrx.qSlabX, qmtrx.qGlobal]; // Cylinder
+const noseSystem = [qmtrx.qParabX, qmtrx.qSlabX, qmtrx.qGlobal]; // Nose
+const sphereSystem = [qmtrx.qSphere, qmtrx.qGlobal, qmtrx.qGlobal]; // Sphere
 
 let systemIndex = 1;
 const systems = [
@@ -182,7 +114,7 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     // Set status title.
-    foxGL.setStatusTitle('Quadric Surface (System)');
+    foxGL.setStatusTitle('qmtrx Surface (System)');
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
 

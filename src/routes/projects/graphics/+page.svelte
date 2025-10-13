@@ -43,6 +43,7 @@
     import quadric_js from '$lib/assets/webgl/practice_2/quadric.js?raw';
     import quadric_system_frag from '$lib/assets/webgl/practice_2/quadric_system.frag?raw';
     import quadric_system_js from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
+    import quadric_matrices_js from '$lib/assets/webgl/practice_2/quadric_matrices.js?raw';
 
     import noise_frag from '$lib/assets/webgl/practice_3/noise.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
@@ -205,7 +206,7 @@
                 // },
                 {
                     frag: quadric_system_frag,
-                    modules: {index: quadric_system_js},
+                    modules: {index: quadric_system_js, quadric_matrices: quadric_matrices_js},
                     assets: {
                         'hl_blip': {
                             id: 'hl_blip',

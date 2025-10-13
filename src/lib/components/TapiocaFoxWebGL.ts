@@ -83,14 +83,17 @@ export function createSandbox(): Sandbox {
     const temp = new Set<string>();
     const sorted: string[] = [];
 
-    function visit(name: string) {
+    function visit(name: string, path: string[] = []) {
       if (visited.has(name)) return;
-      if (temp.has(name)) throw new Error(`Circular dependency detected: ${name}`);
+      if (temp.has(name)) {
+        const cyclePath = [...path, name].join(' -> ');
+        throw new Error(`Circular dependency detected: ${cyclePath}`);
+      }
       temp.add(name);
       const mod = modules.get(name);
       if (!mod) throw new Error(`Module "${name}" not found for topological sort`);
       for (const dep of mod.deps) {
-        if (modules.has(dep)) visit(dep);
+        if (modules.has(dep)) visit(dep, [...path, name]);
       }
       temp.delete(name);
       visited.add(name);
