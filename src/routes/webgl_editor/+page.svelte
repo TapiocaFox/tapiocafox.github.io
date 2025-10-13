@@ -809,7 +809,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a simple editor for small WebGL 2 projects. (Experimental phase.)</p>
+<p class="annotation">This is a clean and simple editor for small WebGL 2 projects. (Experimental phase.)</p>
 <hr class="dotted" style:margin-bottom="0">
 <div class="editor-layout">
     <div class="left">
