@@ -66,11 +66,12 @@
 
     let vertex_shader_editor: HTMLDivElement;
     let fragment_shader_editor: HTMLDivElement;
-    let javascript_editor: HTMLDivElement;
+    let module_editors: Record<string, HTMLDivElement> = {};
 
     let vertexShaderEditorView: EditorView;
     let fragmentShaderEditorView: EditorView;
-    let javascriptEditorView: EditorView;
+    let moduleEditorViews: Record<string, EditorView> = {};
+    // let javascriptEditorView: EditorView;
 
     let foxGL: TapiocaFoxGLContext;
     let importSnapshotInput: HTMLInputElement;
@@ -112,7 +113,7 @@
     let accumalated_tabs = 0;
     let module_tab_selected_value = $state("none");
 
-    const new_tab = (module_name: string, icon: string, closable: boolean) => {
+    const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
         module_tab_names.push(module_name);
         module_tab_values.push(module_name);
         module_tab_icons.push(icon);
@@ -120,34 +121,51 @@
         accumalated_tabs += 1;
     };
 
-    new_tab('index', box_icon, false);
     module_tab_selected_value = 'index';
 
-    // const reset = () => {
-    //     module_tab_names = [];
-    //     module_tab_values = [];
-    //     module_tab_icons = [];
-    //     module_tab_closable_list = [];
-    //     accumalated_tabs = 0;
-    //     for(let i=0; i<default_module_tab_count; i++) {
-    //     new_tab(box_icon, false);
-    //     }
-    //     module_tab_selected_value = module_tab_values[0];
-    // };
+    $effect(() => {
+        if(!mounted) return;
 
-    // reset();
+        // Remove obsolete editors.
+        const modules_in_src = Object.keys(modules_src);
+        // const modules_in_editors = Object.keys(module_editors);
+        const modules_in_editor_views = Object.keys(moduleEditorViews);
+        
+        const modules_not_in_editor_views = modules_in_src.filter(x => modules_in_editor_views.includes(x));
+        const modules_not_in_src = modules_in_editor_views.filter(x => modules_in_src.includes(x));
+
+        modules_not_in_src.forEach((module: string) => {
+            moduleEditorViews[module].destroy();
+            delete moduleEditorViews[module];
+        });
+
+        modules_not_in_editor_views.forEach((module: string) => {
+            const moduleEditorView = new EditorView({
+                parent: module_editors[module],
+                doc: modules_src[module],
+                extensions: [basicSetup, 
+                javascript(), 
+                keymapExtension, 
+                modKeymapExtension, 
+                indentUnitExtension, 
+                EditorView.lineWrapping,
+                errorLinterCompartment.of([])]
+            })
+            moduleEditorViews[module] = moduleEditorView;
+        });
+    });
 
     const on_close = (value: string) => {
         return confirm(`Close tab "${value}"?`);
     };
 
     const on_module_tab_functional = (value: string) => {
-        // console.log(`on_module_tab_functional: ${value}`);
         if(value=='new_tab') {
             alert('Feature not implemented yet.');
         }
         else if(value=='reset') {
-            setEditorValue(javascriptEditorView, default_modules.index);
+            modules_src = default_modules;
+            module_tab_selected_value = Object.entries(modules_src)[0][0];
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
@@ -225,8 +243,8 @@
                 viewModeStorage.set('js');
                 // scrollToTop();
                 tick().then(() => {
-                    scrollToEditorCursor(javascriptEditorView);
-                    javascriptEditorView.focus();
+                    scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
+                    moduleEditorViews[module_tab_selected_value].focus();
                 });
                 return true;
             }
@@ -291,23 +309,6 @@
         await snapshotInNewTabReady;
         const glsl = browserRenderMod.glsl;
 
-        // const snapshot = $lastSnapshot;
-
-        // const url_vert = page.url.searchParams.get("vert");
-        // const url_frag = page.url.searchParams.get("frag");
-        // const url_js = page.url.searchParams.get("js");
-
-        // // if((url_vert!=null || url_frag!=null || url_js!=null)) {
-        // //     if(url_vert) vert_shader_src = url_vert;
-        // //     if(url_frag) frag_shader_src = url_frag;
-        // //     if(url_js && url_js!=modules_src) {
-        // //         const use_url_js = confirm('This url contains external JavaScript source code which can be extremely dangerous. Are you sure you want to use it?');
-        // //         if(use_url_js) modules_src = url_js;
-        // //     };
-        // //     anything_changed = true;
-        // //     history.replaceState(history.state, '', page.url.pathname);
-        // // }
-        // // else 
         if($nextSnapshot != null) {
             const snapshot: Snapshot = $nextSnapshot;
             vert_shader_src = snapshot.vert;
@@ -333,9 +334,6 @@
             assets = $lastSnapshot.assets||{};
         }
         
-        // clears all query parameters
-        // goto(page.url.pathname, { replaceState: true });
-
         vertexShaderEditorView = new EditorView({
             parent: vertex_shader_editor,
             doc: vert_shader_src,
@@ -356,19 +354,6 @@
             EditorView.lineWrapping,
             errorLinterCompartment.of([])]
         })
-
-        javascriptEditorView = new EditorView({
-            parent: javascript_editor,
-            doc: modules_src.index,
-            extensions: [basicSetup, 
-            javascript(), 
-            keymapExtension, 
-            modKeymapExtension, 
-            indentUnitExtension, 
-            EditorView.lineWrapping,
-            errorLinterCompartment.of([])]
-        })
-
         
         mounted = true;
         await tick();
@@ -400,13 +385,17 @@
             anything_changed = true;
         }
 
-        const js_editor_src = javascriptEditorView.state.doc.toString();
-        if(js_editor_src!=modules_src.index) {
-            clearErrors(javascriptEditorView);
-            javascript_error = null;
-            modules_src = { ...modules_src, index: js_editor_src };
-            anything_changed = true;
+        for(let key in moduleEditorViews) {
+            const moduleEditorView = moduleEditorViews[key];
+            const module_editor_src = moduleEditorView.state.doc.toString();
+            if(module_editor_src!=modules_src[key]) {
+                clearErrors(moduleEditorView);
+                javascript_error = null;
+                modules_src = { ...modules_src, [key]: module_editor_src };
+                anything_changed = true;
+            }
         }
+
         // console.log('run');
         // console.log(vert_shader_src);
         // console.log(frag_shader_src);
@@ -415,11 +404,6 @@
     function reset() {
         foxGL?.reset();
     }
-
-    // function share() {
-    //     navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(vert_shader_src)}&frag=${encodeURIComponent(frag_shader_src)}&js=${encodeURIComponent(modules_src)}`);
-    //     alert('The URL has been copied to your clipboard!');
-    // }
 
     function downloadSnapshot(snapshot: Snapshot) {
         const json = JSON.stringify(snapshot, null, 2);
@@ -471,7 +455,7 @@
         
         setEditorValue(vertexShaderEditorView, snapshot.vert);
         setEditorValue(fragmentShaderEditorView, snapshot.frag);
-        setEditorValue(javascriptEditorView, snapshot.modules.index);
+        modules_src = snapshot.modules||default_modules;
         assets = snapshot.assets||{};
         anything_changed = true;
         // foxGL.reset();
@@ -512,30 +496,16 @@
     const leave_message = 'Do you want to save and override as the last state?';
 
     function beforeUnload(event: BeforeUnloadEvent) {
-        // lastSnapshot.set(newSnapshot());
-        // return leave_message;
         event.preventDefault();
         if (anything_changed&&confirm(leave_message)) {
-            // cancel();
             lastSnapshot.set(newSnapshot());
         }
-        // else {
-        //     lastSnapshot.set(newSnapshot());
-        // }
-        
-        // return null;
     };
 
     beforeNavigate(({ cancel }) => {
-        // lastSnapshot.set(newSnapshot());
         if (anything_changed&&confirm(leave_message)) {
-            // cancel();
             lastSnapshot.set(newSnapshot());
         }
-        // else {
-        //     lastSnapshot.set(newSnapshot());
-        // }
-        // lastSnapshot.set(newSnapshot());
     });
 
     function setEditorValue(view: EditorView, value: string) {
@@ -583,7 +553,7 @@
             // error_message = `JavaScript shader error: ${javascript_error}`;
             const linterExtension = createEvalLinter(js_error, modules_src.index);
 
-            javascriptEditorView.dispatch({
+            moduleEditorViews[module].dispatch({
                 effects: errorLinterCompartment.reconfigure(linterExtension)
             });
         }
@@ -836,21 +806,12 @@
                 bind:functional_inline_icons={module_functional_tab_icons}
                 onfunctional={on_module_tab_functional}
                 />
-                <div bind:this={javascript_editor} class="editor-container code-block-background"></div>
+                {#each Object.entries(modules_src) as [module, code]}
+                <div bind:this={module_editors[module]} class="editor-container code-block-background"></div>
+                {/each}
             </div>
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
-                <!-- <h3>Textures <img class="inline-glyph" src={deform_icon}/></h3>
-                <p class="annotation">(Under construction.)</p>
-                <div class="flex_grid gallery">
-                    <div class="item html-item" style:border="1px dashed dimgray">
-                        <div>
-                            <h3><button class="text"><img class="inline-glyph" src={ upload_icon }/>&nbsp;Upload</button></h3>
-                            <p class="annotation">Select a texture file.</p>
-                        </div>
-                    </div>
-                </div>
-                <hr class="dashed"> -->
                 <h3>Assets <img class="inline-glyph" src={box_icon}/></h3>
                 <p class="annotation">Manage your image, audio or video assets.</p>
                 <div class="flex_grid gallery">
@@ -868,10 +829,6 @@
                     }} onkeydown={(e) => {
                         openAssetConfigurationDialog(asset);
                     }}>
-                        <!-- <div>
-                            <h3>{id}</h3>
-                            <p class="annotation">Click to edit the asset file.</p>
-                        </div> -->
                         <img alt={id} src={asset.src} />
                     </div>
                     <PointerBlock element_id={`asset-img-${id}`}>
@@ -912,10 +869,6 @@
                 </div>
             </div>
             <hr class="dotted">
-
-            <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}> -->
-
-            <!-- <p class="annotation">Site version: ({version})</p> -->
             <EndingDecoration/>
         </div>
     </div>
@@ -953,9 +906,6 @@
                                 <button class="no-style" onclick={() => {
                                     downloadSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
-                                <!-- <button class="no-style" onclick={() => {
-                                    shareSnapshot(snapshot);
-                                }}><img class="inline-glyph" alt="Share" src={share_icon}/></button> -->
                                 <button class="no-style" onclick={() => {
                                     deleteSnapshot(snapshot);
                                 }}><img class="inline-glyph" alt="Delete" src={delete_icon}/></button>
@@ -970,10 +920,7 @@
         </div>
     </div>
 </div>
-<!-- <PointerBlock element_id="foxgl-definition">
-    <h3>TapiocaFoxGLContext</h3>
-    <pre>{TapiocaFoxGLContextRaw}</pre>
-</PointerBlock> -->
+
 <WindowBlock grab_element_id="foxgl-interface-grabable" bind:show={show_foxgl_interface} open_location="right">
     <h3 id="foxgl-interface-grabable"><button class="no-style" onclick={()=>{show_foxgl_interface=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;JavaScript API Definitions</h3>
     <p class="annotation">This is foxGL's interface definition.</p>
@@ -982,15 +929,10 @@
 
 <WindowBlock grab_element_id="asset-config-grabable" bind:show={show_asset_configuration_dialog} open_location="center">
     <h3 id="asset-config-grabable"><button class="no-style" onclick={()=>{show_asset_configuration_dialog=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;{#if modifying_asset_id}Asset's Configuration{:else}Import New Asset{/if}</h3>
-    <!-- <hr class="dotted"> -->
     
     <p class="annotation">Configure the settings for the asset file. Please make sure the id is unique to avoid conflicts. Consider the "link" source type if the file is larger than 16MB.</p>
-    <!-- <hr class="dotted"> -->
     
     <form onsubmit={submitAssetConfiguration}>
-        <!-- <label for="asset-name">Name:</label>
-        <input id="asset-name" type="text" bind:value={asset_name} placeholder="Enter your name"/>
-        <br> -->
         <label for="asset-name">Id:</label>
         <input id="asset-name" type="text" bind:value={asset_id} placeholder="Enter your id" required/>
         <br>
@@ -1032,12 +974,9 @@
         {#if asset_type == 'video'}
         <input type="file" accept="video/*" onchange={handleFileSelect} />
         {/if}
-        <!-- <button type="button" onclick={() => {}}>Select a file</button> -->
         {/if}
-        <!-- <p class="annotation compact"></p> -->
 
         <br><br>
-        <!-- <hr class="dotted"> -->
         <button type="submit">Confirm</button>
         <button type="button" onclick={() => {show_asset_configuration_dialog=false}}>Cancel</button>
         {#if modifying_asset_id != null}
