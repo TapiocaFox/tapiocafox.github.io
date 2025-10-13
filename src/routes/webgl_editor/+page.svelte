@@ -106,23 +106,24 @@
     let accumalated_tabs = 0;
     let module_tab_selected_value = $state("none");
 
-    let module_tab_names: Array<string> = $derived(Object.keys(modules_src));
-    let module_tab_values: Array<string> = $derived(Object.keys(modules_src));
-    let module_tab_icons: Array<string> = $derived(Object.keys(modules_src).map(key => key === 'index' ? main_icon : box_icon));
-    let module_tab_closable_list: Array<boolean> = $derived(Object.keys(modules_src).map(key => key !== 'index'));
-    
+
+    let module_tab_names = $derived(Object.keys(modules_src));
+    let module_tab_values = $derived(Object.keys(modules_src));
+    let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === 'index' ? main_icon : box_icon));
+    let module_tab_closable_list = $derived(Object.keys(modules_src).map(key => key !== 'index'));
+
     let module_functional_tab_names = $derived((module_tab_selected_value=='index')?['New', 'Default', 'API']:['New', 'Default', 'Rename', 'API']);
     let module_functional_tab_values = $derived((module_tab_selected_value=='index')?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
     let module_functional_tab_icons = $derived((module_tab_selected_value=='index')?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
 
 
-    // const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
-    //     module_tab_names.push(module_name);
-    //     module_tab_values.push(module_name);
-    //     module_tab_icons.push(icon);
-    //     module_tab_closable_list.push(closable);
-    //     accumalated_tabs += 1;
-    // };
+    const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
+        module_tab_names.push(module_name);
+        module_tab_values.push(module_name);
+        module_tab_icons.push(icon);
+        module_tab_closable_list.push(closable);
+        accumalated_tabs += 1;
+    };
 
     module_tab_selected_value = 'index';
 
@@ -130,6 +131,9 @@
         if(!mounted) return;
         // Remove obsolete editors.
         const modules_in_src = Object.keys(modules_src);
+        // console.log(modules_in_src);
+        // console.log(module_tab_values);
+        // module_tab_values = modules_in_src;
         // const modules_in_editors = Object.keys(module_editors);
         const modules_in_editor_views = Object.keys(moduleEditorViews);
         
@@ -173,13 +177,15 @@
         // console.log(`module_tab_values: ${module_tab_values}`);
     });
 
-    const on_close = (value: string) => {
+    const on_close = async (value: string) => {
         const closeOrNot = confirm(`Delete module "${value}"?`);
-        if(closeOrNot) {
-            const { [value]: _, ...rest } = modules_src;
-            modules_src = rest;
+        if (closeOrNot) {
+            modules_src = (({ [value]: _, ...rest }) => rest)(modules_src);
+            // modules_src = { ...modules_src };
+            await tick(); // Workaround for weird bugs that make the derived state omit the rest of the keys after index.
+            modules_src = { ...modules_src };
         }
-        return closeOrNot
+        return closeOrNot;
     };
 
     const on_module_tab_functional = (value: string) => {

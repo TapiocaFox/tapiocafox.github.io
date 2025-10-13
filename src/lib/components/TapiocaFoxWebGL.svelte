@@ -481,8 +481,10 @@
         }
 
         canvas.glsl.in-editor {
-            max-width: 300px !important;
-            max-height: 300px !important;
+            width: 100%;
+            height: auto;
+            max-width: unset !important;
+            max-height: unset !important;
         }
     }
     

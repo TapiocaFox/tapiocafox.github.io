@@ -1,3 +1,6 @@
+:root {
+    --min-right-width: 300px;
+}
 div.editor-layout {
     display: flex;
     gap: 1em;
@@ -7,6 +10,7 @@ div.editor-layout > div.left {
     display: flex;
     flex-grow: 1;
     flex-direction: column;
+    max-width: calc(100% - var(--min-right-width) - var(--page-offset));
 }
 
 div.editor-layout > div.left > .master-container {
@@ -21,7 +25,8 @@ div.editor-layout > div.left > .master-container > div.row {
 div.editor-layout > div.right {
     display: flex;
     flex-grow: 0;
-    width: auto;
+    min-width: var(--min-right-width);
+    /* width: auto; */
     /* overflow-y: auto; */
 }
 
