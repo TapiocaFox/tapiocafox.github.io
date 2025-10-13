@@ -6,7 +6,7 @@
 </script>
 <style>
     :root {
-        --tabs-gap: .4em;
+        --tabs-gap: .5em;
     }
     div.tab-container {
         white-space: nowrap;
