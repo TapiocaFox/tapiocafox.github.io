@@ -229,6 +229,7 @@
                 setShadersModulesAndAssets: function(vertex_shader: string, fragment_shader: string, modules: Record<string, string>, assets: Record<string, Asset>) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
+                    this.sandbox.clear();
                     for (const key in modules) {
                         this.sandbox.register(key, modules[key]);
                     }

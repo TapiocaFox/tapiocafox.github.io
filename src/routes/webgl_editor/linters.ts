@@ -62,8 +62,10 @@ export function createEvalLinter(error: Error | null, code: string) {
         let match: RegExpExecArray | null;
         let found = false;
 
+        console.log("=== ERROR MESSAGE ===");
+        console.log(error.message);
         console.log("=== ERROR STACK ===");
-        console.log(stack);
+        console.log(error.stack);
 
         while ((match = regex.exec(stack)) !== null) {
             found = true;

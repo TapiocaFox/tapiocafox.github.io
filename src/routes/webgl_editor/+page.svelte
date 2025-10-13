@@ -44,6 +44,7 @@
     import add_icon from '$lib/assets/icons/add.svg';
     import document_icon from '$lib/assets/icons/document.svg';
     import api_icon from '$lib/assets/icons/api.svg';
+    import edit_icon from '$lib/assets/icons/edit.svg';
 
     import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
@@ -102,18 +103,18 @@
     let show_asset_configuration_dialog = $state(false);
     let anything_changed = false;
 
+    let accumalated_tabs = 0;
+    let module_tab_selected_value = $state("none");
 
     let module_tab_names: Array<string> = $derived(Object.keys(modules_src));
     let module_tab_values: Array<string> = $derived(Object.keys(modules_src));
     let module_tab_icons: Array<string> = $derived(Object.keys(modules_src).map(key => key === 'index' ? main_icon : box_icon));
     let module_tab_closable_list: Array<boolean> = $derived(Object.keys(modules_src).map(key => key !== 'index'));
     
-    let module_functional_tab_names = $state(['New', 'Default', 'API']);
-    let module_functional_tab_values = $state(['new_tab', 'reset', 'api']);
-    let module_functional_tab_icons = $state([add_icon, reset_icon, api_icon]);
+    let module_functional_tab_names = $derived((module_tab_selected_value=='index')?['New', 'Default', 'API']:['New', 'Default', 'Rename', 'API']);
+    let module_functional_tab_values = $derived((module_tab_selected_value=='index')?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
+    let module_functional_tab_icons = $derived((module_tab_selected_value=='index')?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
 
-    let accumalated_tabs = 0;
-    let module_tab_selected_value = $state("none");
 
     // const new_module_tab = (module_name: string, code: string, icon: string, closable: boolean) => {
     //     module_tab_names.push(module_name);
@@ -158,6 +159,16 @@
             })
             moduleEditorViews[module] = moduleEditorView;
         });
+
+        for(let key in moduleEditorViews) {
+            const moduleEditorView = moduleEditorViews[key];
+            const module_editor_src = moduleEditorView.state.doc.toString();
+            if(module_editor_src!=modules_src[key]) {
+                clearErrors(moduleEditorView);
+                setEditorValue(moduleEditorView, modules_src[key]);
+            }
+        }
+        // console.log(`module_tab_values: ${module_tab_values}`);
     });
 
     const on_close = (value: string) => {
@@ -172,12 +183,24 @@
     const on_module_tab_functional = (value: string) => {
         if(value=='new_tab') {
             // alert('Feature not implemented yet.');
-            modules_src = { ...modules_src, [`module ${accumalated_tabs}`]: empty_module };
+            modules_src = { ...modules_src, [`module ${accumalated_tabs+1}`]: empty_module };
             accumalated_tabs += 1;
         }
         else if(value=='reset') {
             modules_src = default_modules;
+            any_module_errors = null;
             module_tab_selected_value = Object.entries(modules_src)[0][0];
+        }
+        else if(value=='rename') {
+            let new_name = prompt("Please enter your new module name.", module_tab_selected_value) || module_tab_selected_value;
+            if(new_name == module_tab_selected_value) return;
+            modules_src = {
+                ...modules_src,
+                [new_name]: modules_src[module_tab_selected_value]
+            };
+            delete modules_src[module_tab_selected_value];
+            modules_src = { ...modules_src };
+            module_tab_selected_value = new_name;
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
@@ -397,16 +420,19 @@
             anything_changed = true;
         }
 
+        let clear_any_module_errors = false;
         for(let key in moduleEditorViews) {
             const moduleEditorView = moduleEditorViews[key];
             const module_editor_src = moduleEditorView.state.doc.toString();
             if(module_editor_src!=modules_src[key]) {
+                clear_any_module_errors = true;
                 clearErrors(moduleEditorView);
-                any_module_errors = null;
                 modules_src = { ...modules_src, [key]: module_editor_src };
                 anything_changed = true;
             }
         }
+
+        if(clear_any_module_errors) any_module_errors = null;
 
         // console.log('run');
         // console.log(vert_shader_src);

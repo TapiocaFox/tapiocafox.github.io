@@ -34,10 +34,12 @@
 
     button:hover {
         background-color: whitesmoke;
+        border-bottom: 0;
     }
 
     button:active {
         background-color: var(--secondary-functional-color);
+        border-bottom: 0;
     }
 
     button:active span.text {
@@ -53,7 +55,7 @@
         /* color: white;
         background-color: var(--secondary-functional-color); */
     }
-    
+
     button:last-child {
         margin: 0;
     }
