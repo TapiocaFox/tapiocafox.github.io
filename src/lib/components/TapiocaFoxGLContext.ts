@@ -1,4 +1,4 @@
-import type { Status, Asset, Sandbox, IndexModule } from './TapiocaFoxWebGL';
+import type { Status, Asset, Sandbox, DefaultModule } from './TapiocaFoxWebGL';
 
 export interface TapiocaFoxGLContext {
     gl: WebGL2RenderingContext,
@@ -18,11 +18,11 @@ export interface TapiocaFoxGLContext {
     vertexShader: string,
     fragmentShader: string,
     sandbox: Sandbox,
-    indexModule: IndexModule | null,
+    defaultModule: DefaultModule | null,
     assets: Record<string, Asset>
     optimizeViewPort: () => Promise<void>,
     initProgram: (vertexShader: string, fragmentShader: string) => void,
-    importIndexModule: () => Promise<void>,
+    importDefaultModule: () => Promise<void>,
     newProgram: () => void,
     reset: () => Promise<void>,
     start: () => void,

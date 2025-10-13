@@ -62,10 +62,7 @@
 
     import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGLContext.ts?raw';
     import type { Asset, ModuleSource } from '$lib/components/TapiocaFoxWebGL';
-
-    let editor_layout: HTMLDivElement;
-    let editor_layout_left: HTMLDivElement;
-    let editor_layout_right: HTMLDivElement;
+    import { default_module } from '$lib/components/TapiocaFoxWebGL';
 
     let vertex_shader_editor: HTMLDivElement;
     let fragment_shader_editor: HTMLDivElement;
@@ -104,19 +101,19 @@
     let anything_changed = false;
 
     let accumalated_tabs = 0;
-    let module_tab_selected_value = $state("none");
+    let module_tab_selected_value = $state(default_module);
 
 
     let module_tab_names = $derived(Object.keys(modules_src));
     let module_tab_values = $derived(Object.keys(modules_src));
-    let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === 'index' ? main_icon : box_icon));
-    let module_tab_closable_list = $derived(Object.keys(modules_src).map(key => key !== 'index'));
+    let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === default_module ? main_icon : box_icon));
+    let module_tab_closable_list = $derived(Object.keys(modules_src).map(key => key !== default_module));
 
-    let module_functional_tab_names = $derived((module_tab_selected_value=='index')?['New', 'Default', 'API']:['New', 'Default', 'Rename', 'API']);
-    let module_functional_tab_values = $derived((module_tab_selected_value=='index')?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
-    let module_functional_tab_icons = $derived((module_tab_selected_value=='index')?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
+    let module_functional_tab_names = $derived((module_tab_selected_value==default_module)?['New', 'Default', 'API']:['New', 'Default', 'Rename', 'API']);
+    let module_functional_tab_values = $derived((module_tab_selected_value==default_module)?['new_tab', 'reset', 'api']:['new_tab', 'reset', 'rename', 'api']);
+    let module_functional_tab_icons = $derived((module_tab_selected_value==default_module)?[add_icon, reset_icon, api_icon]:[add_icon, reset_icon, edit_icon, api_icon]);
 
-    module_tab_selected_value = 'index';
+    module_tab_selected_value = default_module;
 
     $effect(() => {
         if(!mounted) return;
@@ -127,8 +124,8 @@
         const modules_not_in_editor_views = modules_in_src.filter(x => !modules_in_editor_views.includes(x));
         const modules_not_in_src = modules_in_editor_views.filter(x => !modules_in_src.includes(x));
 
-        console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
-        console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
+        // console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
+        // console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
 
         modules_not_in_src.forEach((module: string) => {
             moduleEditorViews[module].destroy();
@@ -161,7 +158,7 @@
             }
         }
 
-        if(modules_src[module_tab_selected_value]==null) module_tab_selected_value = 'index';
+        if(modules_src[module_tab_selected_value]==null) module_tab_selected_value = default_module;
         // console.log(`module_tab_values: ${module_tab_values}`);
     });
 
@@ -813,8 +810,8 @@
 />
 <p class="annotation">This is a simple editor for small WebGL 2 projects. (Experimental phase.)</p>
 <hr class="dotted" style:margin-bottom="0">
-<div bind:this={editor_layout} class="editor-layout">
-    <div bind:this={editor_layout_left} class="left">
+<div class="editor-layout">
+    <div class="left">
         <div class="master-container">
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
                 <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
@@ -917,7 +914,7 @@
             <EndingDecoration/>
         </div>
     </div>
-    <div bind:this={editor_layout_right} class="right">
+    <div class="right">
         <div class="canvas-container">
             {#if mounted}
             <TapiocaFoxWebGL mode="in-editor" size={400} bind:vertex_shader={vert_shader_src} bind:fragment_shader={frag_shader_src} bind:modules={modules_src} bind:assets={assets} onglinit={onGLInit} onerror={onError}/>

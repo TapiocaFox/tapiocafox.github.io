@@ -142,7 +142,7 @@
         }}>
         <span class="text">
             {#if functional_inline_icons.length>0 && functional_inline_icons[index]!=null}
-                <img class="inline-glyph" alt="Inline Icon" src={functional_inline_icons[index]}>
+            <img class="inline-glyph" alt="Inline Icon" src={functional_inline_icons[index]}>
             {/if}
             {functional_names[index]}
         </span>

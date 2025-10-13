@@ -8,7 +8,7 @@
     import { goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from './TapiocaFoxGLContext';
     import type { Asset, Status, ModuleSource } from './TapiocaFoxWebGL';
-    import { createSandbox } from './TapiocaFoxWebGL';
+    import { createSandbox, default_module } from './TapiocaFoxWebGL';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
@@ -89,7 +89,7 @@
                 vertexShader: '',
                 fragmentShader: '',
                 sandbox: createSandbox(),
-                indexModule: null,
+                defaultModule: null,
                 assets: {},
                 // loadedScripts: [],
 
@@ -103,19 +103,19 @@
 
                 start: async function() {
                     try {
-                        await this.indexModule?.start?.(this);
+                        await this.defaultModule?.start?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', {module: 'index', error: error});
+                        onerror('js', {module: default_module, error: error});
                     }
                 },
 
                 stop: async function() {
                     try {
-                        await this.indexModule?.stop?.(this);
+                        await this.defaultModule?.stop?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', {module: 'index', error: error});
+                        onerror('js', {module: default_module, error: error});
                     }
                 },
 
@@ -173,14 +173,14 @@
                     gl.useProgram(this.program);
                 },
 
-                importIndexModule: async function () {
+                importDefaultModule: async function () {
                     try {
                         // console.log('Eval', javascript);
                         // eval(props.javascript);
-                        this.indexModule = await this.sandbox.import('index');
+                        this.defaultModule = await this.sandbox.import(default_module);
                     }
                     catch(error) {
-                        onerror('js', {module: 'index', error: error});
+                        onerror('js', {module: default_module, error: error});
                     } 
                 },
 
@@ -221,7 +221,7 @@
                     this.sandbox.commit();
                     // await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
-                    await this.importIndexModule();
+                    await this.importDefaultModule();
                     await this.start();
                 },
 
@@ -236,7 +236,7 @@
                         this.assets = assets;
                     }
                     catch(error) {
-                        onerror('js', {module: 'index', error: error});
+                        onerror('js', {module: default_module, error: error});
                     }
                 },
 
@@ -251,7 +251,7 @@
                     this.sandbox.commit();
                     // await this.sandbox.reloadAll();
                     this.initProgram(this.vertexShader, this.fragmentShader);
-                    await this.importIndexModule();
+                    await this.importDefaultModule();
                     await this.start();
                 },
 

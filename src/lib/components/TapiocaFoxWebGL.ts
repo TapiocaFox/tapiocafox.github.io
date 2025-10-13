@@ -183,3 +183,5 @@ export function createSandbox(): Sandbox {
     },
   };
 }
+
+export const default_module = 'index';
