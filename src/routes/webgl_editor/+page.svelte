@@ -632,7 +632,7 @@
 
     const chips_names = ['[R]eset', '[S]napshot', 'Import', 'Vert | 1', 'Frag | 2', 'JS | 3', 'Assets'];
     const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_js', 'view_assets'];
-    const chips_icons = [reset_icon, eye_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
+    const chips_icons = [reset_icon, camera_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
     const dividers = ['view_vert'];
     // if(dev) {
 
