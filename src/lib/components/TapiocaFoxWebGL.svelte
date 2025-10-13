@@ -233,6 +233,7 @@
                     for (const key in modules) {
                         this.sandbox.register(key, modules[key]);
                     }
+                    this.sandbox.commit();
                     this.assets = assets;
                 },
 

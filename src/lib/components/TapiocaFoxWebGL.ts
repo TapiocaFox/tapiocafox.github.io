@@ -30,7 +30,8 @@ type ModuleRecord = {
 export type UncaughtErrorListener = (moduleName: string, error: unknown) => void;
 
 export interface Sandbox {
-  register(name: string, code: string): string;
+  register(name: string, code: string): void;
+  commit(): void;
   import<T = any>(name: string): Promise<T>;
   replace(name: string, newCode: string): Promise<void>;
   reloadAll(): Promise<void>;
@@ -47,63 +48,92 @@ export function createSandbox(): Sandbox {
     for (const listener of errorListeners) listener(moduleName, error);
   }
 
-  // Try to map a URL back to a module name
   function getModuleNameFromUrl(url: string | undefined): string {
-    if (!url) return "unknown module";
+    if (!url) return 'unknown module';
     for (const [name, mod] of modules.entries()) {
-      if (mod.url === url || url.includes(mod.url)) return name;
+      if (mod.url === url || url?.includes(mod.url!)) return name;
     }
-    return "unknown module";
+    return 'unknown module';
   }
 
-  // Global runtime error listener
-  function handleWindowError(event: ErrorEvent) {
+  window.addEventListener('error', (event) => {
     const moduleName = getModuleNameFromUrl(event.filename);
     notifyError(moduleName, event.error ?? event.message);
-  }
+  });
 
-  function handlePromiseRejection(event: PromiseRejectionEvent) {
+  window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     if (!(reason instanceof Error) || !reason.stack) return;
+    const mod = [...modules.values()].find((m) => reason.stack.includes(m.url!));
+    if (mod) notifyError(getModuleNameFromUrl(mod.url), reason);
+  });
 
-    const stack = reason.stack;
-    const mod = [...modules.values()].find(m => stack.includes(m.url));
-
-    if (mod) {
-      notifyError(getModuleNameFromUrl(mod.url), reason);
-    } else {
-      // Optional: log but ignore, or handle separately
-      console.debug("[Sandbox] Ignoring external promise rejection:", reason);
-    }
+  function parseDeps(code: string): string[] {
+    const deps: string[] = [];
+    code.replace(/import\s+(?:.+?)\s+from\s+['"]([^'"]+)['"]/g, (_, depName) => {
+      deps.push(depName);
+      return _;
+    });
+    return deps;
   }
 
-  window.addEventListener("error", handleWindowError);
-  window.addEventListener("unhandledrejection", handlePromiseRejection);
+  function topologicalSort(): string[] {
+    const visited = new Set<string>();
+    const temp = new Set<string>();
+    const sorted: string[] = [];
+
+    function visit(name: string) {
+      if (visited.has(name)) return;
+      if (temp.has(name)) throw new Error(`Circular dependency detected: ${name}`);
+      temp.add(name);
+      const mod = modules.get(name);
+      if (!mod) throw new Error(`Module "${name}" not found for topological sort`);
+      for (const dep of mod.deps) {
+        if (modules.has(dep)) visit(dep);
+      }
+      temp.delete(name);
+      visited.add(name);
+      sorted.push(name);
+    }
+
+    for (const name of modules.keys()) visit(name);
+    return sorted;
+  }
+
+  function rewriteCode(code: string): string {
+    return code.replace(
+      /import\s+(.+?)\s+from\s+['"]([^'"]+)['"]/g,
+      (full, imported, depName) => {
+        const dep = modules.get(depName);
+        if (dep?.url) return `import ${imported} from '${dep.url}'`;
+        return full;
+      }
+    );
+  }
 
   return {
-    register(name: string, code: string): string {
-      // console.log(`register: ${name}`);
-      const existing = modules.get(name);
-      if (existing?.url) URL.revokeObjectURL(existing.url);
+    register(name: string, code: string) {
+      if (modules.has(name)) {
+        const old = modules.get(name)!;
+        if (old.url) URL.revokeObjectURL(old.url);
+      }
+      modules.set(name, { code, url: null, exports: null, deps: parseDeps(code) });
+    },
 
-      const rewrittenCode = code.replace(
-        /import\s+(?:[\s\S]*?)\s+from\s+['"]([^'"]+)['"]/g,
-        (match, depName) => {
-          const dep = modules.get(depName);
-          if (dep) return match.replace(depName, dep.url);
-          return match;
-        }
-      );
-
-      const blob = new Blob([rewrittenCode], { type: "application/javascript" });
-      const url = URL.createObjectURL(blob);
-      modules.set(name, { code, url, exports: null });
-      return url;
+    commit() {
+      const order = topologicalSort();
+      for (const name of order) {
+        const mod = modules.get(name)!;
+        const rewritten = rewriteCode(mod.code);
+        if (mod.url) URL.revokeObjectURL(mod.url);
+        const blob = new Blob([rewritten], { type: 'application/javascript' });
+        mod.url = URL.createObjectURL(blob);
+      }
     },
 
     async import<T = any>(name: string): Promise<T> {
       const mod = modules.get(name);
-      if (!mod) throw new Error(`Module "${name}" not found`);
+      if (!mod || !mod.url) throw new Error(`Module "${name}" not committed`);
       try {
         const imported: T = await import(mod.url);
         mod.exports = imported;
@@ -116,40 +146,35 @@ export function createSandbox(): Sandbox {
 
     async replace(name: string, newCode: string): Promise<void> {
       this.register(name, newCode);
+      this.commit();
       await this.reloadAll();
     },
 
     async reloadAll(): Promise<void> {
-      for (const [name] of modules.entries()) {
+      const order = topologicalSort();
+      for (const name of order) {
+        const mod = modules.get(name)!;
+        if (!mod.url) throw new Error(`Module "${name}" not committed`);
         try {
-          // Call the same logic used for initial registration
-          this.register(name, modules.get(name)!.code);
-
-          // Dynamically import new blob
-          const mod = modules.get(name)!;
           const imported = await import(/* @vite-ignore */ mod.url);
           mod.exports = imported;
         } catch (err) {
           notifyError(name, err);
-          console.error(`Failed to reload module "${name}":`, err);
         }
       }
     },
 
-    clear(): void {
-      for (const mod of modules.values()) URL.revokeObjectURL(mod.url);
+    clear() {
+      for (const mod of modules.values()) if (mod.url) URL.revokeObjectURL(mod.url);
       modules.clear();
       errorListeners.clear();
-
-      window.removeEventListener("error", handleWindowError);
-      window.removeEventListener("unhandledrejection", handlePromiseRejection);
     },
 
-    addUncaughtErrorListener(listener: UncaughtErrorListener): void {
+    addUncaughtErrorListener(listener: UncaughtErrorListener) {
       errorListeners.add(listener);
     },
 
-    removeUncaughtErrorListener(listener: UncaughtErrorListener): void {
+    removeUncaughtErrorListener(listener: UncaughtErrorListener) {
       errorListeners.delete(listener);
     },
   };
