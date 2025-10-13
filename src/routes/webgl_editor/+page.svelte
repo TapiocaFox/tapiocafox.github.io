@@ -176,9 +176,16 @@
 
     const new_module = () => {
         // alert('Feature not implemented yet.');
-        let module_name = prompt("Please enter a module name.", `module ${accumalated_tabs+1}`) || `module ${accumalated_tabs+1}`;
+        const names = Object.keys(modules_src);
+        accumalated_tabs = names.length;
+        let default_name = `module ${accumalated_tabs+1}`;
+        while(names.includes(default_name)) {
+            accumalated_tabs += 1;
+            default_name = `module ${accumalated_tabs+1}`;
+        }
+        let module_name = prompt("Please enter a module name.", default_name) || default_name;
         modules_src = { ...modules_src, [module_name]: empty_module };
-        accumalated_tabs += 1;
+        anything_changed = true;
     };
 
     const open_bookmarks = () => {
