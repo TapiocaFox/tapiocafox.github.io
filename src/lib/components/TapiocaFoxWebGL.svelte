@@ -65,11 +65,9 @@
         assets;
         if (!foxGL) return;
         // console.log('Something changed and foxGL exists, re-setup and run.');
-        (async () => {
-            foxGL.newProgram();
-            foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
-            await foxGL.refreshShadersAndModules();
-        })();
+        foxGL.newProgram();
+        foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
+        foxGL.refreshShadersAndModules();
     });
 
     onMount(async () => {
@@ -229,12 +227,17 @@
                 setShadersModulesAndAssets: function(vertex_shader: string, fragment_shader: string, modules: Record<string, string>, assets: Record<string, Asset>) {
                     this.vertexShader = vertex_shader;
                     this.fragmentShader = fragment_shader;
-                    this.sandbox.clear();
-                    for (const key in modules) {
-                        this.sandbox.register(key, modules[key]);
+                    try {
+                        this.sandbox.clear();
+                        for (const key in modules) {
+                            this.sandbox.register(key, modules[key]);
+                        }
+                        this.sandbox.commit();
+                        this.assets = assets;
                     }
-                    this.sandbox.commit();
-                    this.assets = assets;
+                    catch(error) {
+                        onerror('js', {module: 'index', error: error});
+                    }
                 },
 
                 refreshShadersAndModules: async function() {

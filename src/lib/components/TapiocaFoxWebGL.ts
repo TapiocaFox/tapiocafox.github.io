@@ -23,8 +23,9 @@ export type ModuleSource = {
 
 type ModuleRecord = {
   code: string;
-  url: string;
+  url: string | null;
   exports: any;
+  deps: string[];
 };
 
 export type UncaughtErrorListener = (moduleName: string, error: unknown) => void;
@@ -48,7 +49,7 @@ export function createSandbox(): Sandbox {
     for (const listener of errorListeners) listener(moduleName, error);
   }
 
-  function getModuleNameFromUrl(url: string | undefined): string {
+  function getModuleNameFromUrl(url: string | null): string {
     if (!url) return 'unknown module';
     for (const [name, mod] of modules.entries()) {
       if (mod.url === url || url?.includes(mod.url!)) return name;
@@ -64,7 +65,7 @@ export function createSandbox(): Sandbox {
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     if (!(reason instanceof Error) || !reason.stack) return;
-    const mod = [...modules.values()].find((m) => reason.stack.includes(m.url!));
+    const mod = [...modules.values()].find((m) => reason.stack?.includes(m.url!));
     if (mod) notifyError(getModuleNameFromUrl(mod.url), reason);
   });
 
