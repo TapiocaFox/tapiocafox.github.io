@@ -168,6 +168,8 @@
                 setEditorValue(moduleEditorView, modules_src[key]);
             }
         }
+
+        if(modules_src[module_tab_selected_value]==null) module_tab_selected_value = 'index';
         // console.log(`module_tab_values: ${module_tab_values}`);
     });
 
