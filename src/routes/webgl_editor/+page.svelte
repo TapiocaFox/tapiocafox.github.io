@@ -172,7 +172,7 @@
     });
 
     const on_close = (value: string) => {
-        const closeOrNot = confirm(`Close tab "${value}"?`);
+        const closeOrNot = confirm(`Delete module "${value}"?`);
         if(closeOrNot) {
             const { [value]: _, ...rest } = modules_src;
             modules_src = rest;
