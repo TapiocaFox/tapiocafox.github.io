@@ -140,8 +140,8 @@
         const modules_not_in_editor_views = modules_in_src.filter(x => !modules_in_editor_views.includes(x));
         const modules_not_in_src = modules_in_editor_views.filter(x => !modules_in_src.includes(x));
 
-        // console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
-        // console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
+        console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
+        console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
 
         modules_not_in_src.forEach((module: string) => {
             moduleEditorViews[module].destroy();
@@ -852,7 +852,8 @@
                 bind:functional_inline_icons={module_functional_tab_icons}
                 onfunctional={on_module_tab_functional}
                 />
-                {#each Object.entries(modules_src) as [module, code]}
+                {#each Object.entries(modules_src) as [module, code] (module)}
+                <!-- <p class="annotation">{module}</p> -->
                 <div bind:this={module_editors[module]} class="editor-container code-block-background" style:display={(module_tab_selected_value==module)?'block':'none'}></div>
                 {/each}
             </div>

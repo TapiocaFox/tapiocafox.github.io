@@ -1,5 +1,5 @@
 :root {
-    --min-right-width: 300px;
+    --min-right-width: 350px;
 }
 div.editor-layout {
     display: flex;
