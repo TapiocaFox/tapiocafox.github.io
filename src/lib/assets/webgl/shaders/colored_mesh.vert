@@ -1,7 +1,7 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title:  Cylinder
+// Title:  Colored Mesh
 
 uniform mat4 uMF, uMI;
 in  vec3 aPos, aNor;

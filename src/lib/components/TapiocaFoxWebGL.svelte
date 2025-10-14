@@ -42,7 +42,7 @@
 
     const sandboxUncaughtErrorListener = (module: string, error: unknown) => {
         console.log('module:', module, '\nerror:', error);
-        onerror('js', {
+        onerror('modules', {
             module: module,
             error: error
         });
@@ -106,7 +106,7 @@
                         await this.defaultModule?.start?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', {module: default_module, error: error});
+                        onerror('modules', {module: default_module, error: error});
                     }
                 },
 
@@ -115,7 +115,7 @@
                         await this.defaultModule?.stop?.(this);
                     }
                     catch(error: any) {
-                        onerror('js', {module: default_module, error: error});
+                        onerror('modules', {module: default_module, error: error});
                     }
                 },
 
@@ -181,7 +181,7 @@
                     }
                     catch(error) {
                         // console.trace(error);
-                        onerror('js', {module: default_module, error: error});
+                        onerror('modules', {module: default_module, error: error});
                     } 
                 },
 
@@ -240,7 +240,7 @@
                         this.assets = assets;
                     }
                     catch(error) {
-                        onerror('js', {module: default_module, error: error});
+                        onerror('modules', {module: default_module, error: error});
                     }
                 },
 

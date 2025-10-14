@@ -55,7 +55,7 @@
     import default_vert from '$lib/assets/webgl/default.vert?raw';
     import default_frag from '$lib/assets/webgl/default.frag?raw';
     import default_modules from '$lib/assets/webgl/default_modules';
-    import empty_module from '$lib/assets/webgl/empty.js?raw';
+    import empty_module from '$lib/assets/webgl/modules/empty.js?raw';
     import Chips from '$lib/components/Chips.svelte';
     // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
@@ -81,14 +81,14 @@
 
 
     const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
-    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'js');
+    const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'modules');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
     let view_mode = $derived($viewModeStorage);
     let any_module_errors = $state<string | null>(null);
     let error_message = $state<string | null>(null);
-    // let view_mode = $state('js');
+    // let view_mode = $state('modules');
     // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
@@ -292,9 +292,9 @@
                 return true;
             }
     const runJavaScriptView: KeyBinding["run"]  = ({ state }) => {
-                selected_value = 'view_js';
-                view_mode = 'js';
-                viewModeStorage.set('js');
+                selected_value = 'view_modules';
+                view_mode = 'modules';
+                viewModeStorage.set('modules');
                 // scrollToTop();
                 tick().then(() => {
                     scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
@@ -631,7 +631,7 @@
                 effects: errorLinterCompartment.reconfigure(linterExtension)
             });
         }
-        else if(type === 'js') {
+        else if(type === 'modules') {
             const module = error.module;
             const module_error = error.error;
             console.log(`JavaScript error in module "${module}":\n`);
@@ -677,7 +677,7 @@
     }
 
     const chips_names = ['[R]eset', '[S]napshot', 'Import', 'Vert | 1', 'Frag | 2', 'JS | 3', 'Assets'];
-    const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_js', 'view_assets'];
+    const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_modules', 'view_assets'];
     const chips_icons = [reset_icon, camera_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
     const dividers = ['view_vert'];
     // if(dev) {
@@ -841,9 +841,9 @@
             viewModeStorage.set('frag');
             scrollToTop();
         }
-        else if(value == 'view_js') {
-            view_mode = 'js';
-            viewModeStorage.set('js');
+        else if(value == 'view_modules') {
+            view_mode = 'modules';
+            viewModeStorage.set('modules');
             scrollToTop();
 
         }
@@ -874,10 +874,10 @@
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}> -->
-            <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}>
+            <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='modules')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='js')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
+                <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='modules')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
                 {#if any_module_errors != null}
                 <p class="annotation" style:color="red">{any_module_errors}</p>
                 {/if}

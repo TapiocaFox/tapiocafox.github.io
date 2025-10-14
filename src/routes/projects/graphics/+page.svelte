@@ -56,8 +56,8 @@
     
     import simple_mesh_frag from '$lib/assets/webgl/practice_4/simple_mesh.frag?raw';
     import simple_mesh_module from '$lib/assets/webgl/practice_4/simple_mesh.js?raw';
-    import cylinder_vert from '$lib/assets/webgl/practice_4/cylinder.vert?raw';
-    import cylinder_frag from '$lib/assets/webgl/practice_4/cylinder.frag?raw';
+    import colored_mesh_vert from '$lib/assets/webgl/shaders/colored_mesh.vert?raw';
+    import colored_mesh_frag from '$lib/assets/webgl/shaders/colored_mesh.frag?raw';
     import cylinder_module from '$lib/assets/webgl/practice_4/cylinder.js?raw';
     
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
@@ -310,8 +310,8 @@
                     categories: ['mesh']
                 },
                 {
-                    vert: cylinder_vert,
-                    frag: cylinder_frag,
+                    vert: colored_mesh_vert,
+                    frag: colored_mesh_frag,
                     modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module},
                     categories: ['mesh']
                 },

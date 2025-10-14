@@ -9,27 +9,26 @@ let gl, program, canvas;
 let destroyed = false;
 let onpointermove, resizeObserver;
 
+const cylinderColor = [166/256, 87/255, 91/255];
+const backgroundColor = [54/256, 44/255, 97/255];
+
 const vertexSize = 6;
 
-let myTubeData = tube(20);
-let myTCapData = transformMeshData(disk(20), translate(0,0,1), vertexSize);
-let myBCapData = transformMeshData(disk(20), mxm(translate(0,0,-1), rotateX(Math.PI)), vertexSize);
-
-let myTube = {
+const myTube = {
     triangle_strip: true,
-    data: new Float32Array(myTubeData)
+    data: new Float32Array(tube(20))
 };
-let myTCap = {
+const myTCap = {
     triangle_strip: true,
-    data: new Float32Array(myTCapData)
+    data: new Float32Array(transformMeshData(disk(20), translate(0,0,1), vertexSize))
 };
-let myBCap = {
+const myBCap = {
     triangle_strip: true,
-    data: new Float32Array(myBCapData)
+    data: new Float32Array(transformMeshData(disk(20), mxm(translate(0,0,-1), rotateX(Math.PI)), vertexSize))
 };
 
-let matrix = new Matrix();
-let myMesh = glueMeshes(glueMeshes(myTube, myTCap, vertexSize), myBCap, vertexSize);
+const matrix = new Matrix();
+const myCylinder = glueMeshes(glueMeshes(myTube, myTCap, vertexSize), myBCap, vertexSize);
 
 // Start lifecycle.
 export const start = async (foxGL) => {
@@ -52,7 +51,7 @@ export const start = async (foxGL) => {
     };
 
     const drawMesh = (mesh, color) => {
-        gl.uniform3fv(gl.getUniformLocation(program, 'uColor'), color);
+        gl.uniform3fv(gl.getUniformLocation(program, 'uColor'), cylinderColor);
         let m = mxm(perspective(0,0,-.1), matrix.get());
         gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uMF'), false, m);
         gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uMI'), false, inverse(m));
@@ -71,7 +70,7 @@ export const start = async (foxGL) => {
     function animate() {
         if(destroyed) return;
         requestAnimationFrame(animate);
-        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clearColor(backgroundColor[0], backgroundColor[1], backgroundColor[2], 1.0);
         gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
 
         const uTime = (Date.now() - foxGL.startTime) / 1000;
@@ -79,7 +78,7 @@ export const start = async (foxGL) => {
         foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
         matrix.identity().rotateX(uTime);
         matrix.scale(.4, .4, .4);
-        drawMesh(myMesh, [1,0,0]);
+        drawMesh(myCylinder, [1,0,0]);
         matrix.pop();
         foxGL.render();
     }

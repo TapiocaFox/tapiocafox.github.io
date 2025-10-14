@@ -1,7 +1,7 @@
 #version 300 es
 
 // Author: TapiocaFox
-// Title:  Cylinder
+// Title:  Colored Mesh
 
 precision highp float;
 uniform vec3 uColor;
