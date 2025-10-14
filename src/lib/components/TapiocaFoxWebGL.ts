@@ -11,7 +11,7 @@ export type Status = {
   color: string;
 }
 
-export type IndexModule = {
+export type DefaultModule = {
   start: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
   stop: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
 }
@@ -51,24 +51,42 @@ export function createSandbox(): Sandbox {
     for (const listener of errorListeners) listener(moduleName, error);
   }
 
-  function getModuleNameFromUrl(url: string | null): string {
-    if (!url) return 'unknown module';
+  function findModFromString(s: string) {
+    if (!s) return null;
+    for (const name of order) {
+        const mod = modules.get(name)!;
+        if (mod.url && s.includes(mod.url)) return mod;
+    }
+    return null;
+  }
+
+  function getModuleNameFromUrl(url: string | null): string | null {
+    if (!url) return null;
     for (const [name, mod] of modules.entries()) {
       if (mod.url === url || url?.includes(mod.url!)) return name;
     }
-    return 'unknown module';
+    return null;
+  }
+
+  function getModuleNameFromString(s: string | null) {
+    if(s == null) return null;
+    const mod = findModFromString(s);
+    if (mod==null) return null;
+    return getModuleNameFromUrl(mod.url);
   }
 
   window.addEventListener('error', (event) => {
     const moduleName = getModuleNameFromUrl(event.filename);
+    if(moduleName == null) return;
     notifyError(moduleName, event.error ?? event.message);
   });
 
   window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     if (!(reason instanceof Error) || !reason.stack) return;
-    const mod = [...modules.values()].find((m) => reason.stack?.includes(m.url!));
-    if (mod) notifyError(getModuleNameFromUrl(mod.url), reason);
+    const moduleName = getModuleNameFromString(reason.stack);
+    if(moduleName == null) return;
+    if (moduleName) notifyError(moduleName, reason);
   });
 
   function parseDeps(code: string): string[] {
@@ -145,7 +163,11 @@ export function createSandbox(): Sandbox {
         mod.exports = imported;
         return imported;
       } catch (err) {
-        notifyError(name, err);
+        let moduleName = null;
+        if(err instanceof Error) moduleName = getModuleNameFromString(err.stack || null);
+        console.log(`moduleName: ${moduleName}`);
+        if(moduleName == null) notifyError(name, err);
+        else notifyError(moduleName, err);
         throw err;
       }
     },
@@ -158,7 +180,7 @@ export function createSandbox(): Sandbox {
 
     async preloadAll(): Promise<Error | void> {
       for (const name of order) {
-        console.log('name', name);
+        // console.log('name', name);
         const mod = modules.get(name)!;
         if (!mod.url) return new Error(`Module "${name}" not committed`);
         try {

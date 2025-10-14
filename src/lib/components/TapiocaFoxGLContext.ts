@@ -1,7 +1,7 @@
 import type { Status, Asset, Sandbox, DefaultModule } from './TapiocaFoxWebGL';
 
 export interface TapiocaFoxGLContext {
-    gl: WebGL2RenderingContext,
+    gl: WebGL2RenderingContext, // canvas.getContext('webgl2', { preserveDrawingBuffer: mode=='in-editor' });
     canvas: HTMLCanvasElement,
     program: WebGLProgram,
     startTime: number,

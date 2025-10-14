@@ -1,7 +1,11 @@
 // Author: TapiocaFox
-// Title:  Matrix
+// Title:  Matrix (From Prof. Perlin)
 
 // Transformations. Column major.
+export const identity = () => [1,0,0,0, 
+                               0,1,0,0, 
+                               0,0,1,0, 
+                               0,0,0,1];
 // Row.
 export const rotateX = r => [1,0,0,0,
                       0,Math.cos(r),Math.sin(r),0,
@@ -28,6 +32,12 @@ export const scale = (x,y,z) => [x,0,0,0,
                           0,y,0,0,
                           0,0,z,0,
                           0,0,0,1];
+
+// Perspective.
+export const perspective = (x,y,z) => [1,0,0,x, 
+                                       0,1,0,y??x, 
+                                       0,0,1,z??x, 
+                                       0,0,0,1];
 
 // Matrix operations.
 export const mxm = (a,b) => {
@@ -59,4 +69,24 @@ export const inverse = src => {
 export const qxm = (Q,M) => {
    let MI = inverse(M);
    return mxm(transpose(MI), mxm(Q, MI));
+}
+
+export function Matrix() {
+   let m = [identity()], top = 0;
+   this.push = () => { m[top+1] = m[top].slice(); top++; return this; }
+   this.pop = () => { if (top > 0) top--; return this; }
+   this.get = () => m[top];
+   this.identity = () => { m[top] = identity(); return this; }
+   this.translate = (x,y,z) => { m[top]=mxm(m[top],translate(x,y,z)); return this; }
+   this.rotateX = a => { m[top] = mxm(m[top], rotateX(a)); return this; }
+   this.rotateY = a => { m[top] = mxm(m[top], rotateY(a)); return this; }
+   this.rotateZ = a => { m[top] = mxm(m[top], rotateZ(a)); return this; }
+   this.scale = (x,y,z) => {
+      m[top] = mxm(m[top], scale(x,y,z));
+      return this;
+   }
+   this.perspective = (x,y,z) => {
+      m[top] = mxm(m[top], perspective(x,y,z));
+      return this;
+   }
 }

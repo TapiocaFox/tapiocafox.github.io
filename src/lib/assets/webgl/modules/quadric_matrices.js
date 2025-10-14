@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Quadric Surface Matrices
+// Title:  Quadric Surface Matrices (From Prof. Perlin)
 
 import { mxm, qxm, scale, translate } from 'matrix';
 

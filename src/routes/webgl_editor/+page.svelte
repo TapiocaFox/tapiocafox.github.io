@@ -634,7 +634,8 @@
         else if(type === 'js') {
             const module = error.module;
             const module_error = error.error;
-            console.log(`JavaScript error in module "${module}":\n`, module_error);
+            console.log(`JavaScript error in module "${module}":\n`);
+            console.trace(module_error);
             any_module_errors = `Module "${module}": ${module_error.toString()}`;
             // error_message = `JavaScript shader error: ${javascript_error}`;
             const linterExtension = createEvalLinter(module_error, modules_src[module]);

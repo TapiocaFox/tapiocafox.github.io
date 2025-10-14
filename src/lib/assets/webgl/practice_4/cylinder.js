@@ -1,0 +1,114 @@
+// Author: TapiocaFox
+// Title:  Cylinder
+
+import { Matrix, translate, inverse, perspective, mxm, rotateX, rotateY, scale } from 'matrix';
+import { tube, torus, disk, glueMeshes, transformMeshData } from 'mesh';
+
+// Init variables.
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
+
+const vertexSize = 6;
+
+let myTubeData = tube(20);
+let myTCapData = transformMeshData(disk(20), translate(0,0,1), vertexSize);
+let myBCapData = transformMeshData(disk(20), mxm(translate(0,0,-1), rotateX(Math.PI)), vertexSize);
+
+let myTube = {
+    triangle_strip: true,
+    data: new Float32Array(myTubeData)
+};
+let myTCap = {
+    triangle_strip: true,
+    data: new Float32Array(myTCapData)
+};
+let myBCap = {
+    triangle_strip: true,
+    data: new Float32Array(myBCapData)
+};
+
+let matrix = new Matrix();
+let myMesh = glueMeshes(glueMeshes(myTube, myTCap, vertexSize), myBCap, vertexSize);
+
+// Start lifecycle.
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+
+    // Set status title.
+    foxGL.setStatusTitle('Cylinder');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.enable(gl.DEPTH_TEST);
+    gl.depthFunc(gl.LEQUAL);
+
+    const vertexAttribute = (name, size, position) => {
+        const attr = gl.getAttribLocation(program, name);
+        gl.enableVertexAttribArray(attr);
+        gl.vertexAttribPointer(attr, size, gl.FLOAT, false, vertexSize * 4, position * 4);
+    };
+
+    const drawMesh = (mesh, color) => {
+        gl.uniform3fv(gl.getUniformLocation(program, 'uColor'), color);
+        let m = mxm(perspective(0,0,-.1), matrix.get());
+        gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uMF'), false, m);
+        gl.uniformMatrix4fv(gl.getUniformLocation(program, 'uMI'), false, inverse(m));
+        gl.bufferData(gl.ARRAY_BUFFER, mesh.data, gl.STATIC_DRAW);
+        gl.drawArrays(mesh.triangle_strip ? gl.TRIANGLE_STRIP : gl.TRIANGLES, 0, mesh.data.length / vertexSize);
+    };
+
+    vertexAttribute('aPos', 3, 0);
+    vertexAttribute('aNor', 3, 3);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        gl.clearColor(0.0, 0.0, 0.0, 1.0);
+        gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
+
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', `uTime: ${uTime.toFixed(2)}`);
+        matrix.identity().rotateX(uTime);
+        matrix.scale(.4, .4, .4);
+        drawMesh(myMesh, [1,0,0]);
+        matrix.pop();
+        foxGL.render();
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', `uResolution: (${canvas.width.toFixed(1)}, ${canvas.height.toFixed(1)})`);
+    });
+
+    // Register listeners on start.
+    canvas.addEventListener('pointermove', onpointermove);
+    resizeObserver.observe(canvas);
+    animate();
+};
+
+// Stop lifecycle.
+export const stop = async (foxGL) => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(resizeObserver) resizeObserver.disconnect();
+};
