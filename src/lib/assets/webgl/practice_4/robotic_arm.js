@@ -99,14 +99,20 @@ export const start = async (foxGL) => {
     let mouseDown = false;
     let drag = false;
     const max=.9, min=-.9;
-    const octahedronNDCList = [];
-    const cubeNDCList = [];
-    const cubeTimeOffets = [];
+    let octahedronNDCList = [];
+    let cubeNDCList = [];
     let selectedOctahedronIndex = 0;
 
-    for(let i=0; i<octahedronSizeNum; i++) {
-        octahedronNDCList.push([Math.random() * (max - min) + min, Math.random() * (max - min) + min]);
-    };
+    function reset() {
+        octahedronNDCList = [];
+        for(let i=0; i<octahedronSizeNum; i++) {
+            octahedronNDCList.push([Math.random() * (max - min) + min, Math.random() * (max - min) + min]);
+        };
+        cubeNDCList = [];
+        selectedOctahedronIndex = 0;
+    }
+
+    reset();
 
     const checkMerge = (octahedronIndex) => {
         const selectedOctahedronNDC = octahedronNDCList[octahedronIndex];
@@ -127,10 +133,14 @@ export const start = async (foxGL) => {
             cubeNDCList.push(selectedOctahedronNDC);
             octahedronNDCList.splice(first, 1);
             octahedronNDCList.splice(second, 1);
+            selectedOctahedronIndex = 0;
             if(octahedronNDCList.length ==0) {
                 niceJobSound?.play();
                 setTimeout(() => {
                     tryAgainSound?.play();
+                    setTimeout(() => {
+                        reset();  
+                    }, 2000);
                 },1500);
             }
         }
