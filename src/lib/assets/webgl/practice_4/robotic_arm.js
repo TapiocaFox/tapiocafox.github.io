@@ -101,6 +101,7 @@ export const start = async (foxGL) => {
     const max=.9, min=-.9;
     const octahedronNDCList = [];
     const cubeNDCList = [];
+    const cubeTimeOffets = [];
     let selectedOctahedronIndex = 0;
 
     for(let i=0; i<octahedronSizeNum; i++) {
@@ -206,7 +207,7 @@ export const start = async (foxGL) => {
 
         for(const [i, cubeNDC] of cubeNDCList.entries()) {
             matrix.identity();
-            matrix.translate(...cubeNDC,0).rotateY(uTime);
+            matrix.translate(...cubeNDC,0).rotateY(i+uTime).rotateX(i+uTime);
             drawMesh(myCube, cubeColor);
         }
         foxGL.render();
