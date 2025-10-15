@@ -50,15 +50,6 @@ div.editor-layout > div.right > div.canvas-container > div.info-container {
     width: 100%;
 }
 
-table.snapshot {
-    width: 100%;
-}
-
-td.glyphs {
-    width: 1px;
-    white-space: nowrap;
-}
-
 .flex_grid .image-item {
     width: auto;
     height: 220px;

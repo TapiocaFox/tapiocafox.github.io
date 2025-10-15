@@ -532,6 +532,16 @@
         overflow: hidden; 
     }
 
+    table.functional-list {
+        width: 100%;
+        /* display: block; */
+    }
+
+    table.functional-list td.glyphs {
+        width: 1px;
+        white-space: nowrap;
+    }
+
     /* a:visited, a:hover, a:active {
         color: rgb(0, 0, 0);
     } */

@@ -29,6 +29,7 @@
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
     import new_module_tab_icon from '$lib/assets/icons/window.svg';
+    import load_icon from '$lib/assets/icons/load.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
     import main_icon from '$lib/assets/icons/main.svg';
@@ -107,6 +108,43 @@
 
     module_tab_selected_value = default_module;
 
+    import matrix_module from '$lib/assets/webgl/modules/matrix.js?raw';
+    import geometry_module from '$lib/assets/webgl/modules/geometry.js?raw';
+    import mesh_module from '$lib/assets/webgl/modules/mesh.js?raw';
+    import quadric_matrices_module from '$lib/assets/webgl/modules/quadric_matrices.js?raw';
+
+    import matrix_icon from '$lib/assets/icons/matrix.svg';
+    import triangle_icon from '$lib/assets/icons/triangle.svg';
+    import math_icon from '$lib/assets/icons/math.svg';
+
+
+    const predefined_snippets = [
+        {
+            name: "Matrix",
+            module_name: "matrix",
+            icon: matrix_icon,
+            module_code: matrix_module
+        },
+        {
+            name: "Geometry",
+            module_name: "geometry",
+            icon: triangle_icon,
+            module_code: geometry_module
+        },
+        {
+            name: "Mesh",
+            module_name: "mesh",
+            icon: vertex_icon,
+            module_code: mesh_module
+        },
+        {
+            name: "Quadric Matrices",
+            module_name: "quadric_matrices",
+            icon: math_icon,
+            module_code: quadric_matrices_module
+        },
+    ];
+
     $effect(() => {
         if(!mounted) return;
         // Remove obsolete editors.
@@ -161,7 +199,8 @@
         return closeOrNot;
     };
 
-    const new_module = () => {
+
+    const new_module = (module_name: string | null = null, module_code: string=empty_module) => {
         const names = Object.keys(modules_src);
         accumalated_tabs = names.length;
         let default_name = `module ${accumalated_tabs+1}`;
@@ -169,8 +208,13 @@
             accumalated_tabs += 1;
             default_name = `module ${accumalated_tabs+1}`;
         }
-        let module_name = prompt("Please enter a module name.", default_name) || default_name;
-        modules_src = { ...modules_src, [module_name]: empty_module };
+        if(module_name==null)
+            module_name = prompt("Please enter a module name.", default_name) || default_name;
+        if(names.includes(module_name)) {
+            alert(`Module with name "${module_name}" already exists. Aborted.`);
+            return;
+        }
+        modules_src = { ...modules_src, [module_name]: module_code };
         anything_changed = true;
     };
 
@@ -925,7 +969,7 @@
                 {#if $snapshotsStorage.length == 0}
                 <!-- <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p> -->
                 {:else}
-                <table class="snapshot" style:width="100%">
+                <table class="functional-list" style:width="100%">
                     <tbody>
                         {#each $snapshotsStorage.toSorted((item)=>{return item.timestamp}).reverse() as snapshot}
                         <tr>
@@ -1031,9 +1075,32 @@
 
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_bookmarks} open_location="center">
     <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_bookmarks=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Bookmarks&nbsp;<img class="inline-glyph" alt="Bookmark" src={bookmark_icon}/></h3>
-    <p class="annotation">Load, save and manage your module snippets. (Feature not implemented yet.)</p>
+    <p class="annotation" style:min-width="100%">Load, save and manage your module snippets. (Hover to preview the snippet.)</p>
     <h4>Your Snippets</h4>
+    <p>(Feature not implemented yet.)</p>
     <h4>Predefined Snippets</h4>
+    <p class="annotation">Snippets here are meant to be like a support library.</p>
+    <table class="functional-list" style:width="100%">
+        <tbody>
+            {#each predefined_snippets as snippet}
+            <tr>
+                <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;<span id={`predefined-snippet-${snippet.name}`} class="underline">{snippet.name}</span></td>
+                <td class="glyphs">
+                    <button class="no-style" onclick={() => {
+                        new_module(snippet.module_name, snippet.module_code);
+                    }}><img class="inline-glyph" alt="Load" src={load_icon}/></button>
+                </td>
+            </tr>
+            <PointerBlock element_id={`predefined-snippet-${snippet.name}`}>
+                    <h4>Snippet: {snippet.name}</h4>
+                    <pre>{snippet.module_code}</pre>
+            </PointerBlock>
+            {/each}
+        </tbody>
+    </table>
+    <br>
+    <!-- <hr class="dotted"/> -->
+    
     <button type="button" onclick={() => {show_bookmarks=false}}>Cancel</button>
     <button type="button" onclick={() => {}}>Save Current</button>
 </WindowBlock>
