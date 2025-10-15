@@ -86,7 +86,8 @@
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
 
     let view_mode = $derived($viewModeStorage);
-    let any_module_errors = $state<string | null>(null);
+    let any_module_error = $state<any | null>(null);
+    // let any_module_error_details = $state<string | null>(null);
     let error_message = $state<string | null>(null);
     // let view_mode = $state('modules');
     // console.log('view_mode', view_mode);
@@ -196,7 +197,7 @@
         const resetOrNot = confirm('Are you sure? This will remove every JavaScript modules and reset it to default.');
         if(!resetOrNot) return;
         modules_src = default_modules;
-        any_module_errors = null;
+        any_module_error = null;
         module_tab_selected_value = Object.entries(modules_src)[0][0];
     };
 
@@ -468,19 +469,21 @@
             anything_changed = true;
         }
 
-        let clear_any_module_errors = false;
+        let clear_any_module_error = false;
         for(let key in moduleEditorViews) {
             const moduleEditorView = moduleEditorViews[key];
             const module_editor_src = moduleEditorView.state.doc.toString();
             if(module_editor_src!=modules_src[key]) {
-                clear_any_module_errors = true;
+                clear_any_module_error = true;
                 clearErrors(moduleEditorView);
                 modules_src = { ...modules_src, [key]: module_editor_src };
                 anything_changed = true;
             }
         }
 
-        if(clear_any_module_errors) any_module_errors = null;
+        if(clear_any_module_error) {
+            any_module_error = null;
+        }
 
         // console.log('run');
         // console.log(vert_shader_src);
@@ -634,9 +637,11 @@
         else if(type === 'modules') {
             const module = error.module;
             const module_error = error.error;
-            console.log(`JavaScript error in module "${module}":\n`);
-            console.trace(module_error);
-            any_module_errors = `Module "${module}": ${module_error.toString()}`;
+            // console.log(`JavaScript error in module "${module}":\n`);
+            // console.trace(module_error);
+            any_module_error = error;
+            // any_module_error = `Module "${module}": ${module_error.toString()}`;
+            // any_module_error_details = module_error.stack ?? module_error.message;
             // error_message = `JavaScript shader error: ${javascript_error}`;
             const linterExtension = createEvalLinter(module_error, modules_src[module]);
 
@@ -878,8 +883,12 @@
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
                 <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='modules')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
-                {#if any_module_errors != null}
-                <p class="annotation" style:color="red">{any_module_errors}</p>
+                {#if any_module_error != null}
+                <p class="annotation" style:color="red">{any_module_error.error} <span id="module-error" class="underline">(At module "{any_module_error.module}")</span></p>
+                <PointerBlock element_id="module-error">
+                    <h4>Error at module "{any_module_error.module}"</h4>
+                    <p class="annotation">{any_module_error.error.stack}</p>
+                </PointerBlock>
                 {/if}
                 <Tabs 
                 bind:names={module_tab_names} 
@@ -968,7 +977,11 @@
             {/if}
             <div class="info-container">
                 {#if error_message != null}
-                <p class="annotation" style:width="auto" style:color="red">{error_message}</p>
+                <p id="error-message" class="annotation" style:width="auto" style:color="red">{error_message}</p>
+                <PointerBlock element_id={``}>
+                    <h4 class="annotation">Image Asset</h4>
+                    <p class="annotation"></p>
+                </PointerBlock>
                 {/if}
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
                 {#if $snapshotsStorage.length == 0}

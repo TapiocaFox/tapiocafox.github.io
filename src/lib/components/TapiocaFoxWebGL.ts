@@ -1,4 +1,4 @@
-import type{ TapiocaFoxGLContext } from './TapiocaFoxGLContext';
+import type { TapiocaFoxGLContext } from './TapiocaFoxGLContext';
 export type Asset = {
   id: string;
   type: 'image' | 'video' | 'audio' | 'blob';
@@ -48,14 +48,36 @@ export function createSandbox(): Sandbox {
 
   function notifyError(moduleName: string, error: unknown) {
     // console.log(errorListeners);
-    for (const listener of errorListeners) listener(moduleName, error);
+    // Normalize to Error object
+    for (const listener of errorListeners) listener(moduleName, reformatError(error));
+  }
+
+  function reformatError(error: any) {
+    let newError: Error;
+    if (error instanceof Error) newError = error;
+    else newError = new Error(String(error));
+
+    // Replace every blob URL with module name in stack & message
+    if (newError.stack) {
+      for (const [name, mod] of modules.entries()) {
+        if (!mod.url) continue;
+        newError.stack = newError.stack.replaceAll(mod.url, name);
+      }
+    }
+    if (newError.message) {
+      for (const [name, mod] of modules.entries()) {
+        if (!mod.url) continue;
+        newError.message = newError.message.replaceAll(mod.url, name);
+      }
+    }
+    return newError;
   }
 
   function findModFromString(s: string) {
     if (!s) return null;
     for (const name of order) {
-        const mod = modules.get(name)!;
-        if (mod.url && s.includes(mod.url)) return mod;
+      const mod = modules.get(name)!;
+      if (mod.url && s.includes(mod.url)) return mod;
     }
     return null;
   }
@@ -69,15 +91,15 @@ export function createSandbox(): Sandbox {
   }
 
   function getModuleNameFromString(s: string | null) {
-    if(s == null) return null;
+    if (s == null) return null;
     const mod = findModFromString(s);
-    if (mod==null) return null;
+    if (mod == null) return null;
     return getModuleNameFromUrl(mod.url);
   }
 
   window.addEventListener('error', (event) => {
     const moduleName = getModuleNameFromUrl(event.filename);
-    if(moduleName == null) return;
+    if (moduleName == null) return;
     notifyError(moduleName, event.error ?? event.message);
   });
 
@@ -85,7 +107,7 @@ export function createSandbox(): Sandbox {
     const reason = event.reason;
     if (!(reason instanceof Error) || !reason.stack) return;
     const moduleName = getModuleNameFromString(reason.stack);
-    if(moduleName == null) return;
+    if (moduleName == null) return;
     if (moduleName) notifyError(moduleName, reason);
   });
 
@@ -164,9 +186,9 @@ export function createSandbox(): Sandbox {
         return imported;
       } catch (err) {
         let moduleName = null;
-        if(err instanceof Error) moduleName = getModuleNameFromString(err.stack || null);
-        console.log(`moduleName: ${moduleName}`);
-        if(moduleName == null) notifyError(name, err);
+        if (err instanceof Error) moduleName = getModuleNameFromString(err.stack || null);
+        // console.log(`moduleName: ${moduleName}`);
+        if (moduleName == null) notifyError(name, err);
         else notifyError(moduleName, err);
         throw err;
       }
@@ -186,8 +208,8 @@ export function createSandbox(): Sandbox {
         try {
           await this.import(name);
         }
-        catch(error: any) {
-          return error;
+        catch (error: any) {
+          return reformatError(error);
         }
       }
     },

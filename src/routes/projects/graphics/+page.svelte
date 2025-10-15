@@ -7,6 +7,7 @@
 
     import matrix_module from '$lib/assets/webgl/modules/matrix.js?raw';
     import mesh_module from '$lib/assets/webgl/modules/mesh.js?raw';
+    import geometry_module from '$lib/assets/webgl/modules/geometry.js?raw';
     import quadric_matrices_module from '$lib/assets/webgl/modules/quadric_matrices.js?raw';
 
     import default_vert_shader from '$lib/assets/webgl/default.vert?raw';
@@ -59,6 +60,10 @@
     import colored_mesh_vert from '$lib/assets/webgl/shaders/colored_mesh.vert?raw';
     import colored_mesh_frag from '$lib/assets/webgl/shaders/colored_mesh.frag?raw';
     import cylinder_module from '$lib/assets/webgl/practice_4/cylinder.js?raw';
+    import robotic_arm_module from '$lib/assets/webgl/practice_4/robotic_arm.js?raw';
+    import hl_botton7_sound from '$lib/assets/webgl/practice_4/sounds/button7.wav';
+    import hl_botton9_sound from '$lib/assets/webgl/practice_4/sounds/button9.wav';
+    import hl_lightswitch2_sound from '$lib/assets/webgl/practice_4/sounds/lightswitch2.wav';
     
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
     import hl_alienappeal_sound from '$lib/assets/webgl/practice_3/sounds/alienappeal.wav';
@@ -309,11 +314,37 @@
                     modules: {index: simple_mesh_module},
                     categories: ['mesh']
                 },
+                // {
+                //     vert: colored_mesh_vert,
+                //     frag: colored_mesh_frag,
+                //     modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
+                //     categories: ['mesh']
+                // },
                 {
                     vert: colored_mesh_vert,
                     frag: colored_mesh_frag,
-                    modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module},
-                    categories: ['mesh']
+                    modules: {index: robotic_arm_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
+                    categories: ['mesh'],
+                    assets: {
+                        'hl_button7': {
+                            id: 'hl_button7',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_botton7_sound
+                        },
+                        'hl_button9': {
+                            id: 'hl_button9',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_botton9_sound
+                        },
+                        'hl_lightswitch2': {
+                            id: 'hl_lightswitch2',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_lightswitch2_sound
+                        },
+                    }
                 },
             ]
         },
