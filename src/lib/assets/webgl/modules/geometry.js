@@ -27,3 +27,7 @@ export const distance = (a, b) => {
     }
     return Math.hypot(...distances);
 }
+
+export const normalize = (a) => {
+    return Math.hypot(...a);
+}

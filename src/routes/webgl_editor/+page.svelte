@@ -24,30 +24,24 @@
     import { type Snapshot, nextSnapshot, extension } from './snapshot';
     import storage from '$lib/store'
 
-    import version from '$lib/version';
-
     import reset_icon from '$lib/assets/icons/reset.svg';
     import play_icon from '$lib/assets/icons/play.svg';
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
     import new_module_tab_icon from '$lib/assets/icons/window.svg';
-    import share_icon from '$lib/assets/icons/share.svg';
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
     import main_icon from '$lib/assets/icons/main.svg';
     import box_icon from '$lib/assets/icons/box.svg';
-    import deform_icon from '$lib/assets/icons/deform.svg';
     import upload_icon from '$lib/assets/icons/upload.svg';
     import close_icon from '$lib/assets/icons/close.svg';
     import music_icon from '$lib/assets/icons/music.svg';
     import video_icon from '$lib/assets/icons/video.svg';
     import add_icon from '$lib/assets/icons/add.svg';
-    import document_icon from '$lib/assets/icons/document.svg';
     import api_icon from '$lib/assets/icons/api.svg';
     import edit_icon from '$lib/assets/icons/edit.svg';
     import bookmark_icon from '$lib/assets/icons/bookmark.svg';
 
-    import eye_icon from '$lib/assets/icons/eye.svg';
     import vertex_icon from '$lib/assets/icons/vertex.svg';
     import fragment_icon from '$lib/assets/icons/fragment.svg';
     import javascript_icon from '$lib/assets/icons/javascript.svg';
@@ -57,7 +51,6 @@
     import default_modules from '$lib/assets/webgl/default_modules';
     import empty_module from '$lib/assets/webgl/modules/empty.js?raw';
     import Chips from '$lib/components/Chips.svelte';
-    // import ChipsWithUrlState from '$lib/components/ChipsWithUrlState.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGLContext';
 
@@ -72,7 +65,6 @@
     let vertexShaderEditorView: EditorView;
     let fragmentShaderEditorView: EditorView;
     let moduleEditorViews: Record<string, EditorView> = {};
-    // let javascriptEditorView: EditorView;
 
     let foxGL: TapiocaFoxGLContext;
     let importSnapshotInput: HTMLInputElement;
@@ -87,10 +79,7 @@
 
     let view_mode = $derived($viewModeStorage);
     let any_module_error = $state<any | null>(null);
-    // let any_module_error_details = $state<string | null>(null);
     let error_message = $state<string | null>(null);
-    // let view_mode = $state('modules');
-    // console.log('view_mode', view_mode);
     let vert_shader_src = $state(default_vert);
     let frag_shader_src = $state(default_frag);
     let modules_src = $state<Record<string, string>>(default_modules);
@@ -125,9 +114,6 @@
         
         const modules_not_in_editor_views = modules_in_src.filter(x => !modules_in_editor_views.includes(x));
         const modules_not_in_src = modules_in_editor_views.filter(x => !modules_in_src.includes(x));
-
-        // console.log(`Editor changed.\nmodules_in_src: ${modules_in_src}\nmodules_in_editor_views: ${modules_in_editor_views}`);
-        // console.log(`Editor changed.\nmodules_not_in_editor_views: ${modules_not_in_editor_views}\nmodules_not_in_src: ${modules_not_in_src}`);
 
         modules_not_in_src.forEach((module: string) => {
             moduleEditorViews[module].destroy();
@@ -168,7 +154,6 @@
         const closeOrNot = confirm(`Delete module "${value}"?`);
         if (closeOrNot) {
             modules_src = (({ [value]: _, ...rest }) => rest)(modules_src);
-            // modules_src = { ...modules_src };
             await tick(); // Workaround for weird bugs that make the derived state omit the rest of the keys after index.
             modules_src = { ...modules_src };
         }
@@ -176,7 +161,6 @@
     };
 
     const new_module = () => {
-        // alert('Feature not implemented yet.');
         const names = Object.keys(modules_src);
         accumalated_tabs = names.length;
         let default_name = `module ${accumalated_tabs+1}`;
@@ -251,7 +235,6 @@
 
     const keymapExtension = keymap.of([indentWithTab]);
     const runSnapshot: KeyBinding["run"] = ({ state }) => {
-                // console.log(state.doc.toString()); 
                 snapshot();
                 return true;
             }
@@ -263,7 +246,6 @@
                 selected_value = 'view_all';
                 view_mode = 'all';
                 viewModeStorage.set('all');
-                // scrollToTop();
                 tick().then(() => {
                     scrollToEditorCursor(vertexShaderEditorView);
                     vertexShaderEditorView.focus();
@@ -274,7 +256,6 @@
                 selected_value = 'view_vert';
                 view_mode = 'vert';
                 viewModeStorage.set('vert');
-                // scrollToTop();
                 tick().then(() => {
                     scrollToEditorCursor(vertexShaderEditorView);
                     vertexShaderEditorView.focus();
@@ -285,7 +266,6 @@
                 selected_value = 'view_frag';
                 view_mode = 'frag';
                 viewModeStorage.set('frag');
-                // scrollToTop();
                 tick().then(() => {
                     scrollToEditorCursor(fragmentShaderEditorView);
                     fragmentShaderEditorView.focus();
@@ -296,7 +276,6 @@
                 selected_value = 'view_modules';
                 view_mode = 'modules';
                 viewModeStorage.set('modules');
-                // scrollToTop();
                 tick().then(() => {
                     scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
                     moduleEditorViews[module_tab_selected_value].focus();
@@ -441,10 +420,6 @@
         
         mounted = true;
         await tick();
-        // setTimeout(() => {
-        //     foxGL.run();
-        // }, 1);
-        // await foxGL.run();
         refreshLoop();
     });
 
@@ -484,10 +459,6 @@
         if(clear_any_module_error) {
             any_module_error = null;
         }
-
-        // console.log('run');
-        // console.log(vert_shader_src);
-        // console.log(frag_shader_src);
     }
 
     function reset() {
@@ -512,11 +483,6 @@
         URL.revokeObjectURL(url);
     }
 
-    // function shareSnapshot(snapshot: Snapshot) {
-    //     navigator.clipboard.writeText(`${page.url.origin}${page.url.pathname}?vert=${encodeURIComponent(snapshot.vert)}&frag=${encodeURIComponent(snapshot.frag)}&js=${encodeURIComponent(snapshot.js)}`);
-    //     alert('The URL has been copied to your clipboard!');
-    // }
-
     function newSnapshot() {
         const newSnapshot: Snapshot = {
                 name: new Date().toISOString().slice(0, 19),
@@ -527,8 +493,6 @@
                 modules: JSON.parse(JSON.stringify(modules_src)),
                 assets: JSON.parse(JSON.stringify(assets)),
             };
-        // console.log(`assets:`);
-        // console.log({...assets});
         return newSnapshot;
     }
 
@@ -570,12 +534,8 @@
     }
 
     function deleteSnapshot(snapshot: Snapshot) {
-        // console.log('snapshot');
-        // console.log(snapshot.date.getTime());
-        // console.log('snapshot items');
         snapshotsStorage.update((snapshots) => {
             return snapshots.filter((snapshotItem) => {
-                // console.log(snapshotItem.getTime());
                 return snapshotItem.timestamp != snapshot.timestamp;
             });
         });
@@ -613,17 +573,12 @@
     }
 
     async function onError(type: string, error: any) {
-        // console.log(error)
-        // console.trace(error);
-
         if(type === 'vert' || type === 'frag') {
             let view: EditorView;
             if (type === "vert") {
-                // error_message = `Vertex shader error: ${error}`;
                 view = vertexShaderEditorView;
             }
             else if (type === "frag") {
-                // error_message = `Fragment shader error: ${error}`;
                 view = fragmentShaderEditorView;
             }
             else return;
@@ -637,12 +592,7 @@
         else if(type === 'modules') {
             const module = error.module;
             const module_error = error.error;
-            // console.log(`JavaScript error in module "${module}":\n`);
-            // console.trace(module_error);
             any_module_error = error;
-            // any_module_error = `Module "${module}": ${module_error.toString()}`;
-            // any_module_error_details = module_error.stack ?? module_error.message;
-            // error_message = `JavaScript shader error: ${javascript_error}`;
             const linterExtension = createEvalLinter(module_error, modules_src[module]);
 
             moduleEditorViews[module].dispatch({
@@ -685,16 +635,8 @@
     const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_modules', 'view_assets'];
     const chips_icons = [reset_icon, camera_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
     const dividers = ['view_vert'];
-    // if(dev) {
-
-    // }
-    // chips_names.push('Assets');
-    // chips_values.push('view_assets');
-    // chips_icons.push(box_icon);
-
 
     // Asset configuration dialog
-    // let asset_name = $state('Untitled');
     let modifying_asset_id = $state<string|null>(null);
     let asset_id = $state<string|null>(null);
     let asset_type = $state<'image'| 'audio' | 'video' | 'blob'>('image');
@@ -773,7 +715,6 @@
         if (!file) return;
 
         asset_source = await fileToDataURL(file);
-        // console.log('Data URL:', asset_source);
     }
 
     // Helper function
@@ -819,10 +760,6 @@
             reset();
             return false;
         }
-        // else if(value == 'share') {
-        //     share();
-        //     return false;
-        // }
         else if (value == 'import') {
             openSnapshotFilePicker();
             return false;
