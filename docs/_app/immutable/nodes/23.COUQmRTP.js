@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as L,e as b,a as d,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as N,t as mn}from"../chunks/UuebQw-N.js";import{s as D}from"../chunks/CWSVVgTL.js";import{i as P}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as vn}from"../chunks/Cvoc0y2g.js";import{H as fn}from"../chunks/BNKZDGsD.js";import{e as U,T as p,d as g,a as dn,m as pn}from"../chunks/CcaJAX_e.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as gn,b as xn,r as hn,h as yn,c as Sn,d as bn,l as _n}from"../chunks/r_uP3Q3U.js";import{g as Tn}from"../chunks/CN9q5Oav.js";const w=`// Author: TapiocaFox
+import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as L,e as b,a as d,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as N,t as mn}from"../chunks/UuebQw-N.js";import{s as D}from"../chunks/CWSVVgTL.js";import{i as P}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as vn}from"../chunks/Cvoc0y2g.js";import{H as fn}from"../chunks/BNKZDGsD.js";import{e as U,T as p,d as g,a as dn,m as pn}from"../chunks/5uUY5cz8.js";import{m as W}from"../chunks/8p4Ra2kK.js";import{a as gn,b as xn,r as hn,h as yn,c as Sn,d as bn,l as _n}from"../chunks/r_uP3Q3U.js";import{g as Tn}from"../chunks/4K5VMZSA.js";const w=`// Author: TapiocaFox
 // Title:  Matrix (From Prof. Perlin)
 
 // Transformations. Column major.
@@ -3237,7 +3237,7 @@ const jointSize = .175;
 const octahedronSize = .3;
 const octahedronHitboxRadius= octahedronSize;
 const octahedronMergeRadius = octahedronHitboxRadius/2;
-const octahedronSizeNum = 6; 
+const octahedronSizeNum = 8; 
 const cubeSize = .2;
 
 const myTube = {

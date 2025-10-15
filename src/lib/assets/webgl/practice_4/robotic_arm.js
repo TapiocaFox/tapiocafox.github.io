@@ -37,7 +37,7 @@ const jointSize = .175;
 const octahedronSize = .3;
 const octahedronHitboxRadius= octahedronSize;
 const octahedronMergeRadius = octahedronHitboxRadius/2;
-const octahedronSizeNum = 6; 
+const octahedronSizeNum = 8; 
 const cubeSize = .2;
 
 const myTube = {
