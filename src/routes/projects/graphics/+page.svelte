@@ -63,6 +63,9 @@
     import robotic_arm_module from '$lib/assets/webgl/practice_4/robotic_arm.js?raw';
     import hl_botton7_sound from '$lib/assets/webgl/practice_4/sounds/button7.wav';
     import hl_botton9_sound from '$lib/assets/webgl/practice_4/sounds/button9.wav';
+    import hl_bell_sound from '$lib/assets/webgl/practice_4/sounds/bell.wav';
+    import hl_tr_holo_nicejob_sound from '$lib/assets/webgl/practice_4/sounds/tr_holo_nicejob.wav';
+    import hl_tr_ba_lightson_sound from '$lib/assets/webgl/practice_4/sounds/tr_ba_lightson.wav';
     import hl_lightswitch2_sound from '$lib/assets/webgl/practice_4/sounds/lightswitch2.wav';
     
     import hl_alien_blipper_sound from '$lib/assets/webgl/practice_3/sounds/alien_blipper.wav';
@@ -343,6 +346,24 @@
                             type: 'audio',
                             srcType: 'link',
                             src: hl_lightswitch2_sound
+                        },
+                        'hl_bell': {
+                            id: 'hl_bell',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_bell_sound
+                        },
+                        'hl_tr_holo_nicejob': {
+                            id: 'hl_tr_holo_nicejob',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_tr_holo_nicejob_sound
+                        },
+                        'hl_tr_ba_lightson': {
+                            id: 'hl_tr_ba_lightson',
+                            type: 'audio',
+                            srcType: 'link',
+                            src: hl_tr_ba_lightson_sound
                         },
                     }
                 },

@@ -13,6 +13,9 @@ let onpointermove, onmousedown, onmouseup, resizeObserver;
 let lightswitch2Sound = null;
 let button7Sound = null;
 let button9Sound = null;
+let niceJobSound = null;
+let tryAgainSound = null;
+let bellSound = null;
 
 const armsColor = [60/256, 61/256, 83/256];
 const shoulderColor = [122/256, 36/256, 56/256];
@@ -21,6 +24,7 @@ const handColor = [1, 1, 1];
 const backgroundColor = [54/256, 89/256, 127/256];
 const octachedronColor = [171/256, 175/256, 187/256];
 const octachedronActiveColor = [256/256, 256/256, 256/256];
+const cubeColor = [256/256, 256/256, 256/256];
 
 const vertexSize = 6;
 
@@ -31,8 +35,10 @@ const forearmWidth =.1;
 const shoulderNDC = [0,.25];
 const jointSize = .175;
 const octahedronSize = .3;
-const octahedronHitboxRadius= octahedronSize+.05;
+const octahedronHitboxRadius= octahedronSize;
+const octahedronMergeRadius = octahedronHitboxRadius/2;
 const octahedronSizeNum = 6; 
+const cubeSize = .2;
 
 const myTube = {
     triangle_strip: true,
@@ -69,6 +75,11 @@ const myOctahedron = {
     data: transformMeshData(new Float32Array(octachedron()),scale( .5*octahedronSize, .5*octahedronSize, .5*octahedronSize),vertexSize)
 };
 
+const myCube = {
+    triangle_strip: false,
+    data: transformMeshData(new Float32Array(cube()),scale( .5*cubeSize, .5*cubeSize, .5*cubeSize),vertexSize)
+};
+
 const matrix = new Matrix();
 
 // Start lifecycle.
@@ -80,16 +91,48 @@ export const start = async (foxGL) => {
     foxGL.getAssetById('hl_lightswitch2').then(result => lightswitch2Sound = result);
     foxGL.getAssetById('hl_button7').then(result => button7Sound = result);
     foxGL.getAssetById('hl_button9').then(result => button9Sound = result);
+    foxGL.getAssetById('hl_bell').then(result => bellSound = result);
+    foxGL.getAssetById('hl_tr_holo_nicejob').then(result => niceJobSound = result);
+    foxGL.getAssetById('hl_tr_ba_lightson').then(result => tryAgainSound = result);
     
     let mouseNDC = [0, 0];
     let mouseDown = false;
     let drag = false;
     const max=.9, min=-.9;
     const octahedronNDCList = [];
-    let selectedOctahedron = 0;
+    const cubeNDCList = [];
+    let selectedOctahedronIndex = 0;
 
     for(let i=0; i<octahedronSizeNum; i++) {
         octahedronNDCList.push([Math.random() * (max - min) + min, Math.random() * (max - min) + min]);
+    };
+
+    const checkMerge = (octahedronIndex) => {
+        const selectedOctahedronNDC = octahedronNDCList[octahedronIndex];
+        let minDist = 999;
+        let octahedronToBeMergedIndex = null;
+        for(const [i, octahedronNDC] of octahedronNDCList.entries()) {
+            if(i==octahedronIndex) continue;
+            const d = distance(octahedronNDC, selectedOctahedronNDC);
+            if(d<minDist&&d<octahedronMergeRadius) {
+                octahedronToBeMergedIndex = i; 
+                minDist = d;
+            }
+        }
+        if(octahedronToBeMergedIndex!=null) {
+            bellSound?.play();
+            const first = Math.max(octahedronIndex, octahedronToBeMergedIndex);
+            const second = Math.min(octahedronIndex, octahedronToBeMergedIndex);
+            cubeNDCList.push(selectedOctahedronNDC);
+            octahedronNDCList.splice(first, 1);
+            octahedronNDCList.splice(second, 1);
+            if(octahedronNDCList.length ==0) {
+                niceJobSound?.play();
+                setTimeout(() => {
+                    tryAgainSound?.play();
+                },1500);
+            }
+        }
     };
     
     let shoulderToHandDistance = Math.max(upperarmLength, forearmLength);
@@ -98,7 +141,7 @@ export const start = async (foxGL) => {
 
     // Set status title.
     foxGL.setStatusTitle('Robotic Arm');
-    foxGL.reportStatus('Tips', 'Mouse down to drag the octahedron around.', 'green');
+    foxGL.reportStatus('Tips', 'Drag and merge octahedrons into cubes.', 'green');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
@@ -157,8 +200,14 @@ export const start = async (foxGL) => {
         for(const [i, octahedronNDC] of octahedronNDCList.entries()) {
             // foxGL.reportStatus('octahedronNDC',`octahedronNDC: ${octahedronNDCList[0]}`);
             matrix.identity();
-            matrix.translate(...octahedronNDC,0).rotateY(uTime);
-            drawMesh(myOctahedron, (selectedOctahedron==i)?octachedronActiveColor:octachedronColor);
+            matrix.translate(...octahedronNDC,0).rotateY((selectedOctahedronIndex==i)?4*uTime:uTime);
+            drawMesh(myOctahedron, (selectedOctahedronIndex==i)?octachedronActiveColor:octachedronColor);
+        }
+
+        for(const [i, cubeNDC] of cubeNDCList.entries()) {
+            matrix.identity();
+            matrix.translate(...cubeNDC,0).rotateY(uTime);
+            drawMesh(myCube, cubeColor);
         }
         foxGL.render();
     }
@@ -175,14 +224,14 @@ export const start = async (foxGL) => {
         foxGL.reportStatus('uMouse', `uMouse: (${uMouseX.toFixed(1)}, ${uMouseY.toFixed(1)})`);
         const relativeNDC = [mouseNDC[0]-shoulderNDC[0], mouseNDC[1]-shoulderNDC[1]];
         shoulderToHandAngle = (relativeNDC[0]>=0)?Math.atan(relativeNDC[1]/relativeNDC[0]):Math.atan(relativeNDC[1]/relativeNDC[0])+Math.PI;
-        foxGL.reportStatus('shoulderToHandAngle', `shoulderToHandAngle: ${shoulderToHandAngle.toFixed(1)}`);
+        // foxGL.reportStatus('shoulderToHandAngle', `shoulderToHandAngle: ${shoulderToHandAngle.toFixed(1)}`);
         shoulderToHandDistance = distance(mouseNDC, shoulderNDC);
-        foxGL.reportStatus('shoulderToHandDistance', `shoulderToHandDistance: ${shoulderToHandDistance.toFixed(1)}`);
+        // foxGL.reportStatus('shoulderToHandDistance', `shoulderToHandDistance: ${shoulderToHandDistance.toFixed(1)}`);
         armAngles = triangleAnglesFromSides(forearmLength, shoulderToHandDistance, upperarmLength);
         foxGL.reportStatus('armAngles', `armAngles: (${armAngles[0].toFixed(1)}, ${armAngles[1].toFixed(1)}, ${armAngles[2].toFixed(1)})`);
         if(drag) {
-            octahedronNDCList[selectedOctahedron][0] = mouseNDC[0];
-            octahedronNDCList[selectedOctahedron][1] = mouseNDC[1];
+            octahedronNDCList[selectedOctahedronIndex][0] = mouseNDC[0];
+            octahedronNDCList[selectedOctahedronIndex][1] = mouseNDC[1];
         }
     };
 
@@ -194,19 +243,25 @@ export const start = async (foxGL) => {
         const mouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
         mouseNDC[0] = 2*(mouseX/canvas.width)-1;
         mouseNDC[1] = 2*(mouseY/canvas.height)-1;
+        let minDist = 999;
         for(const [i, octahedronNDC] of octahedronNDCList.entries()) {
-            drag = distance(octahedronNDC, mouseNDC)<octahedronHitboxRadius;
-            foxGL.reportStatus('mouse', `Mouse: down, drag: ${drag}`);
-            if(drag) {
-                selectedOctahedron = i;
-                button9Sound.currentTime = 0;
-                button9Sound?.play();
-                break;
+            const d = distance(octahedronNDC, mouseNDC);
+            if(d<minDist) {
+                drag = d<octahedronHitboxRadius;
+                foxGL.reportStatus('mouse', `Mouse: down, drag: ${drag}`);
+                if(drag) {
+                    selectedOctahedronIndex = i;
+                }
+                minDist = d;
             }
         }
         if(!drag) {
             button7Sound.currentTime = 0;
             button7Sound?.play(); 
+        }
+        else {
+            button9Sound.currentTime = 0;
+            button9Sound?.play();
         }
     }
 
@@ -215,6 +270,7 @@ export const start = async (foxGL) => {
         if(drag) {
             lightswitch2Sound.currentTime = 0;
             lightswitch2Sound?.play();
+            checkMerge(selectedOctahedronIndex);
         }
         drag = false;
         foxGL.reportStatus('mouse', `Mouse: up`);

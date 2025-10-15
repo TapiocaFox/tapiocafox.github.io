@@ -839,18 +839,17 @@
         else if(value == 'view_vert') {
             view_mode = 'vert';
             viewModeStorage.set('vert');
-            scrollToTop();
+            scrollToEditorCursor(vertexShaderEditorView);
         }
         else if(value == 'view_frag') {
             view_mode = 'frag';
             viewModeStorage.set('frag');
-            scrollToTop();
+            scrollToEditorCursor(fragmentShaderEditorView);
         }
         else if(value == 'view_modules') {
             view_mode = 'modules';
             viewModeStorage.set('modules');
-            scrollToTop();
-
+            scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
         }
         else if(value == 'view_assets') {
             view_mode = 'assets';
