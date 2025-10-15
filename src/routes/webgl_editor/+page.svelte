@@ -102,8 +102,8 @@
     let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === default_module ? main_icon : box_icon));
     let module_tab_closable_list = $derived(Object.keys(modules_src).map(key => key !== default_module));
 
-    let module_functional_tab_names = $derived((module_tab_selected_value==default_module)?['New', 'Default', '[B]ookmark', 'API']:['New', 'Rename', 'Default', '[B]ookmark', 'API']);
-    let module_functional_tab_values = $derived((module_tab_selected_value==default_module)?['new_module', 'reset', 'bookmark', 'api']:['new_module', 'rename', 'reset', 'bookmark', 'api']);
+    let module_functional_tab_names = $derived((module_tab_selected_value==default_module)?['New', 'Default', '[B]ookmarks', 'API']:['New', 'Rename', 'Default', '[B]ookmarks', 'API']);
+    let module_functional_tab_values = $derived((module_tab_selected_value==default_module)?['new_module', 'reset', 'bookmarks', 'api']:['new_module', 'rename', 'reset', 'bookmarks', 'api']);
     let module_functional_tab_icons = $derived((module_tab_selected_value==default_module)?[add_icon, reset_icon, bookmark_icon, api_icon]:[add_icon, edit_icon, reset_icon, bookmark_icon, api_icon]);
 
     module_tab_selected_value = default_module;
@@ -249,7 +249,7 @@
             modules_src = { ...modules_src };
             module_tab_selected_value = new_module_name;
         }
-        else if(value=='bookmark') {
+        else if(value=='bookmarks') {
             open_bookmarks();
         }
         else if(value=='api') {
@@ -1074,7 +1074,7 @@
 
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_bookmarks} open_location="center">
     <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_bookmarks=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Bookmarks&nbsp;<img class="inline-glyph" alt="Bookmark" src={bookmark_icon}/></h3>
-    <p class="annotation" style:min-width="100%">Load, save and manage your module snippets. (Hover to preview the snippet.)</p>
+    <p class="annotation" style:min-width="100%">Load, save and manage your module snippets. (Hover on to preview the snippet.)</p>
     <h4>Your Snippets</h4>
     <p>(Feature not implemented yet.)</p>
     <h4>Predefined Snippets</h4>
