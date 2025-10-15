@@ -849,14 +849,14 @@
         <div class="master-container">
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
                 <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to set source to default.</p>
+                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to reset source to default.</p>
                 <div bind:this={vertex_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
                 <h3>Fragment Shader <img alt="Fragment" class="inline-glyph" src={fragment_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to set source to default.</p>
+                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to reset source to default.</p>
                 <div bind:this={fragment_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
@@ -864,7 +864,6 @@
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='modules')?'block':'none'}>
                 <!-- <h3 style:display={view_mode=='all'?'block':'none'}>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3> -->
                 <h3>JavaScript <img class="inline-glyph" src={javascript_icon}/></h3>
-                <!-- <p class="annotation" style:display={(view_mode=='all' || view_mode=='modules')?'block':'none'}><button onclick={() => { setEditorValue(javascriptEditorView, default_js); }} class="text">Click here</button> to set source to default. Checkout <button class="text" onclick={()=> {show_foxgl_interface=!show_foxgl_interface}}>API definitions</button> and be aware of the Cross Site Scripting (XSS) attack.</p> -->
                 {#if any_module_error != null}
                 <p class="annotation" style:color="red">{any_module_error.error} <span id="module-error" class="underline">(At module "{any_module_error.module}")</span></p>
                 <PointerBlock element_id="module-error">
