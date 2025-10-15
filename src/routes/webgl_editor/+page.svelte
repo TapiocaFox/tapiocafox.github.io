@@ -1101,6 +1101,6 @@
     <br>
     <!-- <hr class="dotted"/> -->
     
-    <button type="button" onclick={() => {show_bookmarks=false}}>Cancel</button>
+    <button type="button" onclick={() => {show_bookmarks=false}}>Close</button>
     <button type="button" onclick={() => {}}>Save Current</button>
 </WindowBlock>
