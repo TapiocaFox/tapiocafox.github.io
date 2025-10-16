@@ -89,7 +89,7 @@ export function Matrix() {
       m[top] = mxm(m[top], perspective(x,y,z));
       return this;
    }
-}`,t=`// Author: TapiocaFox
+}`,e=`// Author: TapiocaFox
 // Title:  Mesh (From Prof. Perlin)
 
 import { inverse } from 'matrix';
@@ -211,7 +211,7 @@ export const glueMeshes = (a,b,vertexSize) => {
         V.push(b.data[n]);
     mesh.data = new Float32Array(V);
     return mesh;
-}`,e=`// Author: TapiocaFox
+}`,t=`// Author: TapiocaFox
 // Title:  Geometry
 
 export const triangleAnglesFromSides = (a, b, c) => {
@@ -243,7 +243,7 @@ export const distance = (a, b) => {
 
 export const normalize = (a) => {
     return Math.hypot(...a);
-}`,r=`// Author: TapiocaFox
+}`,o=`// Author: TapiocaFox
 // Title:  Quadric Surface Matrices (From Prof. Perlin)
 
 import { mxm, qxm, scale, translate } from 'matrix';
@@ -324,4 +324,172 @@ export const hourglassSystem = [qSlabX, qConeX, qGlobal]; // Hourglass
 export const coneSystem = [qConeX, qxm(qSlabX,mxm(scale(.5,1,1),translate(1,0,0))), qGlobal]; // Real cone
 export const cylinderSystem = [qTubeX, qSlabX, qGlobal]; // Cylinder
 export const noseSystem = [qParabX, qSlabX, qGlobal]; // Nose
-export const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere`;export{t as a,e as g,n as m,r as q};
+export const sphereSystem = [qSphere, qGlobal, qGlobal]; // Sphere`,r=`// Author: TapiocaFox
+// Title:  Frameskip Renderer
+
+// Init variables.
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
+
+const frameSkip = 3;
+const frameSkipSkip = 5;
+
+// Start lifecycle.
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    // Set status title.
+    foxGL.setStatusTitle('Frame Skip Renderer');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+
+    let firstFrameRendered = false;
+    let frameCount = 0;
+    let skippedFrameCount = 0;
+    let doNotSkip = false;
+    
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        requestAnimationFrame(animate);
+        frameCount++;
+        if(!doNotSkip && firstFrameRendered && frameCount%frameSkip!=0) {
+            skippedFrameCount++;
+            if(skippedFrameCount%frameSkipSkip==0) return;
+        }
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+        doNotSkip = true;
+    };
+    
+    onpointerleave = async event => {
+        doNotSkip = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        firstFrameRendered = false;
+        animate();
+    });
+        
+    // Register listeners on start.
+    canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerleave', onpointerleave);
+    resizeObserver.observe(canvas);
+};
+
+// Stop lifecycle.
+export const stop = async (foxGL) => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+    if(resizeObserver) resizeObserver.disconnect();
+};`,a=`// Author: TapiocaFox
+// Title:  Passive Renderer
+
+// Init variables.
+let gl, program, canvas;
+let destroyed = false;
+let onpointermove, resizeObserver;
+
+// Start lifecycle.
+export const start = async (foxGL) => {
+    gl = foxGL.gl;
+    program = foxGL.program;
+    canvas = foxGL.canvas;
+    
+    // Set status title.
+    foxGL.setStatusTitle('Passive Renderer');
+
+    // Setup vertex buffer.
+    gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());
+    gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([-1,1,0, 1,1,0, -1,-1,0, 1,-1,0, -1,-1,0, 1,1,0]), gl.STATIC_DRAW);
+    const aPos = gl.getAttribLocation(program, 'aPos');
+    gl.enableVertexAttribArray(aPos);
+    gl.vertexAttribPointer(aPos, 3, gl.FLOAT, false, 0, 0);
+
+    // Initial uniform values.
+    gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+    foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        
+    let animateOrNot = false;
+    let firstFrameRendered = false;
+    
+    // Render per animation frame.
+    function animate() {
+        if(destroyed) return;
+        if(firstFrameRendered && !animateOrNot) return;
+        requestAnimationFrame(animate);
+        const uTime = (Date.now() - foxGL.startTime) / 1000;
+        gl.uniform1f(gl.getUniformLocation(program, 'uTime'), uTime);
+        foxGL.reportStatus('uTime', \`uTime: \${uTime.toFixed(2)}\`);
+        foxGL.render();
+        firstFrameRendered = true;
+    }
+
+    // Declare listeners.
+    onpointermove = async event => {
+        const canvasRect = canvas.getBoundingClientRect();
+        const canvasHeight = canvasRect.bottom - canvasRect.top;
+        const uMouseX = devicePixelRatio*(event.clientX-canvasRect.left);
+        const uMouseY = devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+        gl.uniform2f(gl.getUniformLocation(program, 'uMouse'), uMouseX, uMouseY);
+        foxGL.reportStatus('uMouse', \`uMouse: (\${uMouseX.toFixed(1)}, \${uMouseY.toFixed(1)})\`);
+        if(!animateOrNot) {
+            animateOrNot = true;
+            animate();
+        }
+    };
+    
+    onpointerleave = async event => {
+        animateOrNot = false;
+    };
+    
+    resizeObserver = new ResizeObserver(entries => {
+        gl.uniform2f(gl.getUniformLocation(program, 'uResolution'), canvas.width, canvas.height);
+        foxGL.reportStatus('uResolution', \`uResolution: (\${canvas.width.toFixed(1)}, \${canvas.height.toFixed(1)})\`);
+        firstFrameRendered = false;
+        animate();
+    });
+
+    // Register listeners on start.
+    resizeObserver.observe(canvas);
+    canvas.addEventListener('pointermove', onpointermove);
+    canvas.addEventListener('pointerleave', onpointerleave);
+};
+
+// Stop lifecycle.
+export const stop = async (foxGL) => {
+    // Deregister listeners on stop.
+    destroyed = true;
+    if(resizeObserver) resizeObserver.disconnect();
+    if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
+    if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
+};`;export{e as a,r as f,t as g,n as m,a as p,o as q};

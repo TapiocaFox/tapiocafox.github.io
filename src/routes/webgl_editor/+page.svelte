@@ -108,6 +108,10 @@
 
     module_tab_selected_value = default_module;
 
+    import default_index_module from '$lib/assets/webgl/default.js?raw';
+    import frameskip_renderer_index_module from '$lib/assets/webgl/modules/frameskip_renderer_index.js?raw';
+    import passive_renderer_index_module from '$lib/assets/webgl/modules/passive_renderer_index.js?raw';
+    
     import matrix_module from '$lib/assets/webgl/modules/matrix.js?raw';
     import geometry_module from '$lib/assets/webgl/modules/geometry.js?raw';
     import mesh_module from '$lib/assets/webgl/modules/mesh.js?raw';
@@ -119,6 +123,24 @@
 
 
     const predefined_snippets = [
+        {
+            name: "Default Index",
+            module_name: "index",
+            icon: main_icon,
+            module_code: default_index_module
+        },
+        {
+            name: "Frameskip Renderer Index",
+            module_name: "index",
+            icon: main_icon,
+            module_code: frameskip_renderer_index_module
+        },
+        {
+            name: "Passive Renderer Index",
+            module_name: "index",
+            icon: main_icon,
+            module_code: passive_renderer_index_module
+        },
         {
             name: "Matrix",
             module_name: "matrix",
@@ -211,8 +233,8 @@
         if(module_name==null)
             module_name = prompt("Please enter a module name.", default_name) || default_name;
         if(names.includes(module_name)) {
-            alert(`Module with name "${module_name}" already exists. Aborted.`);
-            return;
+            if(!confirm(`Module with name "${module_name}" already exists. Do you want to replace it?`))
+                return;
         }
         modules_src = { ...modules_src, [module_name]: module_code };
         anything_changed = true;

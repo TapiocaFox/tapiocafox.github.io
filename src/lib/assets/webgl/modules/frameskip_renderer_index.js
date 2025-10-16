@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Frame Skip Renderer
+// Title:  Frameskip Renderer
 
 // Init variables.
 let gl, program, canvas;
