@@ -25,7 +25,7 @@
     import storage from '$lib/store'
 
     import reset_icon from '$lib/assets/icons/reset.svg';
-    import play_icon from '$lib/assets/icons/play.svg';
+    import shapes_icon from '$lib/assets/icons/shapes.svg';
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
     import new_module_tab_icon from '$lib/assets/icons/window.svg';
@@ -782,7 +782,7 @@
 
     const chips_names = ['[R]eset', '[S]napshot', 'Import', 'Vert | 1', 'Frag | 2', 'JS | 3', 'Assets'];
     const chips_values = ['reset', 'snapshot', 'import', 'view_vert', 'view_frag', 'view_modules', 'view_assets'];
-    const chips_icons = [reset_icon, camera_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, box_icon];
+    const chips_icons = [reset_icon, camera_icon, import_icon, vertex_icon, fragment_icon, javascript_icon, shapes_icon];
     const dividers = ['view_vert'];
 
     // Asset configuration dialog
@@ -1020,7 +1020,7 @@
             </div>
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
-                <h3>Assets <img class="inline-glyph" src={box_icon}/></h3>
+                <h3>Assets <img class="inline-glyph" alt="Assets" src={shapes_icon}/></h3>
                 <p class="annotation">Manage your image, audio or video assets.</p>
                 <div class="flex_grid gallery">
                     <div class="item html-item code-block-background">
