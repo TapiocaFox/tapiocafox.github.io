@@ -90,13 +90,40 @@
     let mounted = $state(false);
     let show_foxgl_interface = $state(false);
     let show_bookmarks = $state(false);
+    let bookmarks_type = $state('modules');
     let show_asset_configuration_dialog = $state(false);
     let anything_changed = false;
 
     let accumalated_tabs = 0;
+
+    // Vertex shader tabs.
+    let vertex_shader_tab_selected_value = $state('index');
+    let vertex_shader_tab_names = $state(['index']);
+    let vertex_shader_tab_values = $derived(['index']);
+    let vertex_shader_tab_icons = $derived([main_icon]);
+    let vertex_shader_tab_closable_list = $derived([false]);
+
+    let vertex_shader_functional_tab_names = $derived((vertex_shader_tab_selected_value=='index')?['Default', '[B]ookmarks']:['Rename', 'Default', '[B]ookmarks']);
+    let vertex_shader_functional_tab_values = $derived((vertex_shader_tab_selected_value=='index')?['reset', 'bookmarks']:['rename', 'reset', 'bookmarks']);
+    let vertex_shader_functional_tab_icons = $derived((vertex_shader_tab_selected_value=='index')?[reset_icon, bookmark_icon]:[edit_icon, reset_icon, bookmark_icon]);
+
+
+
+    // Fragment shader tabs.
+    let fragment_shader_tab_selected_value = $state('index');
+    let fragment_shader_tab_names = $state(['index']);
+    let fragment_shader_tab_values = $derived(['index']);
+    let fragment_shader_tab_icons = $derived([main_icon]);
+    let fragment_shader_tab_closable_list = $derived([false]);
+
+    let fragment_shader_functional_tab_names = $derived((fragment_shader_tab_selected_value=='index')?['Default', '[B]ookmarks']:['Rename', 'Default', '[B]ookmarks']);
+    let fragment_shader_functional_tab_values = $derived((fragment_shader_tab_selected_value=='index')?['reset', 'bookmarks']:['rename', 'reset', 'bookmarks']);
+    let fragment_shader_functional_tab_icons = $derived((fragment_shader_tab_selected_value=='index')?[reset_icon, bookmark_icon]:[edit_icon, reset_icon, bookmark_icon]);
+
+
+
+    // Module tabs.
     let module_tab_selected_value = $state(default_module);
-
-
     let module_tab_names = $derived(Object.keys(modules_src));
     let module_tab_values = $derived(Object.keys(modules_src));
     let module_tab_icons = $derived(Object.keys(modules_src).map(key => key === default_module ? main_icon : box_icon));
@@ -108,6 +135,9 @@
 
     module_tab_selected_value = default_module;
 
+    import colored_mesh_vert from '$lib/assets/webgl/shaders/colored_mesh.vert?raw';
+    import colored_mesh_frag from '$lib/assets/webgl/shaders/colored_mesh.frag?raw';
+    
     import default_index_module from '$lib/assets/webgl/default.js?raw';
     import frameskip_renderer_index_module from '$lib/assets/webgl/modules/frameskip_renderer_index.js?raw';
     import passive_renderer_index_module from '$lib/assets/webgl/modules/passive_renderer_index.js?raw';
@@ -122,8 +152,37 @@
     import triangle_icon from '$lib/assets/icons/triangle.svg';
     import math_icon from '$lib/assets/icons/math.svg';
 
+    const predefined_vertex_shader_snippets = [
+        {
+            name: "Default Vertex Shader",
+            module_name: "index",
+            icon: main_icon,
+            module_code: default_vert
+        },
+        {
+            name: "Colored Mesh",
+            module_name: "index",
+            icon: main_icon,
+            module_code: colored_mesh_vert
+        },
+    ];
 
-    const predefined_snippets = [
+    const predefined_fragment_shader_snippets = [
+        {
+            name: "Default Fragment Shader",
+            module_name: "index",
+            icon: main_icon,
+            module_code: default_frag
+        },
+        {
+            name: "Colored Mesh",
+            module_name: "index",
+            icon: main_icon,
+            module_code: colored_mesh_frag
+        },
+    ];
+
+    const predefined_module_snippets = [
         {
             name: "Default Index (Shader)",
             module_name: "index",
@@ -228,7 +287,6 @@
         return closeOrNot;
     };
 
-
     const new_module = (module_name: string | null = null, module_code: string=empty_module) => {
         const names = Object.keys(modules_src);
         accumalated_tabs = names.length;
@@ -248,9 +306,10 @@
         anything_changed = true;
     };
 
-    const open_bookmarks = () => {
+    const open_bookmarks = (type: string) => {
         // alert('Feature not implemented yet.');
         show_bookmarks = !show_bookmarks;
+        bookmarks_type = type;
     };
 
     const reset_modules = () => {
@@ -259,6 +318,24 @@
         modules_src = default_modules;
         any_module_error = null;
         module_tab_selected_value = Object.entries(modules_src)[0][0];
+    };
+
+    const on_vertex_shader_tab_functional = (value: string) => {
+        if(value=='reset') {
+            setEditorValue(vertexShaderEditorView, default_vert);
+        }
+        else if(value=='bookmarks') {
+            open_bookmarks('vert');
+        }
+    };
+
+    const on_fragment_shader_tab_functional = (value: string) => {
+        if(value=='reset') {
+            setEditorValue(fragmentShaderEditorView, default_frag);
+        }
+        else if(value=='bookmarks') {
+            open_bookmarks('frag');
+        }
     };
 
     const on_module_tab_functional = (value: string) => {
@@ -280,7 +357,7 @@
             module_tab_selected_value = new_module_name;
         }
         else if(value=='bookmarks') {
-            open_bookmarks();
+            open_bookmarks('modules');
         }
         else if(value=='api') {
             show_foxgl_interface=!show_foxgl_interface;
@@ -365,7 +442,7 @@
         }
 
     const runBookmark: KeyBinding["run"]  = ({ state }) => {
-            open_bookmarks();
+            open_bookmarks(view_mode);
             return true;
         }
 
@@ -879,14 +956,40 @@
         <div class="master-container">
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}>
                 <h3>Vertex Shader <img alt="Vertex" class="inline-glyph" src={vertex_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to reset source to default.</p>
+                <Tabs 
+                bind:names={vertex_shader_tab_names} 
+                bind:values={vertex_shader_tab_values}
+                bind:inline_icons={vertex_shader_tab_icons}
+                bind:selected_value={vertex_shader_tab_selected_value}
+                bind:closable_list={vertex_shader_tab_closable_list}
+                onclose={on_close}
+
+                bind:functional_names={vertex_shader_functional_tab_names} 
+                bind:functional_values={vertex_shader_functional_tab_values}
+                bind:functional_inline_icons={vertex_shader_functional_tab_icons}
+                onfunctional={on_vertex_shader_tab_functional}
+                />
+                <!-- <p class="annotation"><button onclick={() => { setEditorValue(vertexShaderEditorView, default_vert); }} class="text">Click here</button> to reset source to default.</p> -->
                 <div bind:this={vertex_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
             <!-- <hr class="dashed" style:display={(view_mode=='all' || view_mode=='vert')?'block':'none'}> -->
             <div class="row fade-in" style:display={(view_mode=='all' || view_mode=='frag')?'block':'none'}>
                 <h3>Fragment Shader <img alt="Fragment" class="inline-glyph" src={fragment_icon}/></h3>
-                <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to reset source to default.</p>
+                <Tabs 
+                bind:names={fragment_shader_tab_names} 
+                bind:values={fragment_shader_tab_values}
+                bind:inline_icons={fragment_shader_tab_icons}
+                bind:selected_value={fragment_shader_tab_selected_value}
+                bind:closable_list={fragment_shader_tab_closable_list}
+                onclose={on_close}
+
+                bind:functional_names={fragment_shader_functional_tab_names} 
+                bind:functional_values={fragment_shader_functional_tab_values}
+                bind:functional_inline_icons={fragment_shader_functional_tab_icons}
+                onfunctional={on_fragment_shader_tab_functional}
+                />
+                <!-- <p class="annotation"><button onclick={() => { setEditorValue(fragmentShaderEditorView, default_frag); }} class="text">Click here</button> to reset source to default.</p> -->
                 <div bind:this={fragment_shader_editor} class="editor-container code-block-background"></div>
             </div>
 
@@ -1103,7 +1206,7 @@
 </WindowBlock>
 
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_bookmarks} open_location="center">
-    <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_bookmarks=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Bookmarks&nbsp;<img class="inline-glyph" alt="Bookmark" src={bookmark_icon}/></h3>
+    <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_bookmarks=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Bookmarks&nbsp;({(bookmarks_type=='modules')?'JavaScript':(bookmarks_type=='vert')?'Vertex Shader':'Fragment Shader'})&nbsp;<img class="inline-glyph" alt="Bookmark" src={bookmark_icon}/></h3>
     <p class="annotation" style:min-width="100%">Load, save and manage your snippets. (Hover on to preview the snippet.)</p>
     <h4>Your Snippets</h4>
     <p>(Feature not implemented yet.)</p>
@@ -1111,12 +1214,21 @@
     <p class="annotation">Snippets here are meant to be like a support library.</p>
     <table class="functional-list" style:width="100%">
         <tbody>
-            {#each predefined_snippets as snippet}
+            {#each (bookmarks_type=='modules')?predefined_module_snippets:(bookmarks_type=='vert')?predefined_vertex_shader_snippets:predefined_fragment_shader_snippets as snippet}
             <tr>
                 <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;<span id={`predefined-snippet-${snippet.name}`} class="underline">{snippet.name}</span></td>
                 <td class="glyphs">
                     <button class="no-style" onclick={() => {
-                        new_module(snippet.module_name, snippet.module_code);
+                        if(bookmarks_type == 'vert') {
+                            setEditorValue(vertexShaderEditorView, snippet.module_code);
+                        }
+                        else if(bookmarks_type == 'frag') {
+                            setEditorValue(fragmentShaderEditorView, snippet.module_code);
+                        }
+                        else if(bookmarks_type == 'modules') {
+                            new_module(snippet.module_name, snippet.module_code);
+                        }
+
                     }}><img class="inline-glyph" alt="Load" src={load_icon}/></button>
                 </td>
             </tr>

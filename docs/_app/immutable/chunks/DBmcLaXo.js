@@ -492,4 +492,33 @@ export const stop = async (foxGL) => {
     if(resizeObserver) resizeObserver.disconnect();
     if(onpointermove) canvas.removeEventListener('pointermove', onpointermove);
     if(onpointerleave) canvas.removeEventListener('pointerleave', onpointerleave);
-};`;export{e as a,r as f,t as g,n as m,a as p,o as q};
+};`,s=`#version 300 es
+
+// Author: TapiocaFox
+// Title:  Colored Mesh
+
+uniform mat4 uMF, uMI;
+in  vec3 aPos, aNor;
+out vec3 vPos, vNor;
+
+void main() {
+   vec4 pos = uMF * vec4(aPos, 1.);
+   vec4 nor = vec4(aNor, 0.) * uMI;
+   gl_Position = pos * vec4(1.,1.,-.1,1.);
+   vPos = pos.xyz;
+   vNor = nor.xyz;
+}`,i=`#version 300 es
+
+// Author: TapiocaFox
+// Title:  Colored Mesh
+
+precision highp float;
+uniform vec3 uColor;
+in  vec3 vPos, vNor;
+out vec4 fragColor;
+
+void main() {
+   vec3 nor = normalize(vNor);
+   vec3 c = uColor * (.1 + max(0., dot(normalize(vec3(1,1,1)),nor)));
+   fragColor = vec4(c, 1.);
+}`;export{e as a,s as b,i as c,r as f,t as g,n as m,a as p,o as q};
