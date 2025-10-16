@@ -1203,7 +1203,7 @@
 
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_snippets} open_location="center">
     <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_snippets=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;{(snippets_type=='modules')?'JavaScript':(snippets_type=='vert')?'Vertex Shader':'Fragment Shader'}&nbsp;Snippets&nbsp;<img class="inline-glyph" alt="Snippet" src={bookmark_icon}/></h3>
-    <p class="annotation" style:min-width="100%">Load, save and manage your snippets. Hover on top to preview.</p>
+    <p class="annotation" style:min-width="100%">Load, save and manage your snippets. Hover mouse on top to preview.</p>
     <h4>Saved by You</h4>
     <p>(Feature not implemented yet.)</p>
     <h4>Predefined</h4>
