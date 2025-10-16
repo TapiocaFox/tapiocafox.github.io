@@ -91,6 +91,7 @@
     let show_foxgl_interface = $state(false);
     let show_snippets = $state(false);
     let snippets_type = $state('modules');
+    let snippet_tabs_selected_value = $state('saved');
     let show_asset_configuration_dialog = $state(false);
     let anything_changed = false;
 
@@ -1210,8 +1211,19 @@
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_snippets} open_location="center">
     <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_snippets=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;{(snippets_type=='modules')?'JavaScript':(snippets_type=='vert')?'Vertex Shader':'Fragment Shader'}&nbsp;Snippets&nbsp;<img class="inline-glyph" alt="Snippet" src={bookmark_icon}/></h3>
     <p class="annotation" style:min-width="100%">Load, save and manage your snippets. Hover mouse on top to preview.</p>
+    <Tabs 
+    names={['Saved', 'Predefined', 'All']} 
+    values={['saved', 'predefined', 'all']}
+    inline_icons={[bookmark_icon, null, null]}
+    bind:selected_value={snippet_tabs_selected_value}
+    closable_list={[false, false]}
+    />
+    <hr style:margin-top={0} class="dotted"/>
+    {#if snippet_tabs_selected_value == 'saved' || snippet_tabs_selected_value == 'all' }
     <h4>Saved by You</h4>
     <p class="annotation">(Feature not implemented yet.)</p>
+    {/if}
+    {#if snippet_tabs_selected_value == 'predefined' || snippet_tabs_selected_value == 'all' }    
     <h4>Predefined</h4>
     <p class="annotation">Snippets here are meant to be like a support library.</p>
     <table class="functional-list" style:width="100%">
@@ -1243,9 +1255,12 @@
             {/each}
         </tbody>
     </table>
+    {/if}
     <br>
     <!-- <hr class="dotted"/> -->
     
     <button type="button" onclick={() => {show_snippets=false}}>Close</button>
+    {#if snippet_tabs_selected_value == 'saved' || snippet_tabs_selected_value == 'all' }
     <button type="button" onclick={() => {}}>Save Current</button>
+    {/if}
 </WindowBlock>
