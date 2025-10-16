@@ -33,6 +33,7 @@
     import camera_icon from '$lib/assets/icons/camera.svg';
     import delete_icon from '$lib/assets/icons/delete.svg';
     import main_icon from '$lib/assets/icons/main.svg';
+    import picture_icon from '$lib/assets/icons/picture.svg';
     import box_icon from '$lib/assets/icons/box.svg';
     import upload_icon from '$lib/assets/icons/upload.svg';
     import close_icon from '$lib/assets/icons/close.svg';
@@ -131,6 +132,10 @@
     let module_functional_tab_icons = $derived((module_tab_selected_value==default_module)?[add_icon, reset_icon, bookmark_icon, api_icon]:[add_icon, edit_icon, reset_icon, bookmark_icon, api_icon]);
 
     module_tab_selected_value = default_module;
+
+
+    // Assets tabs.
+    let assets_tab_selected_value = $state('all');
 
     import colored_mesh_vert from '$lib/assets/webgl/shaders/colored_mesh.vert?raw';
     import colored_mesh_frag from '$lib/assets/webgl/shaders/colored_mesh.frag?raw';
@@ -900,7 +905,7 @@
     @import './editor.css';
 </style>
 <input type="file" accept={`.${extension},application/octet-stream`} bind:this={importSnapshotInput} onchange={importSnapshot} style="display:none"/>
-<HeaderWithBackButton text="WebGL Editor"/>
+<HeaderWithBackButton text="FoxGL Editor"/>
 <Chips
     names={chips_names}
     values={chips_values}
@@ -952,7 +957,7 @@
         return true;
     }}
 />
-<p class="annotation">This is a clean and simple editor for small WebGL 2 projects. (Experimental phase.)</p>
+<p class="annotation">This is a clean and simple editor for small WebGL 2 projects. (Experimental)</p>
 <hr class="dotted" style:margin-bottom="0">
 <div class="editor-layout">
     <div class="left">
@@ -1028,7 +1033,15 @@
 
             <div class="row fade-in" style:display={(view_mode=='assets')?'block':'none'}>
                 <h3>Assets <img class="inline-glyph" alt="Assets" src={shapes_icon}/></h3>
-                <p class="annotation">Manage your image, audio or video assets.</p>
+                <!-- <p class="annotation">Manage your image, audio or video assets.</p> -->
+                <Tabs 
+                names={['All Assets', 'Image', 'Audio', 'Video']} 
+                values={[ 'all', 'image', 'audio', 'video']}
+                inline_icons={[shapes_icon, picture_icon, music_icon, video_icon]}
+                bind:selected_value={assets_tab_selected_value}
+                closable_list={[false, false, false, false]}
+                />
+                <hr style:margin-top={0} class="dotted"/>
                 <div class="flex_grid gallery">
                     <div class="item html-item code-block-background">
                         <div>
@@ -1037,7 +1050,8 @@
                         </div>
                     </div>
                     {#each Object.entries(assets).reverse() as [id, asset] (id)}
-                    {#if asset.type == 'image'}
+                    {#if assets_tab_selected_value == 'all' || asset.type==assets_tab_selected_value}
+                    {#if asset.type == 'image' }
                     <div id={`asset-img-${id}`} class="item image-item" role="button" tabindex="0" 
                     onclick={() => {
                         openAssetConfigurationDialog(asset);
@@ -1052,7 +1066,7 @@
                     </PointerBlock>
                     {/if}
 
-                    {#if asset.type == 'audio'}
+                    {#if asset.type == 'audio' }
                     <div class="item audio-item code-block-background">
                         <div>
                             <h3><button onclick={() => {
@@ -1066,7 +1080,7 @@
                     </div>
                     {/if}
 
-                    {#if asset.type == 'video'}
+                    {#if asset.type == 'video' }
                     <div class="item video-item code-block-background">
                         <div>
                             <h3><button onclick={() => {
@@ -1079,7 +1093,7 @@
                         </div>
                     </div>
                     {/if}
-
+                    {/if}
                     {/each}
                 </div>
             </div>
