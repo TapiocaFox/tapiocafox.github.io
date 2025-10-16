@@ -125,6 +125,7 @@
   bind:functional_values={functional_tab_values}
   bind:functional_inline_icons={functional_tab_icons}
   onfunctional={on_tab_functional}
+  draggable={true}
 />
 <hr style:margin-top="0" class="solid">
 <p>Tab "{tab_selected_value}" is selected.</p>
@@ -144,6 +145,7 @@
     bind:functional_values={functional_tab_values}
     bind:functional_inline_icons={functional_tab_icons}
     onfunctional={on_tab_functional}
+    draggable={true}
   />
   <hr style:margin-top="0" class="dashed">
 
@@ -164,6 +166,7 @@
       bind:functional_values={functional_tab_values}
       bind:functional_inline_icons={functional_tab_icons}
       onfunctional={on_tab_functional}
+      draggable={true}
     />
     <hr style:margin-top="0" class="dotted">
     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor odio eu ullamcorper consectetur. Integer malesuada mauris vel ipsum semper dictum. Mauris quis sem ut velit mollis interdum. Aliquam et eros ac nunc suscipit bibendum. Phasellus finibus urna sit amet lorem posuere, non volutpat urna tristique. Sed auctor, quam a fringilla imperdiet, ligula urna ornare urna, at sodales urna mauris sit amet dui. Curabitur auctor interdum aliquet.

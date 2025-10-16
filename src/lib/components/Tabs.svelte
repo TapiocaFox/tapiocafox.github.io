@@ -1,7 +1,7 @@
 <script lang="ts">
     import close_icon_ from '$lib/assets/icons/close.svg';
     let {names=$bindable([]), values=$bindable([]), inline_icons=$bindable([]), closable_list=$bindable([]), selected_value=$bindable(null), close_icon=close_icon_, onclose=(value: string) => {return true}, 
-        functional_names=$bindable([]), functional_values=$bindable([]), functional_inline_icons=$bindable([]), onfunctional=(value: string) => {}} = $props();
+        functional_names=$bindable([]), functional_values=$bindable([]), functional_inline_icons=$bindable([]), onfunctional=(value: string) => {}, draggable=$bindable(false)} = $props();
     let selected_index = $derived(values.indexOf(selected_value));
 </script>
 <style>
@@ -80,19 +80,21 @@
     }
 </style>
 <div class="tab-container">
-    {#each names as name, index}
+    {#each names as name, index (name)}
     <button class="{selected_index == index?'selected':''}" 
         onclick={() => {
             const value = values[index];
             selected_value = value;
         }} 
-        draggable={true}
+        draggable={draggable}
         ondragstart={(event: DragEvent) => {
             // console.log('ondrag');
+            if(!draggable) return;
             event.dataTransfer?.setData('fromIndex', index.toString());
         }}
         ondragover={(event: DragEvent) => {event.preventDefault()}}
         ondrop={(event: DragEvent) => {
+            if(!draggable) return;
             event.preventDefault();
             const fromIndexString = event.dataTransfer?.getData('fromIndex');
             if(typeof(fromIndexString) == 'undefined' || fromIndexString == null) return;
