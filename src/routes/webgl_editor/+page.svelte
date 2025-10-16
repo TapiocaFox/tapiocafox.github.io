@@ -404,6 +404,7 @@
     const runVertexView: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_vert';
                 view_mode = 'vert';
+                snippets_type = 'vert';
                 viewModeStorage.set('vert');
                 tick().then(() => {
                     scrollToEditorCursor(vertexShaderEditorView);
@@ -414,6 +415,7 @@
     const runFragmentView: KeyBinding["run"] = ({ state }) => {
                 selected_value = 'view_frag';
                 view_mode = 'frag';
+                snippets_type = 'frag';
                 viewModeStorage.set('frag');
                 tick().then(() => {
                     scrollToEditorCursor(fragmentShaderEditorView);
@@ -424,6 +426,7 @@
     const runJavaScriptView: KeyBinding["run"]  = ({ state }) => {
                 selected_value = 'view_modules';
                 view_mode = 'modules';
+                snippets_type = 'modules';
                 viewModeStorage.set('modules');
                 tick().then(() => {
                     scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
@@ -924,16 +927,19 @@
         }
         else if(value == 'view_vert') {
             view_mode = 'vert';
+            snippets_type = 'vert';
             viewModeStorage.set('vert');
             scrollToEditorCursor(vertexShaderEditorView);
         }
         else if(value == 'view_frag') {
             view_mode = 'frag';
+            snippets_type = 'frag';
             viewModeStorage.set('frag');
             scrollToEditorCursor(fragmentShaderEditorView);
         }
         else if(value == 'view_modules') {
             view_mode = 'modules';
+            snippets_type = 'modules';
             viewModeStorage.set('modules');
             scrollToEditorCursor(moduleEditorViews[module_tab_selected_value]);
         }
