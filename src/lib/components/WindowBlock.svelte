@@ -1,6 +1,6 @@
 <script lang="ts">
     import Portal from "svelte-portal";
-    import { onMount } from "svelte";
+    import { onMount, tick } from "svelte";
 
     let { children, grab_element_id=null, show=$bindable(false), open_location="center" } = $props();
     var window_block: HTMLDivElement;
@@ -37,6 +37,8 @@
         // }, {fill: "forwards"});
     };
 
+    let blockWidth = 0;
+
     const onMouseDown = async (event: MouseEvent) => {
         moving = true;
         const { clientX, clientY } = event;
@@ -44,8 +46,8 @@
         mouse_down_offset_x = clientX-rect.left;
         mouse_down_offset_y = clientY-rect.top;
 
-
-        const blockWidth = Math.ceil(window_block.offsetWidth)+1;
+        if(blockWidth == 0)
+            blockWidth = Math.ceil(window_block.offsetWidth)+1;
         window_block.style.width = blockWidth + "px"; // Lock the width to avoid resizing during dragging.
 
         // console.log(`Mouse down event detected. (${clientX}, ${clientY}), offset: (${mouse_down_offset_x}, ${mouse_down_offset_y})`);

@@ -1074,7 +1074,7 @@
 
 <WindowBlock grab_element_id="bookmark-grabable" bind:show={show_bookmarks} open_location="center">
     <h3 id="bookmark-grabable"><button class="no-style" onclick={()=>{show_bookmarks=false}}><img class="inline-glyph" alt="Close" src={close_icon}/></button>&nbsp;Bookmarks&nbsp;<img class="inline-glyph" alt="Bookmark" src={bookmark_icon}/></h3>
-    <p class="annotation" style:min-width="100%">Load, save and manage your module snippets. (Hover on to preview the snippet.)</p>
+    <p class="annotation" style:min-width="100%">Load, save and manage your snippets. (Hover on to preview the snippet.)</p>
     <h4>Your Snippets</h4>
     <p>(Feature not implemented yet.)</p>
     <h4>Predefined Snippets</h4>

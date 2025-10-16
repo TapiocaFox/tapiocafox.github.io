@@ -310,7 +310,7 @@
         },
         {
             title: 'Practice Four',
-            description: 'Triangles, meshes, strips and transformation matrix.',
+            description: 'Triangles, meshes, strips and transformation matrix. (Part of assignment five.)',
             practices: [
                 {
                     frag: simple_mesh_frag,
