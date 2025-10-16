@@ -111,6 +111,7 @@
     import default_index_module from '$lib/assets/webgl/default.js?raw';
     import frameskip_renderer_index_module from '$lib/assets/webgl/modules/frameskip_renderer_index.js?raw';
     import passive_renderer_index_module from '$lib/assets/webgl/modules/passive_renderer_index.js?raw';
+    import colored_mesh_index_module from '$lib/assets/webgl/modules/colored_mesh_index.js?raw';
     
     import matrix_module from '$lib/assets/webgl/modules/matrix.js?raw';
     import geometry_module from '$lib/assets/webgl/modules/geometry.js?raw';
@@ -124,22 +125,28 @@
 
     const predefined_snippets = [
         {
-            name: "Default Index",
+            name: "Default Index (Shader)",
             module_name: "index",
             icon: main_icon,
             module_code: default_index_module
         },
         {
-            name: "Frameskip Renderer Index",
+            name: "Frameskip Renderer Index (Shader)",
             module_name: "index",
             icon: main_icon,
             module_code: frameskip_renderer_index_module
         },
         {
-            name: "Passive Renderer Index",
+            name: "Passive Renderer Index (Shader)",
             module_name: "index",
             icon: main_icon,
             module_code: passive_renderer_index_module
+        },
+        {
+            name: "Colored Mesh Index (Mesh)",
+            module_name: "index",
+            icon: main_icon,
+            module_code: colored_mesh_index_module
         },
         {
             name: "Matrix",
@@ -237,6 +244,7 @@
                 return;
         }
         modules_src = { ...modules_src, [module_name]: module_code };
+        any_module_error = null;
         anything_changed = true;
     };
 
