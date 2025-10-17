@@ -100,7 +100,7 @@ void main() {
     color_terrain.xyz = mix(color_terrain.xyz, colorGlitter, glitter(vPos-vec3(-SPEED_GLITTER*uTime,SPEED_GLITTER*uTime, 20.+uTime)));
     for(int i=0;i<NUM_LAYERS;i++) {
         float pos = Y_LAYERS_TOP-float(i)*SIZE_LAYERS_GAP;
-        vec4 my_terrain = plot_terrain(vPos, .75*terrain(vec2(vPos.x+SPEED_MOUNTAIN*float(i+1)*uTime,100.*float(i)))+pos);
+        vec4 my_terrain = plot_terrain(vPos, .75*terrain(vec2(vPos.x+SPEED_MOUNTAIN*float(i+1)*(uTime-2.*uMouse.x/uResolution.x),100.*float(i)))+pos);
         color_terrain = mix(color_terrain, my_terrain, my_terrain.w);
     }
     fragColor = color_terrain;

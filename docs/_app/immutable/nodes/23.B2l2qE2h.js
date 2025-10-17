@@ -1,4 +1,4 @@
-import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as b,e as T,a as f,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as F,t as mn}from"../chunks/UuebQw-N.js";import{s as D}from"../chunks/CWSVVgTL.js";import{i as w}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as vn}from"../chunks/Cvoc0y2g.js";import{H as dn}from"../chunks/BNKZDGsD.js";import{e as U,T as g,d as x,a as fn,m as gn}from"../chunks/D1zRT2pS.js";import{f as p,q as W,m as E,g as xn,a as pn,c as hn,b as yn,p as C}from"../chunks/DBmcLaXo.js";import{m as V}from"../chunks/8p4Ra2kK.js";import{a as Sn,b as _n,r as Tn,h as Ln,c as Rn,d as bn,l as In}from"../chunks/r_uP3Q3U.js";import{g as An}from"../chunks/9JvaAPDI.js";const Pn=`#version 300 es
+import"../chunks/DsnmJJEf.js";import{p as an,aB as sn,f as b,e as T,a as f,b as cn,s as i,k as ln,i as n,j as un,az as a,c as s,r as o,g as F,t as mn}from"../chunks/UuebQw-N.js";import{s as D}from"../chunks/CWSVVgTL.js";import{i as w}from"../chunks/BNnMBqfr.js";import{e as B,i as O}from"../chunks/DLdQWlW5.js";import{C as vn}from"../chunks/Cvoc0y2g.js";import{H as dn}from"../chunks/BNKZDGsD.js";import{e as U,T as g,d as x,a as fn,m as gn}from"../chunks/CIQZQ7ro.js";import{f as p,q as W,m as E,g as xn,a as pn,c as hn,b as yn,p as C}from"../chunks/DBmcLaXo.js";import{m as V}from"../chunks/8p4Ra2kK.js";import{a as Sn,b as _n,r as Tn,h as Ln,c as Rn,d as bn,l as In}from"../chunks/r_uP3Q3U.js";import{g as An}from"../chunks/D0JwXexA.js";const Pn=`#version 300 es
 
 // Author: TapiocaFox
 // Title: Colorful Snoise
@@ -2224,7 +2224,7 @@ void main() {
     color_terrain.xyz = mix(color_terrain.xyz, colorGlitter, glitter(vPos-vec3(-SPEED_GLITTER*uTime,SPEED_GLITTER*uTime, 20.+uTime)));
     for(int i=0;i<NUM_LAYERS;i++) {
         float pos = Y_LAYERS_TOP-float(i)*SIZE_LAYERS_GAP;
-        vec4 my_terrain = plot_terrain(vPos, .75*terrain(vec2(vPos.x+SPEED_MOUNTAIN*float(i+1)*uTime,100.*float(i)))+pos);
+        vec4 my_terrain = plot_terrain(vPos, .75*terrain(vec2(vPos.x+SPEED_MOUNTAIN*float(i+1)*(uTime-2.*uMouse.x/uResolution.x),100.*float(i)))+pos);
         color_terrain = mix(color_terrain, my_terrain, my_terrain.w);
     }
     fragColor = color_terrain;
