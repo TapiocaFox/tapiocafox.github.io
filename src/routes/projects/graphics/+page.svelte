@@ -50,6 +50,7 @@
     import quadric_system_module from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
 
     import noise_frag from '$lib/assets/webgl/practice_3/noise.frag?raw';
+    import forest_frag from '$lib/assets/webgl/practice_3/forest.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
     import lava_lamp_module from '$lib/assets/webgl/practice_3/lava_lamp.js?raw';
     import texture_match_frag from '$lib/assets/webgl/practice_3/texture_match.frag?raw';
@@ -245,7 +246,8 @@
             description: 'Procedural texture generation. (Part of assignment four.)',
             practices: [
                 {
-                    frag: noise_frag,
+                    frag: forest_frag,
+                    modules: {index: frameskip_renderer_module},
                     categories: ['noise']
                 },
                 {
