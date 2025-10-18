@@ -21,7 +21,7 @@
     var status_block: HTMLDivElement;
     var edit_button: HTMLButtonElement;
 
-    let preview_title = $state('Play [ FoxGL ]');
+    let preview_title = $state('[ FoxGL ]');
     let preview_description: string | null = $state(null);
 
     let is_stopped = $state(!start_immediately);
