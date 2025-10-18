@@ -526,7 +526,7 @@
         width: 100%;
     }
 
-    div.canvas-container .preview-image {
+    div.canvas-container img.preview-image {
         position: absolute;
         height: 100%;
         width: 100%;
@@ -669,11 +669,13 @@
 
 
 <div class="canvas-container {mode}">
-    <canvas class="webgl {mode}" bind:this={canvas} 
+    <!-- {#if !is_stopped} -->
+    <canvas class="webgl {mode}" bind:this={canvas}
         style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
         style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
         style:background-color = {background_color}
         ></canvas>
+    <!-- {/if} -->
     {#if is_stopped}
     <div class="overlay code-block-background">
         {#if preview_image!=null}
