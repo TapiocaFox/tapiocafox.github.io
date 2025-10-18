@@ -421,6 +421,31 @@
     };
 
     (async () => {
+        // try {
+        //     const sandbox = createSandbox();
+        //     for (const key in modules) {
+        //         sandbox.register(key, modules[key]);
+        //     }
+        //     sandbox.commit();
+        //     const defaultModule: DefaultModule = await sandbox.import(default_module);
+        //     if(defaultModule.title) {
+        //         if(defaultModule.description) {
+        //             preview_description = `${preview_description} (${defaultModule.description})`;
+        //         }
+        //         else {
+        //             preview_description = defaultModule.title;
+        //         }
+        //     }
+        //     else preview_description = 'Click to start the applet.';
+        //     sandbox.clear();
+        // }
+        // catch(error) {
+        //     preview_description = 'Click to start the applet.';
+        //     console.trace(error);
+        // }
+    })();
+
+    const load_preview = async () => {
         try {
             const sandbox = createSandbox();
             for (const key in modules) {
@@ -429,10 +454,12 @@
             sandbox.commit();
             const defaultModule: DefaultModule = await sandbox.import(default_module);
             if(defaultModule.title) {
-                    preview_description = defaultModule.title;
-                    if(defaultModule.description) {
+                if(defaultModule.description) {
                     preview_description = `${preview_description} (${defaultModule.description})`;
-                    }
+                }
+                else {
+                    preview_description = defaultModule.title;
+                }
             }
             else preview_description = 'Click to start the applet.';
             sandbox.clear();
@@ -441,12 +468,13 @@
             preview_description = 'Click to start the applet.';
             console.trace(error);
         }
-    })();
+    }
     
 
     onMount(async () => {
         try {
             if(start_immediately) start_foxgl();
+            else await load_preview();
             // else {
             //     foxGL.sandbox.commit();
             //     foxGL.importDefaultModule();

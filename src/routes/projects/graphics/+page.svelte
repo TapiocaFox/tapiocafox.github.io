@@ -150,11 +150,6 @@
                     modules: {index: frameskip_renderer_module},
                     categories: ['distortion']
                 },
-                {
-                    preview_image: adhesive_preivew,
-                    frag: adhesive,
-                    categories: ['distortion']
-                },
                 // {
                 //     shader: mouse,
                 //     categories: ['debug']
@@ -163,6 +158,11 @@
                     preview_image: balls_preivew,
                     frag: balls,
                     categories: []
+                },
+                {
+                    preview_image: adhesive_preivew,
+                    frag: adhesive,
+                    categories: ['distortion']
                 },
                 {
                     preview_image: array_preivew,
