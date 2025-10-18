@@ -1243,7 +1243,13 @@
     <p class="annotation">Your saved snippets will be here.</p>
     <table class="functional-list" style:width="100%">
         <tbody>
-            {#each (snippets_type == 'vert')?$vertexShaderSnippets:(snippets_type == 'frag')?$fragmentShaderSnippets:$moduleSnippets as snippet (snippet.name)}
+            {#each (
+            (snippets_type == 'vert')
+                ? $vertexShaderSnippets
+                : (snippets_type == 'frag')
+                ? $fragmentShaderSnippets
+                : $moduleSnippets
+            ).toSorted((a, b) => a.name.localeCompare(b.name)) as snippet (snippet.name)}
             <tr>
                 <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;{snippet.name} ({snippet.module_name})</td>
                 <td class="glyphs">
