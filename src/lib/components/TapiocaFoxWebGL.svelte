@@ -617,6 +617,10 @@
             width: 170px;
             height: 170px;
         }
+
+        div.canvas-container {
+            font-size: 85%;
+        }
         
         canvas.webgl.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
