@@ -12,6 +12,8 @@ export type Status = {
 }
 
 export type DefaultModule = {
+  title: string | null,
+  description: string | null,
   start: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
   stop: (foxGL: TapiocaFoxGLContext) => Promise<void> | null;
 }
@@ -97,13 +99,13 @@ export function createSandbox(): Sandbox {
     return getModuleNameFromUrl(mod.url);
   }
 
-  window.addEventListener('error', (event) => {
+  if(window) window.addEventListener('error', (event) => {
     const moduleName = getModuleNameFromUrl(event.filename);
     if (moduleName == null) return;
     notifyError(moduleName, event.error ?? event.message);
   });
 
-  window.addEventListener('unhandledrejection', (event) => {
+  if(window) window.addEventListener('unhandledrejection', (event) => {
     const reason = event.reason;
     if (!(reason instanceof Error) || !reason.stack) return;
     const moduleName = getModuleNameFromString(reason.stack);

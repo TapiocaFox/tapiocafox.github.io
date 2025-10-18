@@ -352,6 +352,8 @@ function setColorAttribute(gl, buffers, programInfo) {
     gl.enableVertexAttribArray(programInfo.attribLocations.vertexColor);
 }
 
+export const title = 'Mozilla Texture Load';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -388,8 +390,6 @@ export const start = async (foxGL) => {
     // Flip image pixels into the bottom-to-top order that WebGL expects.
     gl.pixelStorei(gl.UNPACK_FLIP_Y_WEBGL, true);
     
-    // Set status title.
-    foxGL.setStatusTitle('Mozilla Texture Load');
     foxGL.reportStatus('Tips', 'Click to make noises.', 'green');
 
     // Initial uniform values.

@@ -41,6 +41,8 @@ const systemNames = [
     'Sphere',
 ]
 
+export const title = 'Quadric Surface (System)';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -48,7 +50,6 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     // Set status title.
-    foxGL.setStatusTitle('Quadric Surface (System)');
     foxGL.reportStatus('Tips', 'Click to cycle thru systems (shapes).', 'green');
     foxGL.reportStatus('QSurface', `Selected system: ${systemNames[systemIndex]}`, 'blue');
 

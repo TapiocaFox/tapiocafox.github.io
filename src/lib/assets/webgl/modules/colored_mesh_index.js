@@ -19,6 +19,8 @@ const myCube = {
 
 const matrix = new Matrix();
 
+export const title = 'Colored Mesh';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -26,9 +28,6 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     let mouseNDC = [0, 0];
-    
-    // Set status title.
-    foxGL.setStatusTitle('Colored Mesh (Cube)');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

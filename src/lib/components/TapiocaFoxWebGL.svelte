@@ -5,21 +5,26 @@
     import default_frag_shader from '$lib/assets/webgl/default.frag?raw';
     import default_modules from '$lib/assets/webgl/default_modules';
     import edit_icon from '$lib/assets/icons/edit.svg';
+    import play_icon from '$lib/assets/icons/play.svg';
     import { goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from './TapiocaFoxGLContext';
-    import type { Asset, Status, ModuleSource } from './TapiocaFoxWebGL';
+    import type { Asset, Status, ModuleSource, DefaultModule } from './TapiocaFoxWebGL';
     import { createSandbox, default_module } from './TapiocaFoxWebGL';
     import {type Snapshot, nextSnapshot} from '../../routes/webgl_editor/snapshot';
 
     // console.log(`default_js: ${default_js}`);
 
     // const props = $props();
-    let { vertex_shader=$bindable(default_vert_shader), fragment_shader=$bindable(default_frag_shader), modules=$bindable<Record<string, string>>(default_modules), assets=$bindable<Record<string, Asset>>({}), mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)} } = $props();
+    let { vertex_shader=$bindable(default_vert_shader), fragment_shader=$bindable(default_frag_shader), modules=$bindable<Record<string, string>>(default_modules), assets=$bindable<Record<string, Asset>>({}), mode='default', size=250, show_status_block=true, background_color='transparent', onglinit=async function(tapiocafoxGl:TapiocaFoxGLContext) {return true;}, onerror=async function(type: string, error: any) {console.trace(error)}, preview_image=$bindable(null), start_immediately=true } = $props();
 
     var canvas: HTMLCanvasElement;
     var status_block: HTMLDivElement;
     var edit_button: HTMLButtonElement;
 
+    let preview_title = $state('Play FoxGL');
+    let preview_description: string | null = $state(null);
+
+    let is_stopped = $state(!start_immediately);
     let display_status_block = $state(false);
     let display_edit_button = $state(false);
     let fps = $state(0);
@@ -63,353 +68,389 @@
         fragment_shader; 
         modules;
         assets;
-        if (!foxGL) return;
+        if (!foxGL||is_stopped) return;
         // console.log('Something changed and foxGL exists, re-setup and run.');
         foxGL.newProgram();
         foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
         foxGL.refreshShadersAndModules();
     });
 
+    const start_foxgl = async () => {
+        is_stopped = false;
+        const glNative = canvas.getContext('webgl2', { preserveDrawingBuffer: mode=='in-editor' })!;
+
+        foxGL = {
+            gl: glNative,
+            canvas: canvas,
+            program: glNative.createProgram(),
+            startTime: Date.now(),
+            lastRenderTime: 0,
+            devicePixelRatio: window.devicePixelRatio || 1,
+            // animate: null,
+            // invokeStart: null,
+            // invokeStop: null,
+            statusTitle: statusTitle,
+            statusDict: statusDict,
+            vertexShader: '',
+            fragmentShader: '',
+            sandbox: createSandbox(),
+            defaultModule: null,
+            assets: {},
+            // loadedScripts: [],
+
+            // onStart: function(start) {
+            //     this.invokeStart = start;
+            // },
+
+            // onStop: function(stop) {
+            //     this.invokeStop = stop;
+            // },
+
+            start: async function() {
+                try {
+                    await this.defaultModule?.start?.(this);
+                }
+                catch(error: any) {
+                    onerror('modules', {module: default_module, error: error});
+                }
+            },
+
+            stop: async function() {
+                try {
+                    await this.defaultModule?.stop?.(this);
+                }
+                catch(error: any) {
+                    onerror('modules', {module: default_module, error: error});
+                }
+            },
+
+            optimizeViewPort: async function() {
+                const gl = this.gl;
+                const width  = Math.floor(this.canvas.clientWidth * this.devicePixelRatio);
+                const height = Math.floor(this.canvas.clientHeight * this.devicePixelRatio);
+
+                if (this.canvas.width !== width || this.canvas.height !== height) {
+                    this.canvas.width = width;
+                    this.canvas.height = height;
+                    gl.viewport(0, 0, width, height);
+                }
+                await tick();
+            },
+
+            // unloadLoadedScripts: function() {
+            //     this.loadedScripts.forEach( (script) => {
+            //         document.head.removeChild(script);
+            //     });
+            //     this.loadedScripts = [];
+            // },
+
+            initProgram: function (vertexShader: string, fragmentShader: string) {
+                // console.log('initProgram');
+                const gl = this.gl;
+                const addShader = (type: number, src: string) => {
+                    const shader = gl.createShader(type)!;
+                    gl.shaderSource(shader, src);
+                    gl.compileShader(shader);
+                    const infoLog = gl.getShaderInfoLog(shader); // For safari.
+                    if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS) || infoLog?.trim().length)
+                        throw `Cannot compile shader: ${infoLog}`;
+                    gl.attachShader(this.program, shader);
+                };
+
+                try {
+                    addShader(gl.VERTEX_SHADER, vertexShader);
+                }
+                catch(error) {
+                    onerror('vert', error);
+                    throw error;
+                }
+                try {
+                    addShader(gl.FRAGMENT_SHADER, fragmentShader);
+                }
+                catch(error) {
+                    onerror('frag', error);
+                    throw error;
+                }
+
+                gl.linkProgram(this.program);
+                if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
+                    throw `Cannot link program:\n${gl.getProgramInfoLog(this.program)}`;
+                gl.useProgram(this.program);
+            },
+
+            importDefaultModule: async function () {
+                try {
+                    // console.log('Eval', javascript);
+                    // eval(props.javascript);
+                    this.defaultModule = await this.sandbox.import(default_module);
+                    const title = this.defaultModule!.title;
+                    if(title)
+                        this.setStatusTitle(title);
+                }
+                catch(error) {
+                    // console.trace(error);
+                    onerror('modules', {module: default_module, error: error});
+                } 
+            },
+
+            render: function() {
+                const gl = this.gl;
+                const timeNow = Date.now();
+                fps = 1000/(timeNow-this.lastRenderTime);
+                // console.log('delta', timeNow-this.lastRenderTime, 'fps', 1./(timeNow-this.lastRenderTime));
+                this.lastRenderTime = timeNow;
+                gl.drawArrays(gl.TRIANGLES, 0, 6);
+            },
+
+            newProgram: function() {
+                const gl = this.gl;
+                const attachedShaders = gl.getAttachedShaders(this.program);
+
+                attachedShaders?.forEach( (shader: WebGLProgram) => {
+                    gl.detachShader(this.program, shader);
+                    gl.deleteShader(shader);
+                });
+                gl.deleteProgram(this.program);
+                this.program = gl.createProgram();
+            },
+
+            reset: async function() {
+                const gl = this.gl;
+                this.newProgram();
+                await this.stop();
+                // this.unloadLoadedScripts();
+                await this.optimizeViewPort();
+                gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
+                this.startTime = Date.now();
+                this.lastRenderTime = 0;
+                const statusDict = this.statusDict;
+                for (const key in statusDict) {
+                    delete statusDict[key];
+                }
+                this.sandbox.commit();
+                if(mode=='in-editor') {
+                    const error = await this.sandbox.preloadAll();
+                    if(error) return;
+                }
+                this.initProgram(this.vertexShader, this.fragmentShader);
+                await this.importDefaultModule();
+                await this.start();
+            },
+
+            setShadersModulesAndAssets: function(vertex_shader: string, fragment_shader: string, modules: Record<string, string>, assets: Record<string, Asset>) {
+                this.vertexShader = vertex_shader;
+                this.fragmentShader = fragment_shader;
+                try {
+                    this.sandbox.clear();
+                    for (const key in modules) {
+                        this.sandbox.register(key, modules[key]);
+                    }
+                    this.assets = assets;
+                }
+                catch(error) {
+                    onerror('modules', {module: default_module, error: error});
+                }
+            },
+
+            refreshShadersAndModules: async function() {
+                await this.stop();
+                // this.unloadLoadedScripts();
+                await this.optimizeViewPort();
+                const statusDict = this.statusDict;
+                for (const key in statusDict) {
+                    delete statusDict[key];
+                }
+                this.sandbox.commit();
+                if(mode=='in-editor') {
+                    const error = await this.sandbox.preloadAll();
+                    if(error) return;
+                }
+                this.initProgram(this.vertexShader, this.fragmentShader);
+                await this.importDefaultModule();
+                await this.start();
+            },
+
+            setStatusTitle: function(title: string) {
+                statusTitle = title;
+            },
+
+            reportStatus: function(key, text, color='inherit') {
+                // console.log(key, status, this.statusDict);
+                this.statusDict[key] = {
+                    text: text,
+                    color: color
+                };
+            },
+
+            // loadScriptFromSource: async function(src: string) {
+            //     return new Promise<void>((resolve, reject) => {
+            //         const script = document.createElement('script');
+            //         script.src = src;
+            //         script.onload = () => resolve();
+            //         script.onerror = (e) => reject(e);
+            //         document.head.appendChild(script);
+            //         this.loadedScripts.push(script);
+            //     });
+            // },
+
+            getAssetById: async function(id: string) {
+                const asset = this.assets[id];
+                if(typeof(asset)==='undefined' || asset==null)
+                    throw `Asset with id "${id}" does not exist.`;
+                if(asset.type == 'image') {
+                    return new Promise((resolve, reject) => {
+                        const img = new Image();
+                        img.crossOrigin = "anonymous";
+
+                        img.onload = () => resolve(img);
+                        img.onerror = (err) => reject(err);
+
+                        img.src = asset.src;
+
+                        // Handle cache-race condition:
+                        if (img.complete) {
+                            // If cached and already loaded, resolve immediately
+                            resolve(img);
+                        }
+                    });
+                }
+                if (asset.type === 'audio') {
+                    return new Promise<HTMLAudioElement>((resolve, reject) => {
+                        const audio = new Audio();
+                        audio.crossOrigin = "anonymous";
+
+                        audio.oncanplaythrough = () => resolve(audio);
+                        audio.onerror = (err) => reject(err);
+
+                        audio.src = asset.src;
+                        audio.load();
+                    });
+                }
+
+                throw 'Not implemented'; // Placeholder
+            }
+        };
+        // console.log('addUncaughtErrorListener');
+        foxGL.sandbox.addUncaughtErrorListener(sandboxUncaughtErrorListener);
+
+        const resizeObserver = new ResizeObserver(entries => {
+            foxGL.optimizeViewPort();
+        });
+        resizeObserver.observe(canvas);
+
+        // window.addEventListener('resize', async (event) => {
+        //     tapiocaFoxGL.optimizeViewPort();
+        // });
+
+        canvas.addEventListener('pointermove', async (event) => {
+            const canvasRect = canvas.getBoundingClientRect();
+            const canvasHeight = canvasRect.bottom - canvasRect.top;
+
+            if(show_status_block) {
+                display_status_block = true;
+                if(mode == 'default') display_edit_button = true;
+
+                const { clientX, clientY } = event;
+
+                const windowWidth = window.innerWidth;
+                const windowHeight = window.innerHeight;
+
+                const statusBlockWidth = status_block.offsetWidth;
+                const statusBlockHeight = status_block.offsetHeight;
+
+                // if(mode == 'in-editor') {
+                //     pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
+                //     pointerY = tapiocaFoxGL.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
+                    // console.log(canvasHeight, event.clientY, canvasRect.top);
+                // }
+
+                if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*status_block_division_percentage) {
+                    status_block.animate({
+                        left:`${Math.min(clientX+pointer_offset, windowWidth-statusBlockWidth)}px`,
+                        top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
+                    }, {fill: "forwards"});
+                    edit_button.animate({
+                        left:`${canvasRect.left}px`,
+                        top: `${canvasRect.bottom+4}px`
+                    }, {fill: "forwards"});
+                }
+                else {
+                    status_block.animate({
+                        right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
+                        top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
+                    }, {fill: "forwards"});
+                    edit_button.animate({
+                        right:`${windowWidth-canvasRect.right}px`,
+                        top: `${canvasRect.bottom+4}px`
+                    }, {fill: "forwards"});
+                }
+            }
+        });
+
+        canvas.addEventListener('pointerleave', async (event) => {
+            display_status_block = false;
+            if(edit_button == null) return;
+
+            const canvasRect = canvas.getBoundingClientRect();
+            const editButtonRect = edit_button.getBoundingClientRect();
+
+            if(show_status_block) {
+                const { clientX, clientY } = event;
+                if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
+                    display_edit_button = true;
+                }
+                else {
+                    display_edit_button = false;
+                }
+            }
+        });
+
+        document.addEventListener('scroll', async (event) => {
+            display_status_block = false;
+            display_edit_button = false;
+        }, true);
+
+        canvas.addEventListener('webglcontextlost', async (error) => {
+            error.preventDefault();
+            console.warn('webgl canvas WebGL context lost!');
+        });
+
+        const refreshOnGlInit = await onglinit(foxGL);
+        foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
+        if(refreshOnGlInit) await foxGL.refreshShadersAndModules();
+    };
+
+    (async () => {
+        try {
+            const sandbox = createSandbox();
+            for (const key in modules) {
+                sandbox.register(key, modules[key]);
+            }
+            sandbox.commit();
+            const defaultModule: DefaultModule = await sandbox.import(default_module);
+            if(defaultModule.title) {
+                    preview_description = defaultModule.title;
+                    if(defaultModule.description) {
+                    preview_description = `${preview_description} (${defaultModule.description})`;
+                    }
+            }
+            else preview_description = 'Click to start the applet.';
+            sandbox.clear();
+        }
+        catch(error) {
+            preview_description = 'Click to start the applet.';
+            console.trace(error);
+        }
+    })();
+    
+
     onMount(async () => {
         try {
-            const glNative = canvas.getContext('webgl2', { preserveDrawingBuffer: mode=='in-editor' })!;
-
-            foxGL = {
-                gl: glNative,
-                canvas: canvas,
-                program: glNative.createProgram(),
-                startTime: Date.now(),
-                lastRenderTime: 0,
-                devicePixelRatio: window.devicePixelRatio || 1,
-                // animate: null,
-                // invokeStart: null,
-                // invokeStop: null,
-                statusTitle: statusTitle,
-                statusDict: statusDict,
-                vertexShader: '',
-                fragmentShader: '',
-                sandbox: createSandbox(),
-                defaultModule: null,
-                assets: {},
-                // loadedScripts: [],
-
-                // onStart: function(start) {
-                //     this.invokeStart = start;
-                // },
-
-                // onStop: function(stop) {
-                //     this.invokeStop = stop;
-                // },
-
-                start: async function() {
-                    try {
-                        await this.defaultModule?.start?.(this);
-                    }
-                    catch(error: any) {
-                        onerror('modules', {module: default_module, error: error});
-                    }
-                },
-
-                stop: async function() {
-                    try {
-                        await this.defaultModule?.stop?.(this);
-                    }
-                    catch(error: any) {
-                        onerror('modules', {module: default_module, error: error});
-                    }
-                },
-
-                optimizeViewPort: async function() {
-                    const gl = this.gl;
-                    const width  = Math.floor(this.canvas.clientWidth * this.devicePixelRatio);
-                    const height = Math.floor(this.canvas.clientHeight * this.devicePixelRatio);
-
-                    if (this.canvas.width !== width || this.canvas.height !== height) {
-                        this.canvas.width = width;
-                        this.canvas.height = height;
-                        gl.viewport(0, 0, width, height);
-                    }
-                    await tick();
-                },
-
-                // unloadLoadedScripts: function() {
-                //     this.loadedScripts.forEach( (script) => {
-                //         document.head.removeChild(script);
-                //     });
-                //     this.loadedScripts = [];
-                // },
-
-                initProgram: function (vertexShader: string, fragmentShader: string) {
-                    // console.log('initProgram');
-                    const gl = this.gl;
-                    const addShader = (type: number, src: string) => {
-                        const shader = gl.createShader(type)!;
-                        gl.shaderSource(shader, src);
-                        gl.compileShader(shader);
-                        const infoLog = gl.getShaderInfoLog(shader); // For safari.
-                        if (!gl.getShaderParameter(shader, gl.COMPILE_STATUS) || infoLog?.trim().length)
-                            throw `Cannot compile shader: ${infoLog}`;
-                        gl.attachShader(this.program, shader);
-                    };
-
-                    try {
-                        addShader(gl.VERTEX_SHADER, vertexShader);
-                    }
-                    catch(error) {
-                        onerror('vert', error);
-                        throw error;
-                    }
-                    try {
-                        addShader(gl.FRAGMENT_SHADER, fragmentShader);
-                    }
-                    catch(error) {
-                        onerror('frag', error);
-                        throw error;
-                    }
-
-                    gl.linkProgram(this.program);
-                    if (!gl.getProgramParameter(this.program, gl.LINK_STATUS))
-                        throw `Cannot link program:\n${gl.getProgramInfoLog(this.program)}`;
-                    gl.useProgram(this.program);
-                },
-
-                importDefaultModule: async function () {
-                    try {
-                        // console.log('Eval', javascript);
-                        // eval(props.javascript);
-                        this.defaultModule = await this.sandbox.import(default_module);
-                    }
-                    catch(error) {
-                        // console.trace(error);
-                        onerror('modules', {module: default_module, error: error});
-                    } 
-                },
-
-                render: function() {
-                    const gl = this.gl;
-                    const timeNow = Date.now();
-                    fps = 1000/(timeNow-this.lastRenderTime);
-                    // console.log('delta', timeNow-this.lastRenderTime, 'fps', 1./(timeNow-this.lastRenderTime));
-                    this.lastRenderTime = timeNow;
-                    gl.drawArrays(gl.TRIANGLES, 0, 6);
-                },
-
-                newProgram: function() {
-                    const gl = this.gl;
-                    const attachedShaders = gl.getAttachedShaders(this.program);
-
-                    attachedShaders?.forEach( (shader: WebGLProgram) => {
-                        gl.detachShader(this.program, shader);
-                        gl.deleteShader(shader);
-                    });
-                    gl.deleteProgram(this.program);
-                    this.program = gl.createProgram();
-                },
-
-                reset: async function() {
-                    const gl = this.gl;
-                    this.newProgram();
-                    await this.stop();
-                    // this.unloadLoadedScripts();
-                    await this.optimizeViewPort();
-                    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT); // Clear both color and depth buffers
-                    this.startTime = Date.now();
-                    this.lastRenderTime = 0;
-                    const statusDict = this.statusDict;
-                    for (const key in statusDict) {
-                        delete statusDict[key];
-                    }
-                    this.sandbox.commit();
-                    if(mode=='in-editor') {
-                        const error = await this.sandbox.preloadAll();
-                        if(error) return;
-                    }
-                    this.initProgram(this.vertexShader, this.fragmentShader);
-                    await this.importDefaultModule();
-                    await this.start();
-                },
-
-                setShadersModulesAndAssets: function(vertex_shader: string, fragment_shader: string, modules: Record<string, string>, assets: Record<string, Asset>) {
-                    this.vertexShader = vertex_shader;
-                    this.fragmentShader = fragment_shader;
-                    try {
-                        this.sandbox.clear();
-                        for (const key in modules) {
-                            this.sandbox.register(key, modules[key]);
-                        }
-                        this.assets = assets;
-                    }
-                    catch(error) {
-                        onerror('modules', {module: default_module, error: error});
-                    }
-                },
-
-                refreshShadersAndModules: async function() {
-                    await this.stop();
-                    // this.unloadLoadedScripts();
-                    await this.optimizeViewPort();
-                    const statusDict = this.statusDict;
-                    for (const key in statusDict) {
-                        delete statusDict[key];
-                    }
-                    this.sandbox.commit();
-                    if(mode=='in-editor') {
-                        const error = await this.sandbox.preloadAll();
-                        if(error) return;
-                    }
-                    this.initProgram(this.vertexShader, this.fragmentShader);
-                    await this.importDefaultModule();
-                    await this.start();
-                },
-
-                setStatusTitle: function(title: string) {
-                    statusTitle = title;
-                },
-
-                reportStatus: function(key, text, color='inherit') {
-                    // console.log(key, status, this.statusDict);
-                    this.statusDict[key] = {
-                        text: text,
-                        color: color
-                    };
-                },
-
-                // loadScriptFromSource: async function(src: string) {
-                //     return new Promise<void>((resolve, reject) => {
-                //         const script = document.createElement('script');
-                //         script.src = src;
-                //         script.onload = () => resolve();
-                //         script.onerror = (e) => reject(e);
-                //         document.head.appendChild(script);
-                //         this.loadedScripts.push(script);
-                //     });
-                // },
-
-                getAssetById: async function(id: string) {
-                    const asset = this.assets[id];
-                    if(typeof(asset)==='undefined' || asset==null)
-                        throw `Asset with id "${id}" does not exist.`;
-                    if(asset.type == 'image') {
-                        return new Promise((resolve, reject) => {
-                            const img = new Image();
-                            img.crossOrigin = "anonymous";
-
-                            img.onload = () => resolve(img);
-                            img.onerror = (err) => reject(err);
-
-                            img.src = asset.src;
-
-                            // Handle cache-race condition:
-                            if (img.complete) {
-                                // If cached and already loaded, resolve immediately
-                                resolve(img);
-                            }
-                        });
-                    }
-                    if (asset.type === 'audio') {
-                        return new Promise<HTMLAudioElement>((resolve, reject) => {
-                            const audio = new Audio();
-                            audio.crossOrigin = "anonymous";
-
-                            audio.oncanplaythrough = () => resolve(audio);
-                            audio.onerror = (err) => reject(err);
-
-                            audio.src = asset.src;
-                            audio.load();
-                        });
-                    }
-
-                    throw 'Not implemented'; // Placeholder
-                }
-            };
-            // console.log('addUncaughtErrorListener');
-            foxGL.sandbox.addUncaughtErrorListener(sandboxUncaughtErrorListener);
-
-            const resizeObserver = new ResizeObserver(entries => {
-                foxGL.optimizeViewPort();
-            });
-            resizeObserver.observe(canvas);
-
-            // window.addEventListener('resize', async (event) => {
-            //     tapiocaFoxGL.optimizeViewPort();
-            // });
-
-            canvas.addEventListener('pointermove', async (event) => {
-                const canvasRect = canvas.getBoundingClientRect();
-                const canvasHeight = canvasRect.bottom - canvasRect.top;
-
-                if(show_status_block) {
-                    display_status_block = true;
-                    if(mode == 'default') display_edit_button = true;
-
-                    const { clientX, clientY } = event;
-
-                    const windowWidth = window.innerWidth;
-                    const windowHeight = window.innerHeight;
-
-                    const statusBlockWidth = status_block.offsetWidth;
-                    const statusBlockHeight = status_block.offsetHeight;
-
-                    // if(mode == 'in-editor') {
-                    //     pointerX = tapiocaFoxGL.devicePixelRatio*(event.clientX-canvasRect.left);
-                    //     pointerY = tapiocaFoxGL.devicePixelRatio*(canvasHeight-(event.clientY-canvasRect.top));
-                        // console.log(canvasHeight, event.clientY, canvasRect.top);
-                    // }
-
-                    if((canvasRect.left+canvasRect.right)*0.5 <= windowWidth*status_block_division_percentage) {
-                        status_block.animate({
-                            left:`${Math.min(clientX+pointer_offset, windowWidth-statusBlockWidth)}px`,
-                            top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
-                        }, {fill: "forwards"});
-                        edit_button.animate({
-                            left:`${canvasRect.left}px`,
-                            top: `${canvasRect.bottom+4}px`
-                        }, {fill: "forwards"});
-                    }
-                    else {
-                        status_block.animate({
-                            right:`${Math.max(windowWidth-clientX+pointer_offset, 0)}px`,
-                            top: `${Math.min(clientY+pointer_offset, windowHeight-statusBlockHeight)}px`
-                        }, {fill: "forwards"});
-                        edit_button.animate({
-                            right:`${windowWidth-canvasRect.right}px`,
-                            top: `${canvasRect.bottom+4}px`
-                        }, {fill: "forwards"});
-                    }
-                }
-            });
-
-            canvas.addEventListener('pointerleave', async (event) => {
-                display_status_block = false;
-                if(edit_button == null) return;
-
-                const canvasRect = canvas.getBoundingClientRect();
-                const editButtonRect = edit_button.getBoundingClientRect();
-
-                if(show_status_block) {
-                    const { clientX, clientY } = event;
-                    if(editButtonRect.left<=clientX && clientX<=editButtonRect.right && clientY > canvasRect.top) {
-                        display_edit_button = true;
-                    }
-                    else {
-                        display_edit_button = false;
-                    }
-                }
-            });
-
-            document.addEventListener('scroll', async (event) => {
-                display_status_block = false;
-                display_edit_button = false;
-            }, true);
-
-            canvas.addEventListener('webglcontextlost', async (error) => {
-                error.preventDefault();
-                console.warn('GLSL canvas WebGL context lost!');
-            });
-
-            const refreshOnGlInit = await onglinit(foxGL);
-            foxGL.setShadersModulesAndAssets(vertex_shader, fragment_shader, modules, assets);
-            if(refreshOnGlInit) await foxGL.refreshShadersAndModules();
+            if(start_immediately) start_foxgl();
+            // else {
+            //     foxGL.sandbox.commit();
+            //     foxGL.importDefaultModule();
+            // }
         }
         catch (error) {
             console.trace(error);
@@ -443,9 +484,73 @@
     
 </script>
 <style>
-    canvas.glsl {
+    div.canvas-container {
+        display: inline-block;
+        position: relative;
+    }
+
+    div.canvas-container.background {
+        position: fixed;
+        z-index: calc(-1 * var(--large-z-index));
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+    }
+
+    div.canvas-container .preview-image {
+        position: absolute;
+        height: 100%;
+        width: 100%;
+        filter:  blur(1px) brightness(0.33);
+        transform: scale(1.01);
+    }
+
+    div.canvas-container.preview {
+        margin-right: var(--preview-row-gap);
+        font-size: 70%;
+    }
+
+    div.canvas-container.preview .annotation {
+        font-size: x-small;
+    }
+
+    div.canvas-container > div.overlay {
+        position: absolute;
+        overflow: hidden;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        border: 1px dotted var(--fox-background-color);
+        box-sizing: border-box;
+    }
+
+    div.overlay div.info {
+        position: absolute;
+        padding: 0 var(--page-offset);
+    }
+
+    div.overlay div.info.with-image {
+        color: white;
+    }
+
+    div.overlay div.info.with-image h3 {
+        color: white;
+    }
+
+    div.overlay div.info.with-image .annotation {
+        color: lightgrey;
+    }
+
+    canvas.webgl {
         width: 100%;
         /* height: 100%; */
+        display: block;
         aspect-ratio: 1;
         max-width: 220px;
         max-height: 220px;
@@ -456,39 +561,31 @@
         /* border-radius: var(--sharper-radius); */
     }
     
-    canvas.glsl.preview {
+    canvas.webgl.preview {
         max-height: calc(var(--compact-widcth) * 0.25);
         box-sizing: border-box;
-        /* max-height: calc(var(--compact-widcth) * 0.25); */
         width: 100%;
-        margin-right: var(--preview-row-gap);
     }
 
-    canvas.glsl.background {
-        position: fixed;
-        z-index: calc(-1 * var(--large-z-index));
-        top: 0;
-        left: 0;
-        height: 100%;
-        width: 100%;
+    canvas.webgl.background {
         border: none;
         cursor: unset;
     }
 
     @media (max-width: 768px) {
-        canvas.glsl {
+        canvas.webgl {
             width: 170px;
             height: 170px;
         }
         
-        canvas.glsl.preview {
+        canvas.webgl.preview {
             max-height: calc(var(--shrink-card-img) * var(--compact-width) * 0.25);
             box-sizing: border-box;
             width: auto;
             margin-right: 8px;
         }
 
-        canvas.glsl.in-editor {
+        canvas.webgl.in-editor {
             width: 100%;
             height: auto;
             max-width: unset !important;
@@ -499,6 +596,7 @@
     button.edit {
         display: none;
         position: fixed;
+        z-index: var(--large-z-index);
     }
     button.edit.visible {
         display: block !important;
@@ -541,8 +639,24 @@
 </Portal>
 {/if}
 
-<canvas bind:this={canvas} 
-    style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
-    style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
-    style:background-color = {background_color}
-    class="glsl {mode}"></canvas>
+
+<div class="canvas-container {mode}">
+    <canvas class="webgl fade-in {mode}" bind:this={canvas} 
+        style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
+        style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
+        style:background-color = {background_color}
+        ></canvas>
+    {#if is_stopped}
+    <div class="overlay code-block-background">
+        {#if preview_image!=null}
+        <img class="preview-image" alt="Preview" src={preview_image}/>
+        {/if}
+        {#if preview_description!=null}
+        <div class="info fade-in {(preview_image!=null)?'with-image':''}">
+            <h3><button class="text" onclick={() => {start_foxgl();}}><img class="inline-glyph {(preview_image!=null)?'inverted':''}" src={ play_icon }/>&nbsp;{preview_title}</button></h3>
+            <p class="annotation">{preview_description}</p>
+        </div>
+        {/if}
+    </div>
+    {/if}
+</div>

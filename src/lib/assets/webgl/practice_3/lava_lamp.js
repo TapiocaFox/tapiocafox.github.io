@@ -9,6 +9,9 @@ let onpointermove, onpointerenter, onpointerleave, onclick, resizeObserver;
 let alienSound = null;
 let alienAppealSound = null;
 
+export const title = 'Lava Lamp';
+export const description = 'Click to appeal to the alien authority.';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -16,7 +19,6 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     // Set status title.
-    foxGL.setStatusTitle('Lava Lamp');
     foxGL.reportStatus('Tips', 'Click to appeal to the alien authority.', 'green');
     
     foxGL.getAssetById('hl_alien_blipper').then(result => {result.loop = true; alienSound=result;});

@@ -82,6 +82,9 @@ const myCube = {
 
 const matrix = new Matrix();
 
+export const title = 'Robotic Arm';
+export const description = 'Drag and merge octahedrons into cubes.';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -151,7 +154,6 @@ export const start = async (foxGL) => {
     let armAngles = triangleAnglesFromSides(forearmLength, shoulderToHandDistance, upperarmLength);
 
     // Set status title.
-    foxGL.setStatusTitle('Robotic Arm');
     foxGL.reportStatus('Tips', 'Drag and merge octahedrons into cubes.', 'green');
 
     // Setup vertex buffer.

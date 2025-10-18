@@ -6,14 +6,14 @@ let gl, program, canvas;
 let destroyed = false;
 let onpointermove, resizeObserver;
 
+export const title = "Passive Renderer";
+export const description = "Render only when mouse is entered.";
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
     program = foxGL.program;
     canvas = foxGL.canvas;
-    
-    // Set status title.
-    foxGL.setStatusTitle('Passive Renderer');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

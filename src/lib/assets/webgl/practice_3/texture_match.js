@@ -85,6 +85,9 @@ function resetGame() {
     matchCount = 0;
 }
 
+export const title = 'Match The Texture';
+export const description = 'Click to reveal texture to Gman.';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -92,7 +95,6 @@ export const start = async (foxGL) => {
     canvas = foxGL.canvas;
     
     // Set status title.
-    foxGL.setStatusTitle('Match The Texture');
     foxGL.reportStatus('Tips', 'Click to reveal texture to Gman.', 'green');
     foxGL.reportStatus('MatchCount', `Matched Spheres: ${matchCount}`, 'blue');
 

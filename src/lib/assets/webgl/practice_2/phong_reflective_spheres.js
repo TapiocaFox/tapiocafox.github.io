@@ -16,6 +16,8 @@ const normalize = v => {
    return [ v[0]/s, v[1]/s, v[2]/s ];
 }
 
+export const title = 'Phong Reflective Spheres';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -25,7 +27,6 @@ export const start = async (foxGL) => {
     let enlarge = false;
     
     // Set status title.
-    foxGL.setStatusTitle('Phong Reflective Spheres');
     foxGL.reportStatus('Description', `Click to enlarge the white sphere.`, 'green');
     foxGL.reportStatus('enlarge', `Enlarged: ${enlarge}`, enlarge?'blue':'red');
 

@@ -9,14 +9,13 @@ let onpointermove, resizeObserver;
 const frameSkip = 3;
 const frameSkipSkip = 5;
 
+export const title = 'Frame Skip Renderer';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
     program = foxGL.program;
     canvas = foxGL.canvas;
-    
-    // Set status title.
-    foxGL.setStatusTitle('Frame Skip Renderer');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

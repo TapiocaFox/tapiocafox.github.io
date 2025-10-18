@@ -44,6 +44,8 @@ const matrix = new Matrix();
 const myCylinder = glueMeshes(glueMeshes(myTube, myTCap, vertexSize), myBCap, vertexSize);
 myCylinder.data = transformMeshData(transformMeshData(myCylinder.data, rotateX(.5*Math.PI),vertexSize),scale(.4, .4, .4),vertexSize);
 
+export const title = 'Cylinder';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
@@ -54,9 +56,6 @@ export const start = async (foxGL) => {
 
     let anchorToHandDistance = Math.max(upperarmSize, forarmSize);
     let armAngles = triangleAnglesFromSides(forarmSize, anchorToHandDistance, upperarmSize);
-
-    // Set status title.
-    foxGL.setStatusTitle('Cylinder');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

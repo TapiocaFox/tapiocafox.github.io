@@ -13,14 +13,13 @@ const mesh = [
     1,-1,0, 0,0,1,]
 const vertexNum = mesh.length / vertexSize;
 
+export const title = 'Simple Mesh';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
     program = foxGL.program;
     canvas = foxGL.canvas;
-
-    // Set status title.
-    foxGL.setStatusTitle('Simple Mesh');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

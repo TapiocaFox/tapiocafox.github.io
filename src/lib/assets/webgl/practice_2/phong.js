@@ -16,14 +16,13 @@ const normalize = v => {
    return [ v[0]/s, v[1]/s, v[2]/s ];
 }
 
+export const title = 'Phong Reflection';
+
 // Start lifecycle.
 export const start = async (foxGL) => {
     gl = foxGL.gl;
     program = foxGL.program;
     canvas = foxGL.canvas;
-    
-    // Set status title.
-    foxGL.setStatusTitle('Phong Reflection');
 
     // Setup vertex buffer.
     gl.bindBuffer(gl.ARRAY_BUFFER, gl.createBuffer());

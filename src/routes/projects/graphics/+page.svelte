@@ -25,12 +25,27 @@
     import uvmap_texture from '$lib/assets/webgl/misc/textures/uvmap_grid.jpg';
     import hl_button3_sound from '$lib/assets/webgl/misc/sounds/hl_button3.wav';
 
+    import mouse_preview from '$lib/assets/webgl/misc/previews/mouse.png';
+    import sin_preview from '$lib/assets/webgl/misc/previews/sin.png';
+    import snoise_preview from '$lib/assets/webgl/misc/previews/snoise.png';
+    import texture_preview_preview from '$lib/assets/webgl/misc/previews/texture_preview.png';
+
+
+    // Practice 1.
     import adhesive from '$lib/assets/webgl/practice_1/adhesive.frag?raw';
     import balls from '$lib/assets/webgl/practice_1/balls.frag?raw';
     import fiber from '$lib/assets/webgl/practice_1/fiber.frag?raw';
     import radiant from '$lib/assets/webgl/practice_1/radiant.frag?raw';
     import array from '$lib/assets/webgl/practice_1/array.frag?raw';
 
+    import adhesive_preivew from '$lib/assets/webgl/practice_1/previews/adhesive.png';
+    import balls_preivew from '$lib/assets/webgl/practice_1/previews/balls.png';
+    import fiber_preivew from '$lib/assets/webgl/practice_1/previews/fiber.png';
+    import array_preivew from '$lib/assets/webgl/practice_1/previews/array.png';
+    import radiant_preivew from '$lib/assets/webgl/practice_1/previews/radiant.png';
+
+    
+    // Practice 2.
     import spheres_frag from '$lib/assets/webgl/practice_2/spheres.frag?raw';
     import spheres_module from '$lib/assets/webgl/practice_2/spheres.js?raw';
     import reflective_spheres_frag from '$lib/assets/webgl/practice_2/reflective_spheres.frag?raw';
@@ -49,6 +64,12 @@
     import quadric_system_frag from '$lib/assets/webgl/practice_2/quadric_system.frag?raw';
     import quadric_system_module from '$lib/assets/webgl/practice_2/quadric_system.js?raw';
 
+    import phong_preivew from '$lib/assets/webgl/practice_2/previews/phong.png';
+    import phong_reflective_spheres_preivew from '$lib/assets/webgl/practice_2/previews/phong_reflective_spheres.png';
+    import reflective_refractive_spheres_preivew from '$lib/assets/webgl/practice_2/previews/reflective_refractive_spheres.png';
+    import quadric_system_preivew from '$lib/assets/webgl/practice_2/previews/quadric_system.png';
+
+    // Practice 3.
     import noise_frag from '$lib/assets/webgl/practice_3/noise.frag?raw';
     import forest_frag from '$lib/assets/webgl/practice_3/forest.frag?raw';
     import lava_lamp_frag from '$lib/assets/webgl/practice_3/lava_lamp.frag?raw';
@@ -56,8 +77,14 @@
     import texture_match_frag from '$lib/assets/webgl/practice_3/texture_match.frag?raw';
     import texture_match_module from '$lib/assets/webgl/practice_3/texture_match.js?raw';
     
+    import forest_preivew from '$lib/assets/webgl/practice_3/previews/forest.png';
+    import lava_lamp_preivew from '$lib/assets/webgl/practice_3/previews/lava_lamp.png';
+    import texture_match_preivew from '$lib/assets/webgl/practice_3/previews/texture_match.png';
+
+    // Practice 4.
     import simple_mesh_frag from '$lib/assets/webgl/practice_4/simple_mesh.frag?raw';
     import simple_mesh_module from '$lib/assets/webgl/practice_4/simple_mesh.js?raw';
+    // import cylinder_module from '$lib/assets/webgl/practice_4/cylinder?raw';
     import colored_mesh_vert from '$lib/assets/webgl/shaders/colored_mesh.vert?raw';
     import colored_mesh_frag from '$lib/assets/webgl/shaders/colored_mesh.frag?raw';
     import cylinder_module from '$lib/assets/webgl/practice_4/cylinder.js?raw';
@@ -77,7 +104,12 @@
     import hl_industrial1_sound from '$lib/assets/webgl/practice_3/sounds/industrial1.wav';
     import hl_gman_wise_sound from '$lib/assets/webgl/practice_3/sounds/gman_wise.wav';
 
+    import simple_mesh_preivew from '$lib/assets/webgl/practice_4/previews/simple_mesh.png';
+    import robotic_arm_preivew from '$lib/assets/webgl/practice_4/previews/robotic_arm.png';
+
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
+    import magnifier_preivew from '$lib/assets/webgl/unorganized/previews/magnifier.png';
+
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -91,6 +123,7 @@
         frag?: string,
         modules?: Record<string, string>,
         assets?: Record<string, Asset>,
+        preview_image?: string,
         categories: string[]
     };
 
@@ -110,7 +143,15 @@
                 //     frag: default_frag_shader,
                 //     categories: []
                 // },
+
                 {
+                    preview_image: fiber_preivew,
+                    frag: fiber,
+                    modules: {index: frameskip_renderer_module},
+                    categories: ['distortion']
+                },
+                {
+                    preview_image: adhesive_preivew,
                     frag: adhesive,
                     categories: ['distortion']
                 },
@@ -119,20 +160,18 @@
                 //     categories: ['debug']
                 // },
                 {
+                    preview_image: balls_preivew,
                     frag: balls,
                     categories: []
                 },
                 {
-                    frag: fiber,
-                    modules: {index: frameskip_renderer_module},
-                    categories: ['distortion']
-                },
-                {
+                    preview_image: array_preivew,
                     frag: array,
                     modules: {index: frameskip_renderer_module},
                     categories: []
                 },
                 {
+                    preview_image: radiant_preivew,
                     frag: radiant,
                     categories: ['noise']
                 },
@@ -153,6 +192,7 @@
                 //     categories: ['raycasting']
                 // },
                 {
+                    preview_image: phong_preivew,
                     frag: phong_frag,
                     modules: {index: phong_module},
                     categories: ['raycasting']
@@ -177,6 +217,7 @@
                 //     categories: ['noise','raycasting']
                 // },
                 {
+                    preview_image: phong_reflective_spheres_preivew,
                     frag: phong_reflective_spheres_frag,
                     modules: {index: phong_reflective_spheres_module},
                     assets: {
@@ -196,6 +237,7 @@
                     categories: ['noise','raycasting']
                 },
                 {
+                    preview_image: reflective_refractive_spheres_preivew,
                     frag: reflectice_refractive_spheres_frag,
                     modules: {index: reflectice_refractive_spheres_module},
                     assets: {
@@ -220,6 +262,7 @@
                 //     categories: ['raycasting']
                 // },
                 {
+                    preview_image: quadric_system_preivew,
                     frag: quadric_system_frag,
                     modules: {index: quadric_system_module, matrix: matrix_module, quadric_matrices: quadric_matrices_module},
                     assets: {
@@ -246,11 +289,13 @@
             description: 'Procedural texture generation. (Part of assignment four.)',
             practices: [
                 {
+                    preview_image: forest_preivew,
                     frag: forest_frag,
                     modules: {index: frameskip_renderer_module},
                     categories: ['noise']
                 },
                 {
+                    preview_image: lava_lamp_preivew,
                     frag: lava_lamp_frag,
                     modules: {index: lava_lamp_module},
                     assets: {
@@ -270,6 +315,7 @@
                     categories: ['noise']
                 },
                 {
+                    preview_image: texture_match_preivew,
                     frag: texture_match_frag,
                     modules: {index: texture_match_module, matrix: matrix_module, quadric_matrices: quadric_matrices_module},
                     assets: {
@@ -315,17 +361,19 @@
             description: 'Triangles, meshes, strips and transformation matrix. (Part of assignment five.)',
             practices: [
                 {
+                    preview_image: simple_mesh_preivew,
                     frag: simple_mesh_frag,
                     modules: {index: simple_mesh_module},
                     categories: ['mesh']
                 },
-                // {
-                //     vert: colored_mesh_vert,
-                //     frag: colored_mesh_frag,
-                //     modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
-                //     categories: ['mesh']
-                // },
                 {
+                    vert: colored_mesh_vert,
+                    frag: colored_mesh_frag,
+                    modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
+                    categories: ['mesh']
+                },
+                {
+                    preview_image: robotic_arm_preivew,
                     vert: colored_mesh_vert,
                     frag: colored_mesh_frag,
                     modules: {index: robotic_arm_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
@@ -376,11 +424,13 @@
             description: 'Things that are not organized to any cluster yet.',
             practices: [
                 {
+                    preview_image: magnifier_preivew,
                     frag: magnifier_frag,
                     modules: {index: passive_renderer_module},
                     categories: ['distortion']
                 },
                 {
+                    preview_image: texture_preview_preview,
                     vert: texture_preview_vert,
                     frag: texture_preview_frag,
                     modules: {index: texture_preview_module},
@@ -436,10 +486,10 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_renderer_module}}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_renderer_module}} start_immediately={false} preview_image={mouse_preview}/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frameskip_renderer_module}}/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frameskip_renderer_module}} start_immediately={false} preview_image={sin_preview}/>
     </div>
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={texture_preview_vert} fragment_shader={texture_preview_frag} modules={texture_preview_module} assets={}/>
@@ -455,13 +505,13 @@
 <p class="annotation">WebGL2 shaders for debugging.</p>
 <div class="flex_grid gallery">
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_renderer_module}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={mouse} modules={{index: passive_renderer_module}} mode="preview" start_immediately={false} preview_image={mouse_preview}/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frameskip_renderer_module}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={sin} modules={{index: frameskip_renderer_module}} mode="preview" start_immediately={false} preview_image={sin_preview}/>
     </div>
     <div class="item webgl-item">
-        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} modules={{index: frameskip_renderer_module}} mode="preview"/>
+        <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={snoise} modules={{index: frameskip_renderer_module}} mode="preview" start_immediately={false} preview_image={snoise_preview}/>
     </div>
     <!-- <div class="item webgl-item">
         <TapiocaFoxWebGL vertex_shader={default_vert_shader} fragment_shader={balls} mode="preview"/>
@@ -477,7 +527,7 @@
     <h3>{cluster.title}</h3>
     <p class="annotation">{cluster.description}</p>
     <div class="flex_grid gallery">
-        {#each cluster.practices as practice}
+        {#each cluster.practices as practice, i}
             {#if selected_category =='all' || practice.categories.includes(selected_category)} 
             <div class="item webgl-item">
                 <TapiocaFoxWebGL 
@@ -485,8 +535,12 @@
                 fragment_shader={practice.frag?practice.frag:default_frag_shader}
                 modules={practice.modules?practice.modules:default_modules}
                 assets={practice.assets?practice.assets:{}}
+                start_immediately={i<2 || practice.preview_image == null}
+                preview_image={practice.preview_image}
                 />
             </div>
+                <!-- start_immediately={i<1} -->
+
             {/if}
         {/each}
     </div>
