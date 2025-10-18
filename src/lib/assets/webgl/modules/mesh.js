@@ -2,6 +2,7 @@
 // Title:  Mesh (From Prof. Perlin)
 
 import { inverse } from 'matrix';
+import { normalize, cross } from 'geometry';
 
 export const parametric = (f,nu,nv,other) => {
     const V = [];
@@ -75,6 +76,36 @@ export const octachedron = () => [
   -1, 0, 0,-1, 1, 1,  0, 1, 0,-1, 1, 1,  0, 0, 1,-1, 1, 1,
    1, 0, 0, 1, 1, 1,  0, 1, 0, 1, 1, 1,  0, 0, 1, 1, 1, 1,
   ];
+
+export const bezierPatch = (nu,nv,patch) => parametric((u,v,patch)=>{
+
+   // EXTRACT THE BEZIER PATCH DATA
+   let BX = patch[0], BY = patch[1], BZ = patch[2];
+
+   // MATH TO EVALUATE A BEZIER SPLINE
+   let M = [ [-1,3,-3,1],[3,-6,3,0],[-3,3,0,0],[1,0,0,0] ];
+   let T = (a,t) => a[0]*t*t*t + a[1]*t*t + a[2]*t + a[3];
+   let Vi = (V,i,t) => V[i] * T(M[i],t);
+   let C = (V,t) => Vi(V,0,t)+Vi(V,1,t)+Vi(V,2,t)+Vi(V,3,t);
+
+   // MATH TO FIND THE POSITION OF ONE POINT ON THE PATCH
+   let bezier = (u,v) => {
+      let Xu = [], Yu = [], Zu = [];
+      for (let i = 0 ; i < 16 ; i += 4) {
+         Xu.push(C(BX.slice(i,i+4), u));
+         Yu.push(C(BY.slice(i,i+4), u));
+         Zu.push(C(BZ.slice(i,i+4), u));
+      }
+      return [ C(Xu,v), C(Yu,v), C(Zu,v) ];
+   }
+
+   // COMPUTE AND RETURN THE POINT AND NORMAL ON THE PATCH
+   let P = bezier(u,v),
+       N = normalize(cross(subtract(bezier(u+.001,v),P),
+                           subtract(bezier(u,v+.001),P)));
+   return [ P[0],P[1],P[2], N[0],N[1],N[2] ];
+
+},nu,nv,patch);
 
 export const transformMeshData = (data,mat,vertexSize) => {
    let xf = (M,p) => [ M[0]*p[0]+M[4]*p[1]+M[ 8]*p[2]+M[12]*p[3],

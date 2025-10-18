@@ -1,0 +1,1 @@
+import"../chunks/DsnmJJEf.js";import{f as i,a as s,$ as n,c as e,d as p,r as d}from"../chunks/CdRgyx5Q.js";import{h as m}from"../chunks/U95z2bjU.js";import{s as c}from"../chunks/V2If7J0g.js";var h=i('<div class="align-with-nav"><!></div>');function x(a,r){var o=h();m(l=>{n.title="TapiocaFox | WebGL Editor"});var t=e(o);c(t,()=>r.children??p),d(o),s(a,o)}export{x as component};

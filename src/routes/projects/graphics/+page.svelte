@@ -106,10 +106,10 @@
 
     import simple_mesh_preivew from '$lib/assets/webgl/practice_4/previews/simple_mesh.png';
     import robotic_arm_preivew from '$lib/assets/webgl/practice_4/previews/robotic_arm.png';
+    import cylinder_preivew from '$lib/assets/webgl/practice_4/previews/cylinder.png';
 
     import magnifier_frag from '$lib/assets/webgl/unorganized/magnifier.frag?raw';
     import magnifier_preivew from '$lib/assets/webgl/unorganized/previews/magnifier.png';
-
 
     import edit_icon from '$lib/assets/icons/edit.svg';
     import debug_icon from '$lib/assets/icons/debug.svg';
@@ -367,6 +367,7 @@
                     categories: ['mesh']
                 },
                 {
+                    preview_image: cylinder_preivew,
                     vert: colored_mesh_vert,
                     frag: colored_mesh_frag,
                     modules: {index: cylinder_module, matrix: matrix_module, mesh: mesh_module, geometry: geometry_module},
@@ -535,7 +536,7 @@
                 fragment_shader={practice.frag?practice.frag:default_frag_shader}
                 modules={practice.modules?practice.modules:default_modules}
                 assets={practice.assets?practice.assets:{}}
-                start_immediately={i<2 || practice.preview_image == null}
+                start_immediately={i<1 || practice.preview_image == null}
                 preview_image={practice.preview_image}
                 />
             </div>

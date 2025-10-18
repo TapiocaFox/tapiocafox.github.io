@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Matrix (From Prof. Perlin)
+// Title:  4x4 Matrix (From Prof. Perlin)
 
 // Transformations. Column major.
 export const identity = () => [1,0,0,0, 
@@ -66,6 +66,8 @@ export const inverse = src => {
    return dst;
 }
 
+
+// Congruence transformation.
 export const qxm = (Q,M) => {
    let MI = inverse(M);
    return mxm(transpose(MI), mxm(Q, MI));

@@ -35,6 +35,7 @@
     import main_icon from '$lib/assets/icons/main.svg';
     import picture_icon from '$lib/assets/icons/picture.svg';
     import box_icon from '$lib/assets/icons/box.svg';
+    import doc_icon from '$lib/assets/icons/document.svg';
     import upload_icon from '$lib/assets/icons/upload.svg';
     import close_icon from '$lib/assets/icons/close.svg';
     import music_icon from '$lib/assets/icons/music.svg';
@@ -55,6 +56,7 @@
     import Chips from '$lib/components/Chips.svelte';
     import { beforeNavigate, goto } from '$app/navigation';
     import type { TapiocaFoxGLContext } from '$lib/components/TapiocaFoxGLContext';
+    import type { Snippet } from './snippet';
 
     import TapiocaFoxGLContextRaw from '$lib/components/TapiocaFoxGLContext.ts?raw';
     import type { Asset, ModuleSource } from '$lib/components/TapiocaFoxWebGL';
@@ -73,11 +75,14 @@
 
     const refreshInterval = 500;
 
-
     const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
     const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'modules');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
+
+    const {store: vertexShaderSnippets} = storage<Snippet[]>('webgl_editor_vert_snippets', []);
+    const {store: fragmentShaderSnippets} = storage<Snippet[]>('webgl_editor_frag_snippets', []);
+    const {store: moduleSnippets} = storage<Snippet[]>('webgl_editor_module_snippets', []);
 
     let view_mode = $derived($viewModeStorage);
     let any_module_error = $state<any | null>(null);
@@ -154,7 +159,7 @@
     import triangle_icon from '$lib/assets/icons/triangle.svg';
     import math_icon from '$lib/assets/icons/math.svg';
 
-    const predefined_vertex_shader_snippets = [
+    const predefined_vertex_shader_snippets: Snippet[] = [
         {
             name: "Default Vertex Shader",
             module_name: "index",
@@ -169,7 +174,7 @@
         },
     ];
 
-    const predefined_fragment_shader_snippets = [
+    const predefined_fragment_shader_snippets: Snippet[] = [
         {
             name: "Default Fragment Shader",
             module_name: "index",
@@ -184,7 +189,7 @@
         },
     ];
 
-    const predefined_module_snippets = [
+    const predefined_module_snippets: Snippet[] = [
         {
             name: "Default Index (Shader)",
             module_name: "index",
@@ -1235,7 +1240,52 @@
     <hr style:margin-top={0} class="dotted"/>
     {#if snippet_tabs_selected_value == 'saved' || snippet_tabs_selected_value == 'all' }
     <h4>Saved by You</h4>
-    <p class="annotation">(Feature not implemented yet.)</p>
+    <p class="annotation">Your saved snippets will be here.</p>
+    <table class="functional-list" style:width="100%">
+        <tbody>
+            {#each (snippets_type == 'vert')?$vertexShaderSnippets:(snippets_type == 'frag')?$fragmentShaderSnippets:$moduleSnippets as snippet (snippet.name)}
+            <tr>
+                <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;{snippet.name} ({snippet.module_name})</td>
+                <td class="glyphs">
+                    <button class="no-style" onclick={() => {
+                        if(snippets_type == 'vert') {
+                            setEditorValue(vertexShaderEditorView, snippet.module_code);
+                        }
+                        else if(snippets_type == 'frag') {
+                            setEditorValue(fragmentShaderEditorView, snippet.module_code);
+                        }
+                        else if(snippets_type == 'modules') {
+                            new_module(snippet.module_name, snippet.module_code);
+                        }
+                    }}><img class="inline-glyph" alt="Load" src={load_icon}/></button>
+                    <button class="no-style" onclick={() => {
+                        if(snippets_type == 'vert') {
+                            vertexShaderSnippets.update((snippets) => {
+                                return snippets.filter((snippetItem) => {
+                                    return snippetItem.name != snippet.name;
+                                });
+                            });
+                        }
+                        else if(snippets_type == 'frag') {
+                            fragmentShaderSnippets.update((snippets) => {
+                                return snippets.filter((snippetItem) => {
+                                    return snippetItem.name != snippet.name;
+                                });
+                            });
+                        }
+                        else if(snippets_type == 'modules') {
+                            moduleSnippets.update((snippets) => {
+                                return snippets.filter((snippetItem) => {
+                                    return snippetItem.name != snippet.name;
+                                });
+                            });
+                        }
+                    }}><img class="inline-glyph" alt="Delete" src={delete_icon}/></button>
+                </td>
+            </tr>
+            {/each}
+        </tbody>
+    </table>
     {/if}
     {#if snippet_tabs_selected_value == 'predefined' || snippet_tabs_selected_value == 'all' }    
     <h4>Predefined</h4>
@@ -1256,7 +1306,6 @@
                         else if(snippets_type == 'modules') {
                             new_module(snippet.module_name, snippet.module_code);
                         }
-
                     }}><img class="inline-glyph" alt="Load" src={load_icon}/></button>
                 </td>
             </tr>
@@ -1275,6 +1324,54 @@
     
     <button type="button" onclick={() => {show_snippets=false}}>Close</button>
     {#if snippet_tabs_selected_value == 'saved' || snippet_tabs_selected_value == 'all' }
-    <button type="button" onclick={() => {}}>Save Current</button>
+    <button type="button" onclick={() => {
+        let editor_src = '';
+        let snippetsStorage = vertexShaderSnippets;
+        let module_name = '';
+        if(snippets_type=='vert') {
+            editor_src = vertexShaderEditorView.state.doc.toString();
+            snippetsStorage = vertexShaderSnippets;
+            module_name = vertex_shader_tab_selected_value;
+        }
+        else if(snippets_type=='frag') {
+            editor_src = fragmentShaderEditorView.state.doc.toString();
+            snippetsStorage = fragmentShaderSnippets;
+            module_name = fragment_shader_tab_selected_value;
+        }
+        else if(snippets_type=='modules') {
+            editor_src = moduleEditorViews[module_tab_selected_value].state.doc.toString();
+            snippetsStorage = moduleSnippets;
+            module_name = module_tab_selected_value;
+        }
+
+        snippetsStorage.update((snippets) => {
+            const name = prompt("Enter a name for the snippet:", module_name);
+            if (!name) return snippets; // cancel if user presses Cancel or leaves empty
+
+            const newSnippet = {
+                name: name,
+                module_name: module_name,
+                icon: doc_icon,
+                module_code: editor_src
+            };
+
+            const index = snippets.findIndex(
+                s => s.name === newSnippet.name && s.module_name === newSnippet.module_name
+            );
+
+            if (index !== -1) {
+                const shouldReplace = confirm(
+                `A snippet named "${newSnippet.name}" already exists in module "${newSnippet.module_name}".\nDo you want to replace it?`
+                );
+
+                if (!shouldReplace) return snippets; // cancel update
+                const updated = [...snippets];
+                updated[index] = newSnippet;
+                return updated;
+            } else {
+                return [...snippets, newSnippet];
+            }
+        });
+    }}>Save Current</button>
     {/if}
 </WindowBlock>

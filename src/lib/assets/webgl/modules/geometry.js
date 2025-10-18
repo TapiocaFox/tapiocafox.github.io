@@ -1,5 +1,5 @@
 // Author: TapiocaFox
-// Title:  Geometry
+// Title:  Geometry (In Cartesian Space)
 
 export const triangleAnglesFromSides = (a, b, c) => {
   if (a <= 0 || b <= 0 || c <= 0)
@@ -20,14 +20,10 @@ export const triangleAnglesFromSides = (a, b, c) => {
   return [A, B, C]; // in radians
 };
 
-export const distance = (a, b) => {
-    const distances = [];
-    for(let i=0; i<a.length; i++) {
-        distances.push(a[i]-b[i]);
-    }
-    return Math.hypot(...distances);
-}
 
-export const normalize = (a) => {
-    return Math.hypot(...a);
-}
+export const norm = a => Math.hypot(...a);
+export const normalize = v => { const s = norm(v); return v.length==3 ? [ v[0]/s,v[1]/s,v[2]/s ] : [ v[0]/s,v[1]/s ]; }
+export const dot = (a,b) => { let s = 0 ; for (let i=0 ; i<a.length ; i++) s += a[i] * b[i]; return s; }
+export const distance = (a, b) => { return norm(subtract(a,b)); }
+export const subtract = (a,b) => { const v = []; for (let i=0 ; i<a.length ; i++) v.push(a[i] - b[i]); return v; }
+export const cross = (a,b) => [ a[1]*b[2] - a[2]*b[1], a[2]*b[0] - a[0]*b[2], a[0]*b[1] - a[1]*b[0] ];
