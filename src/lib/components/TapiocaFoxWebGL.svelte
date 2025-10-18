@@ -669,7 +669,7 @@
 
 
 <div class="canvas-container {mode}">
-    <canvas class="webgl fade-in {mode}" bind:this={canvas} 
+    <canvas class="webgl {mode}" bind:this={canvas} 
         style:max-width = {mode=='preview'?'calc(var(--compact-width) * 0.25)':(mode=='background'?`100vw`:`${size}px`)}
         style:max-height = {mode=='preview'?'auto':(mode=='background'?`100vh`:`${size}px`)}
         style:background-color = {background_color}
