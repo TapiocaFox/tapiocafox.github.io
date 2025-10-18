@@ -76,7 +76,7 @@
 
     const refreshInterval = 500;
 
-    const {store: snapshotsStorage} = storage<Snapshot[]>('webgl_editor_snapshot', []);
+    const {store: snapshotsStorage, ready: snapshotsStorageReady} = storage<Snapshot[]>('webgl_editor_snapshots', []);
     const {store: viewModeStorage} = storage<string>('webgl_editor_view_mode', 'modules');
     const {store: lastSnapshot, ready: lastSnapshotReady} = storage<Snapshot | null>('webgl_editor_last_snapshot', null);
     const {store: snapshotInNewTab, ready: snapshotInNewTabReady} = storage<Snapshot | null>('webgl_editor_snapshot_in_new_tab', null);
@@ -545,6 +545,7 @@
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
         await lastSnapshotReady;
         await snapshotInNewTabReady;
+        await snapshotsStorageReady;
         const glsl = browserRenderMod.glsl;
 
         if($nextSnapshot != null) {
@@ -1139,6 +1140,7 @@
                 </PointerBlock>
                 {/if}
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
+                {#if mounted}
                 <table class="functional-list" style:width="100%">
                     <tbody>
                         <tr>
@@ -1197,6 +1199,7 @@
                         {/each}
                     </tbody>
                 </table>
+                {/if}
                 <p class="annotation">Saved states will be listed here.<br>(Shortcuts: Ctrl+Key or ⌘+Key)</p>
             </div>
         </div>
