@@ -494,7 +494,19 @@
     });
 
     onDestroy(() => {
-        foxGL?.sandbox.removeUncaughtErrorListener(sandboxUncaughtErrorListener);
+        console.log('onDestroy');
+        if(foxGL) {
+            foxGL.sandbox.removeUncaughtErrorListener(sandboxUncaughtErrorListener);
+            const gl = foxGL.gl;
+            gl.useProgram(null);
+            gl.bindBuffer(gl.ARRAY_BUFFER, null);
+            gl.bindTexture(gl.TEXTURE_2D, null);
+            gl.bindFramebuffer(gl.FRAMEBUFFER, null);
+            gl.bindRenderbuffer(gl.RENDERBUFFER, null);
+            const ext = gl.getExtension('WEBGL_lose_context');
+            // console.log('ext', ext);
+            if (ext) ext.loseContext(); // simulate context loss and cleanup
+        }
     });
 
     function clickEditButton() {
