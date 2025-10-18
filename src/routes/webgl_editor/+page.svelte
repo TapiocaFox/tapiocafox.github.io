@@ -1251,7 +1251,7 @@
                 : $moduleSnippets
             ).toSorted((a, b) => a.name.localeCompare(b.name)) as snippet (snippet.name)}
             <tr>
-                <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;{snippet.name} ({snippet.module_name})</td>
+                <td style:white-space="nowrap"><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;<span id={`${snippets_type}-snippet-${snippet.name}`} class="underline">{snippet.name}&nbsp;({snippet.module_name})</span></td>
                 <td class="glyphs">
                     <button class="no-style" onclick={() => {
                         if(snippets_type == 'vert') {
@@ -1289,6 +1289,12 @@
                     }}><img class="inline-glyph" alt="Delete" src={delete_icon}/></button>
                 </td>
             </tr>
+            <PointerBlock element_id={`${snippets_type}-snippet-${snippet.name}`}>
+                    <h3><img class="inline-glyph" alt="Icon" src={snippet.icon}/>&nbsp;{snippet.name}&nbsp;({snippet.module_name})</h3>
+                    <p class="annotation">{(snippets_type=='modules')?'JavaScript':(snippets_type=='vert')?'Vertex Shader':'Fragment Shader'}&nbsp;Snippet. Size: {stringToByteSize(snippet.module_code)}</p>
+                    <hr class="dotted"/>
+                    <pre>{snippet.module_code}</pre>
+            </PointerBlock>
             {/each}
         </tbody>
     </table>
