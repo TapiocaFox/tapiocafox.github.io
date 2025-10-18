@@ -455,7 +455,7 @@
             const defaultModule: DefaultModule = await sandbox.import(default_module);
             if(defaultModule.title) {
                 if(defaultModule.description) {
-                    preview_description = `${preview_description} (${defaultModule.description})`;
+                    preview_description = `${defaultModule.title} (${defaultModule.description})`;
                 }
                 else {
                     preview_description = defaultModule.title;
