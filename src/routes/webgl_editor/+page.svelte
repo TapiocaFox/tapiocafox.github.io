@@ -25,6 +25,7 @@
     import storage from '$lib/store'
 
     import reset_icon from '$lib/assets/icons/reset.svg';
+    import info_icon from '$lib/assets/icons/info.svg';
     import shapes_icon from '$lib/assets/icons/shapes.svg';
     import import_icon from '$lib/assets/icons/import.svg';
     import download_icon from '$lib/assets/icons/download.svg';
@@ -456,6 +457,11 @@
             return true;
         }
 
+    const runSaveLastState: KeyBinding["run"]  = ({ state }) => {
+            saveLastState();
+            return true;
+        }
+
     const modKeymapExtension = Prec.highest(keymap.of([
         {
             key: "Mod-s",
@@ -464,6 +470,14 @@
         {
             key: "Ctrl-s",
             run: runSnapshot
+        }, 
+        {
+            key: "Mod-Shift-s",
+            run: runSaveLastState
+        }, 
+        {
+            key: "Ctrl-Shift-s",
+            run: runSaveLastState
         }, 
         {
             key: "Mod-r",
@@ -525,7 +539,7 @@
     const indentUnitExtension = indentUnit.of('    ');
     const errorLinterCompartment = new Compartment();
 
-    const override_message = 'Are you sure you want to override your last state?';
+    // const override_message = 'Are you sure you want to override your last state?';
 
     onMount( async () => {
         const browserRenderMod = await import('@nuskey8/codemirror-lang-glsl');
@@ -704,19 +718,24 @@
         });
     }
 
+    function saveLastState() {
+        lastSnapshot.set(newSnapshot());
+            anything_changed = false;
+    }
+
     // const leave_message = 'Are you sure you want to leave? Changes will not be saved!';
-    const leave_message = 'Do you want to save and override as the last state?';
+    const leave_message = 'Do you want to save and override as the last state? So the current state will be restored in the next time.';
 
     function beforeUnload(event: BeforeUnloadEvent) {
         event.preventDefault();
         if (anything_changed&&confirm(leave_message)) {
-            lastSnapshot.set(newSnapshot());
+            saveLastState();
         }
     };
 
     beforeNavigate(({ cancel }) => {
         if (anything_changed&&confirm(leave_message)) {
-            lastSnapshot.set(newSnapshot());
+            saveLastState()
         }
     });
 
@@ -1120,11 +1139,37 @@
                 </PointerBlock>
                 {/if}
                 <h3>Snapshots <img class="inline-glyph" alt="Snapshot" src={camera_icon}/></h3>
-                {#if $snapshotsStorage.length == 0}
-                <!-- <p class="annotation">Saved source codes will be listed here. (Ctrl+S or ⌘+S)</p> -->
-                {:else}
                 <table class="functional-list" style:width="100%">
                     <tbody>
+                        <tr>
+                            <td style:white-space="nowrap"><img id={`snap-img-last-saved-state`} class="inline-glyph" alt="Preview" src={$lastSnapshot?.img || camera_icon}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
+                                if($lastSnapshot) loadSnapshot($lastSnapshot);
+                            }}>Last Saved State <span class="annotation"></span></button>
+                            {#if $lastSnapshot}
+                            <PointerBlock element_id={`snap-img-last-saved-state`}>
+                                <p class="annotation">Snapshot: {$lastSnapshot.name}<br>Time: {timeAgo(new Date($lastSnapshot?.timestamp || 0))}</p>
+                                <img alt="Preview" src={$lastSnapshot?.img} style:max-height="300px"/>
+                            </PointerBlock>
+                            {/if}
+                            </td>
+                            <td class="glyphs">
+                                <button class="no-style" onclick={() => {
+                                    if($lastSnapshot) {
+                                        snapshotInNewTab.set($lastSnapshot);
+                                        window.open('/webgl_editor', '_blank', 'noopener,noreferrer');
+                                    }
+                                }}><img class="inline-glyph" alt="New Tab" src={new_module_tab_icon}/></button>
+                                <button class="no-style" onclick={() => {
+                                    if($lastSnapshot) downloadSnapshot($lastSnapshot);
+                                }}><img class="inline-glyph" alt="Download" src={download_icon}/></button>
+                                <button id="last-saved-state-info-button" class="no-style"><img class="inline-glyph" alt="Info" src={info_icon}/></button>
+                            </td>
+                        </tr>
+                        <PointerBlock element_id={`last-saved-state-info-button`}>
+                            <!-- <h3>About Last Saved State</h3> -->
+                            <p class="annotation">Ctrl+Shift+S or ⌘+Shift+S to save current state as the last state. Your progress will be automatically restored when you return to the editor. Ctrl+S or ⌘+S to save a snapshot into the list.</p>
+                        </PointerBlock>
+                        
                         {#each $snapshotsStorage.toSorted((item)=>{return item.timestamp}).reverse() as snapshot}
                         <tr>
                             <td style:white-space="nowrap"><img id={`snap-img-${snapshot.timestamp}`} class="inline-glyph" alt="Preview" src={snapshot.img}/>&nbsp;<button class="text" style:white-space="nowrap" onclick={() => {
@@ -1152,7 +1197,6 @@
                         {/each}
                     </tbody>
                 </table>
-                {/if}
                 <p class="annotation">Saved states will be listed here.<br>(Shortcuts: Ctrl+Key or ⌘+Key)</p>
             </div>
         </div>
