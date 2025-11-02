@@ -1,0 +1,1 @@
+function v(f,i,a){var r=f==null?"":""+f;return i&&(r=r?r+" "+i:i),r===""?null:r}function c(f,i=!1){var a=i?" !important;":";",r="";for(var n in f){var u=f[n];u!=null&&u!==""&&(r+=" "+n+": "+u+a)}return r}function o(f,i){if(i){var a="",r,n;return Array.isArray(i)?(r=i[0],n=i[1]):r=i,r&&(a+=c(r)),n&&(a+=c(n,!0)),a=a.trim(),a===""?null:a}return String(f)}export{o as a,v as t};

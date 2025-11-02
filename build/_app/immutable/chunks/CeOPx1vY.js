@@ -1,0 +1,1 @@
+import"./DsnmJJEf.js";import{f as e,a as m,s as p,c as d,d as f,r as c}from"./8wfNHnlc.js";import{s as h}from"./BZt7ozeV.js";import{i as l}from"./BMSRtp_v.js";import{B as v}from"./DYUuw08n.js";var B=e("<h1><!><!></h1>");function g(i,t){var o=B(),a=d(o);h(a,()=>t.children??f);var s=p(a);{var n=r=>{v(r,{mode:"inline"})};l(s,r=>{r(n)})}c(o),m(i,o)}export{g as H};
